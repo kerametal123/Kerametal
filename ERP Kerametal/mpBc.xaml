@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:ERP_Kerametal"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  dxc:DXSplashScreen.SplashScreenType="{x:Type local:SplashScreenERP}" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:kerametal="clr-namespace:ERP_Kerametal.kerametal" x:Class="mpBc"
         mc:Ignorable="d"
-        Title="Maloprodaja" Height="768" Width="1024" WindowState="Maximized">
+        Title="Maloprodaja WIN" Height="768" Width="1024" WindowState="Maximized">
     <Window.Resources>
     </Window.Resources>
     <Grid>
