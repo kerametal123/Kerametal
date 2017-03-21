@@ -5,10 +5,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERP_Kerametal"
-        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  dxc:DXSplashScreen.SplashScreenType="{x:Type local:SplashScreenERP}" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:kerametal="clr-namespace:ERP_Kerametal.kerametal" x:Class="mpBc"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"    xmlns:kerametal="clr-namespace:ERP_Kerametal.kerametal"    dx:DXSplashScreen.SplashScreenType="{x:Type local:SplashScreenERP}" x:Class="mpBc"
         mc:Ignorable="d"
         Title="Maloprodaja WIN" Height="768" Width="1024" WindowState="Maximized">
     <Window.Resources>
+
+        <dx:XPInstantFeedbackDataSource x:Key="XPInstantFeedbackDataSource" DisplayableProperties="an;tip;sifra;objekt;naziv;jed;ozn;grupa;proiz;tarifa;nc;vpc;mpc;elekt_razred;elekt_podrazred;tezina;tar_broj;stopa;id;datum;plu;dok;pc;placanje" ObjectType="{x:Type kerametal:artikli}">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:XPInstantFeedbackDataSource>
+
     </Window.Resources>
     <Grid>
         <DockPanel>
@@ -52,8 +59,12 @@
                 </dxr:RibbonStatusBarControl.RightItems>
             </dxr:RibbonStatusBarControl>
             <Grid>
-               
-                <Button x:Name="tipkaButtonMPbc" Content="Button" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="76"/>
+                <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="548" Width="996" ItemsSource="{Binding Data, Source={StaticResource XPInstantFeedbackDataSource}}">
+                    <dxg:GridControl.View>
+                        <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+
             </Grid>
         </DockPanel>
     </Grid>

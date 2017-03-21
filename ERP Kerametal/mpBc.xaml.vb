@@ -7,7 +7,5 @@
 
     End Sub
 
-    Private Sub tipkaButtonMPbc_Click(sender As Object, e As RoutedEventArgs) Handles tipkaButtonMPbc.Click
-        Globals.logMaker("Klik", sender)
-    End Sub
+
 End Class

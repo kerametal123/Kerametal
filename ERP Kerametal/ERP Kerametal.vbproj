@@ -105,6 +105,7 @@
     <Reference Include="DevExpress.Utils.v16.1.UI, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Xpf.Controls.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Core.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpf.Core.v16.1.Extensions, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Docking.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.DocumentViewer.v16.1.Core, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Grid.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -128,8 +129,14 @@
     <Reference Include="System.Data">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml">
       <Private>True</Private>
     </Reference>
@@ -162,6 +169,27 @@
     <Compile Include="Licenca\XML.vb" />
     <Compile Include="MySQL\MySQLcompany.vb" />
     <Compile Include="MySQL\MySQL_info.vb" />
+    <Compile Include="ormdatamodel1Code\active_guests.Designer.vb">
+      <DependentUpon>active_guests.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ormdatamodel1Code\active_guests.vb" />
+    <Compile Include="ormdatamodel1Code\active_users.Designer.vb">
+      <DependentUpon>active_users.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ormdatamodel1Code\active_users.vb" />
+    <Compile Include="ormdatamodel1Code\artikli.Designer.vb">
+      <DependentUpon>artikli.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ormdatamodel1Code\artikli.vb" />
+    <Compile Include="ormdatamodel1Code\banned_users.Designer.vb">
+      <DependentUpon>banned_users.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ormdatamodel1Code\banned_users.vb" />
+    <Compile Include="ormdatamodel1Code\ConnectionHelper.vb" />
+    <Compile Include="ormdatamodel1Code\users.Designer.vb">
+      <DependentUpon>users.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ormdatamodel1Code\users.vb" />
     <Compile Include="Reports\XtraReport1.Designer.vb">
       <DependentUpon>XtraReport1.vb</DependentUpon>
     </Compile>
@@ -257,6 +285,10 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <AppDesigner Include="My Project\" />
+    <None Include="ORMDataModel1.xpo" />
+    <None Include="ORMDataModel1.xpo.diagram">
+      <DependentUpon>ORMDataModel1.xpo</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +321,5 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
