@@ -169,27 +169,6 @@
     <Compile Include="Licenca\XML.vb" />
     <Compile Include="MySQL\MySQLcompany.vb" />
     <Compile Include="MySQL\MySQL_info.vb" />
-    <Compile Include="ormdatamodel1Code\active_guests.Designer.vb">
-      <DependentUpon>active_guests.vb</DependentUpon>
-    </Compile>
-    <Compile Include="ormdatamodel1Code\active_guests.vb" />
-    <Compile Include="ormdatamodel1Code\active_users.Designer.vb">
-      <DependentUpon>active_users.vb</DependentUpon>
-    </Compile>
-    <Compile Include="ormdatamodel1Code\active_users.vb" />
-    <Compile Include="ormdatamodel1Code\artikli.Designer.vb">
-      <DependentUpon>artikli.vb</DependentUpon>
-    </Compile>
-    <Compile Include="ormdatamodel1Code\artikli.vb" />
-    <Compile Include="ormdatamodel1Code\banned_users.Designer.vb">
-      <DependentUpon>banned_users.vb</DependentUpon>
-    </Compile>
-    <Compile Include="ormdatamodel1Code\banned_users.vb" />
-    <Compile Include="ormdatamodel1Code\ConnectionHelper.vb" />
-    <Compile Include="ormdatamodel1Code\users.Designer.vb">
-      <DependentUpon>users.vb</DependentUpon>
-    </Compile>
-    <Compile Include="ormdatamodel1Code\users.vb" />
     <Compile Include="Reports\XtraReport1.Designer.vb">
       <DependentUpon>XtraReport1.vb</DependentUpon>
     </Compile>
@@ -285,10 +264,6 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <AppDesigner Include="My Project\" />
-    <None Include="ORMDataModel1.xpo" />
-    <None Include="ORMDataModel1.xpo.diagram">
-      <DependentUpon>ORMDataModel1.xpo</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

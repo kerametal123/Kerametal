@@ -10,11 +10,7 @@
         Title="Maloprodaja WIN" Height="768" Width="1024" WindowState="Maximized">
     <Window.Resources>
 
-        <dx:XPInstantFeedbackDataSource x:Key="XPInstantFeedbackDataSource" DisplayableProperties="an;tip;sifra;objekt;naziv;jed;ozn;grupa;proiz;tarifa;nc;vpc;mpc;elekt_razred;elekt_podrazred;tezina;tar_broj;stopa;id;datum;plu;dok;pc;placanje" ObjectType="{x:Type kerametal:artikli}">
-            <dx:DesignDataManager.DesignData>
-                <dx:DesignDataSettings RowCount="5"/>
-            </dx:DesignDataManager.DesignData>
-        </dx:XPInstantFeedbackDataSource>
+        
 
     </Window.Resources>
     <Grid>
@@ -59,11 +55,7 @@
                 </dxr:RibbonStatusBarControl.RightItems>
             </dxr:RibbonStatusBarControl>
             <Grid>
-                <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="548" Width="996" ItemsSource="{Binding Data, Source={StaticResource XPInstantFeedbackDataSource}}">
-                    <dxg:GridControl.View>
-                        <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True"/>
-                    </dxg:GridControl.View>
-                </dxg:GridControl>
+                
 
             </Grid>
         </DockPanel>
