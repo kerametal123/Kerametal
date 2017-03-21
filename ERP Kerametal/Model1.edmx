@@ -1,0 +1,560 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="kerametalModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="active_guests">
+          <Key>
+            <PropertyRef Name="ip" />
+          </Key>
+          <Property Name="ip" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="timestamp" Type="uint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="active_users">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="timestamp" Type="uint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="artikli">
+          <Key>
+            <PropertyRef Name="an" />
+          </Key>
+          <Property Name="an" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tip" Type="int" />
+          <Property Name="sifra" Type="varchar" MaxLength="5" />
+          <Property Name="objekt" Type="varchar" MaxLength="5" />
+          <Property Name="naziv" Type="varchar" MaxLength="200" />
+          <Property Name="jed" Type="varchar" MaxLength="20" />
+          <Property Name="ozn" Type="varchar" MaxLength="15" />
+          <Property Name="grupa" Type="varchar" MaxLength="20" />
+          <Property Name="proiz" Type="varchar" MaxLength="20" />
+          <Property Name="tarifa" Type="varchar" MaxLength="10" />
+          <Property Name="nc" Type="double" />
+          <Property Name="vpc" Type="double" />
+          <Property Name="mpc" Type="double" />
+          <Property Name="elekt_razred" Type="varchar" MaxLength="5" />
+          <Property Name="elekt_podrazred" Type="varchar" MaxLength="50" />
+          <Property Name="tezina" Type="double" />
+          <Property Name="tar_broj" Type="varchar" MaxLength="50" />
+          <Property Name="stopa" Type="double" />
+          <Property Name="id" Type="int" />
+          <Property Name="datum" Type="datetime" Precision="0" />
+          <Property Name="plu" Type="double" />
+          <Property Name="dok" Type="varchar" MaxLength="50" />
+          <Property Name="pc" Type="double" />
+          <Property Name="placanje" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'def.kerametal.artikli_bk' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="artikli_bk">
+          <Property Name="tip" Type="double" />
+          <Property Name="sifra" Type="varchar" MaxLength="50" />
+          <Property Name="bar_kod" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <EntityType Name="banned_users">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="timestamp" Type="uint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.kerametal.configuration' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="configuration">
+          <Key>
+            <PropertyRef Name="config_name" />
+            <PropertyRef Name="config_value" />
+          </Key>
+          <Property Name="config_name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="config_value" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.kerametal.dok_sta_d' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="dok_sta_d">
+          <Key>
+            <PropertyRef Name="an" />
+          </Key>
+          <Property Name="tip" Type="int" />
+          <Property Name="broj" Type="int" />
+          <Property Name="god" Type="int" />
+          <Property Name="sifra" Type="varchar" MaxLength="50" />
+          <Property Name="objekt" Type="varchar" MaxLength="5" />
+          <Property Name="kasa" Type="int" />
+          <Property Name="naziv" Type="varchar" MaxLength="200" />
+          <Property Name="jedinica" Type="varchar" MaxLength="50" />
+          <Property Name="kolicina" Type="double" />
+          <Property Name="mpc" Type="double" />
+          <Property Name="pc" Type="double" />
+          <Property Name="rabat" Type="double" />
+          <Property Name="iznos" Type="double" />
+          <Property Name="rabat1" Type="double" />
+          <Property Name="rabat2" Type="double" />
+          <Property Name="sconto" Type="double" />
+          <Property Name="pg" Type="varchar" MaxLength="50" />
+          <Property Name="stopa" Type="double" />
+          <Property Name="vpc" Type="double" />
+          <Property Name="dat" Type="datetime" Precision="0" />
+          <Property Name="cd" Type="double" />
+          <Property Name="zt" Type="double" />
+          <Property Name="zt_a" Type="double" />
+          <Property Name="ca" Type="double" />
+          <Property Name="ca_a" Type="double" />
+          <Property Name="tr" Type="double" />
+          <Property Name="nc" Type="double" />
+          <Property Name="vpm" Type="double" />
+          <Property Name="mpm" Type="double" />
+          <Property Name="pdv" Type="double" />
+          <Property Name="dec" Type="int" />
+          <Property Name="an" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="vpc1" Type="double" />
+          <Property Name="vprab" Type="double" />
+          <Property Name="prodaja" Type="int" />
+          <Property Name="profaktura" Type="int" />
+          <Property Name="faktura" Type="int" />
+          <Property Name="revers" Type="int" />
+          <Property Name="dat_dok" Type="datetime" Precision="0" />
+          <Property Name="zak_brojila" Type="int" />
+          <Property Name="vozilo" Type="varchar" MaxLength="50" />
+          <Property Name="vozac" Type="varchar" MaxLength="50" />
+          <Property Name="plu" Type="double" />
+          <Property Name="dat_print" Type="datetime" Precision="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'def.kerametal.dok_zag_d' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="dok_zag_d">
+          <Property Name="zak" Type="int" />
+          <Property Name="dat_z" Type="datetime" Precision="0" />
+          <Property Name="tip" Type="int" />
+          <Property Name="broj" Type="int" />
+          <Property Name="god" Type="int" />
+          <Property Name="objekt" Type="varchar" MaxLength="5" />
+          <Property Name="kasa" Type="int" />
+          <Property Name="dat" Type="datetime" Precision="0" />
+          <Property Name="partner" Type="int" />
+          <Property Name="ime1" Type="varchar" MaxLength="50" />
+          <Property Name="ime2" Type="varchar" MaxLength="50" />
+          <Property Name="dani" Type="int" />
+          <Property Name="prodavac" Type="int" />
+          <Property Name="smjena" Type="int" />
+          <Property Name="napomena" Type="longtext" />
+          <Property Name="got" Type="double" />
+          <Property Name="kar" Type="double" />
+          <Property Name="cek" Type="double" />
+          <Property Name="kre" Type="double" />
+          <Property Name="zir" Type="double" />
+          <Property Name="interno" Type="int" />
+          <Property Name="ostalo" Type="int" />
+          <Property Name="izvoz" Type="int" />
+          <Property Name="obveznik" Type="int" />
+          <Property Name="entitet" Type="int" />
+          <Property Name="pb" Type="varchar" MaxLength="50" />
+          <Property Name="kif" Type="int" />
+          <Property Name="print" Type="int" />
+          <Property Name="valuta" Type="int" />
+          <Property Name="tecaj" Type="double" />
+          <Property Name="ozn_val" Type="varchar" MaxLength="50" />
+          <Property Name="dokument" Type="varchar" MaxLength="50" />
+          <Property Name="terminal" Type="varchar" MaxLength="50" />
+          <Property Name="fiscal" Type="double" />
+          <Property Name="fiscal1" Type="double" />
+          <Property Name="ibk" Type="varchar" MaxLength="50" />
+          <Property Name="ime3" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'def.kerametal.partneri' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="partneri">
+          <Property Name="sifra" Type="int" />
+          <Property Name="objekt" Type="varchar" MaxLength="5" />
+          <Property Name="Naziv" Type="varchar" MaxLength="250" />
+          <Property Name="Mjesto" Type="varchar" MaxLength="250" />
+          <Property Name="Adresa" Type="varchar" MaxLength="250" />
+          <Property Name="Inozemni" Type="int" />
+          <Property Name="Entitet" Type="int" />
+          <Property Name="Maticni" Type="varchar" MaxLength="50" />
+          <Property Name="Obveznik" Type="int" />
+          <Property Name="PB" Type="varchar" MaxLength="50" />
+          <Property Name="E_mail" Type="varchar" MaxLength="250" />
+          <Property Name="Telefon" Type="varchar" MaxLength="250" />
+          <Property Name="Kontakt" Type="varchar" MaxLength="250" />
+          <Property Name="referent" Type="int" />
+          <Property Name="sifra1" Type="int" />
+          <Property Name="opis" Type="varchar" MaxLength="50" />
+          <Property Name="nije_fakt" Type="double" />
+          <Property Name="dani" Type="int" />
+          <Property Name="limit" Type="double" />
+          <Property Name="interno" Type="int" />
+        </EntityType>-->
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="40" />
+          <Property Name="usersalt" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="userid" Type="varchar" MaxLength="32" />
+          <Property Name="userlevel" Type="bool" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="timestamp" Type="uint" Nullable="false" />
+          <Property Name="actkey" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="ip" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="regdate" Type="uint" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="kerametalModelStoreContainer">
+          <EntitySet Name="active_guests" EntityType="Self.active_guests" Schema="kerametal" store:Type="Tables" />
+          <EntitySet Name="active_users" EntityType="Self.active_users" Schema="kerametal" store:Type="Tables" />
+          <EntitySet Name="artikli" EntityType="Self.artikli" Schema="kerametal" store:Type="Tables" />
+          <EntitySet Name="banned_users" EntityType="Self.banned_users" Schema="kerametal" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="kerametal" store:Type="Tables" />
+          <EntitySet Name="configuration" EntityType="Self.configuration" store:Type="Tables" store:Schema="kerametal">
+            <DefiningQuery>SELECT
+`configuration`.`config_name`, 
+`configuration`.`config_value`
+FROM `configuration` AS `configuration`</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="dok_sta_d" EntityType="Self.dok_sta_d" store:Type="Tables" store:Schema="kerametal">
+            <DefiningQuery>SELECT
+`dok_sta_d`.`tip`, 
+`dok_sta_d`.`broj`, 
+`dok_sta_d`.`god`, 
+`dok_sta_d`.`sifra`, 
+`dok_sta_d`.`objekt`, 
+`dok_sta_d`.`kasa`, 
+`dok_sta_d`.`naziv`, 
+`dok_sta_d`.`jedinica`, 
+`dok_sta_d`.`kolicina`, 
+`dok_sta_d`.`mpc`, 
+`dok_sta_d`.`pc`, 
+`dok_sta_d`.`rabat`, 
+`dok_sta_d`.`iznos`, 
+`dok_sta_d`.`rabat1`, 
+`dok_sta_d`.`rabat2`, 
+`dok_sta_d`.`sconto`, 
+`dok_sta_d`.`pg`, 
+`dok_sta_d`.`stopa`, 
+`dok_sta_d`.`vpc`, 
+`dok_sta_d`.`dat`, 
+`dok_sta_d`.`cd`, 
+`dok_sta_d`.`zt`, 
+`dok_sta_d`.`zt_a`, 
+`dok_sta_d`.`ca`, 
+`dok_sta_d`.`ca_a`, 
+`dok_sta_d`.`tr`, 
+`dok_sta_d`.`nc`, 
+`dok_sta_d`.`vpm`, 
+`dok_sta_d`.`mpm`, 
+`dok_sta_d`.`pdv`, 
+`dok_sta_d`.`dec`, 
+`dok_sta_d`.`an`, 
+`dok_sta_d`.`vpc1`, 
+`dok_sta_d`.`vprab`, 
+`dok_sta_d`.`prodaja`, 
+`dok_sta_d`.`profaktura`, 
+`dok_sta_d`.`faktura`, 
+`dok_sta_d`.`revers`, 
+`dok_sta_d`.`dat_dok`, 
+`dok_sta_d`.`zak_brojila`, 
+`dok_sta_d`.`vozilo`, 
+`dok_sta_d`.`vozac`, 
+`dok_sta_d`.`plu`, 
+`dok_sta_d`.`dat_print`
+FROM `dok_sta_d` AS `dok_sta_d`</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="kerametalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="active_guests">
+          <Key>
+            <PropertyRef Name="ip" />
+          </Key>
+          <Property Name="ip" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="timestamp" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="active_users">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="timestamp" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="artikli">
+          <Key>
+            <PropertyRef Name="an" />
+          </Key>
+          <Property Name="an" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tip" Type="Int32" />
+          <Property Name="sifra" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="objekt" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="naziv" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="jed" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ozn" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="grupa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="proiz" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="tarifa" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nc" Type="Double" />
+          <Property Name="vpc" Type="Double" />
+          <Property Name="mpc" Type="Double" />
+          <Property Name="elekt_razred" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="elekt_podrazred" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tezina" Type="Double" />
+          <Property Name="tar_broj" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="stopa" Type="Double" />
+          <Property Name="id" Type="Int32" />
+          <Property Name="datum" Type="DateTime" />
+          <Property Name="plu" Type="Double" />
+          <Property Name="dok" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pc" Type="Double" />
+          <Property Name="placanje" Type="Int32" />
+        </EntityType>
+        <EntityType Name="banned_users">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="timestamp" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="usersalt" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userid" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="userlevel" Type="Boolean" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="Int64" Nullable="false" />
+          <Property Name="actkey" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ip" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="regdate" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="configuration">
+          <Key>
+            <PropertyRef Name="config_name" />
+            <PropertyRef Name="config_value" />
+          </Key>
+          <Property Name="config_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="config_value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dok_sta_d">
+          <Key>
+            <PropertyRef Name="an" />
+          </Key>
+          <Property Name="tip" Type="Int32" />
+          <Property Name="broj" Type="Int32" />
+          <Property Name="god" Type="Int32" />
+          <Property Name="sifra" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="objekt" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="kasa" Type="Int32" />
+          <Property Name="naziv" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="jedinica" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="kolicina" Type="Double" />
+          <Property Name="mpc" Type="Double" />
+          <Property Name="pc" Type="Double" />
+          <Property Name="rabat" Type="Double" />
+          <Property Name="iznos" Type="Double" />
+          <Property Name="rabat1" Type="Double" />
+          <Property Name="rabat2" Type="Double" />
+          <Property Name="sconto" Type="Double" />
+          <Property Name="pg" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="stopa" Type="Double" />
+          <Property Name="vpc" Type="Double" />
+          <Property Name="dat" Type="DateTime" />
+          <Property Name="cd" Type="Double" />
+          <Property Name="zt" Type="Double" />
+          <Property Name="zt_a" Type="Double" />
+          <Property Name="ca" Type="Double" />
+          <Property Name="ca_a" Type="Double" />
+          <Property Name="tr" Type="Double" />
+          <Property Name="nc" Type="Double" />
+          <Property Name="vpm" Type="Double" />
+          <Property Name="mpm" Type="Double" />
+          <Property Name="pdv" Type="Double" />
+          <Property Name="dec" Type="Int32" />
+          <Property Name="an" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vpc1" Type="Double" />
+          <Property Name="vprab" Type="Double" />
+          <Property Name="prodaja" Type="Int32" />
+          <Property Name="profaktura" Type="Int32" />
+          <Property Name="faktura" Type="Int32" />
+          <Property Name="revers" Type="Int32" />
+          <Property Name="dat_dok" Type="DateTime" />
+          <Property Name="zak_brojila" Type="Int32" />
+          <Property Name="vozilo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vozac" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="plu" Type="Double" />
+          <Property Name="dat_print" Type="DateTime" />
+        </EntityType>
+        <EntityContainer Name="kerametalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="active_guests" EntityType="Self.active_guests" />
+          <EntitySet Name="active_users" EntityType="Self.active_users" />
+          <EntitySet Name="artikli" EntityType="Self.artikli" />
+          <EntitySet Name="banned_users" EntityType="Self.banned_users" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <EntitySet Name="configuration" EntityType="Self.configuration" />
+          <EntitySet Name="dok_sta_d" EntityType="Self.dok_sta_d" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="kerametalModelStoreContainer" CdmEntityContainer="kerametalEntities">
+          <EntitySetMapping Name="active_guests">
+            <EntityTypeMapping TypeName="kerametalModel.active_guests">
+              <MappingFragment StoreEntitySet="active_guests">
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="active_users">
+            <EntityTypeMapping TypeName="kerametalModel.active_users">
+              <MappingFragment StoreEntitySet="active_users">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="artikli">
+            <EntityTypeMapping TypeName="kerametalModel.artikli">
+              <MappingFragment StoreEntitySet="artikli">
+                <ScalarProperty Name="an" ColumnName="an" />
+                <ScalarProperty Name="tip" ColumnName="tip" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="objekt" ColumnName="objekt" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="jed" ColumnName="jed" />
+                <ScalarProperty Name="ozn" ColumnName="ozn" />
+                <ScalarProperty Name="grupa" ColumnName="grupa" />
+                <ScalarProperty Name="proiz" ColumnName="proiz" />
+                <ScalarProperty Name="tarifa" ColumnName="tarifa" />
+                <ScalarProperty Name="nc" ColumnName="nc" />
+                <ScalarProperty Name="vpc" ColumnName="vpc" />
+                <ScalarProperty Name="mpc" ColumnName="mpc" />
+                <ScalarProperty Name="elekt_razred" ColumnName="elekt_razred" />
+                <ScalarProperty Name="elekt_podrazred" ColumnName="elekt_podrazred" />
+                <ScalarProperty Name="tezina" ColumnName="tezina" />
+                <ScalarProperty Name="tar_broj" ColumnName="tar_broj" />
+                <ScalarProperty Name="stopa" ColumnName="stopa" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="datum" ColumnName="datum" />
+                <ScalarProperty Name="plu" ColumnName="plu" />
+                <ScalarProperty Name="dok" ColumnName="dok" />
+                <ScalarProperty Name="pc" ColumnName="pc" />
+                <ScalarProperty Name="placanje" ColumnName="placanje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="banned_users">
+            <EntityTypeMapping TypeName="kerametalModel.banned_users">
+              <MappingFragment StoreEntitySet="banned_users">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="kerametalModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="usersalt" ColumnName="usersalt" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="userlevel" ColumnName="userlevel" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="actkey" ColumnName="actkey" />
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="regdate" ColumnName="regdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="configuration">
+            <EntityTypeMapping TypeName="kerametalModel.configuration">
+              <MappingFragment StoreEntitySet="configuration">
+                <ScalarProperty Name="config_name" ColumnName="config_name" />
+                <ScalarProperty Name="config_value" ColumnName="config_value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dok_sta_d">
+            <EntityTypeMapping TypeName="kerametalModel.dok_sta_d">
+              <MappingFragment StoreEntitySet="dok_sta_d">
+                <ScalarProperty Name="tip" ColumnName="tip" />
+                <ScalarProperty Name="broj" ColumnName="broj" />
+                <ScalarProperty Name="god" ColumnName="god" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
+                <ScalarProperty Name="objekt" ColumnName="objekt" />
+                <ScalarProperty Name="kasa" ColumnName="kasa" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="jedinica" ColumnName="jedinica" />
+                <ScalarProperty Name="kolicina" ColumnName="kolicina" />
+                <ScalarProperty Name="mpc" ColumnName="mpc" />
+                <ScalarProperty Name="pc" ColumnName="pc" />
+                <ScalarProperty Name="rabat" ColumnName="rabat" />
+                <ScalarProperty Name="iznos" ColumnName="iznos" />
+                <ScalarProperty Name="rabat1" ColumnName="rabat1" />
+                <ScalarProperty Name="rabat2" ColumnName="rabat2" />
+                <ScalarProperty Name="sconto" ColumnName="sconto" />
+                <ScalarProperty Name="pg" ColumnName="pg" />
+                <ScalarProperty Name="stopa" ColumnName="stopa" />
+                <ScalarProperty Name="vpc" ColumnName="vpc" />
+                <ScalarProperty Name="dat" ColumnName="dat" />
+                <ScalarProperty Name="cd" ColumnName="cd" />
+                <ScalarProperty Name="zt" ColumnName="zt" />
+                <ScalarProperty Name="zt_a" ColumnName="zt_a" />
+                <ScalarProperty Name="ca" ColumnName="ca" />
+                <ScalarProperty Name="ca_a" ColumnName="ca_a" />
+                <ScalarProperty Name="tr" ColumnName="tr" />
+                <ScalarProperty Name="nc" ColumnName="nc" />
+                <ScalarProperty Name="vpm" ColumnName="vpm" />
+                <ScalarProperty Name="mpm" ColumnName="mpm" />
+                <ScalarProperty Name="pdv" ColumnName="pdv" />
+                <ScalarProperty Name="dec" ColumnName="dec" />
+                <ScalarProperty Name="an" ColumnName="an" />
+                <ScalarProperty Name="vpc1" ColumnName="vpc1" />
+                <ScalarProperty Name="vprab" ColumnName="vprab" />
+                <ScalarProperty Name="prodaja" ColumnName="prodaja" />
+                <ScalarProperty Name="profaktura" ColumnName="profaktura" />
+                <ScalarProperty Name="faktura" ColumnName="faktura" />
+                <ScalarProperty Name="revers" ColumnName="revers" />
+                <ScalarProperty Name="dat_dok" ColumnName="dat_dok" />
+                <ScalarProperty Name="zak_brojila" ColumnName="zak_brojila" />
+                <ScalarProperty Name="vozilo" ColumnName="vozilo" />
+                <ScalarProperty Name="vozac" ColumnName="vozac" />
+                <ScalarProperty Name="plu" ColumnName="plu" />
+                <ScalarProperty Name="dat_print" ColumnName="dat_print" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
