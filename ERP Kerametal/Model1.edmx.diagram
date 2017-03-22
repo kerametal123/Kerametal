@@ -10,7 +10,7 @@
         <EntityTypeShape EntityType="kerametalModel.artikli" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="kerametalModel.banned_users" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="kerametalModel.users" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="kerametalModel.configuration" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kerametalModel.configuration" Width="1.5" PointX="8.5" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="kerametalModel.dok_sta_d" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
