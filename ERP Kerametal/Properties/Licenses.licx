@@ -16,3 +16,4 @@ DevExpress.Xpf.WindowsUI.SlideView, DevExpress.Xpf.Controls.v16.1, Version=16.1.
 DevExpress.Xpf.PropertyGrid.PropertyGridControl, DevExpress.Xpf.PropertyGrid.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
 DevExpress.Xpf.LayoutControl.FlowLayoutControl, DevExpress.Xpf.LayoutControl.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
 DevExpress.Xpf.Gauges.CircularGaugeControl, DevExpress.Xpf.Gauges.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
+DevExpress.Xpf.Editors.TextEdit, DevExpress.Xpf.Core.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a

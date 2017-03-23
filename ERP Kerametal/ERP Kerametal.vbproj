@@ -207,6 +207,9 @@
     </Compile>
     <Compile Include="MySQL\MySQLcompany.vb" />
     <Compile Include="MySQL\MySQL_info.vb" />
+    <Compile Include="partneri.vb">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Reports\XtraReport1.Designer.vb">
       <DependentUpon>XtraReport1.vb</DependentUpon>
     </Compile>

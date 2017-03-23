@@ -5,9 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERP_Kerametal"
-        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"    xmlns:kerametal="clr-namespace:ERP_Kerametal.kerametal"    dx:DXSplashScreen.SplashScreenType="{x:Type local:SplashScreenERP}" x:Class="mpBc"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"    xmlns:kerametal="clr-namespace:ERP_Kerametal.kerametal"    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"    dx:DXSplashScreen.SplashScreenType="{x:Type local:SplashScreenERP}" x:Class="mpBc"
         mc:Ignorable="d"
-        Title="Maloprodaja WIN" Height="768" Width="1024" WindowState="Maximized">
+        Title="Maloprodaja WIN" Height="864" Width="1274.5" WindowState="Maximized">
     <Window.Resources>
 
 
@@ -17,6 +17,16 @@
                 <dx:DesignDataSettings RowCount="5"/>
             </dx:DesignDataManager.DesignData>
         </dx:EntityServerModeDataSource>
+        <dx:EntityServerModeDataSource x:Key="EntityServerModeDataSource1" ContextType="{x:Type local:kerametalEntities}" DefaultSorting="sifra ASC" KeyExpression="sifra" Path="partneri">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:EntityServerModeDataSource>
+        <dx:EntityInstantFeedbackDataSource x:Key="EntityInstantFeedbackDataSource" AreSourceRowsThreadSafe="False" ContextType="{x:Type local:kerametalEntities}" DefaultSorting="an ASC" KeyExpression="an" Path="artikli">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:EntityInstantFeedbackDataSource>
 
 
 
@@ -63,10 +73,33 @@
                 </dxr:RibbonStatusBarControl.RightItems>
             </dxr:RibbonStatusBarControl>
             <Grid>
-                <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="548" Width="996" ItemsSource="{Binding Data, Source={StaticResource EntityServerModeDataSource}}">
+                <dxg:GridControl AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,0,0,10" Width="459" ItemsSource="{Binding Data, Source={StaticResource EntityInstantFeedbackDataSource}}" Height="389" VerticalAlignment="Bottom">
                     <dxg:GridControl.View>
-                        <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True"/>
+                        <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowColumnMoving="False" AllowEditing="False"/>
                     </dxg:GridControl.View>
+                    <dxg:GridColumn FieldName="sifra" IsSmart="True"/>
+                    <dxg:GridColumn FieldName="naziv" IsSmart="True"/>
+                    <dxg:GridColumn FieldName="jed" IsSmart="True"/>
+                    <dxg:GridColumn FieldName="mpc" IsSmart="True"/>
+                    <dxg:GridColumn FieldName="tezina" IsSmart="True"/>
+                    <dxg:GridColumn FieldName="plu" IsSmart="True"/>
+                    <dxg:GridColumn FieldName="pc" IsSmart="True"/>
+                </dxg:GridControl>
+                <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" Margin="474,0,10,206" VerticalAlignment="Bottom" Height="193">
+                    <dxg:GridControl.View>
+                        <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True" ShowGroupPanel="False"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+                <Grid Height="100" Margin="10,160,10,0" VerticalAlignment="Top" Background="#FFDEDEDE"/>
+                <Grid Margin="474,463,10,10" Background="#FFDEDEDE"/>
+                <dxg:GridControl AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" Margin="0,10,10,0" VerticalAlignment="Top" Height="145" ItemsSource="{Binding Data, Source={StaticResource EntityServerModeDataSource1}}" HorizontalAlignment="Right" Width="529">
+                    <dxg:GridControl.View>
+                        <dxg:TableView AllowPerPixelScrolling="True" AllowEditing="False" ShowGroupPanel="False"/>
+                    </dxg:GridControl.View>
+                    <dxg:GridColumn FieldName="Naziv" IsSmart="True"/>
+                    <dxg:GridColumn FieldName="Mjesto" IsSmart="True"/>
+                    <dxg:GridColumn FieldName="Adresa" IsSmart="True"/>
+                    <dxg:GridColumn FieldName="PB" IsSmart="True"/>
                 </dxg:GridControl>
 
 

@@ -29,5 +29,6 @@ Partial Public Class kerametalEntities
     Public Property users() As DbSet(Of users)
     Public Property configuration() As DbSet(Of configuration)
     Public Property dok_sta_d() As DbSet(Of dok_sta_d)
+    Public Property partneri() As DbSet(Of partneri)
 
 End Class

@@ -12,6 +12,7 @@
         <EntityTypeShape EntityType="kerametalModel.users" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="kerametalModel.configuration" Width="1.5" PointX="8.5" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="kerametalModel.dok_sta_d" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kerametalModel.partneri" Width="1.5" PointX="3.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

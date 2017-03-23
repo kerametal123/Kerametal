@@ -164,10 +164,11 @@ warning 6013: The table/view 'def.kerametal.dok_zag_d' does not have a primary k
           <Property Name="ibk" Type="varchar" MaxLength="50" />
           <Property Name="ime3" Type="varchar" MaxLength="50" />
         </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'def.kerametal.partneri' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="partneri">
-          <Property Name="sifra" Type="int" />
+          <Key>
+            <PropertyRef Name="sifra" />
+          </Key>
+          <Property Name="sifra" Type="int" Nullable="false" />
           <Property Name="objekt" Type="varchar" MaxLength="5" />
           <Property Name="Naziv" Type="varchar" MaxLength="250" />
           <Property Name="Mjesto" Type="varchar" MaxLength="250" />
@@ -187,7 +188,7 @@ warning 6013: The table/view 'def.kerametal.partneri' does not have a primary ke
           <Property Name="dani" Type="int" />
           <Property Name="limit" Type="double" />
           <Property Name="interno" Type="int" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="users">
           <Key>
             <PropertyRef Name="username" />
@@ -208,6 +209,7 @@ warning 6013: The table/view 'def.kerametal.partneri' does not have a primary ke
           <EntitySet Name="active_users" EntityType="Self.active_users" Schema="kerametal" store:Type="Tables" />
           <EntitySet Name="artikli" EntityType="Self.artikli" Schema="kerametal" store:Type="Tables" />
           <EntitySet Name="banned_users" EntityType="Self.banned_users" Schema="kerametal" store:Type="Tables" />
+          <EntitySet Name="partneri" EntityType="Self.partneri" Schema="kerametal" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="kerametal" store:Type="Tables" />
           <EntitySet Name="configuration" EntityType="Self.configuration" store:Type="Tables" store:Schema="kerametal">
             <DefiningQuery>SELECT
@@ -398,7 +400,33 @@ FROM `dok_sta_d` AS `dok_sta_d`</DefiningQuery>
           <EntitySet Name="users" EntityType="Self.users" />
           <EntitySet Name="configuration" EntityType="Self.configuration" />
           <EntitySet Name="dok_sta_d" EntityType="Self.dok_sta_d" />
+          <EntitySet Name="partneri" EntityType="kerametalModel.partneri" />
         </EntityContainer>
+        <EntityType Name="partneri">
+          <Key>
+            <PropertyRef Name="sifra" />
+          </Key>
+          <Property Name="sifra" Type="Int32" Nullable="false" />
+          <Property Name="objekt" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Naziv" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Mjesto" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Adresa" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Inozemni" Type="Int32" />
+          <Property Name="Entitet" Type="Int32" />
+          <Property Name="Maticni" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Obveznik" Type="Int32" />
+          <Property Name="PB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="E_mail" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Telefon" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Kontakt" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="referent" Type="Int32" />
+          <Property Name="sifra1" Type="Int32" />
+          <Property Name="opis" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nije_fakt" Type="Double" />
+          <Property Name="dani" Type="Int32" />
+          <Property Name="limit" Type="Double" />
+          <Property Name="interno" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -530,6 +558,32 @@ FROM `dok_sta_d` AS `dok_sta_d`</DefiningQuery>
                 <ScalarProperty Name="vozac" ColumnName="vozac" />
                 <ScalarProperty Name="plu" ColumnName="plu" />
                 <ScalarProperty Name="dat_print" ColumnName="dat_print" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="partneri">
+            <EntityTypeMapping TypeName="kerametalModel.partneri">
+              <MappingFragment StoreEntitySet="partneri">
+                <ScalarProperty Name="interno" ColumnName="interno" />
+                <ScalarProperty Name="limit" ColumnName="limit" />
+                <ScalarProperty Name="dani" ColumnName="dani" />
+                <ScalarProperty Name="nije_fakt" ColumnName="nije_fakt" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="sifra1" ColumnName="sifra1" />
+                <ScalarProperty Name="referent" ColumnName="referent" />
+                <ScalarProperty Name="Kontakt" ColumnName="Kontakt" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="E_mail" ColumnName="E_mail" />
+                <ScalarProperty Name="PB" ColumnName="PB" />
+                <ScalarProperty Name="Obveznik" ColumnName="Obveznik" />
+                <ScalarProperty Name="Maticni" ColumnName="Maticni" />
+                <ScalarProperty Name="Entitet" ColumnName="Entitet" />
+                <ScalarProperty Name="Inozemni" ColumnName="Inozemni" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="Mjesto" ColumnName="Mjesto" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="objekt" ColumnName="objekt" />
+                <ScalarProperty Name="sifra" ColumnName="sifra" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
