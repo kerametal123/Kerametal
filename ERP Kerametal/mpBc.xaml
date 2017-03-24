@@ -101,6 +101,7 @@
                     <dxg:GridColumn FieldName="Adresa" IsSmart="True"/>
                     <dxg:GridColumn FieldName="PB" IsSmart="True"/>
                 </dxg:GridControl>
+                <dxe:PopupCalcEdit HorizontalAlignment="Left" Margin="380,74,0,0" VerticalAlignment="Top" Width="150"/>
 
 
             </Grid>
