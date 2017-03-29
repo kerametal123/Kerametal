@@ -6,4 +6,8 @@
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
     End Sub
+
+    Private Sub GridControl_AsyncOperationCompleted(sender As Object, e As RoutedEventArgs)
+
+    End Sub
 End Class
