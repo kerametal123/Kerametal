@@ -136,4 +136,15 @@ Public Class MySQLcompany
             End Using
         End Using
     End Function
+    Public Function getArtikliSvi()
+        Dim query1 As String = "Select * from artikli"
+        Dim table As New DataTable
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query1, connection)
+                adapter.Fill(table)
+                Return table
+            End Using
+        End Using
+    End Function
+
 End Class

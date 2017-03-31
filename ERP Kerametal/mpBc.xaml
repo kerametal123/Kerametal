@@ -66,7 +66,7 @@
                 </dxr:RibbonStatusBarControl.RightItems>
             </dxr:RibbonStatusBarControl>
             <Grid>
-                <dxg:GridControl AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,0,0,10" Width="459" ItemsSource="{Binding Data, Source={StaticResource EntityInstantFeedbackDataSource}}" Height="389" VerticalAlignment="Bottom">
+                <dxg:GridControl x:Name="gridArtikli" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,0,0,10" Width="459" ItemsSource="{Binding Data, Source={StaticResource EntityInstantFeedbackDataSource}}" Height="389" VerticalAlignment="Bottom">
                     <dxg:GridControl.View>
                         <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowColumnMoving="False" AllowEditing="False"/>
                     </dxg:GridControl.View>
@@ -83,7 +83,9 @@
                         <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True" ShowGroupPanel="False"/>
                     </dxg:GridControl.View>
                 </dxg:GridControl>
-                <Grid Height="100" Margin="10,160,10,0" VerticalAlignment="Top" Background="#FFDEDEDE"/>
+                <Grid Height="100" Margin="10,160,10,0" VerticalAlignment="Top" Background="#FFDEDEDE">
+                    <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="22" Margin="10,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                </Grid>
                 <Grid Margin="474,463,10,10" Background="#FFDEDEDE"/>
                 <dxg:GridControl AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" Margin="0,10,10,0" VerticalAlignment="Top" Height="145" ItemsSource="{Binding Data, Source={StaticResource EntityServerModeDataSource1}}" HorizontalAlignment="Right" Width="529" AsyncOperationCompleted="GridControl_AsyncOperationCompleted">
                     <dxg:GridControl.View>

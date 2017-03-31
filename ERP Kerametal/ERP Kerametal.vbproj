@@ -128,7 +128,10 @@
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.7.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.7.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 6.7.9\Assemblies\v4.5\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data">
@@ -189,6 +192,7 @@
     <Compile Include="GUI\ViewModel.vb" />
     <Compile Include="GUI\VisualExtension.vb" />
     <Compile Include="Licenca\Licenciranje.vb" />
+    <Compile Include="Licenca\Session.vb" />
     <Compile Include="Licenca\XML.vb" />
     <Compile Include="Model1.Context.vb">
       <AutoGen>True</AutoGen>
