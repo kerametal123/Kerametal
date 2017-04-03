@@ -15,16 +15,11 @@ Public Class mpBc
     End Sub
 
     Private Sub textBox_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBox.TextChanged
-
         Dim filterValue As String = textBox.Text
         If Not [String].IsNullOrEmpty(filterValue) Then
             If Regex.IsMatch(filterValue, "^[0-9 ]+$") Then
                 gridArtikli.Columns("naziv").AutoFilterValue = ""
                 gridArtikli.Columns("sifra").AutoFilterValue = filterValue
-
-
-
-
             Else
                 gridArtikli.Columns("sifra").AutoFilterValue = ""
                 gridArtikli.Columns("naziv").AutoFilterCondition = AutoFilterCondition.Contains
