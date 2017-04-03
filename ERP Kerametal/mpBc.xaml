@@ -9,21 +9,7 @@
         mc:Ignorable="d"
         Title="Maloprodaja WIN" Height="864" Width="1274" WindowState="Maximized">
     <Window.Resources>
-        <dx:EntityServerModeDataSource x:Key="EntityServerModeDataSource" ContextType="{x:Type local:kerametalEntities}" DefaultSorting="sifra ASC" KeyExpression="an" Path="artikli">
-            <dx:DesignDataManager.DesignData>
-                <dx:DesignDataSettings RowCount="5"/>
-            </dx:DesignDataManager.DesignData>
-        </dx:EntityServerModeDataSource>
-        <dx:EntityServerModeDataSource x:Key="EntityServerModeDataSource1" ContextType="{x:Type local:kerametalEntities}" DefaultSorting="sifra ASC" KeyExpression="sifra" Path="partneri">
-            <dx:DesignDataManager.DesignData>
-                <dx:DesignDataSettings RowCount="5"/>
-            </dx:DesignDataManager.DesignData>
-        </dx:EntityServerModeDataSource>
-        <dx:EntityInstantFeedbackDataSource x:Key="EntityInstantFeedbackDataSource" AreSourceRowsThreadSafe="False" ContextType="{x:Type local:kerametalEntities}" DefaultSorting="an ASC" KeyExpression="an" Path="artikli">
-            <dx:DesignDataManager.DesignData>
-                <dx:DesignDataSettings RowCount="5"/>
-            </dx:DesignDataManager.DesignData>
-        </dx:EntityInstantFeedbackDataSource>
+    
     </Window.Resources>
     <Grid>
         <DockPanel>
@@ -66,7 +52,7 @@
                 </dxr:RibbonStatusBarControl.RightItems>
             </dxr:RibbonStatusBarControl>
             <Grid>
-                <dxg:GridControl x:Name="gridArtikli" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,0,0,10" Width="459" ItemsSource="{Binding Data, Source={StaticResource EntityInstantFeedbackDataSource}}" Height="389" VerticalAlignment="Bottom">
+                <dxg:GridControl x:Name="gridArtikli" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,0,0,10" Width="459"  Height="389" VerticalAlignment="Bottom">
                     <dxg:GridControl.View>
                         <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowColumnMoving="False" AllowEditing="False"/>
                     </dxg:GridControl.View>
@@ -87,7 +73,7 @@
                     <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="22" Margin="10,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 </Grid>
                 <Grid Margin="474,463,10,10" Background="#FFDEDEDE"/>
-                <dxg:GridControl AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" Margin="0,10,10,0" VerticalAlignment="Top" Height="145" ItemsSource="{Binding Data, Source={StaticResource EntityServerModeDataSource1}}" HorizontalAlignment="Right" Width="529" AsyncOperationCompleted="GridControl_AsyncOperationCompleted">
+                <dxg:GridControl AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" Margin="0,10,10,0" VerticalAlignment="Top" Height="145" ItemsSource="{Binding Path=LoadDataBinding}" HorizontalAlignment="Right" Width="529" AsyncOperationCompleted="GridControl_AsyncOperationCompleted">
                     <dxg:GridControl.View>
                         <dxg:TableView AllowPerPixelScrolling="True" AllowEditing="False" ShowGroupPanel="False"/>
                     </dxg:GridControl.View>

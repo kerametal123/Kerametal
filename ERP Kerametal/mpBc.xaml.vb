@@ -1,10 +1,14 @@
 ﻿Imports System.Text.RegularExpressions
 Imports DevExpress.Xpf.Grid
 
+
 Public Class mpBc
     Dim mysql As New MySQLinfo
+    Dim mysqlcomp As New MySQLcompany
     Dim licenca As New Licenciranje
     Dim XMLinfo As New XMLinfo
+    Private mint_LastReceivedTimerID As Integer = 0
+    Private mint_LastInitializedTimerID As Integer = 0
     Public Overridable Property AutoFilterCondition As AutoFilterCondition
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
@@ -15,6 +19,34 @@ Public Class mpBc
     End Sub
 
     Private Sub textBox_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBox.TextChanged
+        'Increment the counter for the number of times the textbox has been changed
+        mint_LastInitializedTimerID = mint_LastInitializedTimerID + 1
+
+        'Wait longer for shorter strings or strings without spaces
+        Dim intMilliseconds As Integer = 500
+
+
+        Dim objTimer As New System.Timers.Timer(intMilliseconds)
+        AddHandler objTimer.Elapsed, AddressOf textBox_TimerElapsed
+
+        objTimer.AutoReset = False
+        objTimer.Enabled = True
+
+    End Sub
+    Private Sub textBox_TimerElapsed(ByVal sender As Object, ByVal e As System.Timers.ElapsedEventArgs)
+        'Increment the counter for the number of times timers have elapsed
+        mint_LastReceivedTimerID = mint_LastReceivedTimerID + 1
+
+        'If the total number of textbox changes equals the total number of times timers have elapsed (fire method for only the latest character change)
+        If mint_LastReceivedTimerID = mint_LastInitializedTimerID Then
+
+            Me.Dispatcher.Invoke(Sub() MySearchMethod(), System.Windows.Threading.DispatcherPriority.Normal)
+
+        End If
+
+    End Sub
+    Public Sub MySearchMethod()
+        'Fire method on the Main UI Thread
         Dim filterValue As String = textBox.Text
         If Not [String].IsNullOrEmpty(filterValue) Then
             If Regex.IsMatch(filterValue, "^[0-9 ]+$") Then
@@ -26,5 +58,9 @@ Public Class mpBc
                 gridArtikli.Columns("naziv").AutoFilterValue = filterValue
             End If
         End If
+    End Sub
+    Private Sub biPrint_ItemClick(sender As Object, e As DevExpress.Xpf.Bars.ItemClickEventArgs) Handles biPrint.ItemClick
+        gridArtikli.ItemsSource = mysqlcomp.getArtikliSvi
+
     End Sub
 End Class

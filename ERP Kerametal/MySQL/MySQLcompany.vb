@@ -103,17 +103,6 @@ Public Class MySQLcompany
             ManageConnection(True, konekcija)
         End Try
     End Function
-    Public Function getArtikli() As DataTable
-        Dim query As String = "select sifra,naziv,grupa,proiz,vpc,mpc,tarifa,stopa,pc from kerametal.artikli"
-        Dim table As New DataTable()
-        Using connection As New MySqlConnection(konekcija)
-            Using adapter As New MySqlDataAdapter(query, connection)
-
-                adapter.Fill(table)
-                Return table
-            End Using
-        End Using
-    End Function
     Public Function getPartneri() As DataTable
         Dim query As String = "Select sifra,naziv,mjesto,opis,inozemni,maticni,obveznik,pb from partneri where objekt='21' order by naziv"
         Dim table As New DataTable()
