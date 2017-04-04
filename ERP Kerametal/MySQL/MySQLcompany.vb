@@ -115,15 +115,7 @@ Public Class MySQLcompany
         End Using
     End Function
     Public Function getPartneriName(ByVal naziv As String) As DataTable
-        Dim query As String = "Select sifra,naziv,mjesto,opis,inozemni,maticni,obveznik,pb from partneri where objekt='21' and naziv like '%" + naziv + "%' or sifra like '%" + naziv + "%' order by naziv"
-        Dim table As New DataTable()
-        Using connection As New MySqlConnection(konekcija)
-            Using adapter As New MySqlDataAdapter(query, connection)
 
-                adapter.Fill(table)
-                Return table
-            End Using
-        End Using
     End Function
     Public Function getArtikliSvi()
         Dim query1 As String = "Select * from artikli"
@@ -135,5 +127,25 @@ Public Class MySQLcompany
             End Using
         End Using
     End Function
+    Public Function getArtikliZaAktivnog()
+        Dim query1 As String = "Select * from artikli where objekt = " + Globals.objekt + ""
+        Dim table As New DataTable
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query1, connection)
+                adapter.Fill(table)
+                Return table
+            End Using
+        End Using
+    End Function
+    Public Function getPartneriZaAktivnog()
+        Dim query As String = "Select * from partneri where objekt='" + Globals.objekt + "' order by naziv"
+        Dim table As New DataTable()
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query, connection)
 
+                adapter.Fill(table)
+                Return table
+            End Using
+        End Using
+    End Function
 End Class
