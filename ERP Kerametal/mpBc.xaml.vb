@@ -33,6 +33,7 @@ Public Class mpBc
         End If
     End Sub
     Public Sub MySearchMethod()
+        'Filtriranje grida, lokalno u RAM memoriji
         Dim filterValue As String = textBox.Text
         If Not [String].IsNullOrEmpty(filterValue) Then
             If Regex.IsMatch(filterValue, "^[0-9 ]+$") Then
@@ -51,10 +52,13 @@ Public Class mpBc
     End Sub
 
     Private Sub button_Click(sender As Object, e As RoutedEventArgs) Handles button.Click
+        'populate gridArtikli
         gridArtikli.ItemsSource = mysqlcomp.getArtikliZaAktivnog
     End Sub
 
     Private Sub button_Copy_Click(sender As Object, e As RoutedEventArgs) Handles button_Copy.Click
+        'populate gridPartneri
         gridPartneri.ItemsSource = mysqlcomp.getPartneriZaAktivnog
+        Globals.logMaker("Partneri grid populate", sender)
     End Sub
 End Class
