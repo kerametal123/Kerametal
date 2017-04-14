@@ -59,6 +59,7 @@
                     <dxg:GridColumn FieldName="sifra" IsSmart="True" FixedWidth="True" Width="60" Fixed="Left"/>
                     <dxg:GridColumn FieldName="naziv" IsSmart="True" BestFitMode="VisibleRows" AllowBestFit="True" Width="300" Fixed="None" BestFitArea="Rows"/>
                     <dxg:GridColumn FieldName="mpc" IsSmart="True" BestFitMode="VisibleRows" Fixed="Right" Width="60"/>
+                    <dxg:GridColumn FieldName="proiz" IsSmart="True" BestFitMode="VisibleRows" Fixed="Right" Width="60"/>
                 </dxg:GridControl>
                 <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" Margin="474,0,10,206" VerticalAlignment="Bottom" Height="193">
                     <dxg:GridControl.View>

@@ -17,6 +17,8 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
             End Using
         Catch
             we.biCenter.IsEnabled = False
+            we.biColumn.IsEnabled = True
+
             Return False
         End Try
     End Function
