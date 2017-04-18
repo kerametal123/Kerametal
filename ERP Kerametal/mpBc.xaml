@@ -52,7 +52,7 @@
                 </dxr:RibbonStatusBarControl.RightItems>
             </dxr:RibbonStatusBarControl>
             <Grid>
-                <dxg:GridControl x:Name="gridArtikli" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,0,0,10" Width="459"  Height="389" VerticalAlignment="Bottom">
+                <dxg:GridControl x:Name="gridArtikli" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,0,0,10" Width="459"  Height="389" ItemsSource="{Binding Path=LoadDataBinding}" VerticalAlignment="Bottom">
                     <dxg:GridControl.View>
                         <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowColumnMoving="False" AllowEditing="False"/>
                     </dxg:GridControl.View>
