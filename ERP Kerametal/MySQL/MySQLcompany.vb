@@ -136,6 +136,14 @@ Public Class MySQLcompany
             End Using
         End Using
     End Function
+    Public Function getArtikliZaAktivnog()
+        Dim query1 As String = "Select * from artikli where objekt = " + Globals.objekt + ""
+        Dim table As New DataTable
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query1, connection)
+            End Using
+        End Using
+    End Function
     Public Function getPartneriZaAktivnog()
         Dim query As String = "Select * from partneri where objekt='" + Globals.objekt + "' order by naziv"
         Dim table As New DataTable()

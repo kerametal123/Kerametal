@@ -46,11 +46,11 @@ Public Class mpBc
 
     End Sub
     Public Sub MySearchMethod()
-<<<<<<< HEAD
+
         'Filtriranje grida, lokalno u RAM memoriji
-=======
+
         'Fire method on the Main UI Thread
->>>>>>> parent of 73ca832... GridView
+
         Dim filterValue As String = textBox.Text
         If Not [String].IsNullOrEmpty(filterValue) Then
             If Regex.IsMatch(filterValue, "^[0-9 ]+$") Then
@@ -66,7 +66,7 @@ Public Class mpBc
     Private Sub biPrint_ItemClick(sender As Object, e As DevExpress.Xpf.Bars.ItemClickEventArgs) Handles biPrint.ItemClick
         gridArtikli.ItemsSource = mysqlcomp.getArtikliSvi
 
-<<<<<<< HEAD
+
 
     End Sub
 
@@ -79,7 +79,6 @@ Public Class mpBc
         'populate gridPartneri
         gridPartneri.ItemsSource = mysqlcomp.getPartneriZaAktivnog
         Globals.logMaker("Partneri grid populate", sender)
-=======
->>>>>>> parent of 73ca832... GridView
+
     End Sub
 End Class
