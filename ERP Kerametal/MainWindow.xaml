@@ -39,11 +39,13 @@
                         </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>
                     <dxr:RibbonPage Caption="Postavke">
+
                         <dxr:RibbonPageGroup Caption="Baze podataka">
                             <dxb:BarButtonItem x:Name="dbButton" Content="Informacije" Glyph="{dx:DXImage Image=Database_16x16}" LargeGlyph="{dx:DXImage Image=Database_32x32.png}"/>
                             <dxb:BarButtonItem x:Name="biw" Content="Podešavanje" Glyph="{dx:DXImage Image=ManageDatasource_16x16.png}" LargeGlyph="{dx:DXImage Image=ManageDatasource_32x32.png}"/>
                         </dxr:RibbonPageGroup>
-                        <dxr:RibbonPageGroup Caption="Printeri">
+                    
+                    <dxr:RibbonPageGroup Caption="Printeri">
                             <dxb:BarButtonItem x:Name="printButton" Content="Printeri A4" Glyph="{dx:DXImage Image=Print_16x16}" LargeGlyph="{dx:DXImage Image=Print_32x32.png}"/>
                             <dxb:BarButtonItem x:Name="fiscalButton" Content="Fiskalni printeri" Glyph="{dx:DXImage Image=fAX_16x16.png}" LargeGlyph="{dx:DXImage Image=Fax_32x32.png}"/>
                         </dxr:RibbonPageGroup>

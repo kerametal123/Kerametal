@@ -19,21 +19,38 @@ Public Class mpBc
     End Sub
 
     Private Sub textBox_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBox.TextChanged
+        'Increment the counter for the number of times the textbox has been changed
         mint_LastInitializedTimerID = mint_LastInitializedTimerID + 1
+
+        'Wait longer for shorter strings or strings without spaces
         Dim intMilliseconds As Integer = 500
+
+
         Dim objTimer As New System.Timers.Timer(intMilliseconds)
         AddHandler objTimer.Elapsed, AddressOf textBox_TimerElapsed
+
         objTimer.AutoReset = False
         objTimer.Enabled = True
+
     End Sub
     Private Sub textBox_TimerElapsed(ByVal sender As Object, ByVal e As System.Timers.ElapsedEventArgs)
+        'Increment the counter for the number of times timers have elapsed
         mint_LastReceivedTimerID = mint_LastReceivedTimerID + 1
+
+        'If the total number of textbox changes equals the total number of times timers have elapsed (fire method for only the latest character change)
         If mint_LastReceivedTimerID = mint_LastInitializedTimerID Then
+
             Me.Dispatcher.Invoke(Sub() MySearchMethod(), System.Windows.Threading.DispatcherPriority.Normal)
+
         End If
+
     End Sub
     Public Sub MySearchMethod()
+<<<<<<< HEAD
         'Filtriranje grida, lokalno u RAM memoriji
+=======
+        'Fire method on the Main UI Thread
+>>>>>>> parent of 73ca832... GridView
         Dim filterValue As String = textBox.Text
         If Not [String].IsNullOrEmpty(filterValue) Then
             If Regex.IsMatch(filterValue, "^[0-9 ]+$") Then
@@ -47,7 +64,9 @@ Public Class mpBc
         End If
     End Sub
     Private Sub biPrint_ItemClick(sender As Object, e As DevExpress.Xpf.Bars.ItemClickEventArgs) Handles biPrint.ItemClick
+        gridArtikli.ItemsSource = mysqlcomp.getArtikliSvi
 
+<<<<<<< HEAD
 
     End Sub
 
@@ -60,5 +79,7 @@ Public Class mpBc
         'populate gridPartneri
         gridPartneri.ItemsSource = mysqlcomp.getPartneriZaAktivnog
         Globals.logMaker("Partneri grid populate", sender)
+=======
+>>>>>>> parent of 73ca832... GridView
     End Sub
 End Class

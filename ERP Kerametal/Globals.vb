@@ -24,6 +24,7 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
     End Function
     Public Shared Function logMaker(ByVal action As String, ByVal type As Object)
         Try
+
             Dim mysql As New MySQLinfo
             mysql.upisLoga(action, type.ToString())
         Catch
