@@ -152,7 +152,6 @@ Public Class MySQLcompany
         Dim table As New DataTable()
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query, connection)
-
                 adapter.Fill(table)
                 Return table
             End Using
