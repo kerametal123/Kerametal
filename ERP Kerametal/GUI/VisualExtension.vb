@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.Windows
 Imports System.Windows.Media
-'It's a kind of magic :D
+
 Module VisualExtensions
     <System.Runtime.CompilerServices.Extension>
     Public Iterator Function GetVisualChildren(Of T As Visual)(parent As DependencyObject) As IEnumerable(Of T)
@@ -20,6 +20,7 @@ Module VisualExtensions
             End If
         Next
     End Function
+	
     Private Function FindChildByname(Of T As FrameworkElement)(parent As DependencyObject, name As String) As T
         Dim child As T = Nothing
         For i As Integer = 0 To VisualTreeHelper.GetChildrenCount(parent) - 1
