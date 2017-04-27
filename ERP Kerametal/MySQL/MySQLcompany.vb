@@ -167,7 +167,45 @@ Public Class MySQLcompany
             End Using
         End Using
     End Function
-    Public Function dodajArtikalNaRacun()
+    'Storniranje računa
+    Public Function voidRacunById(ByVal id As String)
+
+    End Function
+
+    'Pozivanje računa
+    Public Function getRacunById(ByVal id As String)
+
+    End Function
+
+    Public Function getRacunByTime(ByVal time As String)
+
+    End Function
+
+    Public Function getRacunByBuyer(ByVal buyer As String)
+
+    End Function
+
+    Private Function getById(ByVal id As String)
+        Try
+
+        Catch ex As Exception
+
+        End Try
+    End Function
+
+    Public Function getRacunByObjekt(ByVal objekt As String)
+
+    End Function
+
+    Public Function getRacunByOperator(ByVal operater As String)
+
+    End Function
+
+    Public Function artikliFilter(ByVal sifra As String, ByVal naziv As String, ByVal objekt As String, ByVal dodatno As String)
+
+    End Function
+
+    Private Function artikliDelete(ByVal sifra As String, ByVal naziv As String, ByVal objekt As String)
 
     End Function
 End Class
