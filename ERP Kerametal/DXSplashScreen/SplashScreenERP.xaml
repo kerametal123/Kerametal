@@ -23,7 +23,7 @@
 
                 </Grid.RowDefinitions>
                 <Image x:Name="Image" Source="Image.png" Stretch="UniformToFill"/>
-                <TextBlock x:Name="Info" TextWrapping="Wrap" Text="{Binding Status}" Grid.Row="1" Margin="12,12,12,0" Foreground="#FF2D2D2D"/>
+                <TextBlock x:Name="Info" TextWrapping="Wrap" Text="{Binding State}" Grid.Row="1" Margin="12,12,12,0" Foreground="#FF2D2D2D"/>
                 <ProgressBar x:Name="progressBar"
                              Height="12"
                              Grid.Row="2"
