@@ -6,7 +6,7 @@ Public Class XMLinfo
     Dim mysqlcomp As New MySQLcompany
     Dim putanjaDatoteke As String =
 IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Kerametal\")
-    Public Function infoXMLdb(ByVal dabase As String, ByVal db1 As String, ByVal db2 As String, ByVal db3 As String, ByVal db4 As String)
+    Public Function infoXMLdb(ByVal objekt As String, ByVal objektname As String, ByVal tvrtka As String, ByVal tvrtkaname As String, ByVal dabase As String, ByVal db1 As String, ByVal db2 As String, ByVal db3 As String, ByVal db4 As String)
         Dim writer As New XmlTextWriter(Globals.rootPath & "settings.xml", System.Text.Encoding.UTF8)
         writer.WriteStartDocument(True)
         writer.Formatting = Formatting.Indented

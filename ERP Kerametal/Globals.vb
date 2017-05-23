@@ -4,8 +4,24 @@ Public Class Globals
 IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ERPKerametal\")
     Public Shared databaseInfo = ""
     Public Shared databaseName = ""
+
+    'Potrebno za identifikaciju
     Public Shared objekt = ""
+    Public Shared tvrtka = ""
+    Public Shared godina = ""
+
+    'Samo za informacije
+    Public Shared tvrtka_naziv = ""
+    Public Shared objekt_naziv = ""
     Public Shared cpuid = ""
+
+    'Samo racunalo
+    Public Shared racunalo_naziv = ""
+
+    'Array MP
+    Public Shared prodaja = "", Kalkulacije = "", Zaduznice = "", Predisponacije = "", Robno = "", KUF = "", KIF = "", Narudzbenice = "", Nalozi = "", akcijskeCijene = "", servisnaRoba = "", Ostalo1 = "", Ostalo2 = "", Ostalo3 = ""
+    'Array VP
+
     Public Shared Function CheckForInternetConnection() As Boolean
         Dim we As MainWindow = Application.Current.Windows(0)
         Try
@@ -17,8 +33,6 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
             End Using
         Catch
             we.biCenter.IsEnabled = False
-            we.biColumn.IsEnabled = True
-			'we.biColumn.IsEnabled = True
             Return False
         End Try
     End Function

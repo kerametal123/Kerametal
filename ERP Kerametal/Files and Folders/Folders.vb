@@ -17,4 +17,18 @@ Public Class Folders
         End Try
         Return True
     End Function
+    Public Function pripremiFoldere()
+        Try
+
+        Catch ex As Exception
+
+        End Try
+    End Function
+    Public Function pobrisiFoldere()
+        Try
+
+        Catch ex As Exception
+
+        End Try
+    End Function
 End Class

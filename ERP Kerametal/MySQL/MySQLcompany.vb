@@ -127,7 +127,7 @@ Public Class MySQLcompany
         End Using
     End Function
     Public Function getArtikliSvi()
-        Dim query1 As String = "Select * from artikli"
+        Dim query1 As String = "Select * from artikli LIMIT 0,10000"
         Dim table As New DataTable
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query1, connection)
@@ -141,14 +141,13 @@ Public Class MySQLcompany
         Dim table As New DataTable()
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query, connection)
-
                 adapter.Fill(table)
                 Return table
             End Using
         End Using
     End Function
     Public Function getPartneriZaAktivnog()
-        Dim query As String = "Select * from partneri where objekt='" + Globals.objekt + "' order by naziv"
+        Dim query As String = "Select * from partneri where objekt='" + Globals.objekt + "' order by naziv;"
         Dim table As New DataTable()
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query, connection)

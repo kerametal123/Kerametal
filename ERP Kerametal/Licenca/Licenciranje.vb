@@ -25,12 +25,21 @@ Public Class Licenciranje
         ElseIf folders.mkFolderRoot() = False Then
             checkActivity()
         End If
-
-
         Return True
     End Function
     Public Function provjeriLicencuOffline()
 
+    End Function
+
+    Public Function loginOnline()
+        Try
+            If mysql.login() = True Then
+
+                MessageBox.Show("true")
+            End If
+        Catch ex As Exception
+
+        End Try
     End Function
     Public Function checkActivity()
         Dim fileReader As System.IO.StreamReader
@@ -40,12 +49,10 @@ My.Computer.FileSystem.OpenTextFileReader(punoImePutanje)
         stringReader = fileReader.ReadLine()
         'setContact()
         If mysql.provjeraInstalacije(stringReader, "instalacije_aktivnost") = True Then
-
             mysql.podaciInstalacija(CpuId)
             Globals.cpuid = CpuId()
             XMLinfo.getDbInfo()
             wminfos.upisWmi()
-
             Return True
         ElseIf mysql.provjeraInstalacije(stringReader, "instalacije_aktivnost") = False Then
             MessageBox.Show("Aplikaciji nije dozvoljen rad!")
@@ -93,4 +100,5 @@ My.Computer.FileSystem.OpenTextFileReader(punoImePutanje)
 
         Return cpu_ids
     End Function
+
 End Class
