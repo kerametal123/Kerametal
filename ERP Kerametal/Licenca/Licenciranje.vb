@@ -6,6 +6,7 @@ Public Class Licenciranje
     Dim wminfos As New WMInfo
     Dim punoImePutanje As String = Path.Combine(Globals.rootPath, "Licenca.atkm")
     Dim fileLoc As String = punoImePutanje
+    Dim gui As New Sucelje
     Public Function provjeriLicencuOnline()
         If folders.mkFolderRoot() = True Then
 

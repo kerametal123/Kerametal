@@ -26,29 +26,7 @@
                     <dxb:BarButtonItemLink BarItemName="biNew"/>
                 </dxr:RibbonControl.ToolbarItems>
                 <dxr:RibbonDefaultPageCategory>
-                    <dxr:RibbonPage x:Name="mainMenu" Caption="Osnovno">
-                        <dxr:RibbonPageGroup Caption="File">
-                            <dxb:BarSubItem x:Name="Tvrtka" Content="Tvrtka" Glyph="{dx:DXImage Image=Windows_16x16.png}" LargeGlyph="{dx:DXImage Image=Windows_32x32.png}">
-                                
-                            </dxb:BarSubItem>
-                            <dxb:BarSubItem x:Name="Objekt" Content="Objekt" Glyph="{dx:DXImage Image=BOSaleItem_16x16.png}" LargeGlyph="{dx:DXImage Image=BOSaleItem_32x32.png}">
-                                
-                            </dxb:BarSubItem>
-                            <dxb:BarSubItem x:Name="Godina" Content="Godina" Glyph="{dx:DXImage Image=Calendar_16x16.png}" LargeGlyph="{dx:DXImage Image=Calendar_32x32.png}">
-                                <dxb:BarButtonItem Content="2015"/>
-                                <dxb:BarButtonItem Content="2016"/>
-                                <dxb:BarButtonItem Content="2017"/>
-                            </dxb:BarSubItem>
-                            <dxb:BarSubItem x:Name="Program" Content="Program" Glyph="{dx:DXImage Image=Technology_16x16.png}" LargeGlyph="{dx:DXImage Image=Technology_32x32.png}">
-                                <dxb:BarButtonItem Content="Veleprodaja"/>
-                                <dxb:BarButtonItem Content="Maloprodaja"/>
-                                <dxb:BarButtonItem Content="Ugostiteljstvo"/>
-                                <dxb:BarButtonItem Content="Financijsko"/>
-                                
-
-                            </dxb:BarSubItem>
-                        </dxr:RibbonPageGroup>
-                    </dxr:RibbonPage>
+                   
                     <dxr:RibbonPage Caption="Sistem">
                         <dxr:RibbonPageGroup Caption="File">
                             <dxb:BarButtonItem x:Name="biOen" Content="Otvori" Glyph="{dx:DXImage Image=Open_16x16.png}" LargeGlyph="{dx:DXImage Image=Open_32x32.png}"/>
@@ -64,6 +42,29 @@
                         <dxr:RibbonPageGroup Caption="Printeri">
                             <dxb:BarButtonItem x:Name="printButton" Content="Printeri A4" Glyph="{dx:DXImage Image=Print_16x16}" LargeGlyph="{dx:DXImage Image=Print_32x32.png}"/>
                             <dxb:BarButtonItem x:Name="fiscalButton" Content="Fiskalni printeri" Glyph="{dx:DXImage Image=fAX_16x16.png}" LargeGlyph="{dx:DXImage Image=Fax_32x32.png}"/>
+                        </dxr:RibbonPageGroup>
+                    </dxr:RibbonPage>
+                    <dxr:RibbonPage x:Name="mainMenu" Caption="Osnovno">
+                        <dxr:RibbonPageGroup Caption="File">
+                            <dxb:BarSubItem x:Name="Tvrtka" Content="Tvrtka" Glyph="{dx:DXImage Image=Windows_16x16.png}" LargeGlyph="{dx:DXImage Image=Windows_32x32.png}">
+
+                            </dxb:BarSubItem>
+                            <dxb:BarSubItem x:Name="Objekt" Content="Objekt" Glyph="{dx:DXImage Image=BOSaleItem_16x16.png}" LargeGlyph="{dx:DXImage Image=BOSaleItem_32x32.png}">
+
+                            </dxb:BarSubItem>
+                            <dxb:BarSubItem x:Name="Godina" Content="Godina" Glyph="{dx:DXImage Image=Calendar_16x16.png}" LargeGlyph="{dx:DXImage Image=Calendar_32x32.png}">
+                                <dxb:BarButtonItem Content="2015"/>
+                                <dxb:BarButtonItem Content="2016"/>
+                                <dxb:BarButtonItem Content="2017"/>
+                            </dxb:BarSubItem>
+                            <dxb:BarSubItem x:Name="Program" Content="Program" Glyph="{dx:DXImage Image=Technology_16x16.png}" LargeGlyph="{dx:DXImage Image=Technology_32x32.png}">
+                                <dxb:BarButtonItem Content="Veleprodaja"/>
+                                <dxb:BarButtonItem Content="Maloprodaja"/>
+                                <dxb:BarButtonItem Content="Ugostiteljstvo"/>
+                                <dxb:BarButtonItem Content="Financijsko"/>
+
+
+                            </dxb:BarSubItem>
                         </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>
                 </dxr:RibbonDefaultPageCategory>
@@ -84,12 +85,12 @@
                 <Grid.Background>
                     <ImageBrush ImageSource="Resources/Logo_big_bg.png" Stretch="Uniform" Opacity="0.2"/>
                 </Grid.Background>
-                <dxnav:TileBar  x:FieldModifier="public"  x:Name="maloprodaja" Margin="10,0,0,10" ItemSpacing="5" FlyoutShowDirection="Default" ItemColorMode="Standard" AllowItemSelection="true" Orientation="vertical" HorizontalAlignment="LEFT" Padding="20,0,20,20">
-                    <dxnav:TileBarItem  Name="pokusaj1" Content="Akcijske cijene" Background="#FF901B45" TileGlyph="{dx:DXImage Image=BOSale_32x32.png}" Width="150"/>
-                    <dxnav:TileBarItem  Name="Servisna_roba" Content="Servisna roba" Background="#FF901B45" TileGlyph="{dx:DXImage Image=BOTask_32x32.png}" Width="150"/>
+                <dxnav:TileBar  x:FieldModifier="public"  x:Name="maloprodaja" Margin="55,0,0,10" ItemSpacing="5" FlyoutShowDirection="Default" ItemColorMode="Standard" AllowItemSelection="true" Orientation="vertical" HorizontalAlignment="LEFT" Padding="20,0,20,20">
                     
                 </dxnav:TileBar>
+                <dxnav:TileBar  x:FieldModifier="public"  x:Name="veleprodaja" Margin="10,0,0,10" ItemSpacing="5" FlyoutShowDirection="Default" ItemColorMode="Standard" AllowItemSelection="true" Orientation="vertical" HorizontalAlignment="left" Padding="20,0,20,20">
 
+                </dxnav:TileBar>
             </Grid>
         </DockPanel>
     </Grid>

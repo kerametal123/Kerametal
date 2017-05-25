@@ -17,12 +17,13 @@ Class MainWindow
 
                 If licenciranje.provjeriLicencuOnline() = True Then
                     pripremiSucelje()
+                    sucelje.opcijeMPtipke()
+                    sucelje.opcijeVPtipke()
                 ElseIf licenciranje.provjeriLicencuOnline() = False Then
                     MessageBox.Show("not ok")
                 End If
             ElseIf Globals.CheckForInternetConnection = False Then
                 ' maloprodaja.Visibility = Visibility.Hidden
-
             End If
 
         Catch ex As Exception
@@ -58,26 +59,6 @@ Class MainWindow
             BarCheckItem.Name = item.objekti_adresa
             Objekt.Items.Add(BarCheckItem)
         Next
-
-        'For Each item As ReturnList In mysql.maloprodajaIzbornik()
-        '    Dim colour As String = "#ffaacc"
-        '    Dim icona As String = "Filter/BarArgument_32x32.png"
-        '    Color.FromRgb(Convert.ToByte(colour.Substring(1, 2), 16), Convert.ToByte(colour.Substring(3, 2), 16), Convert.ToByte(colour.Substring(5, 2), 16))
-        '    Dim barmanager1 As New BarManager
-        '    Dim TileBarItem = New TileBarItem()
-        '    TileBarItem.Content = item.tipka2
-        '    TileBarItem.Name = "ffss"
-        '    AddHandler pokusaj1.Click, AddressOf BuyPizzaHandler
-        '    Dim pizz As String = "BuyPizzaHandler"
-
-        '    TileBarItem.Width = 150
-        '    Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
-        '    TileBarItem.TileGlyph = Icon
-        '    TileBarItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#FF901B45"), Color))
-
-        '    maloprodaja.Items.Add(TileBarItem)
-        'Next
-
     End Function
 
     Public Function checkButtons()
@@ -107,15 +88,10 @@ Class MainWindow
 
         End Try
     End Function
-
-
-
-    Private Sub pokusaj1_Click(sender As Object, e As EventArgs) Handles pokusaj1.Click
-        ade()
-
+    Sub BuyPizzaHandler()
+        MessageBox.Show("Button")
     End Sub
-
-    Public Function ade()
+    Public Function opcijeMPtipke()
         Dim array() As String = {Globals.prodaja, Globals.Kalkulacije, Globals.Robno, Globals.KUF, Globals.KIF, Globals.Narudzbenice, Globals.Nalozi, Globals.akcijskeCijene, Globals.servisnaRoba, Globals.Ostalo1, Globals.Ostalo2, Globals.Ostalo3}
 
         For Each value As String In array
@@ -128,7 +104,7 @@ Class MainWindow
             TileBarItem.Name = "ffss"
             TileBarItem.Width = 150
             If parts(0) = 1 Then
-                TileBarItem.Visibility = Visibility.Hidden
+                ' TileBarItem.Visibility = Visibility.Hidden
             ElseIf parts(0) = 2 Then
 
             End If
@@ -139,12 +115,4 @@ Class MainWindow
             maloprodaja.Items.Add(TileBarItem)
         Next
     End Function
-
-    Private Sub Servisna_roba_Click(sender As Object, e As EventArgs) Handles Servisna_roba.Click
-
-    End Sub
-
-    Sub BuyPizzaHandler()
-        MessageBox.Show("Button")
-    End Sub
 End Class
