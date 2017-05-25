@@ -267,6 +267,50 @@ Public Class MySQLinfo
             ManageConnection(True, konekcija)
         End Try
     End Function
+    Public Function opcijeVp(ByVal hwid As String)
+        Dim hardware As String = hwid
+        Dim result = New List(Of String)()
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim strQuery As String = "SELECT * FROM info.opcije_vp as Vp inner join instalacije as i where Vp.idopcije_vp = 
+            i.opcijeVP and i.instalacije_hwid  = '" + Globals.cpuid + "';"
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+            ' Declare new Dictionary with String keys.
+
+            While reader.Read()
+                ' Add two keys.
+                Globals.vp_fakture = reader.GetString("Fakture")
+                Globals.vp_Kalkulacije = reader.GetString("Kalkulacije")
+                Globals.vp_Otpremnice = reader.GetString("Otpremnice")
+                Globals.vp_Predisponacije = reader.GetString("Predisponacije")
+                Globals.vp_Robno = reader.GetString("Robno")
+                Globals.vp_KUF = reader.GetString("KUF")
+                Globals.vp_KIF = reader.GetString("KIF")
+                Globals.vp_Narudzbenice = reader.GetString("Narudzbenice")
+                Globals.vp_Nalozi = reader.GetString("Nalozi")
+                Globals.vp_akcijskeCijene = reader.GetString("Akcijske_cijene")
+                Globals.vp_servisnaRoba = reader.GetString("Servisna_roba")
+                Globals.vp_Elektronska_oprema = reader.GetString("Elektronska_oprema")
+                Globals.vp_Ambalazni_otpad = reader.GetString("Ambalazni_otpad")
+                Globals.vp_Web_fakture = reader.GetString("Web_fakture")
+                Globals.vp_Ostalo1 = reader.GetString("Ostalo 1")
+                Globals.vp_Ostalo2 = reader.GetString("Ostalo 2")
+                Globals.vp_Ostalo3 = reader.GetString("Ostalo 3")
+                Globals.vp_dat1 = reader.GetString("Dat 1")
+                Globals.vp_dat2 = reader.GetString("Dat 2")
+                Globals.vp_dat3 = reader.GetString("Dat 3")
+            End While
+            reader.Close()
+            'Vraća podatke u Listi stringova
+            'Return result
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+            Return Nothing
+        Finally
+            ManageConnection(True, konekcija)
+        End Try
+    End Function
     Public Function vratiTvrtke(ByVal hwid As String)
         Dim hardware As String = hwid
         Dim result = New List(Of ReturnList)
@@ -336,58 +380,13 @@ Public Class MySQLinfo
         Return result
     End Function
 
-    Public Function maloprodajaIzbornik()
-        Dim result = New List(Of ReturnList)
-        Try
-            ManageConnection(False, konekcija) 'Open connection
-            Dim strQuery As String = "SELECT * FROM info.opcije_mp as mp inner join instalacije as i where mp.idopcije_mp = i.opcijeMP and i.instalacije_hwid = '" + Globals.tvrtka + "';"
-            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
-            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
-            While reader.Read()
-                Dim TempResult As New ReturnList
-                TempResult.prodajaBtn = reader(3)
-                TempResult.kalkulacijeBtn = reader(4)
-                TempResult.zaduzniceBtn = reader(5)
-                TempResult.predisponacijeBtn = reader(6)
-                TempResult.robnoBtn = reader(7)
-                TempResult.KUFBtn = reader(8)
-                TempResult.KIFBtn = reader(9)
-                TempResult.NarudzbeniceBTN = reader(10)
-                TempResult.naloziBtn = reader(11)
-                TempResult.ACBtn = reader(12)
-                TempResult.SRBtn = reader(13)
-                TempResult.ostalo1Btn = reader(14)
-                TempResult.ostalo2Btn = reader(15)
-                TempResult.ostalo3Btn = reader(16)
-                result.Add(TempResult)
-            End While
-            reader.Close()
-        Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
-        Finally
-            ManageConnection(True, konekcija) 'Close connection
-        End Try
-        Return result
-    End Function
+
     Public Class ReturnList
         Public Property tvrtke_naziv As String
         Public Property dabase As String
         Public Property objekti_naziv As String
         Public Property objekti_adresa As String
         'MP TIPKE
-        Public Property prodajaBtn As String
-        Public Property kalkulacijeBtn As String
-        Public Property zaduzniceBtn As String
-        Public Property predisponacijeBtn As String
-        Public Property robnoBtn As String
-        Public Property KUFBtn As String
-        Public Property KIFBtn As String
-        Public Property NarudzbeniceBTN As String
-        Public Property naloziBtn As String
-        Public Property ACBtn As String
-        Public Property SRBtn As String
-        Public Property ostalo1Btn As String
-        Public Property ostalo2Btn As String
-        Public Property ostalo3Btn As String
+
     End Class
 End Class

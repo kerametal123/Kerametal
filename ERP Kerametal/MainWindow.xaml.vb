@@ -40,6 +40,7 @@ Class MainWindow
     Public Function pripremiSucelje()
         mysql.infoInstalacije(Globals.cpuid)
         mysql.opcijeMp(Globals.cpuid)
+        mysql.opcijeVp(Globals.cpuid)
         biRowValue.Content = "Konekcija: " + Globals.databaseName
         biColumnValue.Content = "   Tvrtka: " + Globals.tvrtka_naziv + "   Objekt: " + Globals.objekt_naziv + " Računalo: " + Globals.cpuid
 

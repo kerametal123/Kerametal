@@ -21,9 +21,9 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
     'Array MP
     Public Shared prodaja = "", Kalkulacije = "", Zaduznice = "", Predisponacije = "", Robno = "", KUF = "", KIF = "", Narudzbenice = "", Nalozi = "", akcijskeCijene = "", servisnaRoba = "", Ostalo1 = "", Ostalo2 = "", Ostalo3 = ""
     'Array VP
-
+    Public Shared vp_fakture = "", vp_Kalkulacije = "", vp_Otpremnice = "", vp_Predisponacije = "", vp_Robno = "", vp_KUF = "", vp_KIF = "", vp_Narudzbenice = "", vp_Nalozi = "", vp_akcijskeCijene = "", vp_servisnaRoba = "", vp_Elektronska_oprema = "", vp_Ambalazni_otpad = "", vp_Web_fakture = "", vp_Ostalo1 = "", vp_Ostalo2 = "", vp_Ostalo3 = "", vp_dat1 = "", vp_dat2 = "", vp_dat3 = ""
     Public Shared Function CheckForInternetConnection() As Boolean
-        Dim we As MainWindow = Application.Current.Windows(0)
+    Dim we As MainWindow = Application.Current.Windows(0)
         Try
             Using client = New WebClient()
                 Using stream = client.OpenRead("http://www.google.com")

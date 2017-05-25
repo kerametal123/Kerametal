@@ -25,25 +25,28 @@
                     <dxb:BarButtonItemLink BarItemName="biOpen"/>
                     <dxb:BarButtonItemLink BarItemName="biNew"/>
                 </dxr:RibbonControl.ToolbarItems>
-                <dxr:RibbonDefaultPageCategory>
-                   
-                    <dxr:RibbonPage Caption="Sistem">
-                        <dxr:RibbonPageGroup Caption="File">
-                            <dxb:BarButtonItem x:Name="biOen" Content="Otvori" Glyph="{dx:DXImage Image=Open_16x16.png}" LargeGlyph="{dx:DXImage Image=Open_32x32.png}"/>
-                            <dxb:BarButtonItem x:Name="biNw" Content="New" Glyph="{dx:DXImage Image=New_16x16.png}" LargeGlyph="{dx:DXImage Image=New_32x32.png}"/>
-                        </dxr:RibbonPageGroup>
-                    </dxr:RibbonPage>
-                    <dxr:RibbonPage Caption="Postavke">
-                        <dxr:RibbonPageGroup Caption="Baze podataka">
-                            <dxb:BarButtonItem x:Name="dbButton" Content="Informacije" Glyph="{dx:DXImage Image=Database_16x16}" LargeGlyph="{dx:DXImage Image=Database_32x32.png}"/>
-                            <dxb:BarButtonItem x:Name="biw" Content="Podešavanje" Glyph="{dx:DXImage Image=ManageDatasource_16x16.png}" LargeGlyph="{dx:DXImage Image=ManageDatasource_32x32.png}"/>
-                        </dxr:RibbonPageGroup>
+                <dxr:RibbonPageCategory Caption="Programi">
+                <dxr:RibbonPage Caption="Maloprodaja">
+                        <dxr:RibbonPageGroup Caption="Programi maloprodaje" Name="maloprodaja"/>
 
-                        <dxr:RibbonPageGroup Caption="Printeri">
-                            <dxb:BarButtonItem x:Name="printButton" Content="Printeri A4" Glyph="{dx:DXImage Image=Print_16x16}" LargeGlyph="{dx:DXImage Image=Print_32x32.png}"/>
-                            <dxb:BarButtonItem x:Name="fiscalButton" Content="Fiskalni printeri" Glyph="{dx:DXImage Image=fAX_16x16.png}" LargeGlyph="{dx:DXImage Image=Fax_32x32.png}"/>
-                        </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>
+                <dxr:RibbonPage Caption="Veleprodaja">
+                        <dxr:RibbonPageGroup Caption="Programi veleprodaje" Name="veleprodaja"/>
+
+                    </dxr:RibbonPage>
+                <dxr:RibbonPage Caption="Financije">
+
+                </dxr:RibbonPage>
+                <dxr:RibbonPage Caption="Ugostiteljstvo">
+
+                </dxr:RibbonPage>
+                </dxr:RibbonPageCategory>
+                <dxr:RibbonDefaultPageCategory>
+                    
+                    
+                    
+                </dxr:RibbonDefaultPageCategory>
+                <dxr:RibbonPageCategory Caption="Podešavanja" Color="#FFB95C40">
                     <dxr:RibbonPage x:Name="mainMenu" Caption="Osnovno">
                         <dxr:RibbonPageGroup Caption="File">
                             <dxb:BarSubItem x:Name="Tvrtka" Content="Tvrtka" Glyph="{dx:DXImage Image=Windows_16x16.png}" LargeGlyph="{dx:DXImage Image=Windows_32x32.png}">
@@ -67,12 +70,24 @@
                             </dxb:BarSubItem>
                         </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>
-                </dxr:RibbonDefaultPageCategory>
+                    <dxr:RibbonPage Caption="Postavke">
+                        <dxr:RibbonPageGroup Caption="Baze podataka">
+                            <dxb:BarButtonItem x:Name="dbButton" Content="Informacije" Glyph="{dx:DXImage Image=Database_16x16}" LargeGlyph="{dx:DXImage Image=Database_32x32.png}"/>
+                            <dxb:BarButtonItem x:Name="biw" Content="Podešavanje" Glyph="{dx:DXImage Image=ManageDatasource_16x16.png}" LargeGlyph="{dx:DXImage Image=ManageDatasource_32x32.png}"/>
+                        </dxr:RibbonPageGroup>
+
+                        <dxr:RibbonPageGroup Caption="Printeri">
+                            <dxb:BarButtonItem x:Name="printButton" Content="Printeri A4" Glyph="{dx:DXImage Image=Print_16x16}" LargeGlyph="{dx:DXImage Image=Print_32x32.png}"/>
+                            <dxb:BarButtonItem x:Name="fiscalButton" Content="Fiskalni printeri" Glyph="{dx:DXImage Image=fAX_16x16.png}" LargeGlyph="{dx:DXImage Image=Fax_32x32.png}"/>
+                        </dxr:RibbonPageGroup>
+                    </dxr:RibbonPage>
+                </dxr:RibbonPageCategory>
+
             </dxr:RibbonControl>
             <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
                 <dxr:RibbonStatusBarControl.LeftItems>
                     <dxb:BarStaticItem  x:FieldModifier="public"  x:Name="biRowValue" Content="MySQL Lju"/>
-               
+
                     <dxb:BarStaticItem  x:FieldModifier="public"  x:Name="biColumnValue" Content="127.0.0.1"/>
                 </dxr:RibbonStatusBarControl.LeftItems>
                 <dxr:RibbonStatusBarControl.RightItems>
@@ -85,12 +100,7 @@
                 <Grid.Background>
                     <ImageBrush ImageSource="Resources/Logo_big_bg.png" Stretch="Uniform" Opacity="0.2"/>
                 </Grid.Background>
-                <dxnav:TileBar  x:FieldModifier="public"  x:Name="maloprodaja" Margin="55,0,0,10" ItemSpacing="5" FlyoutShowDirection="Default" ItemColorMode="Standard" AllowItemSelection="true" Orientation="vertical" HorizontalAlignment="LEFT" Padding="20,0,20,20">
-                    
-                </dxnav:TileBar>
-                <dxnav:TileBar  x:FieldModifier="public"  x:Name="veleprodaja" Margin="10,0,0,10" ItemSpacing="5" FlyoutShowDirection="Default" ItemColorMode="Standard" AllowItemSelection="true" Orientation="vertical" HorizontalAlignment="left" Padding="20,0,20,20">
-
-                </dxnav:TileBar>
+                
             </Grid>
         </DockPanel>
     </Grid>
