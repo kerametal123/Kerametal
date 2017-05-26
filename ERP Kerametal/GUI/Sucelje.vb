@@ -67,4 +67,57 @@ Public Class Sucelje
             w.veleprodaja.Items.Add(BarButtonItem)
         Next
     End Function
+    Public Function opcijeUGtipke()
+        Dim array() As String = {Globals.ug_prodaja, Globals.ug_Kalkulacije, Globals.ug_Zaduznice, Globals.ug_Predisponacije, Globals.ug_Robno, Globals.ug_KUF, Globals.ug_KIF, Globals.ug_Narudzbenice, Globals.ug_Nalozi, Globals.ug_akcijskeCijene, Globals.ug_servisnaRoba, Globals.ug_Ostalo1, Globals.ug_Ostalo2, Globals.ug_Ostalo3, Globals.ug_Ostalo4, Globals.ug_Ostalo5}
+
+        For Each value As String In array
+            Dim s As String = value
+            Dim parts As String() = s.Split(New Char() {","c})
+            Dim icona As String = parts(1)
+            Dim barmanager1 As New BarManager
+            Dim BarButtonItem = New BarButtonItem()
+            BarButtonItem.Content = parts(3)
+            'BarButtonItem.Name = parts(3)
+            If parts(0) = 1 Then
+                BarButtonItem.IsVisible = False
+            ElseIf parts(0) = 2 Then
+
+            ElseIf parts(0) = 3 Then
+
+            ElseIf parts(0) = 4 Then
+
+            End If
+            Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
+            BarButtonItem.LargeGlyph = Icon
+            'BarButtonItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString(parts(2)), Color))
+            w.ugostiteljstvo.Items.Add(BarButtonItem)
+        Next
+    End Function
+
+    Public Function opcijeFKtipke()
+        Dim array() As String = {Globals.fk_glavna_knjiga, Globals.fk_saldo_konti, Globals.fk_blagajna, Globals.fk_aa, Globals.fk_bb, Globals.fk_KUF, Globals.fk_KIF, Globals.fk_ostalo1, Globals.fk_ostalo2, Globals.fk_ostalo3, Globals.fk_ostalo4, Globals.fk_ostalo5, Globals.fk_ostalo6, Globals.fk_ostalo7, Globals.fk_ostalo8, Globals.fk_ostalo9, Globals.fk_partneri, Globals.fk_kontni_plan}
+
+        For Each value As String In array
+            Dim s As String = value
+            Dim parts As String() = s.Split(New Char() {","c})
+            Dim icona As String = parts(1)
+            Dim barmanager1 As New BarManager
+            Dim BarButtonItem = New BarButtonItem()
+            BarButtonItem.Content = parts(3)
+            'BarButtonItem.Name = parts(3)
+            If parts(0) = 1 Then
+                BarButtonItem.IsVisible = False
+            ElseIf parts(0) = 2 Then
+
+            ElseIf parts(0) = 3 Then
+
+            ElseIf parts(0) = 4 Then
+
+            End If
+            Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
+            BarButtonItem.LargeGlyph = Icon
+            'BarButtonItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString(parts(2)), Color))
+            w.ugostiteljstvo.Items.Add(BarButtonItem)
+        Next
+    End Function
 End Class

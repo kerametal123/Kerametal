@@ -19,6 +19,8 @@ Class MainWindow
                     pripremiSucelje()
                     sucelje.opcijeMPtipke()
                     sucelje.opcijeVPtipke()
+                    sucelje.opcijeUGtipke()
+                    sucelje.opcijeFKtipke()
                 ElseIf licenciranje.provjeriLicencuOnline() = False Then
                     MessageBox.Show("not ok")
                 End If
@@ -41,6 +43,7 @@ Class MainWindow
         mysql.infoInstalacije(Globals.cpuid)
         mysql.opcijeMp(Globals.cpuid)
         mysql.opcijeVp(Globals.cpuid)
+        mysql.opcijeUg(Globals.cpuid)
         biRowValue.Content = "Konekcija: " + Globals.databaseName
         biColumnValue.Content = "   Tvrtka: " + Globals.tvrtka_naziv + "   Objekt: " + Globals.objekt_naziv + " Računalo: " + Globals.cpuid
 
@@ -92,28 +95,5 @@ Class MainWindow
     Sub BuyPizzaHandler()
         MessageBox.Show("Button")
     End Sub
-    Public Function opcijeMPtipke()
-        Dim array() As String = {Globals.prodaja, Globals.Kalkulacije, Globals.Robno, Globals.KUF, Globals.KIF, Globals.Narudzbenice, Globals.Nalozi, Globals.akcijskeCijene, Globals.servisnaRoba, Globals.Ostalo1, Globals.Ostalo2, Globals.Ostalo3}
 
-        For Each value As String In array
-            Dim s As String = value
-            Dim parts As String() = s.Split(New Char() {","c})
-            Dim icona As String = parts(1)
-            Dim barmanager1 As New BarManager
-            Dim TileBarItem = New TileBarItem()
-            TileBarItem.Content = parts(3)
-            TileBarItem.Name = "ffss"
-            TileBarItem.Width = 150
-            If parts(0) = 1 Then
-                ' TileBarItem.Visibility = Visibility.Hidden
-            ElseIf parts(0) = 2 Then
-
-            End If
-
-            Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
-            TileBarItem.TileGlyph = Icon
-            TileBarItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString(parts(2)), Color))
-            maloprodaja.Items.Add(TileBarItem)
-        Next
-    End Function
 End Class

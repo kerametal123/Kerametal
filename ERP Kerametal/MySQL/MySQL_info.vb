@@ -311,6 +311,89 @@ Public Class MySQLinfo
             ManageConnection(True, konekcija)
         End Try
     End Function
+
+    Public Function opcijeUg(ByVal hwid As String)
+        Dim hardware As String = hwid
+        Dim result = New List(Of String)()
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim strQuery As String = "SELECT * FROM info.opcije_ug as Ug inner join instalacije as i where Ug.idopcije_ug = 
+            i.opcijeUG and i.instalacije_hwid  = '" + Globals.cpuid + "';"
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+            ' Declare new Dictionary with String keys.
+
+            While reader.Read()
+                ' Add two keys.
+                Globals.ug_prodaja = reader.GetString("Prodaja")
+                Globals.ug_Kalkulacije = reader.GetString("Kalkulacije")
+                Globals.ug_Zaduznice = reader.GetString("Zaduznice")
+                Globals.ug_Predisponacije = reader.GetString("Predisponacije")
+                Globals.ug_Robno = reader.GetString("Robno")
+                Globals.ug_KUF = reader.GetString("KUF")
+                Globals.ug_KIF = reader.GetString("KIF")
+                Globals.ug_Narudzbenice = reader.GetString("Narudzbenice")
+                Globals.ug_Nalozi = reader.GetString("Nalozi")
+                Globals.ug_akcijskeCijene = reader.GetString("Akcijske_cijene")
+                Globals.ug_servisnaRoba = reader.GetString("Servisna_roba")
+                Globals.ug_Ostalo1 = reader.GetString("Ostalo1")
+                Globals.ug_Ostalo2 = reader.GetString("Ostalo2")
+                Globals.ug_Ostalo3 = reader.GetString("Ostalo3")
+                Globals.ug_Ostalo4 = reader.GetString("Ostalo4")
+                Globals.ug_Ostalo5 = reader.GetString("Ostalo5")
+            End While
+            reader.Close()
+            'Vraća podatke u Listi stringova
+            'Return result
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+            Return Nothing
+        Finally
+            ManageConnection(True, konekcija)
+        End Try
+    End Function
+    Public Function opcijeFk(ByVal hwid As String)
+        Dim hardware As String = hwid
+        Dim result = New List(Of String)()
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim strQuery As String = "SELECT * FROM info.opcije_fk as Fk inner join instalacije as i where Fk.idopcije_fk = 
+            i.OpcijeFK and i.instalacije_hwid  = '" + Globals.cpuid + "';"
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+            ' Declare new Dictionary with String keys.
+
+            While reader.Read()
+                ' Add two keys.
+                Globals.fk_glavna_knjiga = reader.GetString("Glavna_knjiga")
+                Globals.fk_saldo_konti = reader.GetString("Saldo_konti")
+                Globals.fk_blagajna = reader.GetString("Blagajna")
+                Globals.fk_aa = reader.GetString("aa")
+                Globals.fk_bb = reader.GetString("bb")
+                Globals.fk_KUF = reader.GetString("KUF")
+                Globals.ug_KIF = reader.GetString("KIF")
+                Globals.fk_ostalo1 = reader.GetString("Ostalo1")
+                Globals.fk_ostalo2 = reader.GetString("Ostalo2")
+                Globals.fk_ostalo3 = reader.GetString("Ostalo3")
+                Globals.fk_ostalo4 = reader.GetString("Ostalo4")
+                Globals.fk_ostalo5 = reader.GetString("Ostalo5")
+                Globals.fk_ostalo6 = reader.GetString("Ostalo6")
+                Globals.fk_ostalo7 = reader.GetString("Ostalo7")
+                Globals.fk_ostalo8 = reader.GetString("Ostalo8")
+                Globals.fk_ostalo9 = reader.GetString("Ostalo9")
+                Globals.fk_partneri = reader.GetString("Partneri")
+                Globals.fk_kontni_plan = reader.GetString("Kontni_plan")
+            End While
+            reader.Close()
+            'Vraća podatke u Listi stringova
+            'Return result
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+            Return Nothing
+        Finally
+            ManageConnection(True, konekcija)
+        End Try
+    End Function
     Public Function vratiTvrtke(ByVal hwid As String)
         Dim hardware As String = hwid
         Dim result = New List(Of ReturnList)

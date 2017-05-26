@@ -26,20 +26,20 @@
                     <dxb:BarButtonItemLink BarItemName="biNew"/>
                 </dxr:RibbonControl.ToolbarItems>
                 <dxr:RibbonPageCategory Caption="Programi">
-                <dxr:RibbonPage Caption="Maloprodaja">
+                <dxr:RibbonPage Caption="Maloprodaja" Name="mpmenu">
                         <dxr:RibbonPageGroup Caption="Programi maloprodaje" Name="maloprodaja"/>
 
                     </dxr:RibbonPage>
-                <dxr:RibbonPage Caption="Veleprodaja">
+                <dxr:RibbonPage Caption="Veleprodaja" Name="vpmenu">
                         <dxr:RibbonPageGroup Caption="Programi veleprodaje" Name="veleprodaja"/>
 
                     </dxr:RibbonPage>
-                <dxr:RibbonPage Caption="Financije">
-
-                </dxr:RibbonPage>
-                <dxr:RibbonPage Caption="Ugostiteljstvo">
-
-                </dxr:RibbonPage>
+                <dxr:RibbonPage Caption="Financije" Name="finmenu">
+                        <dxr:RibbonPageGroup Caption="Programi financija" Name="financije"/>
+                    </dxr:RibbonPage>
+                <dxr:RibbonPage Caption="Ugostiteljstvo" Name="ugmenu">
+                        <dxr:RibbonPageGroup Caption="Programi veleprodaje" Name="ugostiteljstvo"/>
+                    </dxr:RibbonPage>
                 </dxr:RibbonPageCategory>
                 <dxr:RibbonDefaultPageCategory>
                     
@@ -56,15 +56,10 @@
 
                             </dxb:BarSubItem>
                             <dxb:BarSubItem x:Name="Godina" Content="Godina" Glyph="{dx:DXImage Image=Calendar_16x16.png}" LargeGlyph="{dx:DXImage Image=Calendar_32x32.png}">
-                                <dxb:BarButtonItem Content="2015"/>
-                                <dxb:BarButtonItem Content="2016"/>
-                                <dxb:BarButtonItem Content="2017"/>
+                              
                             </dxb:BarSubItem>
                             <dxb:BarSubItem x:Name="Program" Content="Program" Glyph="{dx:DXImage Image=Technology_16x16.png}" LargeGlyph="{dx:DXImage Image=Technology_32x32.png}">
-                                <dxb:BarButtonItem Content="Veleprodaja"/>
-                                <dxb:BarButtonItem Content="Maloprodaja"/>
-                                <dxb:BarButtonItem Content="Ugostiteljstvo"/>
-                                <dxb:BarButtonItem Content="Financijsko"/>
+                              
 
 
                             </dxb:BarSubItem>
@@ -84,6 +79,7 @@
                 </dxr:RibbonPageCategory>
 
             </dxr:RibbonControl>
+            
             <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
                 <dxr:RibbonStatusBarControl.LeftItems>
                     <dxb:BarStaticItem  x:FieldModifier="public"  x:Name="biRowValue" Content="MySQL Lju"/>
@@ -100,7 +96,7 @@
                 <Grid.Background>
                     <ImageBrush ImageSource="Resources/Logo_big_bg.png" Stretch="Uniform" Opacity="0.2"/>
                 </Grid.Background>
-                
+
             </Grid>
         </DockPanel>
     </Grid>
