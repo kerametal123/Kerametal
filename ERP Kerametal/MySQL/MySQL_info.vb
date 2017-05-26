@@ -371,7 +371,7 @@ Public Class MySQLinfo
                 Globals.fk_aa = reader.GetString("aa")
                 Globals.fk_bb = reader.GetString("bb")
                 Globals.fk_KUF = reader.GetString("KUF")
-                Globals.ug_KIF = reader.GetString("KIF")
+                Globals.fk_KIF = reader.GetString("KIF")
                 Globals.fk_ostalo1 = reader.GetString("Ostalo1")
                 Globals.fk_ostalo2 = reader.GetString("Ostalo2")
                 Globals.fk_ostalo3 = reader.GetString("Ostalo3")

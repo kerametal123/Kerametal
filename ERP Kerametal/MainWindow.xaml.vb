@@ -44,6 +44,7 @@ Class MainWindow
         mysql.opcijeMp(Globals.cpuid)
         mysql.opcijeVp(Globals.cpuid)
         mysql.opcijeUg(Globals.cpuid)
+        mysql.opcijeFk(Globals.cpuid)
         biRowValue.Content = "Konekcija: " + Globals.databaseName
         biColumnValue.Content = "   Tvrtka: " + Globals.tvrtka_naziv + "   Objekt: " + Globals.objekt_naziv + " Računalo: " + Globals.cpuid
 

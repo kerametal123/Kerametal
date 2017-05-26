@@ -117,7 +117,7 @@ Public Class Sucelje
             Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
             BarButtonItem.LargeGlyph = Icon
             'BarButtonItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString(parts(2)), Color))
-            w.ugostiteljstvo.Items.Add(BarButtonItem)
+            w.financije.Items.Add(BarButtonItem)
         Next
     End Function
 End Class
