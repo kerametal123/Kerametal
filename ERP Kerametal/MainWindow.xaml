@@ -8,7 +8,7 @@
  
         xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" dxc:DXSplashScreen.SplashScreenType="{x:Type local:SplashScreenERP}"  xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxrud="http://schemas.devexpress.com/winfx/2008/xaml/reports/userdesigner" xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid" x:Class="MainWindow"
         mc:Ignorable="d"
-        Title="Glavni Prozor" Height="1104" Width="1024" Loaded="Window_Loaded" WindowState="Maximized">
+        Title="Glavni Prozor" Height="1104" Width="964" Loaded="Window_Loaded" WindowState="Maximized">
     <Window.Resources>
 
     </Window.Resources>
@@ -25,42 +25,26 @@
                     <dxb:BarButtonItemLink BarItemName="biOpen"/>
                     <dxb:BarButtonItemLink BarItemName="biNew"/>
                 </dxr:RibbonControl.ToolbarItems>
-                <dxr:RibbonPageCategory Caption="Programi">
-                <dxr:RibbonPage Caption="Maloprodaja" Name="mpmenu">
-                        <dxr:RibbonPageGroup Caption="Programi maloprodaje" Name="maloprodaja"/>
-
-                    </dxr:RibbonPage>
-                <dxr:RibbonPage Caption="Veleprodaja" Name="vpmenu">
-                        <dxr:RibbonPageGroup Caption="Programi veleprodaje" Name="veleprodaja"/>
-
-                    </dxr:RibbonPage>
-                <dxr:RibbonPage Caption="Financije" Name="finmenu">
-                        <dxr:RibbonPageGroup Caption="Programi financija" Name="financije"/>
-                    </dxr:RibbonPage>
-                <dxr:RibbonPage Caption="Ugostiteljstvo" Name="ugmenu">
-                        <dxr:RibbonPageGroup Caption="Programi veleprodaje" Name="ugostiteljstvo"/>
-                    </dxr:RibbonPage>
-                </dxr:RibbonPageCategory>
                 <dxr:RibbonDefaultPageCategory>
-                    
-                    
-                    
+
+
+
                 </dxr:RibbonDefaultPageCategory>
                 <dxr:RibbonPageCategory Caption="Podešavanja" Color="#FFB95C40">
                     <dxr:RibbonPage x:Name="mainMenu" Caption="Osnovno">
-                        <dxr:RibbonPageGroup Caption="File">
-                            <dxb:BarSubItem x:Name="Tvrtka" Content="Tvrtka" Glyph="{dx:DXImage Image=Windows_16x16.png}" LargeGlyph="{dx:DXImage Image=Windows_32x32.png}">
+                        <dxr:RibbonPageGroup Caption="Glavni izbornik">
+                            <dxb:BarSubItem x:Name="Tvrtka" ItemClickBehaviour="None" Content="Tvrtka" Glyph="{dx:DXImage Image=Windows_16x16.png}" LargeGlyph="{dx:DXImage Image=Windows_32x32.png}">
 
                             </dxb:BarSubItem>
-                            <dxb:BarSubItem x:Name="Objekt" Content="Objekt" Glyph="{dx:DXImage Image=BOSaleItem_16x16.png}" LargeGlyph="{dx:DXImage Image=BOSaleItem_32x32.png}">
+                            
+                            <dxb:BarSubItem x:Name="Godina" ItemClickBehaviour="None" Content="Godina" Glyph="{dx:DXImage Image=Calendar_16x16.png}" LargeGlyph="{dx:DXImage Image=Calendar_32x32.png}">
 
                             </dxb:BarSubItem>
-                            <dxb:BarSubItem x:Name="Godina" Content="Godina" Glyph="{dx:DXImage Image=Calendar_16x16.png}" LargeGlyph="{dx:DXImage Image=Calendar_32x32.png}">
+                            <dxb:BarSubItem x:Name="Program" ItemClickBehaviour="None" Content="Program" Glyph="{dx:DXImage Image=Technology_16x16.png}" LargeGlyph="{dx:DXImage Image=Technology_32x32.png}">
+
                               
                             </dxb:BarSubItem>
-                            <dxb:BarSubItem x:Name="Program" Content="Program" Glyph="{dx:DXImage Image=Technology_16x16.png}" LargeGlyph="{dx:DXImage Image=Technology_32x32.png}">
-                              
-
+                            <dxb:BarSubItem x:Name="Objekt" ItemClickBehaviour="None" Content="Objekt" Glyph="{dx:DXImage Image=BOSaleItem_16x16.png}" LargeGlyph="{dx:DXImage Image=BOSaleItem_32x32.png}">
 
                             </dxb:BarSubItem>
                         </dxr:RibbonPageGroup>
@@ -79,7 +63,7 @@
                 </dxr:RibbonPageCategory>
 
             </dxr:RibbonControl>
-            
+
             <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
                 <dxr:RibbonStatusBarControl.LeftItems>
                     <dxb:BarStaticItem  x:FieldModifier="public"  x:Name="biRowValue" Content="MySQL Lju"/>
@@ -92,11 +76,25 @@
                     <dxb:BarCheckItem  x:FieldModifier="public"  x:Name="biRight" Glyph="{dx:DXImage Image=Database_32x32.png}" GroupIndex="1" LargeGlyph="{dx:DXImage Image=Database_32x32.png}"/>
                 </dxr:RibbonStatusBarControl.RightItems>
             </dxr:RibbonStatusBarControl>
-            <Grid>
+            <Grid MouseRightButtonDown="Grid_MouseRightButtonDown">
+
                 <Grid.Background>
                     <ImageBrush ImageSource="Resources/Logo_big_bg.png" Stretch="Uniform" Opacity="0.2"/>
                 </Grid.Background>
-
+                
+                <dx:SimpleButton Glyph="{dx:DXImage Image=BOUser_32x32.png}" x:Name="simpleButton" Content="U redu" Height="78" Margin="354,178,352,0" VerticalAlignment="Top" Width="250"/>
+                <Label x:Name="labelcont" Content="Label" HorizontalAlignment="Left" Margin="0,199,0,0" VerticalAlignment="Top" FontSize="38" Width="268">
+                    <dxb:BarManager.DXContextMenu>
+                        <dxb:PopupMenu Name="conMenu" PopupAnimation="Slide" >
+                            <dxb:PopupMenu.Items >
+                                
+                                    <!--#region -->
+                                
+                            </dxb:PopupMenu.Items>
+                        </dxb:PopupMenu>
+                    </dxb:BarManager.DXContextMenu>
+                </Label>
+                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="294,82,0,0" VerticalAlignment="Top" Width="76"/>
             </Grid>
         </DockPanel>
     </Grid>

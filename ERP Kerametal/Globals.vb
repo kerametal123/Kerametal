@@ -2,9 +2,13 @@
 Public Class Globals
     Public Shared rootPath As String =
 IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ERPKerametal\")
+
+    Public Shared login As Boolean
+    Public Shared programAktivni = ""
+    Public Shared aktivnaGodina = ""
     Public Shared databaseInfo = ""
     Public Shared databaseName = ""
-
+    Public Shared defaultProg = ""
     'Potrebno za identifikaciju
     Public Shared objekt = ""
     Public Shared tvrtka = ""
@@ -19,7 +23,7 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
     Public Shared racunalo_naziv = ""
 
     'Array MP
-    Public Shared prodaja = "", Kalkulacije = "", Zaduznice = "", Predisponacije = "", Robno = "", KUF = "", KIF = "", Narudzbenice = "", Nalozi = "", akcijskeCijene = "", servisnaRoba = "", Ostalo1 = "", Ostalo2 = "", Ostalo3 = ""
+    Public Shared prodaja = "", Kalkulacije = "", Zaduznice = "", Predisponacije = "", Robno = "", KUF = "", KIF = "", Narudzbenice = "", Nalozi = "", akcijskeCijene = "", servisnaRoba = "", Ostalo1 = "", Ostalo2 = "", Ostalo3 = "", Ostalo4 = ""
     'Array VP
     Public Shared vp_fakture = "", vp_Kalkulacije = "", vp_Otpremnice = "", vp_Predisponacije = "", vp_Robno = "", vp_KUF = "", vp_KIF = "", vp_Narudzbenice = "", vp_Nalozi = "", vp_akcijskeCijene = "", vp_servisnaRoba = "", vp_Elektronska_oprema = "", vp_Ambalazni_otpad = "", vp_Web_fakture = "", vp_Ostalo1 = "", vp_Ostalo2 = "", vp_Ostalo3 = "", vp_dat1 = "", vp_dat2 = "", vp_dat3 = ""
     'Array UG

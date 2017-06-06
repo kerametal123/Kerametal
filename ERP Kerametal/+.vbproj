@@ -188,6 +188,9 @@
     <Compile Include="Reports\XtraReport1.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Window1.xaml.vb">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WMInfo\WMInfo.vb" />
     <Page Include="Aplikacije.xaml">
       <SubType>Designer</SubType>
@@ -216,6 +219,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="mpBc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
