@@ -6,10 +6,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERP_Kerametal"
  
-        xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" dxc:DXSplashScreen.SplashScreenType="{x:Type local:SplashScreenERP}"  xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxrud="http://schemas.devexpress.com/winfx/2008/xaml/reports/userdesigner" xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid" x:Class="MainWindow"
+        xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"  xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxrud="http://schemas.devexpress.com/winfx/2008/xaml/reports/userdesigner" xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" xmlns:dxprg="http://schemas.devexpress.com/winfx/2008/xaml/propertygrid" xmlns:dxnavi="http://schemas.devexpress.com/winfx/2008/xaml/navigation/internal" dx:DXSplashScreen.SplashScreenType="{x:Type local:SplashScreenERP}" x:Class="MainWindow"
         mc:Ignorable="d"
         Title="Glavni Prozor" Height="1104" Width="964" Loaded="Window_Loaded" WindowState="Maximized">
     <Window.Resources>
+
+        <ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
+            <dxnavi:TileBarItemsPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Tag="test" HorizontalAlignment="Center" Padding="{Binding Padding, RelativeSource={RelativeSource AncestorType=ItemsControl}}" ClipToBounds="True" Background="Transparent"
+                                              KeyboardNavigation.DirectionalNavigation="Cycle"/>
+        </ItemsPanelTemplate>
+        <ItemsPanelTemplate x:Key="ItemsPanelTemplate2">
+            <StackPanel/>
+        </ItemsPanelTemplate>
 
     </Window.Resources>
     <Grid>
@@ -17,36 +25,23 @@
             <dxr:RibbonControl DockPanel.Dock="Top"  ApplicationButtonSmallIcon="Resources/Kerametal_logo.ico" ApplicationButtonLargeIcon="Resources/Kerametal_logo.ico" ToolbarShowMode="Hide" Background="#FF6C2020" MenuIconStyle="Color">
                 <dxr:RibbonControl.ApplicationMenu>
                     <dxr:ApplicationMenu>
-                        <dxb:BarButtonItemLink BarItemName="biOpen"/>
-                        <dxb:BarButtonItemLink BarItemName="biNew"/>
+                        <dxb:BarButtonItemLink BarItemName=""/>
+                        <dxb:BarButtonItemLink BarItemName=""/>
                     </dxr:ApplicationMenu>
                 </dxr:RibbonControl.ApplicationMenu>
                 <dxr:RibbonControl.ToolbarItems>
-                    <dxb:BarButtonItemLink BarItemName="biOpen"/>
-                    <dxb:BarButtonItemLink BarItemName="biNew"/>
+                    <dxb:BarButtonItemLink BarItemName=""/>
+                    <dxb:BarButtonItemLink BarItemName=""/>
                 </dxr:RibbonControl.ToolbarItems>
-                <dxr:RibbonDefaultPageCategory>
-
-
-
-                </dxr:RibbonDefaultPageCategory>
+                <dxr:RibbonDefaultPageCategory/>
                 <dxr:RibbonPageCategory Caption="Podešavanja" Color="#FFB95C40">
                     <dxr:RibbonPage x:Name="mainMenu" Caption="Osnovno">
                         <dxr:RibbonPageGroup Caption="Glavni izbornik">
-                            <dxb:BarSubItem x:Name="Tvrtka" ItemClickBehaviour="None" Content="Tvrtka" Glyph="{dx:DXImage Image=Windows_16x16.png}" LargeGlyph="{dx:DXImage Image=Windows_32x32.png}">
+                            <dxb:BarSubItem x:Name="Tvrtka" ItemClickBehaviour="None" Content="Tvrtka" Glyph="{dx:DXImage Image=Windows_16x16.png}" LargeGlyph="{dx:DXImage Image=Windows_32x32.png}"/>
 
-                            </dxb:BarSubItem>
-
-                            <dxb:BarSubItem x:Name="Godina" ItemClickBehaviour="None" Content="Godina" Glyph="{dx:DXImage Image=Calendar_16x16.png}" LargeGlyph="{dx:DXImage Image=Calendar_32x32.png}">
-
-                            </dxb:BarSubItem>
-                            <dxb:BarSubItem x:Name="Program" ItemClickBehaviour="None" Content="Program" Glyph="{dx:DXImage Image=Technology_16x16.png}" LargeGlyph="{dx:DXImage Image=Technology_32x32.png}">
-
-
-                            </dxb:BarSubItem>
-                            <dxb:BarSubItem x:Name="Objekt" ItemClickBehaviour="None" Content="Objekt" Glyph="{dx:DXImage Image=BOSaleItem_16x16.png}" LargeGlyph="{dx:DXImage Image=BOSaleItem_32x32.png}">
-
-                            </dxb:BarSubItem>
+                            <dxb:BarSubItem x:Name="Godina" ItemClickBehaviour="None" Content="Godina" Glyph="{dx:DXImage Image=Calendar_16x16.png}" LargeGlyph="{dx:DXImage Image=Calendar_32x32.png}"/>
+                            <dxb:BarSubItem x:Name="Program" ItemClickBehaviour="None" Content="Program" Glyph="{dx:DXImage Image=Technology_16x16.png}" LargeGlyph="{dx:DXImage Image=Technology_32x32.png}"/>
+                            <dxb:BarSubItem x:Name="Objekt" ItemClickBehaviour="None" Content="Objekt" Glyph="{dx:DXImage Image=BOSaleItem_16x16.png}" LargeGlyph="{dx:DXImage Image=BOSaleItem_32x32.png}"/>
                         </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>
                     <dxr:RibbonPage Caption="Postavke">
@@ -85,21 +80,15 @@
                 <dx:SimpleButton Glyph="{dx:DXImage Image=BOUser_32x32.png}" x:Name="simpleButton" Content="U redu" Height="78" Margin="354,178,352,0" VerticalAlignment="Top" Width="250"/>
                 <Label x:Name="labelcont" Content="Label" HorizontalAlignment="Left" Margin="0,199,0,0" VerticalAlignment="Top" FontSize="38" Width="268">
                     <dxb:BarManager.DXContextMenu>
-                        <dxb:PopupMenu Name="conMenu" PopupAnimation="Slide" >
-                            <dxb:PopupMenu.Items >
-
-                                <!--#region -->
-
-                            </dxb:PopupMenu.Items>
-                        </dxb:PopupMenu>
+                        <dxb:PopupMenu x:Name="conMenu" PopupAnimation="Slide" />
                     </dxb:BarManager.DXContextMenu>
                 </Label>
-                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="23,10,0,0" VerticalAlignment="Top" Width="75"/>
-                <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="103,10,0,0" VerticalAlignment="Top"/>
-                <dxnav:TileBar x:Name="tileBar" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top">
-                    <dxnav:TileBarItem Content="TileBarItem"/>
-                    <dxnav:TileBarItem Content="TileBarItem"/>
+                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,10" Width="76" Height="22" VerticalAlignment="Bottom"/>
+                <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="90,0,0,10" Height="22" VerticalAlignment="Bottom"/>
+                <dxnav:TileBar x:Name="tileBar" Margin="0,0,20,0"  Orientation="Horizontal" Height="114" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+
                 </dxnav:TileBar>
+
             </Grid>
         </DockPanel>
     </Grid>

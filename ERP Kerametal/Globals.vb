@@ -5,6 +5,7 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
 
     Public Shared login As Boolean
     Public Shared programAktivni = ""
+    Public Shared vrstaObjekta = ""
     Public Shared aktivnaGodina = ""
     Public Shared databaseInfo = ""
     Public Shared databaseName = ""

@@ -252,13 +252,14 @@ Public Class MySQLinfo
         End Try
         Return result
     End Function
-    Public Function vratiObjekte(ByVal objvr As String)
+    Public Function vratiObjekte()
         Dim result = New List(Of ReturnList)
 
         Try
             ManageConnection(False, konekcija) 'Open connection
-            Dim strQuery As String = "SELECT distinct objekti_naziv, objekti_adresa, idobjekti FROM info.objekti as o inner join instalacije as i inner join opcije_objekta as opob inner join opcije_godina as opog where 
-            o.tvrtka = '" + Globals.tvrtka + "' and opob.racunalo = '" + Globals.cpuid + "' and opob.objekt = idobjekti and o.vrstaObjekta = '" + objvr + "' and opog.idopcije_godina = '" + Globals.aktivnaGodina + "'"
+            Dim strQuery As String = "SELECT distinct objekti_naziv, objekti_adresa, idobjekti FROM info.objekti as obj inner join opcije_programa as o inner join instalacije as i inner join opcije_objekta as opob inner join opcije_godina as opog where 
+            obj.tvrtka = '" + Globals.tvrtka + "' and opob.racunalo = '" + Globals.cpuid + "' and opob.objekt = idobjekti and obj.vrstaObjekta = '" + Globals.programAktivni + "' and opob.godina = '" + Globals.aktivnaGodina + "'"
+            ' MessageBox.Show(strQuery)
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
             While reader.Read()
@@ -266,6 +267,7 @@ Public Class MySQLinfo
                 TempResult.objekti_naziv = reader(0)
                 TempResult.objekti_adresa = reader(1)
                 TempResult.objekti_id = reader(2)
+                'TempResult.vrstaObjekta = reader(3)
                 result.Add(TempResult)
             End While
             reader.Close()
@@ -281,8 +283,8 @@ Public Class MySQLinfo
 
         Try
             ManageConnection(False, konekcija) 'Open connection
-            Dim strQuery As String = "SELECT distinct godina, idopcije_godina, stringname FROM info.opcije_godina as god inner join opcije_tvrtke as t where 
-            t.racunalo = '" + Globals.cpuid + "' and t.tvrtka = '" + Globals.tvrtka + "' and god.tvrtka = t.tvrtka"
+            Dim strQuery As String = "SELECT distinct go.stringname, g.godina, g.stringname FROM info.opcije_godina as g inner join opcije_tvrtke as t inner join godine as go   where 
+            t.racunalo = '" + Globals.cpuid + "' and t.tvrtka = '" + Globals.tvrtka + "' and g.tvrtka = t.tvrtka and go.idgodine = g.godina"
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
             While reader.Read()
@@ -304,7 +306,7 @@ Public Class MySQLinfo
         Dim result = New List(Of ReturnList)
         Try
             ManageConnection(False, konekcija) 'Open connection
-            Dim strQuery As String = "SELECT naziv_programa, tabela, idprogrami, vrstaPrograma FROM info.programi as p INNER JOIN opcije_programa as op WHERE op.racunalo = '" + Globals.cpuid + "' AND p.idprogrami = op.program  AND p.idprogrami = op.program and op.tvrtka = '" + Globals.tvrtka + "' and op.godina = '" + Globals.aktivnaGodina + "';"
+            Dim strQuery As String = "SELECT naziv_programa, tabela, idprogrami, p.vrstaPrograma FROM info.programi as p INNER JOIN opcije_programa as op WHERE op.racunalo = '" + Globals.cpuid + "' AND p.idprogrami = op.program and op.tvrtka = '" + Globals.tvrtka + "' and op.godina = '" + Globals.aktivnaGodina + "';"
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
             While reader.Read()
@@ -327,7 +329,7 @@ Public Class MySQLinfo
         Dim result As New ArrayList
         Try
             ManageConnection(False, konekcija) 'Open connection
-            Dim strQuery As String = "SELECT op1,op2,op3,op4,op5,op6,op7,op8,op9,op10,op11,op12,op13,op14,op15 FROM info." + tabela + " where instalacija = '" + Globals.cpuid + "' and tvrtka = '" + Globals.tvrtka + "' and objekt = '" + Globals.objekt + "' and godina = '1';"
+            Dim strQuery As String = "SELECT op1,op2,op3,op4,op5,op6,op7,op8,op9,op10,op11,op12,op13,op14,op15 FROM info." + tabela + " where instalacija = '" + Globals.cpuid + "' and tvrtka = '" + Globals.tvrtka + "' and objekt = '" + Globals.objekt + "' and godina = '" + Globals.aktivnaGodina + "';"
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
             While reader.Read()
@@ -371,6 +373,7 @@ Public Class MySQLinfo
         Public Property objekti_naziv As String
         Public Property objekti_adresa As String
         Public Property naziv_programa As String
+        Public Property vrstaObjekta As String
         Public Property objekti_id As String
         Public Property tvrtke_id As String
         Public Property tabela As String
