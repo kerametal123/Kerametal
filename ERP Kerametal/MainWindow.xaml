@@ -36,13 +36,13 @@
                             <dxb:BarSubItem x:Name="Tvrtka" ItemClickBehaviour="None" Content="Tvrtka" Glyph="{dx:DXImage Image=Windows_16x16.png}" LargeGlyph="{dx:DXImage Image=Windows_32x32.png}">
 
                             </dxb:BarSubItem>
-                            
+
                             <dxb:BarSubItem x:Name="Godina" ItemClickBehaviour="None" Content="Godina" Glyph="{dx:DXImage Image=Calendar_16x16.png}" LargeGlyph="{dx:DXImage Image=Calendar_32x32.png}">
 
                             </dxb:BarSubItem>
                             <dxb:BarSubItem x:Name="Program" ItemClickBehaviour="None" Content="Program" Glyph="{dx:DXImage Image=Technology_16x16.png}" LargeGlyph="{dx:DXImage Image=Technology_32x32.png}">
 
-                              
+
                             </dxb:BarSubItem>
                             <dxb:BarSubItem x:Name="Objekt" ItemClickBehaviour="None" Content="Objekt" Glyph="{dx:DXImage Image=BOSaleItem_16x16.png}" LargeGlyph="{dx:DXImage Image=BOSaleItem_32x32.png}">
 
@@ -81,20 +81,25 @@
                 <Grid.Background>
                     <ImageBrush ImageSource="Resources/Logo_big_bg.png" Stretch="Uniform" Opacity="0.2"/>
                 </Grid.Background>
-                
+
                 <dx:SimpleButton Glyph="{dx:DXImage Image=BOUser_32x32.png}" x:Name="simpleButton" Content="U redu" Height="78" Margin="354,178,352,0" VerticalAlignment="Top" Width="250"/>
                 <Label x:Name="labelcont" Content="Label" HorizontalAlignment="Left" Margin="0,199,0,0" VerticalAlignment="Top" FontSize="38" Width="268">
                     <dxb:BarManager.DXContextMenu>
                         <dxb:PopupMenu Name="conMenu" PopupAnimation="Slide" >
                             <dxb:PopupMenu.Items >
-                                
-                                    <!--#region -->
-                                
+
+                                <!--#region -->
+
                             </dxb:PopupMenu.Items>
                         </dxb:PopupMenu>
                     </dxb:BarManager.DXContextMenu>
                 </Label>
-                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="294,82,0,0" VerticalAlignment="Top" Width="76"/>
+                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="23,10,0,0" VerticalAlignment="Top" Width="75"/>
+                <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="103,10,0,0" VerticalAlignment="Top"/>
+                <dxnav:TileBar x:Name="tileBar" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top">
+                    <dxnav:TileBarItem Content="TileBarItem"/>
+                    <dxnav:TileBarItem Content="TileBarItem"/>
+                </dxnav:TileBar>
             </Grid>
         </DockPanel>
     </Grid>

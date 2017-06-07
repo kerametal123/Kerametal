@@ -34,11 +34,14 @@ Class MainWindow
         form.ShowDialog()
 
     End Sub
-    Public Function conMeni(ByVal table As String)
-        For Each item In mysql.vratiOpcijePrograma(table)
+    Public Function conMeni(ByVal table As String, ByVal update As Boolean, ByVal newlook As Boolean)
+        If newlook = False Then
 
-            Dim s As String = item
-            Dim parts As String() = s.Split(New Char() {","c})
+
+            For Each item In mysql.vratiOpcijePrograma(table)
+
+                Dim s As String = item
+                Dim parts As String() = s.Split(New Char() {","c})
                 Dim icona As String = parts(1)
                 Dim barmanager1 As New BarManager
                 Dim BarButtonItem = New BarButtonItem()
@@ -56,7 +59,7 @@ Class MainWindow
                     BarButtonItem.DataContext = "ddd"
                 ElseIf parts(0) = 4 Then
 
-                ElseIf parts(0) = 8 Then
+                ElseIf parts(0) = 8 And update = True Then
                     makeMenuBtn(Icon, parts(3))
                 End If
                 Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
@@ -66,6 +69,45 @@ Class MainWindow
                 conMenu.Items.Add(BarButtonItem)
 
             Next
+        ElseIf newlook = True Then
+            labelcont.Visibility = Visibility.Hidden
+            simpleButton.Visibility = Visibility.Hidden
+
+            For Each item In mysql.vratiOpcijePrograma(table)
+
+                Dim s As String = item
+                Dim parts As String() = s.Split(New Char() {","c})
+                Dim icona As String = parts(1)
+                Dim barmanager1 As New BarManager
+                Dim TileBarItem = New BarButtonItem()
+                TileBarItem.Content = parts(3)
+                TileBarItem.AllowGlyphTheming = True
+
+
+
+                'BarButtonItem.Name = parts(3)
+                If parts(0) = 1 Then
+                    TileBarItem.IsVisible = False
+                ElseIf parts(0) = 2 Then
+                    TileBarItem.IsVisible = True
+                ElseIf parts(0) = 3 Then
+
+                ElseIf parts(0) = 4 Then
+
+                ElseIf parts(0) = 8 And update = True Then
+                    makeMenuBtn(Icon, parts(3))
+                End If
+                Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
+                TileBarItem.Glyph = Icon
+
+                AddHandler TileBarItem.ItemClick, Function(sender, e) makeMenuBtn(Icon, parts(3))
+                'BarButtonItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString(parts(2)), Color))
+                tileBar.Items.Add(TileBarItem)
+
+            Next
+
+        End If
+
 
     End Function
     Private Sub Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -80,7 +122,22 @@ Class MainWindow
         mysql.infoInstalacije(Globals.cpuid)
         biRowValue.Content = "Konekcija: " + Globals.databaseName
         biColumnValue.Content = "   Tvrtka: " + Globals.tvrtka_naziv + "   Objekt: " + Globals.objekt_naziv + " Računalo: " + Globals.cpuid
+        'Postavi sve
+        pripremiTvrtke()
+        pripremiGodine()
+        pripremiPrograme()
+        pripremiObjekte()
+        'Postavi zadani program
+        For Each itemLink As BarCheckItem In Program.Items
+            If itemLink.IsChecked Then
+                conMenu.Items.Clear()
+                conMeni(itemLink.Name, True, True)
+            End If
+        Next
+    End Function
+    Public Function pripremiTvrtke()
         'Dodaj iteme
+        Tvrtka.Items.Clear()
         For Each item As ReturnList In mysql.vratiTvrtke()
             Dim barmanager1 As New BarManager
             Dim barcheckitem = New BarCheckItem()
@@ -93,8 +150,57 @@ Class MainWindow
             AddHandler barcheckitem.ItemClick, Function(sender, e) postaviTvrtku(item.tvrtke_id)
             Tvrtka.Items.Add(barcheckitem)
         Next
+    End Function
 
 
+    Public Function postaviTvrtku(ByVal tvrtka As String)
+        Globals.tvrtka = tvrtka
+
+        pripremiGodine()
+
+    End Function
+    Public Function pripremiObjekte()
+        Objekt.Items.Clear()
+        For Each item As ReturnList In mysql.vratiObjekte(Globals.programAktivni)
+            Dim barmanager1 As New BarManager
+            Dim BarCheckItem = New BarCheckItem()
+            BarCheckItem.Content = item.objekti_naziv
+            BarCheckItem.Name = item.objekti_adresa
+            BarCheckItem.GroupIndex = 2
+            If item.objekti_id = Globals.objekt Then
+                BarCheckItem.IsChecked = True
+            End If
+            AddHandler BarCheckItem.ItemClick, Function(sender, e) endPrep(item.objekti_id)
+
+
+            Objekt.Items.Add(BarCheckItem)
+        Next
+    End Function
+    Public Function endPrep(ByVal obj As String)
+        Globals.objekt = obj
+    End Function
+    Public Function pripremiGodine()
+        Godina.Items.Clear()
+        For Each item As ReturnList In mysql.vratiGodine()
+            Dim barmanager1 As New BarManager
+            Dim BarCheckItem = New BarCheckItem()
+            BarCheckItem.Content = item.godina
+            BarCheckItem.Name = item.stringname_god
+            BarCheckItem.GroupIndex = 5
+            If item.idopcije_godina = Globals.aktivnaGodina Then
+                BarCheckItem.IsChecked = True
+            End If
+            AddHandler BarCheckItem.ItemClick, Function(sender, e) postaviGodinu(item.idopcije_godina)
+            Godina.Items.Add(BarCheckItem)
+        Next
+    End Function
+
+    Public Function postaviGodinu(ByVal aa As String)
+        Globals.aktivnaGodina = aa
+        pripremiPrograme()
+
+    End Function
+    Public Function pripremiPrograme()
         For Each item As ReturnList In mysql.vratiPrograme()
             Dim barmanager1 As New BarManager
             Dim BarCheckItem = New BarCheckItem()
@@ -104,52 +210,16 @@ Class MainWindow
             If item.idprogrami = Globals.defaultProg Then
                 BarCheckItem.IsChecked = True
             End If
-            AddHandler BarCheckItem.ItemClick, Function(sender, e) pripremiObjekte(item.vrstaPrograma)
+            AddHandler BarCheckItem.ItemClick, Function(sender, e) postaviProgram(item.idprogrami)
+            Program.Items.Clear()
             Program.Items.Add(BarCheckItem)
         Next
     End Function
-    Public Function postaviTvrtku(ByVal tvrtka As String)
-        Globals.tvrtka = tvrtka
+    Public Function postaviProgram(ByVal prog As String)
+        Globals.programAktivni = prog
+
+        pripremiObjekte()
     End Function
-    Public Function pripremiObjekte(ByVal id As String)
-        Globals.programAktivni = id
-        Objekt.Items.Clear()
-        For Each item As ReturnList In mysql.vratiObjekte(id)
-            Dim barmanager1 As New BarManager
-            Dim BarCheckItem = New BarCheckItem()
-            BarCheckItem.Content = item.objekti_naziv
-            BarCheckItem.Name = item.objekti_adresa
-            BarCheckItem.GroupIndex = 2
-            If item.objekti_id = Globals.objekt Then
-                BarCheckItem.IsChecked = True
-            End If
-            AddHandler BarCheckItem.ItemClick, Function(sender, e) checkButtons(item.objekti_naziv)
-
-
-            Objekt.Items.Add(BarCheckItem)
-        Next
-    End Function
-    Public Function pripremiGodine(ByVal tvrtka As String)
-        Globals.aktivnaGodina = ""
-        Objekt.Items.Clear()
-        For Each item As ReturnList In mysql.vratiObjekte(tvrtka)
-            Dim barmanager1 As New BarManager
-            Dim BarCheckItem = New BarCheckItem()
-            BarCheckItem.Content = item.objekti_naziv
-            BarCheckItem.Name = item.objekti_adresa
-            BarCheckItem.GroupIndex = 2
-            If item.objekti_id = Globals.objekt Then
-                BarCheckItem.IsChecked = True
-            End If
-            AddHandler BarCheckItem.ItemClick, Function(sender, e) checkButtons(item.objekti_naziv)
-
-
-            Objekt.Items.Add(BarCheckItem)
-        Next
-    End Function
-    Public Function checkButtons(ByVal aa As String)
-    End Function
-
     Private Sub TileBarItem_Click_1(sender As Object, e As EventArgs)
         MessageBox.Show(Globals.databaseInfo)
     End Sub
@@ -168,21 +238,19 @@ Class MainWindow
         For Each itemLink As BarCheckItem In Program.Items
             If itemLink.IsChecked Then
                 conMenu.Items.Clear()
-                conMeni(itemLink.Name)
+                conMeni(itemLink.Name, False, True)
                 Return
             End If
         Next
 
 
     End Sub
-    Public Function showClicked()
 
-    End Function
-    Private Sub conMenu_MouseRightButtonDown(sender As Object, e As MouseButtonEventArgs)
-
+    Private Sub button_Click_1(sender As Object, e As RoutedEventArgs) Handles button.Click
+        label.Content = "Tvrtka:" + Globals.tvrtka + "    Godina:" + Globals.aktivnaGodina + "  Program:" + Globals.programAktivni + "   Objekt:" + Globals.objekt
     End Sub
 
+    Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
 
-
-
+    End Sub
 End Class
