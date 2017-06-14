@@ -63,12 +63,7 @@ Public Class mpBc
             End If
         End If
     End Sub
-    Private Sub biPrint_ItemClick(sender As Object, e As DevExpress.Xpf.Bars.ItemClickEventArgs) Handles biPrint.ItemClick
-        gridArtikli.ItemsSource = mysqlcomp.getArtikliSvi
 
-
-
-    End Sub
 
     Private Sub button_Click(sender As Object, e As RoutedEventArgs) Handles button.Click
         'populate gridArtikli
@@ -80,6 +75,22 @@ Public Class mpBc
         gridPartneri.ItemsSource = mysqlcomp.getPartneriZaAktivnog
         Globals.logMaker("Partneri grid populate", sender)
 
+    End Sub
+
+    Private Sub ispravitiCheck_Click(sender As Object, e As RoutedEventArgs) Handles ispravitiCheck.Click
+        If dodatiCheck.IsChecked = True Then
+            dodatiCheck.IsChecked = False
+        End If
+        ispravitiCheck.IsChecked = True
+        infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
+    End Sub
+
+    Private Sub dodatiCheck_Click(sender As Object, e As RoutedEventArgs) Handles dodatiCheck.Click
+        If ispravitiCheck.IsChecked = True Then
+            ispravitiCheck.IsChecked = False
+        End If
+        dodatiCheck.IsChecked = True
+        infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#593AFF00"), Color))
     End Sub
 End Class
 'Subclass

@@ -2,7 +2,7 @@
 Public Class Globals
     Public Shared rootPath As String =
 IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ERPKerametal\")
-
+    Public Shared newlook As Boolean
     Public Shared login As Boolean
     Public Shared programAktivni = ""
     Public Shared vrstaObjekta = ""
@@ -55,6 +55,7 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
         Catch
             Return False
         End Try
+        Return False
     End Function
     Public Function sessionId()
 

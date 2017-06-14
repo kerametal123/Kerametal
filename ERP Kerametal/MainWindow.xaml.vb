@@ -15,7 +15,7 @@ Class MainWindow
 
                 If licenciranje.provjeriLicencuOnline() = True Then
                     pripremiSucelje()
-
+                    'Globals.newlook = True
                 ElseIf licenciranje.provjeriLicencuOnline() = False Then
                     MessageBox.Show("not ok")
                 End If
@@ -34,8 +34,8 @@ Class MainWindow
         form.ShowDialog()
 
     End Sub
-    Public Function conMeni(ByVal table As String, ByVal update As Boolean, ByVal newlook As Boolean)
-        If newlook = False Then
+    Public Function conMeni(ByVal table As String, ByVal update As Boolean)
+        If Globals.newlook = False Then
 
 
             For Each item In mysql.vratiOpcijePrograma(table)
@@ -69,7 +69,7 @@ Class MainWindow
                 conMenu.Items.Add(BarButtonItem)
 
             Next
-        ElseIf newlook = True Then
+        ElseIf globals.newlook = True Then
             tileBar.Items.Clear()
             labelcont.Visibility = Visibility.Hidden
             simpleButton.Visibility = Visibility.Hidden
@@ -110,7 +110,38 @@ Class MainWindow
             Next
 
         End If
+        Datoteke.Items.Clear()
+        For Each item In mysql.vratiDatoteke(table)
 
+            Dim s As String = item
+            Dim parts As String() = s.Split(New Char() {","c})
+            Dim icona As String = parts(1)
+            Dim barmanager1 As New BarManager
+            Dim barcheckitem = New BarCheckItem()
+            barcheckitem.Content = parts(3)
+
+
+
+
+            'BarButtonItem.Name = parts(3)
+            If parts(0) = 1 Then
+                barcheckitem.IsVisible = False
+            ElseIf parts(0) = 2 Then
+                barcheckitem.IsVisible = True
+            ElseIf parts(0) = 3 Then
+                barcheckitem.DataContext = "ddd"
+            ElseIf parts(0) = 4 Then
+
+            ElseIf parts(0) = 8 And update = True Then
+
+            End If
+            Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
+            barcheckitem.Glyph = Icon
+            AddHandler barcheckitem.ItemClick, Function(sender, e) makeMenuBtn(Icon, parts(3))
+            'BarButtonItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString(parts(2)), Color))
+            Datoteke.Items.Add(barcheckitem)
+
+        Next
 
     End Function
     Private Sub Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -134,7 +165,8 @@ Class MainWindow
         For Each itemLink As BarCheckItem In Program.Items
             If itemLink.IsChecked Then
                 conMenu.Items.Clear()
-                conMeni(itemLink.Name, True, True)
+                conMeni(itemLink.Name, True)
+
             End If
         Next
     End Function
@@ -182,6 +214,12 @@ Class MainWindow
     End Function
     Public Function endPrep(ByVal obj As String)
         Globals.objekt = obj
+        For Each itemLink As BarCheckItem In Program.Items
+            If itemLink.IsChecked Then
+                conMenu.Items.Clear()
+                conMeni(itemLink.Name, True)
+            End If
+        Next
     End Function
     Public Function pripremiGodine()
         Godina.Items.Clear()
@@ -242,7 +280,7 @@ Class MainWindow
         For Each itemLink As BarCheckItem In Program.Items
             If itemLink.IsChecked Then
                 conMenu.Items.Clear()
-                conMeni(itemLink.Name, True, False)
+                conMeni(itemLink.Name, True)
                 Return
             End If
         Next
@@ -255,7 +293,7 @@ Class MainWindow
         For Each itemLink As BarCheckItem In Program.Items
             If itemLink.IsChecked Then
                 conMenu.Items.Clear()
-                conMeni(itemLink.Name, True, False)
+                conMeni(itemLink.Name, True)
             End If
         Next
     End Sub

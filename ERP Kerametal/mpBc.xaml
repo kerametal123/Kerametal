@@ -5,39 +5,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERP_Kerametal"
-        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"    xmlns:kerametal="clr-namespace:ERP_Kerametal"    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"    dx:DXSplashScreen.SplashScreenType="{x:Type local:SplashScreenERP}" x:Class="mpBc"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"    xmlns:kerametal="clr-namespace:ERP_Kerametal"    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"    dx:DXSplashScreen.SplashScreenType="{x:Type kerametal:SplashScreenERP}" x:Class="mpBc"
         mc:Ignorable="d"
         Title="Maloprodaja WIN" Height="864" Width="1274" WindowState="Maximized">
-    <Window.Resources>
-    
-    </Window.Resources>
     <Grid>
         <DockPanel>
-            <dxr:RibbonControl DockPanel.Dock="Top" RibbonStyle="Office2007" ApplicationButtonLargeIcon="Resources/Kerametal_logo.ico" IsHiddenRibbonCollapsed="False" ToolbarShowCustomizationButton="False" ToolbarShowMode="Hide">
-                <dxr:RibbonControl.ApplicationMenu>
-                    <dxr:ApplicationMenu/>
-                </dxr:RibbonControl.ApplicationMenu>
-                <dxr:RibbonControl.ToolbarItems>
-                    <dxb:BarButtonItemLink />
-                    <dxb:BarButtonItemLink />
-                </dxr:RibbonControl.ToolbarItems>
-                <dxr:RibbonDefaultPageCategory>
-                    <dxr:RibbonPage Caption="Općenito">
-                        <dxr:RibbonPageGroup Caption="Kontrola">
-                            <dxb:BarCheckItem x:Name="biProdaja" Content="Prodaja" Glyph="{dx:DXImage Image=Edit_32x32.png}" LargeGlyph="{dx:DXImage Image=Edit_32x32.png}" IsChecked="True">
-                                <dxb:BarCheckItem.SuperTip>
-                                    <dx:SuperTip/>
-                                </dxb:BarCheckItem.SuperTip>
-                            </dxb:BarCheckItem>
-                            <dxb:BarCheckItem x:Name="biEdit" Content="Izmjena/Brisanje" Glyph="{dx:DXImage Image=ClearRules_32x32.png}" LargeGlyph="{dx:DXImage Image=ClearRules_32x32.png}"/>
-                        </dxr:RibbonPageGroup>
-                        <dxr:RibbonPageGroup Caption="Ispis">
-                            <dxb:BarButtonItem x:Name="biPrint" Content="Ispis računa" Glyph="{dx:DXImage Image=Print_16x16.png}" LargeGlyph="{dx:DXImage Image=Print_32x32.png}"/>
-                            <dxb:BarButtonItem x:Name="biNew" Content="Izvještaj" Glyph="{dx:DXImage Image=BOReport_32x32.png}" LargeGlyph="{dx:DXImage Image=BOReport_32x32.png}"/>
-                        </dxr:RibbonPageGroup>
-                    </dxr:RibbonPage>
-                </dxr:RibbonDefaultPageCategory>
-            </dxr:RibbonControl>
             <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
                 <dxr:RibbonStatusBarControl.LeftItems>
                     <dxb:BarStaticItem x:Name="biRow" Content="Row:" ShowBorder="False"/>
@@ -52,7 +24,7 @@
                 </dxr:RibbonStatusBarControl.RightItems>
             </dxr:RibbonStatusBarControl>
             <Grid>
-                <dxg:GridControl x:Name="gridArtikli" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,0,0,10" Width="459"  Height="389" ItemsSource="{Binding Path=LoadDataBinding}" VerticalAlignment="Bottom">
+                <dxg:GridControl x:Name="gridArtikli" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,0,0,10" Width="459"  Height="389" ItemsSource="{Binding LoadDataBinding}" VerticalAlignment="Bottom">
                     <dxg:GridControl.View>
                         <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowColumnMoving="False" AllowEditing="False"/>
                     </dxg:GridControl.View>
@@ -71,26 +43,56 @@
                     <dxg:GridColumn FieldName="pc" IsSmart="True"/>
 
                 </dxg:GridControl>
-                <dxg:GridControl AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" Margin="474,0,10,206" VerticalAlignment="Bottom" Height="193">
-                    <dxg:GridControl.View>
-                        <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True" ShowGroupPanel="False"/>
-                    </dxg:GridControl.View>
-                </dxg:GridControl>
-                <Grid Height="100" Margin="10,160,10,0" VerticalAlignment="Top" Background="#FFDEDEDE">
-                    <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="22" Margin="10,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Grid Height="100" Margin="365,219,10,0" VerticalAlignment="Top" Background="#FFDEDEDE">
+                    <dxg:GridControl  x:Name="gridPartneri" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" Margin="0,0,0,-1" VerticalAlignment="Top" Height="101" ItemsSource="{Binding LoadDataBindings}" HorizontalAlignment="Right" Width="891" AsyncOperationCompleted="GridControl_AsyncOperationCompleted">
+                        <dxg:GridControl.View>
+                            <dxg:TableView AllowPerPixelScrolling="True" AllowEditing="False" ShowGroupPanel="False"/>
+                        </dxg:GridControl.View>
+                        <dxg:GridColumn FieldName="Naziv" IsSmart="True"/>
+                        <dxg:GridColumn FieldName="Mjesto" IsSmart="True"/>
+                        <dxg:GridColumn FieldName="Adresa" IsSmart="True"/>
+                        <dxg:GridColumn FieldName="PB" IsSmart="True"/>
+                    </dxg:GridControl>
                 </Grid>
-                <Grid Margin="474,463,10,10" Background="#FFDEDEDE"/>
-                <dxg:GridControl  x:Name="gridPartneri" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" Margin="0,10,10,0" VerticalAlignment="Top" Height="145" ItemsSource="{Binding Path=LoadDataBindings}" HorizontalAlignment="Right" Width="529" AsyncOperationCompleted="GridControl_AsyncOperationCompleted">
-                    <dxg:GridControl.View>
-                        <dxg:TableView AllowPerPixelScrolling="True" AllowEditing="False" ShowGroupPanel="False"/>
-                    </dxg:GridControl.View>
-                    <dxg:GridColumn FieldName="Naziv" IsSmart="True"/>
-                    <dxg:GridColumn FieldName="Mjesto" IsSmart="True"/>
-                    <dxg:GridColumn FieldName="Adresa" IsSmart="True"/>
-                    <dxg:GridColumn FieldName="PB" IsSmart="True"/>
-                </dxg:GridControl>
-                <Button x:Name="button" Content="Artikli" HorizontalAlignment="Left" Margin="68,69,0,0" VerticalAlignment="Top" Width="75"/>
-                <Button x:Name="button_Copy" Content="Partneri" HorizontalAlignment="Left" Margin="148,69,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button x:Name="button" Content="Artikli" HorizontalAlignment="Left" Margin="524,329,0,0" VerticalAlignment="Top" Width="75"/>
+                <Button x:Name="button_Copy" Content="Partneri" HorizontalAlignment="Left" Margin="444,329,0,0" VerticalAlignment="Top" Width="75"/>
+                <dxb:MainMenuControl VerticalAlignment="Top">
+                    <dxb:BarEditItem Content="BarEditItem">
+                        <dxb:BarEditItem.EditSettings>
+                            <dxe:ListBoxEditSettings/>
+                        </dxb:BarEditItem.EditSettings>
+                    </dxb:BarEditItem>
+                </dxb:MainMenuControl>
+                <Grid x:Name="infoGrid" Height="42" Margin="0,29,0,0" VerticalAlignment="Top" Background="#7FFF0000">
+                    <ComboBox HorizontalAlignment="Left" Margin="759,10,0,10" Width="161"/>
+                    <dxe:ComboBoxEdit x:Name="comboBox" HorizontalAlignment="Left" Margin="925,10,0,10" Width="114"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=AddFile_16x16.png}" x:Name="simpleButton1" Content="Novo" Height="42" Margin="1091,0,95,0" VerticalAlignment="Top" ButtonKind="Simple" GlyphAlignment="Left" MaxWidth="80" HorizontalContentAlignment="Center" HorizontalAlignment="Right"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Print_16x16.png}"  x:Name="simpleButton1_Copy" Content="Printati" Height="42" Margin="1176,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=EditName_16x16.png}" x:Name="ispravitiCheck" Content="Ispraviti" HorizontalAlignment="Left" Height="42" Margin="10,0,0,0" VerticalAlignment="Top" ButtonKind="Toggle" Width="85"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Add_16x16.png}" x:Name="dodatiCheck" Content="Dodati" HorizontalAlignment="Left" Height="42" Margin="95,0,0,0" VerticalAlignment="Top" ButtonKind="Toggle" Width="85"/>
+                </Grid>
+                <Grid Height="42" Margin="0,76,0,0" VerticalAlignment="Top" Background="#FFDEDEDE"/>
+                <Grid Height="75" Margin="0,123,0,0" VerticalAlignment="Top" Background="#FFDEDEDE">
+                    <Label x:Name="label" Content="Traži kupca:" HorizontalAlignment="Left" Margin="482,10,0,0" VerticalAlignment="Top"/>
+                    <dxe:TextEdit HorizontalAlignment="Left" Margin="548,10,0,0" VerticalAlignment="Top" Width="150"/>
+                    <Label x:Name="label_Copy" Content="Vozilo:" HorizontalAlignment="Left" Margin="482,43,0,0" VerticalAlignment="Top"/>
+                    <dxe:ComboBoxEdit HorizontalAlignment="Left" Margin="548,43,0,0" VerticalAlignment="Top" Width="150"/>
+                    <Label x:Name="label_Copy1" Content="Vozač:" HorizontalAlignment="Left" Margin="772,43,0,0" VerticalAlignment="Top"/>
+                    <dxe:ComboBoxEdit Margin="810,43,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Add_16x16.png}" x:Name="simpleButton2" Content="Dodati" Height="22" Margin="1006,43,180,0" VerticalAlignment="Top" MaxWidth="80"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Delete_16x16.png}" x:Name="simpleButton2_Copy" Content="Brisati" Height="22" Margin="1091,43,95,0" VerticalAlignment="Top" MaxWidth="80"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Print_16x16.png}" x:Name="simpleButton2_Copy1" Content="Printati" Height="22" Margin="1176,43,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" MaxWidth="80"/>
+                </Grid>
+                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="22" Margin="604,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <Grid Height="100" Margin="0,219,906,0" VerticalAlignment="Top" Background="#FFDEDEDE">
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Convert_16x16.png}" x:Name="simpleButton2_Copy2" Content="" HorizontalAlignment="Left" Height="22" Margin="270,10,0,0" VerticalAlignment="Top" Width="80" GlyphAlignment="Top"/>
+                    <RadioButton x:Name="radioButton1" Content="Proizvođač ... Grupa" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="radioButton1_Copy" Content="Grupa ... Proizvođač" HorizontalAlignment="Left" Margin="137,10,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox x:Name="comboBox1_Copy" HorizontalAlignment="Left" Margin="230,68,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Label x:Name="label1" Content="Proizvođač" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label1_Copy" Content="Grupa" HorizontalAlignment="Left" Margin="230,46,0,0" VerticalAlignment="Top"/>
+                </Grid>
 
             </Grid>
         </DockPanel>

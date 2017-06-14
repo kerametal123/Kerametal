@@ -3,7 +3,7 @@ Imports MySql.Data.MySqlClient
 
 Public Class MySQLcompany
     Dim dbCon As MySqlConnection
-    Dim konekcija As String = Globals.databaseInfo
+    Dim konekcija As String = "Server=127.0.0.1;Database=kerametal;Uid=root;Pwd=samael89;"
 
     Public Function ManageConnection(ByVal CloseConnection As Boolean, ByVal konekcija As String)
         Try
@@ -104,7 +104,7 @@ Public Class MySQLcompany
         End Try
     End Function
     Public Function getPartneri() As DataTable
-        Dim query As String = "Select sifra,naziv,mjesto,opis,inozemni,maticni,obveznik,pb from partneri where objekt='" + Globals.objekt + "' order by naziv"
+        Dim query As String = "Select sifra,naziv,mjesto,opis,inozemni,maticni,obveznik,pb from partneri where objekt='21' order by naziv"
         Dim table As New DataTable()
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query, connection)
@@ -117,7 +117,7 @@ Public Class MySQLcompany
     Public Function getPartneriName(ByVal naziv As String) As DataTable
         Dim query As String = "Select sifra,naziv,mjesto,opis,inozemni,maticni,obveznik,pb from partneri where objekt='21' and naziv like '%" + naziv + "%' or sifra like '%" + naziv + "%' order by naziv"
         Dim table As New DataTable()
-        Dim query2 As String = "Select sifra, naziv, mjesto, opis, inozemni, maticni, obveznik, pb from partneri where objekt ='" + Globals.objekt + "' and naziv like '%" + naziv + "%' or sifra like '%" + naziv + "%' order by naziv"
+        Dim query2 As String = "Select sifra, naziv, mjesto, opis, inozemni, maticni, obveznik, pb from partneri where objekt ='21' and naziv like '%" + naziv + "%' or sifra like '%" + naziv + "%' order by naziv"
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query, connection)
 
@@ -137,7 +137,7 @@ Public Class MySQLcompany
         End Using
     End Function
     Public Function getArtikliZaAktivnog()
-        Dim query As String = "Select * from kerametal.artikli where objekt='" + Globals.objekt + "' order by naziv LIMIT 0,10000"
+        Dim query As String = "Select * from kerametal.artikli where objekt='21' order by naziv LIMIT 0,10000"
         Dim table As New DataTable()
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query, connection)
@@ -147,7 +147,7 @@ Public Class MySQLcompany
         End Using
     End Function
     Public Function getPartneriZaAktivnog()
-        Dim query As String = "Select * from partneri where objekt='" + Globals.objekt + "' order by naziv;"
+        Dim query As String = "Select * from partneri where objekt='21' order by naziv;"
         Dim table As New DataTable()
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query, connection)
@@ -157,7 +157,7 @@ Public Class MySQLcompany
         End Using
     End Function
     Public Function getArtikliFilterRow()
-        Dim query As String = "Select * from artikli where objekt ='" + Globals.objekt + "' order by naziv"
+        Dim query As String = "Select * from artikli where objekt ='21' order by naziv"
         Dim table As New DataTable()
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query, connection)

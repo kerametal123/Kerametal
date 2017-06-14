@@ -214,7 +214,11 @@ Public Class MySQLinfo
         End Try
         Return True
     End Function
-    'Obsolete?
+
+    ''' <summary>
+    ''' 'Obsolete?
+    ''' </summary>
+    ''' <returns></returns>
     Public Function getDozvoleZaAktivnog()
         Dim query As String = "SELECT  i.idinstalacije, i.instalacije_hwid, i.instalacije_naziv,
         i.instalacije_login, i.instalacije_tvrtka, t.dabase, p.postavke_naziv, p.postavke_db1, p.postavke_db2, 
@@ -229,6 +233,11 @@ Public Class MySQLinfo
             End Using
         End Using
     End Function
+
+    ''' <summary>
+    ''' Foreach
+    ''' </summary>
+    ''' <returns></returns>
     Public Function vratiTvrtke()
         Dim result = New List(Of ReturnList)
         Try
@@ -358,7 +367,39 @@ Public Class MySQLinfo
         End Try
         Return result
     End Function
-
+    Public Function vratiDatoteke(ByVal tabela As String)
+        Dim result As New ArrayList
+        Try
+            ManageConnection(False, konekcija) 'Open connection
+            Dim strQuery As String = "SELECT dat1,dat2,dat3,dat4,dat5,dat6,dat7,dat8,dat9,dat10,dat11,dat12,dat13,dat14,dat15 FROM info." + tabela + " where instalacija = '" + Globals.cpuid + "' and tvrtka = '" + Globals.tvrtka + "' and objekt = '" + Globals.objekt + "' and godina = '" + Globals.aktivnaGodina + "';"
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+            While reader.Read()
+                Dim TempResult As New ReturnList
+                result.Add(reader(0))
+                result.Add(reader(1))
+                result.Add(reader(2))
+                result.Add(reader(3))
+                result.Add(reader(4))
+                result.Add(reader(5))
+                result.Add(reader(6))
+                result.Add(reader(7))
+                result.Add(reader(8))
+                result.Add(reader(9))
+                result.Add(reader(10))
+                result.Add(reader(11))
+                result.Add(reader(12))
+                result.Add(reader(13))
+                result.Add(reader(14))
+            End While
+            reader.Close()
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            ManageConnection(True, konekcija) 'Close connection
+        End Try
+        Return result
+    End Function
     Public Function installInfo()
         Try
             infoInstalacije("")

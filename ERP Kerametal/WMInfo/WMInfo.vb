@@ -132,6 +132,11 @@ Public Class WMInfo
         End Get
 
     End Property
+
+    ''' <summary>
+    ''' Windows media intrumentation
+    ''' </summary>
+    ''' <returns></returns>
     Public Function upisWmi()
         mysqlinfo.upisWMI(GetHDSize("C"), GetHDFreeSpace("C"), m_strComputerName, m_strManufacturer, m_StrModel, m_strOSName, m_strOSVersion, m_strSystemType, m_strTPM, m_strWindowsDir)
     End Function
