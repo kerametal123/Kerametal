@@ -11,7 +11,8 @@ Public Class mpBc
     Private mint_LastInitializedTimerID As Integer = 0
     Public Overridable Property AutoFilterCondition As AutoFilterCondition
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
-
+        dodatiCheck.IsChecked = True
+        infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#593AFF00"), Color))
     End Sub
 
     Private Sub GridControl_AsyncOperationCompleted(sender As Object, e As RoutedEventArgs)

@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:ERP_Kerametal"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"    xmlns:kerametal="clr-namespace:ERP_Kerametal"    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"    dx:DXSplashScreen.SplashScreenType="{x:Type kerametal:SplashScreenERP}" x:Class="mpBc"
         mc:Ignorable="d"
-        Title="Maloprodaja WIN" Height="864" Width="1274" WindowState="Maximized">
+        Title="Maloprodaja WIN" Height="864" Width="1274"  WindowState="Maximized" >
+    
     <Grid>
         <DockPanel>
             <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
@@ -63,25 +64,25 @@
                         </dxb:BarEditItem.EditSettings>
                     </dxb:BarEditItem>
                 </dxb:MainMenuControl>
-                <Grid x:Name="infoGrid" Height="42" Margin="0,29,0,0" VerticalAlignment="Top" Background="#7FFF0000">
+                <Grid x:Name="infoGrid" Height="42" Margin="0,29,0,0" VerticalAlignment="Top" Background="#593AFF00">
                     <ComboBox HorizontalAlignment="Left" Margin="759,10,0,10" Width="161"/>
                     <dxe:ComboBoxEdit x:Name="comboBox" HorizontalAlignment="Left" Margin="925,10,0,10" Width="114"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=AddFile_16x16.png}" x:Name="simpleButton1" Content="Novo" Height="42" Margin="1091,0,95,0" VerticalAlignment="Top" ButtonKind="Simple" GlyphAlignment="Left" MaxWidth="80" HorizontalContentAlignment="Center" HorizontalAlignment="Right"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Print_16x16.png}"  x:Name="simpleButton1_Copy" Content="Printati" Height="42" Margin="1176,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-                    <dx:SimpleButton Glyph="{dx:DXImage Image=EditName_16x16.png}" x:Name="ispravitiCheck" Content="Ispraviti" HorizontalAlignment="Left" Height="42" Margin="10,0,0,0" VerticalAlignment="Top" ButtonKind="Toggle" Width="85"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=EditName_16x16.png}" x:Name="ispravitiCheck" Content="Ispraviti" HorizontalAlignment="Left" Height="42" Margin="10,0,0,0" VerticalAlignment="Top" ButtonKind="Toggle" Width="85" IsChecked="True"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Add_16x16.png}" x:Name="dodatiCheck" Content="Dodati" HorizontalAlignment="Left" Height="42" Margin="95,0,0,0" VerticalAlignment="Top" ButtonKind="Toggle" Width="85"/>
                 </Grid>
                 <Grid Height="42" Margin="0,76,0,0" VerticalAlignment="Top" Background="#FFDEDEDE"/>
-                <Grid Height="75" Margin="0,123,0,0" VerticalAlignment="Top" Background="#FFDEDEDE">
-                    <Label x:Name="label" Content="Traži kupca:" HorizontalAlignment="Left" Margin="482,10,0,0" VerticalAlignment="Top"/>
-                    <dxe:TextEdit HorizontalAlignment="Left" Margin="548,10,0,0" VerticalAlignment="Top" Width="150"/>
-                    <Label x:Name="label_Copy" Content="Vozilo:" HorizontalAlignment="Left" Margin="482,43,0,0" VerticalAlignment="Top"/>
-                    <dxe:ComboBoxEdit HorizontalAlignment="Left" Margin="548,43,0,0" VerticalAlignment="Top" Width="150"/>
-                    <Label x:Name="label_Copy1" Content="Vozač:" HorizontalAlignment="Left" Margin="772,43,0,0" VerticalAlignment="Top"/>
-                    <dxe:ComboBoxEdit Margin="810,43,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150"/>
-                    <dx:SimpleButton Glyph="{dx:DXImage Image=Add_16x16.png}" x:Name="simpleButton2" Content="Dodati" Height="22" Margin="1006,43,180,0" VerticalAlignment="Top" MaxWidth="80"/>
-                    <dx:SimpleButton Glyph="{dx:DXImage Image=Delete_16x16.png}" x:Name="simpleButton2_Copy" Content="Brisati" Height="22" Margin="1091,43,95,0" VerticalAlignment="Top" MaxWidth="80"/>
-                    <dx:SimpleButton Glyph="{dx:DXImage Image=Print_16x16.png}" x:Name="simpleButton2_Copy1" Content="Printati" Height="22" Margin="1176,43,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" MaxWidth="80"/>
+                <Grid Height="91" Margin="0,123,0,0" VerticalAlignment="Top" Background="#FFDEDEDE">
+                    <Label x:Name="label" Content="Traži kupca:" HorizontalAlignment="Left" Margin="762,32,0,0" VerticalAlignment="Top"/>
+                    <dxe:TextEdit HorizontalAlignment="Left" Margin="828,32,0,0" VerticalAlignment="Top" Width="150"/>
+                    <Label x:Name="label_Copy" Content="Vozilo:" HorizontalAlignment="Left" Margin="788,59,0,0" VerticalAlignment="Top"/>
+                    <dxe:ComboBoxEdit HorizontalAlignment="Left" Margin="828,59,0,0" VerticalAlignment="Top" Width="150"/>
+                    <Label x:Name="label_Copy1" Content="Vozač:" HorizontalAlignment="Left" Margin="983,59,0,0" VerticalAlignment="Top"/>
+                    <dxe:ComboBoxEdit Margin="1021,59,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Add_16x16.png}" x:Name="simpleButton2" Content="Dodati" Height="22" Margin="1176,10,10,59"  MaxWidth="80"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Delete_16x16.png}" x:Name="simpleButton2_Copy" Content="Brisati" Height="22" Margin="1176,36,10,33" MaxWidth="80"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Print_16x16.png}" x:Name="simpleButton2_Copy1" Content="Printati" Height="22" Margin="0,54,10,-2"  HorizontalAlignment="Right" MaxWidth="80"/>
                 </Grid>
                 <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="22" Margin="604,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <Grid Height="100" Margin="0,219,906,0" VerticalAlignment="Top" Background="#FFDEDEDE">
