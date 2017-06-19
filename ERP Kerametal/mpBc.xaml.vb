@@ -1,4 +1,5 @@
 ﻿Imports System.Text.RegularExpressions
+Imports DevExpress.Xpf.Bars
 Imports DevExpress.Xpf.Grid
 
 
@@ -93,5 +94,36 @@ Public Class mpBc
         dodatiCheck.IsChecked = True
         infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#593AFF00"), Color))
     End Sub
+
+    Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
+        For Each item In mysqlcomp.getOperateri()
+
+            operateriCombo.Items.Add(item.ime + " " + item.prezime)
+        Next
+    End Sub
+
+    Private Sub simpleButton2_Copy2_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton2_Copy2.Click
+        'For Each item In mysqlcomp.getGrupeArtikala()
+        'grupeCbox.Items.Add(item.grupa)
+        ' Next
+        For Each item In mysqlcomp.getProizvodaci()
+            Dim barmanager1 As New BarManager
+            Dim comboboxitem = New ComboBoxItem()
+            comboboxitem.Content = item.proiz
+            comboboxitem.Tag = item.idproiz
+            'AddHandler comboboxitem.Selected, Function() prijavi(item.idproiz)
+            proizvodacCbox.Items.Add(comboboxitem)
+        Next
+    End Sub
+    Private Sub simpleButton3_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton3.Click
+
+    End Sub
+
+    Private Sub simpleButton2_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton2.Click
+
+    End Sub
+
+    Private Sub dodatiCheck_Copy2_Click(sender As Object, e As RoutedEventArgs) Handles dodatiCheck_Copy2.Click
+        MessageBox.Show(Globals.tvrtka)
+    End Sub
 End Class
-'Subclass

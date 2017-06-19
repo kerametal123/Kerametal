@@ -140,9 +140,7 @@ Class MainWindow
             AddHandler barcheckitem.ItemClick, Function(sender, e) makeMenuBtn(Icon, parts(3))
             'BarButtonItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString(parts(2)), Color))
             Datoteke.Items.Add(barcheckitem)
-
         Next
-
     End Function
     Private Sub Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
@@ -151,6 +149,20 @@ Class MainWindow
     Public Function makeMenuBtn(ByVal glyph As ImageSource, ByVal aa As String)
         labelcont.Content = aa
         simpleButton.Glyph = glyph
+        AddHandler simpleButton.Click, Function(sender, e) clickBigBtn(aa)
+
+
+
+    End Function
+    Public Function clickBigBtn(ByVal aa As String)
+        If aa = "Prodaja" Then
+            ' Create a window from the page you need to show
+            Dim mpBc As New mpBc()
+
+            ' Open your page
+            mpBc.Show()
+        End If
+
     End Function
     Public Function pripremiSucelje()
         mysql.infoInstalacije(Globals.cpuid)
@@ -301,4 +313,6 @@ Class MainWindow
     Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
 
     End Sub
+
+
 End Class
