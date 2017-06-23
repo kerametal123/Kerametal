@@ -2,9 +2,27 @@
 Public Class Globals
     Public Shared rootPath As String =
 IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ERPKerametal\")
+    'Odabrani artikal
+    Public Shared sifraG = ""
+    Public Shared nazivG = ""
+    Public Shared mpcG = ""
+    Public Shared kolicinaG = ""
+    Public Shared rabatG = ""
+    Public Shared pcG = ""
+    Public Shared iznosG = ""
+    Public Shared vpcG = ""
+    Public Shared ncG = ""
+    Public Shared pluG = ""
+    Public Shared placanjeG = ""
+    Public Shared tipArtiklaG = ""
+    'Cijena koja se koristi
+    Public Shared cijenaG = ""
+    Public Shared cijenaUkupnoG = ""
+    Public Shared tipDokumenta = ""
     Public Shared newlook As Boolean
     Public Shared login As Boolean
     Public Shared programAktivni = ""
+    Public Shared dabase = ""
     Public Shared vrstaObjekta = ""
     Public Shared aktivnaGodina = ""
     Public Shared databaseInfo = ""
@@ -14,7 +32,7 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
     Public Shared objekt = ""
     Public Shared tvrtka = ""
     Public Shared godina = ""
-
+    Public Shared lastEdit = ""
     'Samo za informacije
     Public Shared tvrtka_naziv = ""
     Public Shared objekt_naziv = ""
