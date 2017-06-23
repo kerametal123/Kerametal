@@ -30,7 +30,6 @@ Class MainWindow
     Private Sub TileBarItem_Click(sender As Object, e As EventArgs)
         Globals.logMaker("Glavni izbornik, Maloprodaja", sender)
         Dim form As New mpBc()
-
         form.ShowDialog()
 
     End Sub

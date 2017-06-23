@@ -45,6 +45,7 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
             If mysqlcomp.tryConnection(False, pString) = True Then
                 Globals.databaseInfo = pString
                 Globals.databaseName = pID + " - " + pName
+                Globals.dabase = pName
                 Exit For
             End If
         Next

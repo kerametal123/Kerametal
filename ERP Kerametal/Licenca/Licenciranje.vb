@@ -32,7 +32,16 @@ Public Class Licenciranje
 
     End Function
 
+    Public Function loginOnline()
+        Try
+            If mysql.login() = True Then
 
+                MessageBox.Show("true")
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Function
     Public Function checkActivity()
         Dim fileReader As System.IO.StreamReader
         fileReader =
@@ -45,20 +54,11 @@ My.Computer.FileSystem.OpenTextFileReader(punoImePutanje)
             Globals.cpuid = CpuId()
             XMLinfo.getDbInfo()
             wminfos.upisWmi()
-            If mysql.login = "1" Then
-                Globals.login = True
-            ElseIf mysql.login = "0" Then
-
-
-            End If
-
+            Return True
         ElseIf mysql.provjeraInstalacije(stringReader, "instalacije_aktivnost") = False Then
             MessageBox.Show("Aplikaciji nije dozvoljen rad!")
             Application.Current.Shutdown()
         End If
-    End Function
-    Public Function procLogin()
-
     End Function
     Public Function kreirajLicencu(ByVal ffn As String)
         Dim fileLoc As String = ffn
