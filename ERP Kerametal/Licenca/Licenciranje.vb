@@ -9,10 +9,7 @@ Public Class Licenciranje
     Dim gui As New Sucelje
     Public Function provjeriLicencuOnline()
         If folders.mkFolderRoot() = True Then
-
-
             Dim fs As FileStream = Nothing
-
             'Ako ne postoji licenca kreiraj je.
             If (Not File.Exists(fileLoc)) Then
                 'Kreiranje licence
@@ -31,15 +28,12 @@ Public Class Licenciranje
     Public Function provjeriLicencuOffline()
 
     End Function
-
     Public Function loginOnline()
         Try
             If mysql.login() = True Then
-
                 MessageBox.Show("true")
             End If
         Catch ex As Exception
-
         End Try
     End Function
     Public Function checkActivity()
@@ -71,7 +65,6 @@ My.Computer.FileSystem.OpenTextFileReader(punoImePutanje)
             dbLicense(CpuId)
         End Using
         Return True
-
     End Function
     'Poziva funkciju za upis hardware_id u bazu
     Public Function dbLicense(ByVal cpuid As String)
@@ -91,14 +84,12 @@ My.Computer.FileSystem.OpenTextFileReader(punoImePutanje)
     computer & "\root\cimv2")
         Dim processors As Object = wmi.ExecQuery("Select * from " &
     "Win32_Processor")
-
         Dim cpu_ids As String = ""
         For Each cpu As Object In processors
             cpu_ids = cpu_ids & ", " & cpu.ProcessorId
         Next cpu
         If cpu_ids.Length > 0 Then cpu_ids =
     cpu_ids.Substring(2)
-
         Return cpu_ids
     End Function
 

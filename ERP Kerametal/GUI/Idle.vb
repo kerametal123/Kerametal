@@ -1,6 +1,6 @@
 ﻿
 Imports System.Runtime.InteropServices
-
+'Poslije 15 sekundi
 Public Class Idle
 
     <StructLayout(LayoutKind.Sequential)>

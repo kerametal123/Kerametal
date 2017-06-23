@@ -1,16 +1,8 @@
-﻿Imports System.ComponentModel
-Imports System.Data
-Imports System.Runtime.InteropServices
-Imports System.Text.RegularExpressions
-Imports System.Windows.Threading
+﻿Imports System.Text.RegularExpressions
 Imports DevExpress.Xpf.Bars
-Imports DevExpress.Xpf.Core
 Imports DevExpress.Xpf.Grid
 Imports DevExpress.Xpf.WindowsUI
 Imports ERP_Kerametal.MySQLcompany
-
-
-
 Public Class mpBc
     Dim racunanje As New Racunanje
     Dim mysql As New MySQLinfo

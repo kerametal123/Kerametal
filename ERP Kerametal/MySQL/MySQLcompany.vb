@@ -158,7 +158,7 @@ Public Class MySQLcompany
         End Using
     End Function
     Public Function getArtikliFilterRow()
-        Dim query As String = "Select * from artikli where t_ob ='" + Globals.objekt + "' order by naziv"
+        Dim query As String = "Select * from artikli where objekt ='" + Globals.objekt + "' order by naziv"
         Dim table As New DataTable()
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query, connection)
