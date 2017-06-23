@@ -78,7 +78,7 @@
                     <kerametal:SelectAllTbox x:Name="iznosTbox" HorizontalAlignment="Left" Margin="517,152,0,0" Text="" VerticalAlignment="Top" Width="63"/>
                 </Grid>
                 <dxb:MainMenuControl VerticalAlignment="Top">
-                    <dxb:BarEditItem Content="BarEditItem">
+                    <dxb:BarEditItem Content="BarEditItem1">
                         <dxb:BarEditItem.EditSettings>
                             <dxe:ListBoxEditSettings/>
                         </dxb:BarEditItem.EditSettings>
