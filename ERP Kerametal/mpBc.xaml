@@ -5,9 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERP_Kerametal"
-        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"    xmlns:kerametal="clr-namespace:ERP_Kerametal"    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"    dx:DXSplashScreen.SplashScreenType="{x:Type kerametal:SplashScreenERP}" x:Class="mpBc"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"    xmlns:kerametal="clr-namespace:ERP_Kerametal"    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"    dx:DXSplashScreen.SplashScreenType="{x:Type kerametal:SplashScreenERP}" x:Class="mpBc"
         mc:Ignorable="d"
-        Title="Maloprodaja WIN" Height="1034" Width="1458"  WindowState="Maximized" Loaded="Window_Loaded" MouseMove="Window_MouseMove">
+        Title="Maloprodaja WIN" Height="910.5" Width="1458"  WindowState="Maximized" Loaded="Window_Loaded" MouseMove="Window_MouseMove">
 
     <Grid>
         <DockPanel>
@@ -26,10 +26,9 @@
             </dxr:RibbonStatusBarControl>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="405*"/>
-                    <RowDefinition Height="403*"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <dxg:GridControl x:Name="gridArtikli" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,4,0,10" Width="549" ItemsSource="{Binding LoadDataBinding}" Grid.Row="1">
+                <dxg:GridControl x:Name="gridArtikli" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,409,0,10" Width="549" ItemsSource="{Binding LoadDataBinding}">
                     <dxg:GridControl.View>
                         <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowColumnMoving="False" AllowEditing="False"/>
                     </dxg:GridControl.View>
@@ -140,17 +139,77 @@
                     <Label x:Name="label4" Content="Pretraživanje usluga" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=BOOrder_16x16.png}" IsChecked="True" x:Name="robaUsluge" Content="Roba" HorizontalAlignment="Left" Height="42" Margin="10,132,0,0" VerticalAlignment="Top" ButtonKind="Toggle" Width="85"/>
                 </Grid>
-                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="1366,297,0,0" Grid.Row="1" VerticalAlignment="Top" Width="74"/>
-                <DataGrid x:Name="gridRacun" Margin="564,4,10,0" Grid.Row="1" VerticalAlignment="Top" Height="233"/>
-                <TextBox x:Name="scontoTbox" HorizontalAlignment="Left" Height="23" Margin="645,242,0,0" Grid.Row="1" TextWrapping="Wrap" Text="a" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="rabatPlusTbox" HorizontalAlignment="Left" Height="23" Margin="770,242,0,0" Grid.Row="1" TextWrapping="Wrap" Text="b" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="rabatTboxS" HorizontalAlignment="Left" Height="23" Margin="895,242,0,0" Grid.Row="1" TextWrapping="Wrap" Text="c" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="iznosBezPDVTbox" HorizontalAlignment="Left" Height="23" Margin="1149,242,0,0" Grid.Row="1" TextWrapping="Wrap" Text="d" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="odbiciTbox" HorizontalAlignment="Left" Height="23" Margin="1149,270,0,0" Grid.Row="1" TextWrapping="Wrap" Text="e" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="nettoTbox" HorizontalAlignment="Left" Height="23" Margin="1149,298,0,0" Grid.Row="1" TextWrapping="Wrap" Text="f" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="pdvTbox" HorizontalAlignment="Left" Height="23" Margin="1149,326,0,0" Grid.Row="1" TextWrapping="Wrap" Text="g" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="maticnaValutaTbox" HorizontalAlignment="Left" Height="23" Margin="696,350,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Protuvaluta" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="protuValutaTbox" HorizontalAlignment="Left" Height="23" Margin="922,350,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Maticna Valuta" VerticalAlignment="Top" Width="120"/>
+                <dxg:GridControl x:Name="gridRacun"  EnableSmartColumnsGeneration="True" Margin="564,409,10,0" ItemsSource="{Binding LoadDataBinding}" Height="232" VerticalAlignment="Top">
+                    <dxg:GridControl.View>
+                        <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowColumnMoving="False" AllowEditing="False"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+                <Grid Margin="564,646,10,10" Background="#FFDEDEDE">
+                    <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="12,49,0,0" VerticalAlignment="Top" Width="74" />
+                    <dxwui:AppBarButton Label="Rotate" HorizontalAlignment="Right" Glyph="{dx:DXImage Image=DrillDown_32x32.png}" >
+                        <dxwui:AppBarButton.Flyout>
+                            <dxwui:MenuFlyout ShowIndicator="True">
+                                <dxwui:MenuFlyoutItem Content="90° clockwise" Command="{Binding RotateClockwise}" />
+                                <dxwui:MenuFlyoutItem Content="90° counter clockwise" Command="{Binding RotateCounterclockwise}" />
+                                <dxwui:MenuFlyoutItem Content="180°" Command="{Binding Rotate180}" />
+                                <dxwui:MenuFlyoutSeparator />
+                                <dxwui:MenuFlyoutItem Content="Reset" Command="{Binding RotateReset}" />
+                            </dxwui:MenuFlyout>
+                        </dxwui:AppBarButton.Flyout>
+                    </dxwui:AppBarButton>
+                    <TextBox x:Name="scontoTbox" HorizontalAlignment="Left" Height="23" Margin="210,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120">
+                        <dxb:BarManager.DXContextMenu>
+                            <dxb:PopupMenu>
+                                <dxb:PopupMenu.Items>
+                                    <dxb:BarButtonItem
+
+                                Content="Sconto - %"
+                           
+                              />
+                                    <dxb:BarButtonItem
+
+                                Content="Sconto -  Iznos"
+                            
+                               />
+
+                                </dxb:PopupMenu.Items>
+                            </dxb:PopupMenu>
+                        </dxb:BarManager.DXContextMenu>
+                    </TextBox>
+                    <TextBox x:Name="rabatPlusTbox" HorizontalAlignment="Left" Height="23" Margin="335,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120">
+                        <dxb:BarManager.DXContextMenu>
+                            <dxb:PopupMenu>
+                                <dxb:PopupMenu.Items>
+                                    <dxb:BarButtonItem
+
+                                Content="Dopunski rabat - %"
+                           
+                               />
+                                    <dxb:BarButtonItem
+
+                                Content="Dopunski rabat -  Iznos"
+                             />
+                                    
+                                </dxb:PopupMenu.Items>
+                            </dxb:PopupMenu>
+                        </dxb:BarManager.DXContextMenu>
+                    </TextBox>
+                    <TextBox x:Name="rabatTboxS" HorizontalAlignment="Left" Height="23" Margin="460,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="iznosBezPDVTbox" Margin="0,10,10,0" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Top"/>
+                    <TextBox x:Name="odbiciTbox" Margin="0,38,10,0" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Top"/>
+                    <TextBox x:Name="nettoTbox" Margin="0,66,10,0" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Top"/>
+                    <TextBox x:Name="pdvTbox" Margin="0,94,10,0" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Top"/>
+                    <TextBox x:Name="maticnaValutaTbox" Margin="0,0,10,10" TextWrapping="Wrap" Text="Maticna Valuta" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120"/>
+                    <TextBox x:Name="protuValutaTbox" Margin="0,0,135,10" TextWrapping="Wrap" Text="Protuvaluta" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Bottom"/>
+                    <Label x:Name="label6" Content="Iznos bez PDV:" Margin="0,11,135,0" HorizontalAlignment="Right" Width="78" Height="22" VerticalAlignment="Top"/>
+                    <Label x:Name="label6_Copy" Content="Odbici:" Margin="0,39,135,0" HorizontalAlignment="Right" Width="37" Height="22" VerticalAlignment="Top"/>
+                    <Label x:Name="label6_Copy1" Content="Netto:" Margin="0,67,135,0" HorizontalAlignment="Right" Width="33" Height="22" VerticalAlignment="Top"/>
+                    <Label x:Name="label6_Copy2" Content="PDV:" Margin="0,95,135,0" HorizontalAlignment="Right" Width="25" Height="22" VerticalAlignment="Top"/>
+                    <Label x:Name="label6_Copy3" Content="Sconto" HorizontalAlignment="Left" Margin="210,39,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label6_Copy4" Content="Rabat plus" HorizontalAlignment="Left" Margin="335,39,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label6_Copy5" Content="Rabat" HorizontalAlignment="Left" Margin="460,38,0,0" VerticalAlignment="Top"/>
+                </Grid>
+                <DataGrid x:Name="gridRacunNew" Margin="564,409,10,0" VerticalAlignment="Top" Height="232"/>
 
             </Grid>
         </DockPanel>

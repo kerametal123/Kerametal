@@ -323,7 +323,7 @@ Public Class MySQLcompany
         Dim result = New List(Of ReturnList)
         Try
             ManageConnection(False, konekcija) 'Open connection
-            Dim strQuery As String = "SELECT s.ime, s.prezime FROM kerametal.vozaci as s inner join vozila as v inner join vozac_vozilo as vv where idvozaci = vv.vozac and vv.vozilo = v.idvozila and v.idvozila = '" + vozilo + "' and v.partner = s.partner order by vv.idvozac_vozilo ASC ;"
+            Dim strQuery As String = "SELECT s.ime, s.prezime FROM " + Globals.dabase + ".vozaci as s inner join vozila as v inner join vozac_vozilo as vv where idvozaci = vv.vozac and vv.vozilo = v.idvozila and v.idvozila = '" + vozilo + "' and v.partner = s.partner order by vv.idvozac_vozilo ASC ;"
             'Dim strQuery As String = "Select registracija, idvozila FROM kerametal.vozila where partner = '1123'"
             'MessageBox.Show(strQuery)
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
@@ -331,6 +331,50 @@ Public Class MySQLcompany
             While reader.Read()
                 Dim TempResult As New ReturnList
                 TempResult.vozac = reader(0) + " " + reader(1)
+                result.Add(TempResult)
+            End While
+            reader.Close()
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            ManageConnection(True, konekcija) 'Close connection
+        End Try
+        Return result
+    End Function
+    'Stavke dokumenta
+    Public Function getStavkeDokumenta(ByVal tip As String, ByVal broj As String)
+        Dim query1 As String = "SELECT * FROM " + Globals.dabase + ".dok_sta_d where tip = '" + tip + "' and god = '" + Globals.aktivnaGodina + "' and objekt='" + Globals.objekt + "' and broj = '" + broj + "'"
+        Console.Write(query1)
+        Dim table As New DataTable
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query1, connection)
+                adapter.Fill(table)
+                Return table
+                ' getInfoStavkeDokumenta(tip, broj)
+            End Using
+        End Using
+    End Function
+    'infostavke Dokumenta
+    Public Function getInfoStavkeDokumenta(ByVal tip As String, ByVal broj As String)
+        Dim result = New List(Of ReturnList)
+        Try
+            ManageConnection(False, konekcija) 'Open connection
+            Dim strQuery As String = "SELECT sum(kolicina * pc) as ukupno, sum(kolicina * pc * (stopa * 100) /(stopa + 100) / 100) as pdv, sum(kolicina * mpc) as mp_iznos, sum(kolicina * mpc * rabat1 / 100) as rabat, sum((kolicina * mpc) - (kolicina * mpc * rabat1 / 100) * rabat2 / 100) as rabat_plus, sum(kolicina * pc) - sum(kolicina * pc * (stopa * 100) /(stopa + 100) / 100) as neto, sum(kolicina * mpc) - sum(kolicina * pc) as popusti, sum(kolicina * pc) - (sum(kolicina * pc * (stopa * 100) /(stopa + 100) / 100)) -  (sum(kolicina * mpc) - sum(kolicina * pc))  as bpdv, (sum(kolicina * mpc) - sum(kolicina * pc)) - (sum(kolicina * mpc * rabat1 / 100))  - (sum((kolicina * mpc) - (kolicina * mpc * rabat1 / 100) * rabat2 / 100)) as sconto FROM " + Globals.dabase + ".dok_sta_d where tip = '" + tip + "' and god = '" + Globals.aktivnaGodina + "' and objekt='" + Globals.objekt + "' and broj = '" + broj + "'"
+            'Dim strQuery As String = "Select registracija, idvozila FROM kerametal.vozila where partner = '1123'"
+            'MessageBox.Show(strQuery)
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+            While reader.Read()
+                Dim TempResult As New ReturnList
+                TempResult.ukupnoInfo = reader(0)
+                TempResult.pdvInfo = reader(1)
+                TempResult.mpIznosInfo = reader(2)
+                TempResult.rabatInfo = reader(3)
+                TempResult.rabatPlusInfo = reader(4)
+                TempResult.netoInfo = reader(5)
+                TempResult.popustiInfo = reader(6)
+                TempResult.bpdvInfo = reader(7)
+                TempResult.scontoInfo = reader(8)
                 result.Add(TempResult)
             End While
             reader.Close()
@@ -355,5 +399,15 @@ Public Class MySQLcompany
         Public Property nazivDokumenta As String
         Public Property idDokumenta As String
         Public Property brojDokumenta As String
+
+        Public Property pdvInfo As String
+        Public Property ukupnoInfo As String
+        Public Property mpIznosInfo As String
+        Public Property rabatInfo As String
+        Public Property rabatPlusInfo As String
+        Public Property netoInfo As String
+        Public Property popustiInfo As String
+        Public Property bpdvInfo As String
+        Public Property scontoInfo As String
     End Class
 End Class

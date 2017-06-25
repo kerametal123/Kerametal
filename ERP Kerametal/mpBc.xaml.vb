@@ -59,55 +59,111 @@ Public Class mpBc
         'populate gridArtikli
         gridArtikli.ItemsSource = mysqlcomp.getArtikliZaAktivnog
         popuniVrsteDokumenata()
+        pripremiRacunGrid()
 
 
         gridArtikli.View.FocusedRowHandle = -1
-        ocistiPrikazArtikla()
+
+
+
+    End Function
+    Private Sub GridControl_AsyncOperationCompleted(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+    Public Function pripremiRacunGrid()
+        gridRacunNew.Items.Clear()
         Dim c1 As New DataGridTextColumn()
         c1.Header = "Sifra"
         c1.Width = 60
         c1.Binding = New Binding("Sifra")
-        gridRacun.Columns.Add(c1)
+        gridRacunNew.Columns.Add(c1)
 
         Dim c2 As New DataGridTextColumn()
         c2.Header = "Naziv artikla"
         c2.Width = 500
         c2.Binding = New Binding("Naziv")
-        gridRacun.Columns.Add(c2)
+        gridRacunNew.Columns.Add(c2)
 
         Dim c3 As New DataGridTextColumn()
         c3.Header = "Količina"
         c3.Width = 50
         c3.Binding = New Binding("Kolicina")
-        gridRacun.Columns.Add(c3)
+        gridRacunNew.Columns.Add(c3)
 
         Dim c4 As New DataGridTextColumn()
         c4.Header = "Cijena"
         c4.Width = 100
         c4.Binding = New Binding("Cijena")
-        gridRacun.Columns.Add(c4)
+        gridRacunNew.Columns.Add(c4)
 
         Dim c5 As New DataGridTextColumn()
         c5.Header = "Rabat"
         c5.Width = 50
         c5.Binding = New Binding("Rabat")
-        gridRacun.Columns.Add(c5)
+        gridRacunNew.Columns.Add(c5)
 
         Dim c6 As New DataGridTextColumn()
         c6.Header = "PC"
         c6.Width = 100
         c6.Binding = New Binding("PC")
-        gridRacun.Columns.Add(c6)
+        gridRacunNew.Columns.Add(c6)
 
         Dim c7 As New DataGridTextColumn()
         c7.Header = "Iznos"
         c7.Width = 100
         c7.Binding = New Binding("Iznos")
-        gridRacun.Columns.Add(c7)
+        gridRacunNew.Columns.Add(c7)
     End Function
-    Private Sub GridControl_AsyncOperationCompleted(sender As Object, e As RoutedEventArgs)
+    Public Function pripremiRacunGridArhiva()
+        Dim c1 As New GridColumn()
+        c1.Header = "Sifra"
+        c1.Width = 60
+        c1.Binding = New Binding("sifra")
+        gridRacun.Columns.Add(c1)
 
-    End Sub
+        Dim c2 As New GridColumn()
+        c2.Header = "Naziv artikla"
+        c2.Width = 500
+        c2.Binding = New Binding("naziv")
+        gridRacun.Columns.Add(c2)
+
+        Dim c3 As New GridColumn()
+        c3.Header = "Količina"
+        c3.Width = 50
+        c3.Binding = New Binding("kolicina")
+        gridRacun.Columns.Add(c3)
+
+        Dim c4 As New GridColumn()
+        c4.Header = "Cijena"
+        c4.Width = 100
+        c4.Binding = New Binding("mpc")
+        gridRacun.Columns.Add(c4)
+
+        Dim c5 As New GridColumn()
+        c5.Header = "Rabat"
+        c5.Width = 50
+        c5.Binding = New Binding("rabat")
+        gridRacun.Columns.Add(c5)
+
+
+        Dim c6 As New GridColumn()
+        c6.Header = "Rabat 1"
+        c6.Width = 100
+        c6.Binding = New Binding("rabat1")
+        gridRacun.Columns.Add(c6)
+
+        Dim c7 As New GridColumn()
+        c7.Header = "PC"
+        c7.Width = 100
+        c7.Binding = New Binding("pc")
+        gridRacun.Columns.Add(c7)
+
+        Dim c8 As New GridColumn()
+        c8.Header = "Iznos"
+        c8.Width = 100
+        c8.Binding = New Binding("iznos")
+        gridRacun.Columns.Add(c8)
+    End Function
     Private Sub textBox1_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBox1.TextChanged
         'Increment the counter for the number of times the textbox has been changed
         mint_LastInitializedTimerID = mint_LastInitializedTimerID + 1
@@ -193,6 +249,9 @@ Public Class mpBc
         End If
         ispravitiCheck.IsChecked = True
         infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
+        gridRacunNew.Visibility = Visibility.Collapsed
+        gridRacun.Visibility = Visibility.Visible
+        pripremiRacunGridArhiva()
     End Sub
 
     Private Sub dodatiCheck_Click(sender As Object, e As RoutedEventArgs) Handles dodatiCheck.Click
@@ -201,6 +260,9 @@ Public Class mpBc
         End If
         dodatiCheck.IsChecked = True
         infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#593AFF00"), Color))
+        gridRacunNew.Visibility = Visibility.Visible
+        gridRacun.Visibility = Visibility.Collapsed
+        pripremiRacunGrid()
     End Sub
 
     Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
@@ -374,7 +436,7 @@ Public Class mpBc
 
     Public Function izracunajArtikalZaProdaju()
         Dim item = New Item With {.Sifra = sifraTemp.Content, .Naziv = nazivTemp.Content, .Kolicina = kolicinaTemp.Content, .Cijena = cijenaTemp.Content, .Rabat = rabatTbox.Text, .PC = 1.0, .Iznos = 1.0}
-        gridRacun.Items.Add(item)
+        gridRacunNew.Items.Add(item)
 
     End Function
 
@@ -451,8 +513,64 @@ Public Class mpBc
     End Sub
 
     Private Sub brojeviDokumenataCbox_DropDownClosed(sender As Object, e As EventArgs) Handles brojeviDokumenataCbox.DropDownClosed
+
+    End Sub
+
+    Private Sub simpleButton1_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton1.Click
+
+    End Sub
+
+    Private Sub brojeviDokumenataCbox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles brojeviDokumenataCbox.SelectionChanged
+        gridRacun.Columns.Clear()
         Try
+            Dim ukupno As Decimal = 0
+            Dim pdv As Decimal = 0
+            Dim neto As Decimal = 0
+            Dim mp_iznos As Decimal = 0
+            Dim popusti As Decimal = 0
+            Dim izn_bez_pdv As Decimal = 0
+            Dim rabat As Decimal = 0
+            Dim rabat_plus As Decimal = 0
+            Dim sconto As Decimal = 0
             brojDokMain.Content = brojeviDokumenataCbox.SelectedItem.tag
+            pripremiRacunGridArhiva()
+            gridRacun.ItemsSource = mysqlcomp.getStavkeDokumenta(tipoviDokumenataCbox.SelectedItem.tag, brojeviDokumenataCbox.SelectedItem.tag)
+
+            For Each item As ReturnList In mysqlcomp.getInfoStavkeDokumenta(tipoviDokumenataCbox.SelectedItem.tag, brojeviDokumenataCbox.SelectedItem.tag)
+                rabat = racunanje.zaokruziNaDvije(item.rabatInfo)
+                neto = racunanje.zaokruziNaDvije(item.netoInfo)
+                ukupno = racunanje.zaokruziNaDvije(item.ukupnoInfo)
+                pdv = racunanje.zaokruziNaDvije(item.pdvInfo)
+                popusti = racunanje.zaokruziNaDvije(item.popustiInfo)
+                izn_bez_pdv = racunanje.zaokruziNaDvije(item.bpdvInfo)
+                rabat_plus = racunanje.zaokruziNaDvije(item.rabatPlusInfo)
+                sconto = racunanje.zaokruziNaDvije(item.scontoInfo)
+                If racunanje.zaokruziNaDvije(item.scontoInfo) < 0 Then
+                    If racunanje.zaokruziNaDvije(item.rabatInfo) <> 0 Then
+                        rabat = racunanje.zaokruziNaDvije(item.rabatInfo) + racunanje.zaokruziNaDvije(item.scontoInfo)
+                    Else
+                        rabat_plus = racunanje.zaokruziNaDvije(item.rabatPlusInfo) + racunanje.zaokruziNaDvije(item.scontoInfo)
+                    End If
+                    sconto = 0
+                End If
+                rabatTboxS.Text = rabat
+                nettoTbox.Text = neto
+                maticnaValutaTbox.Text = ukupno
+                pdvTbox.Text = pdv
+                odbiciTbox.Text = popusti
+                iznosBezPDVTbox.Text = izn_bez_pdv
+                rabatPlusTbox.Text = rabat_plus
+                scontoTbox.Text = sconto
+
+
+
+
+
+
+
+
+            Next
+
         Catch ex As Exception
 
         End Try
