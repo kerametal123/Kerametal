@@ -419,7 +419,87 @@ Public Class MySQLcompany
         End Try
         Return result
     End Function
+    Public Function dopunskiRabatPost(ByVal iznos As String, ByVal brojDokumenta As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim query As String = "update " + Globals.dabase + ".dok_sta_d set rabat2='" + iznos + "'  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "'"
+            Dim query2 As String = "update " + Globals.dabase + ".dok_sta_d set rabat = (1-((1-rabat1/100-((1-rabat1/100) *rabat2/100))-((1-rabat1/100-((1-rabat1/100)*rabat2/100))*sconto/100))) * 100 where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "'"
+            Dim query3 As String = "update " + Globals.dabase + ".dok_sta_d set pc=format(mpc*(1-rabat/100),'0.00')  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "'"
+            Dim query4 As String = "update " + Globals.dabase + ".dok_sta_d set iznos = kolicina * pc  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "';"
 
+            Dim QueryString As String = String.Concat(query, ";", query2, ";", query3, ";", query4)
+            Dim SqlCmd As New MySqlCommand(QueryString, dbCon)
+            SqlCmd.ExecuteNonQuery()
+
+            ManageConnection(True, konekcija) 'Close connection'
+
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
+    End Function
+    Public Function dopunskiRabatIzn(ByVal iznos As String, ByVal brojDokumenta As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim query As String = "update " + Globals.dabase + ".dok_sta_d set rabat2='" + iznos + "'  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "'"
+            Dim query2 As String = "update " + Globals.dabase + ".dok_sta_d set  rabat = (1-((1-rabat1/100-((1 -rabat1/100)*rabat2/100))-((1-rabat1 /100 - ((1-rabat1/100)*rabat2/100))*sconto/100)))*100  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "'"
+            Dim query3 As String = "update " + Globals.dabase + ".dok_sta_d set pc=format(mpc*(1-rabat/100),'0.00')  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "'"
+            Dim query4 As String = "update " + Globals.dabase + ".dok_sta_d set iznos = kolicina * pc  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "';"
+
+            Dim QueryString As String = String.Concat(query, ";", query2, ";", query3, ";", query4)
+            Dim SqlCmd As New MySqlCommand(QueryString, dbCon)
+            SqlCmd.ExecuteNonQuery()
+
+            ManageConnection(True, konekcija) 'Close connection'
+
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
+    End Function
+    'Sconto
+    Public Function scontoPost(ByVal iznos As String, ByVal brojDokumenta As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim query As String = "update " + Globals.dabase + ".dok_sta_d set sconto='" + iznos + "'  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "'"
+            Dim query2 As String = "update " + Globals.dabase + ".dok_sta_d set rabat = (1-((1-rabat1/100-((1-rabat1/100) *rabat2/100))-((1-rabat1/100-((1-rabat1/100)*rabat2/100))*sconto/100))) * 100 where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "'"
+            Dim query3 As String = "update " + Globals.dabase + ".dok_sta_d set pc=format(mpc*(1-rabat/100),'0.00')  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "'"
+            Dim query4 As String = "update " + Globals.dabase + ".dok_sta_d set iznos = kolicina * pc  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "';"
+
+            Dim QueryString As String = String.Concat(query, ";", query2, ";", query3, ";", query4)
+            Dim SqlCmd As New MySqlCommand(QueryString, dbCon)
+            SqlCmd.ExecuteNonQuery()
+
+            ManageConnection(True, konekcija) 'Close connection'
+
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
+    End Function
+    Public Function scontoIzn(ByVal iznos As String, ByVal brojDokumenta As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim query As String = "update " + Globals.dabase + ".dok_sta_d set sconto='" + iznos + "'  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "'"
+            Dim query2 As String = "update " + Globals.dabase + ".dok_sta_d set  rabat = (1-((1-rabat1/100-((1 -rabat1/100)*rabat2/100))-((1-rabat1 /100 - ((1-rabat1/100)*rabat2/100))*sconto/100)))*100  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "'"
+            Dim query3 As String = "update " + Globals.dabase + ".dok_sta_d set pc=format(mpc*(1-rabat/100),'0.00')  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "'"
+            Dim query4 As String = "update " + Globals.dabase + ".dok_sta_d set iznos = kolicina * pc  where tip= '" + Globals.tipDokumenta + "' and broj = '" + Globals.brojDokumenta + "' and objekt= '" + Globals.objekt + "';"
+
+            Dim QueryString As String = String.Concat(query, ";", query2, ";", query3, ";", query4)
+            Dim SqlCmd As New MySqlCommand(QueryString, dbCon)
+            SqlCmd.ExecuteNonQuery()
+
+            ManageConnection(True, konekcija) 'Close connection'
+
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
+    End Function
     Public Class ReturnList
         Public Property gotovinaInfo As String
         Public Property karticeInfo As String

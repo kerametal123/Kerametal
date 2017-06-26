@@ -19,6 +19,7 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
     Public Shared cijenaG = ""
     Public Shared cijenaUkupnoG = ""
     Public Shared tipDokumenta = ""
+    Public Shared brojDokumenta = ""
     Public Shared newlook As Boolean
     Public Shared login As Boolean
     Public Shared programAktivni = ""

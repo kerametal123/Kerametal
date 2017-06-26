@@ -17,7 +17,7 @@
 
     Private Sub textBox_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBox.TextChanged
         If System.Text.RegularExpressions.Regex.IsMatch(sender.Text, "[^0-9,-]+") Then
-            MessageBox.Show("Please enter only numbers.")
+            MessageBox.Show("Molim koristite samo brojeve.")
             sender.Text = sender.Text.Remove(sender.Text.Length - 1)
         Else
             RaiseEvent TextChanged(sender, e)

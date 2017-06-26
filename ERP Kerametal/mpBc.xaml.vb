@@ -10,6 +10,7 @@ Imports DevExpress.XtraEditors
 Public Class mpBc
     Dim enter As New EnterKeyTraversal
     Dim zadnji As Object
+    Dim control As String
     Dim popup As New popupValid
     Dim racunanje As New Racunanje
     Dim mysql As New MySQLinfo
@@ -121,6 +122,7 @@ Public Class mpBc
         gridRacunNew.Columns.Add(c7)
     End Function
     Public Function pripremiRacunGridArhiva()
+
         Dim c1 As New GridColumn()
         c1.Header = "Sifra"
         c1.Width = 60
@@ -258,14 +260,14 @@ Public Class mpBc
         gridRacun.Visibility = Visibility.Visible
         dodatiCheck.IsChecked = False
         infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
-        pripremiRacunGridArhiva()
+        'pripremiRacunGridArhiva()
     End Function
     Public Function pregledDokumenta()
         gridRacunNew.Visibility = Visibility.Collapsed
         gridRacun.Visibility = Visibility.Visible
         'dodatiCheck.IsChecked = False
         'infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
-        pripremiRacunGridArhiva()
+        'pripremiRacunGridArhiva()
     End Function
 
 
@@ -534,8 +536,17 @@ Public Class mpBc
     End Sub
 
     Private Sub brojeviDokumenataCbox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles brojeviDokumenataCbox.SelectionChanged
+        If IsNothing(brojeviDokumenataCbox.SelectedItem) Then
+
+        Else
+            prikaziOdabraniDokument(tipoviDokumenataCbox.SelectedItem.tag, brojeviDokumenataCbox.SelectedItem.tag)
+        End If
+    End Sub
+    Public Function prikaziOdabraniDokument(ByVal tag As String, ByVal broj As String)
         gridRacun.Columns.Clear()
         Try
+            Globals.tipDokumenta = tag
+            Globals.brojDokumenta = broj
             Dim ukupno As Decimal = 0
             Dim pdv As Decimal = 0
             Dim neto As Decimal = 0
@@ -545,11 +556,11 @@ Public Class mpBc
             Dim rabat As Decimal = 0
             Dim rabat_plus As Decimal = 0
             Dim sconto As Decimal = 0
-            brojDokMain.Content = brojeviDokumenataCbox.SelectedItem.tag
+            brojDokMain.Content = broj
             pripremiRacunGridArhiva()
-            gridRacun.ItemsSource = mysqlcomp.getStavkeDokumenta(tipoviDokumenataCbox.SelectedItem.tag, brojeviDokumenataCbox.SelectedItem.tag)
+            gridRacun.ItemsSource = mysqlcomp.getStavkeDokumenta(tag, broj)
 
-            For Each item As ReturnList In mysqlcomp.getInfoStavkeDokumenta(tipoviDokumenataCbox.SelectedItem.tag, brojeviDokumenataCbox.SelectedItem.tag)
+            For Each item As ReturnList In mysqlcomp.getInfoStavkeDokumenta(tag, broj)
                 rabat = racunanje.zaokruziNaDvije(item.rabatInfo)
                 neto = racunanje.zaokruziNaDvije(item.netoInfo)
                 ukupno = racunanje.zaokruziNaDvije(item.ukupnoInfo)
@@ -586,8 +597,7 @@ Public Class mpBc
         End Try
         'ispravke()
         pregledDokumenta()
-    End Sub
-
+    End Function
     Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
 
     End Sub
@@ -637,17 +647,36 @@ Public Class mpBc
 
 
     Private Sub YesButton_Click(sender As Object, e As RoutedEventArgs)
-        Try
+        'Dopunski rabat
+        If control = "dopunskiRabatPost" Then
+            If mysqlcomp.dopunskiRabatPost(InputTextBox.Text, Globals.brojDokumenta) = True Then
+                prikaziOdabraniDokument(Globals.tipDokumenta, Globals.brojDokumenta)
+            End If
+        ElseIf control = "dopunskiRabatIzn" Then
+            Dim iznos As String
+            iznos = InputTextBox.Text / maticnaValutaTbox.Text * 100
+            If mysqlcomp.dopunskiRabatIzn(iznos, Globals.brojDokumenta) = True Then
+                prikaziOdabraniDokument(Globals.tipDokumenta, Globals.brojDokumenta)
+            End If
 
-
-            InputBox.Visibility = Visibility.Collapsed
-            zadnji.Text = InputTextBox.Text
-        Catch ex As Exception
-
-        End Try
+            'Sconto
+        ElseIf control = "scontoPost" Then
+            Dim iznos As String
+            iznos = InputTextBox.Text
+            If mysqlcomp.dopunskiRabatIzn(iznos, Globals.brojDokumenta) = True Then
+                prikaziOdabraniDokument(Globals.tipDokumenta, Globals.brojDokumenta)
+            End If
+        ElseIf control = "scontoIzn" Then
+            Dim iznos As String
+            iznos = InputTextBox.Text / maticnaValutaTbox.Text * 100
+            If mysqlcomp.dopunskiRabatIzn(iznos, Globals.brojDokumenta) = True Then
+                prikaziOdabraniDokument(Globals.tipDokumenta, Globals.brojDokumenta)
+            End If
+        End If
         InputTextBox.Text = ""
         zadnji.focus()
         zadnji.SelectAll()
+        InputBox.Visibility = Visibility.Collapsed
     End Sub
 
     Private Sub NoButton_Click(sender As Object, e As RoutedEventArgs)
@@ -655,30 +684,30 @@ Public Class mpBc
     End Sub
     Private Sub dopunskiRabatPost_ItemClick(sender As Object, e As ItemClickEventArgs) Handles dopunskiRabatPost.ItemClick
         popupEditorSingleShow(rabatPlusTbox, "Unesite postotak dopunskog rabata:", True)
+        control = "dopunskiRabatPost"
     End Sub
     Private Sub dopunskiRabatIzn_ItemClick(sender As Object, e As ItemClickEventArgs) Handles dopunskiRabatIzn.ItemClick
         popupEditorSingleShow(rabatPlusTbox, "Unesite iznos dopunskog rabata:", False)
+        control = "dopunskiRabatIzn"
     End Sub
     Private Sub scontoPost_ItemClick(sender As Object, e As ItemClickEventArgs) Handles scontoPost.ItemClick
         popupEditorSingleShow(scontoTbox, "Unesite postotak dopunskog rabata:", True)
+        control = "scontoPost"
     End Sub
     Private Sub scontoIzn_ItemClick(sender As Object, e As ItemClickEventArgs) Handles scontoIzn.ItemClick
         popupEditorSingleShow(scontoTbox, "Unesite iznos dopunskog rabata:", False)
+        control = "scontoIzn"
     End Sub
     Public Function popupEditorSingleShow(ByVal sender As Object, ByVal tekst As String, ByVal postotak As Boolean)
-
-        If postotak = True Then
-
+        If postotak = False Then
             iBoxMsg.Text = tekst
             zadnji = sender
-            InputTextBox.Text = "0.00"
             InputBox.Visibility = Visibility.Visible
             InputTextBox.Focus()
             InputTextBox.SelectAll()
-        ElseIf postotak = False Then
+        ElseIf postotak = True Then
             iBoxMsg.Text = tekst
             zadnji = sender
-            InputTextBox.Text = sender.Text
             InputBox.Visibility = Visibility.Visible
             InputTextBox.Focus()
             InputTextBox.SelectAll()
@@ -699,7 +728,7 @@ Public Class mpBc
 
     Private Sub gotovinaTbox_TextChanged(sender As Object, e As TextChangedEventArgs) Handles gotovinaTbox.TextChanged
         If sender.IsFocused = True And sender.text.length > 0 Then
-            racunanje.calcVrstePlacanja(gotovinaTbox.Text, karticeTbox.Text, ziralnoTbox.Text, ostaloTbox.Text, maticnaValutaTbox.Text, sender)
+
         End If
     End Sub
 End Class
