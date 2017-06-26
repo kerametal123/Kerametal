@@ -89,7 +89,7 @@
                     <dx:SimpleButton Glyph="{dx:DXImage Image=AddFile_16x16.png}" x:Name="simpleButton1" Content="Novo" Height="42" Margin="1091,0,95,0" VerticalAlignment="Top" ButtonKind="Simple" GlyphAlignment="Left" MaxWidth="80" HorizontalContentAlignment="Center" HorizontalAlignment="Right"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Print_16x16.png}"  x:Name="simpleButton1_Copy" Content="Printati" Height="42" Margin="1176,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=EditName_16x16.png}" x:Name="ispravitiCheck" Content="Ispraviti" HorizontalAlignment="Left" Height="42" Margin="10,0,0,0" VerticalAlignment="Top" ButtonKind="Toggle" Width="85" />
-                    <dx:SimpleButton Glyph="{dx:DXImage Image=Add_16x16.png}" IsChecked="True" x:Name="dodatiCheck" Content="Dodati" HorizontalAlignment="Left" Height="42" Margin="95,0,0,0" VerticalAlignment="Top" ButtonKind="Toggle" Width="85"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Add_16x16.png}" x:Name="dodatiCheck" Content="Dodati" HorizontalAlignment="Left" Height="42" Margin="95,0,0,0" VerticalAlignment="Top" ButtonKind="Toggle" Width="85"/>
                 </Grid>
                 <Grid Height="42" Margin="0,76,0,0" VerticalAlignment="Top" Background="#FFDEDEDE">
                     <ComboBox x:Name="operateriCombo" HorizontalAlignment="Left" Margin="55,10,0,10" Width="161"/>
@@ -99,7 +99,7 @@
                     <Label x:Name="label2" Content="Prodaja broj:" HorizontalAlignment="Left" Margin="521,6,0,1" Width="122" FontSize="21"/>
                     <Label x:Name="brojDokMain" Content="" HorizontalAlignment="Left" Margin="663,6,0,1" Width="85" FontSize="21" FontWeight="Bold"/>
                     <TextBox x:Name="textBox_Copy" HorizontalAlignment="Right" Height="22" Margin="0,10,120,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
-                    <TextBox x:Name="textBox_Copy1" HorizontalAlignment="Right" Height="22" Margin="0,10,237,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="datumTbox" HorizontalAlignment="Right" Height="22" Margin="0,10,237,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Status_16x16.png}" x:Name="simpleButton3" Content="Napomena" HorizontalAlignment="Right" Height="22" Margin="0,10,10,0" VerticalAlignment="Top" Width="105"/>
                     <Label x:Name="label3" Content="Datum:" HorizontalAlignment="Right" Margin="0,10,362,0" VerticalAlignment="Top"/>
                     <Label x:Name="label3_Copy" Content="Dani:" HorizontalAlignment="Right" Margin="0,10,205,0" VerticalAlignment="Top"/>
@@ -145,18 +145,7 @@
                     </dxg:GridControl.View>
                 </dxg:GridControl>
                 <Grid Margin="564,646,10,10" Background="#FFDEDEDE">
-                    <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="12,49,0,0" VerticalAlignment="Top" Width="74" />
-                    <dxwui:AppBarButton Label="Rotate" HorizontalAlignment="Right" Glyph="{dx:DXImage Image=DrillDown_32x32.png}" >
-                        <dxwui:AppBarButton.Flyout>
-                            <dxwui:MenuFlyout ShowIndicator="True">
-                                <dxwui:MenuFlyoutItem Content="90° clockwise" Command="{Binding RotateClockwise}" />
-                                <dxwui:MenuFlyoutItem Content="90° counter clockwise" Command="{Binding RotateCounterclockwise}" />
-                                <dxwui:MenuFlyoutItem Content="180°" Command="{Binding Rotate180}" />
-                                <dxwui:MenuFlyoutSeparator />
-                                <dxwui:MenuFlyoutItem Content="Reset" Command="{Binding RotateReset}" />
-                            </dxwui:MenuFlyout>
-                        </dxwui:AppBarButton.Flyout>
-                    </dxwui:AppBarButton>
+                    <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="520,166,0,0" VerticalAlignment="Top" Width="74" />
                     <TextBox x:Name="scontoTbox" HorizontalAlignment="Left" Height="23" Margin="210,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120">
                         <dxb:BarManager.DXContextMenu>
                             <dxb:PopupMenu>
@@ -189,7 +178,7 @@
 
                                 Content="Dopunski rabat -  Iznos"
                              />
-                                    
+
                                 </dxb:PopupMenu.Items>
                             </dxb:PopupMenu>
                         </dxb:BarManager.DXContextMenu>
@@ -208,6 +197,14 @@
                     <Label x:Name="label6_Copy3" Content="Sconto" HorizontalAlignment="Left" Margin="210,39,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label6_Copy4" Content="Rabat plus" HorizontalAlignment="Left" Margin="335,39,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label6_Copy5" Content="Rabat" HorizontalAlignment="Left" Margin="460,38,0,0" VerticalAlignment="Top"/>
+                    <dxg:GridControl x:Name="vrstePlacanjaGrid"  EnableSmartColumnsGeneration="True" ItemsSource="{Binding LoadDataBindings}" Height="188" VerticalAlignment="Top" HorizontalAlignment="Left" Width="205">
+                        <dxg:GridControl.View>
+                            <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowColumnMoving="False" AllowEditing="False"/>
+                        </dxg:GridControl.View>
+
+                       <dxg:GridColumn FieldName="Placanja"  IsSmart="True" BestFitMode="VisibleRows" AllowBestFit="True" Width="300" Fixed="None" BestFitArea="Rows"/>
+                   
+                    </dxg:GridControl>
                 </Grid>
                 <DataGrid x:Name="gridRacunNew" Margin="564,409,10,0" VerticalAlignment="Top" Height="232"/>
 

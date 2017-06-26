@@ -3,6 +3,8 @@ Imports DevExpress.Xpf.Bars
 Imports DevExpress.Xpf.Grid
 Imports DevExpress.Xpf.WindowsUI
 Imports ERP_Kerametal.MySQLcompany
+Imports HtmlAgilityPack
+
 Public Class mpBc
     Dim racunanje As New Racunanje
     Dim mysql As New MySQLinfo
@@ -60,12 +62,9 @@ Public Class mpBc
         gridArtikli.ItemsSource = mysqlcomp.getArtikliZaAktivnog
         popuniVrsteDokumenata()
         pripremiRacunGrid()
-
-
+        getOperateri()
+        vrstePlacanjaGrid.ItemsSource = mysql.getVrstePlacanja()
         gridArtikli.View.FocusedRowHandle = -1
-
-
-
     End Function
     Private Sub GridControl_AsyncOperationCompleted(sender As Object, e As RoutedEventArgs)
 
@@ -237,41 +236,44 @@ Public Class mpBc
             End If
         End If
     End Sub
-
-
-
+    Public Function prodaja()
+        gridRacunNew.Visibility = Visibility.Visible
+        gridRacun.Visibility = Visibility.Collapsed
+        ispravitiCheck.IsChecked = False
+        infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#593AFF00"), Color))
+        pripremiRacunGrid()
+    End Function
+    Public Function ispravke()
+        gridRacunNew.Visibility = Visibility.Collapsed
+        gridRacun.Visibility = Visibility.Visible
+        dodatiCheck.IsChecked = False
+        infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
+        pripremiRacunGridArhiva()
+    End Function
+    Public Function pregledDokumenta()
+        gridRacunNew.Visibility = Visibility.Collapsed
+        gridRacun.Visibility = Visibility.Visible
+        'dodatiCheck.IsChecked = False
+        'infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
+        pripremiRacunGridArhiva()
+    End Function
 
 
 
     Private Sub ispravitiCheck_Click(sender As Object, e As RoutedEventArgs) Handles ispravitiCheck.Click
-        If dodatiCheck.IsChecked = True Then
-            dodatiCheck.IsChecked = False
-        End If
-        ispravitiCheck.IsChecked = True
-        infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
-        gridRacunNew.Visibility = Visibility.Collapsed
-        gridRacun.Visibility = Visibility.Visible
-        pripremiRacunGridArhiva()
+
     End Sub
 
     Private Sub dodatiCheck_Click(sender As Object, e As RoutedEventArgs) Handles dodatiCheck.Click
-        If ispravitiCheck.IsChecked = True Then
-            ispravitiCheck.IsChecked = False
-        End If
-        dodatiCheck.IsChecked = True
-        infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#593AFF00"), Color))
-        gridRacunNew.Visibility = Visibility.Visible
-        gridRacun.Visibility = Visibility.Collapsed
-        pripremiRacunGrid()
+
     End Sub
 
-    Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
+    Public Function getOperateri()
         For Each item In mysqlcomp.getOperateri()
 
             operateriCombo.Items.Add(item.ime + " " + item.prezime)
         Next
-
-    End Sub
+    End Function
     Private Sub simpleButton2_Copy2_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton2_Copy2.Click
         'For Each item In mysqlcomp.getGrupeArtikala()
         'grupeCbox.Items.Add(item.grupa)
@@ -517,7 +519,7 @@ Public Class mpBc
     End Sub
 
     Private Sub simpleButton1_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton1.Click
-
+        prodaja()
     End Sub
 
     Private Sub brojeviDokumenataCbox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles brojeviDokumenataCbox.SelectionChanged
@@ -561,19 +563,37 @@ Public Class mpBc
                 iznosBezPDVTbox.Text = izn_bez_pdv
                 rabatPlusTbox.Text = rabat_plus
                 scontoTbox.Text = sconto
-
-
-
-
-
-
-
-
+                datumTbox.Text = item.datumInfo
             Next
 
         Catch ex As Exception
 
         End Try
+        'ispravke()
+        pregledDokumenta()
+    End Sub
+
+    Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
+
+    End Sub
+    Public Sub Main()
+        Dim link As String = "https://www.google.com/finance/converter"
+        'download page from the link into an HtmlDocument'
+        Dim doc As HtmlDocument = New HtmlWeb().Load(link)
+        'select <div> having class attribute equals fontdef1'
+        Dim div As HtmlNode = doc.DocumentNode.SelectSingleNode("//div[@class='sfe-break-top']")
+        'if the div is found, print the inner text'
+        If Not div Is Nothing Then
+            Console.WriteLine(div.InnerText.Trim())
+        End If
+    End Sub
+
+    Private Sub ispravitiCheck_Checked(sender As Object, e As RoutedEventArgs) Handles ispravitiCheck.Checked
+        ispravke()
+    End Sub
+
+    Private Sub dodatiCheck_Checked(sender As Object, e As RoutedEventArgs) Handles dodatiCheck.Checked
+        prodaja()
     End Sub
 End Class
 
