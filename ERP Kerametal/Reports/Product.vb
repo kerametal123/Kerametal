@@ -68,4 +68,5 @@
             Me._Iznos = Me._Kolicina * Me.PC
         End Set
     End Property
+
 End Class

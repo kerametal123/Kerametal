@@ -51,6 +51,7 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
     Public Shared fk_glavna_knjiga = "", fk_saldo_konti = "", fk_blagajna = "", fk_aa = "", fk_bb = "", fk_KUF = "", fk_KIF = "", fk_ostalo1 = "", fk_ostalo2 = "",
         fk_ostalo3 = "", fk_ostalo4 = "", fk_ostalo5 = "", fk_ostalo6 = "", fk_ostalo7 = "", fk_ostalo8 = "", fk_ostalo9 = "",
         fk_partneri = "", fk_kontni_plan = "", fk_o1 = "", fk_o2 = "", fk_o3 = "", fk_o4 = "", fk_o5 = "", fk_o6 = "", fk_o7 = "", fk_o8 = ""
+    Public Shared urediDodaj = ""
     Public Shared Function CheckForInternetConnection() As Boolean
         Dim we As MainWindow = Application.Current.Windows(0)
         Try

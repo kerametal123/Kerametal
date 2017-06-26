@@ -261,19 +261,7 @@ Public Class MySQLinfo
         End Try
         Return result
     End Function
-    'Vrste plaćanja  
-    Public Function getVrstePlacanja()
-        Dim query1 As String = "SELECT naziv as Placanja FROM vrste_placanja;"
-        Console.Write(query1)
-        Dim table As New DataTable
-        Using connection As New MySqlConnection(konekcija)
-            Using adapter As New MySqlDataAdapter(query1, connection)
-                adapter.Fill(table)
-                Return table
-                ' getInfoStavkeDokumenta(tip, broj)
-            End Using
-        End Using
-    End Function
+
     Public Function vratiObjekte()
         Dim result = New List(Of ReturnList)
 

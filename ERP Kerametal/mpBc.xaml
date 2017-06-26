@@ -9,8 +9,9 @@
         mc:Ignorable="d"
         Title="Maloprodaja WIN" Height="910.5" Width="1458"  WindowState="Maximized" Loaded="Window_Loaded" MouseMove="Window_MouseMove">
 
-    <Grid>
-        <DockPanel>
+    <Grid >
+
+        <DockPanel x:Name="DockPanell" local:EnterKeyTraversal.IsEnabled="True">
             <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
                 <dxr:RibbonStatusBarControl.LeftItems>
                     <dxb:BarStaticItem x:Name="biRow" Content="Row:" ShowBorder="False"/>
@@ -65,12 +66,12 @@
                     <Label x:Name="nazivTemp" Content="" Margin="61,47,591,0" VerticalAlignment="Top" FontWeight="Bold" Height="22"/>
                     <Label x:Name="kolicinaTemp" Content="" Margin="0,47,548,0" VerticalAlignment="Top" FontWeight="Bold" Height="22" MaxWidth="40" HorizontalAlignment="Right" Width="38"/>
                     <Label x:Name="cijenaTemp" Content="" Margin="0,47,505,0" VerticalAlignment="Top" FontWeight="Bold" Height="22" MaxWidth="50" HorizontalAlignment="Right" Width="38"/>
-                    <dxe:CheckEdit x:Name="kolicinaCbox" Content="Količina" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="67"/>
-                    <dxe:CheckEdit x:Name="cijenaCbox" Content="Cijena" HorizontalAlignment="Left" Margin="150,154,0,0" VerticalAlignment="Top" Width="55"/>
+                    <dxe:CheckEdit x:Name="kolicinaCbox" Content="Količina" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="67" IsChecked="True"/>
+                    <dxe:CheckEdit x:Name="cijenaCbox"  Content="Cijena" HorizontalAlignment="Left" Margin="150,154,0,0" VerticalAlignment="Top" Width="55" IsChecked="True"/>
                     <kerametal:SelectAllTbox x:Name="mpcTbox" HorizontalAlignment="Left" Margin="210,124,0,0" Text="" VerticalAlignment="Top" Width="75"/>
                     <kerametal:SelectAllTbox x:Name="cijenaTbox" HorizontalAlignment="Left" Margin="210,152,0,0" Text="" VerticalAlignment="Top" Width="75"/>
                     <dxe:CheckEdit Content="Definirani rabati" HorizontalAlignment="Left" Margin="290,124,0,0" VerticalAlignment="Top" Width="111"/>
-                    <dxe:CheckEdit x:Name="rabatCbox" Content="Rabat" HorizontalAlignment="Left" Margin="290,154,0,0" VerticalAlignment="Top" Width="55"/>
+                    <dxe:CheckEdit x:Name="rabatCbox" Content="Rabat" HorizontalAlignment="Left" Margin="290,154,0,0" VerticalAlignment="Top" Width="55" IsChecked="True"/>
                     <Label x:Name="label5_Copy" Content="Iznos" HorizontalAlignment="Left" Margin="471,153,0,0" VerticalAlignment="Top" Height="22" Width="41"/>
                     <kerametal:SelectAllTbox x:Name="kolicinaTbox" HorizontalAlignment="Left" Margin="82,152,0,0" Text="1" VerticalAlignment="Top" Width="63"/>
                     <kerametal:SelectAllTbox x:Name="rabatTbox" HorizontalAlignment="Left" Margin="350,152,0,0" Text="" VerticalAlignment="Top" Width="85"/>
@@ -144,18 +145,19 @@
                         <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowColumnMoving="False" AllowEditing="False"/>
                     </dxg:GridControl.View>
                 </dxg:GridControl>
+
                 <Grid Margin="564,646,10,10" Background="#FFDEDEDE">
-                    <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="520,166,0,0" VerticalAlignment="Top" Width="74" />
+                    <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="66,122,0,0" VerticalAlignment="Top" Width="90" />
                     <TextBox x:Name="scontoTbox" HorizontalAlignment="Left" Height="23" Margin="210,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120">
                         <dxb:BarManager.DXContextMenu>
                             <dxb:PopupMenu>
                                 <dxb:PopupMenu.Items>
-                                    <dxb:BarButtonItem
+                                    <dxb:BarButtonItem  x:Name="scontoPost"
 
                                 Content="Sconto - %"
                            
                               />
-                                    <dxb:BarButtonItem
+                                    <dxb:BarButtonItem x:Name="scontoIzn"
 
                                 Content="Sconto -  Iznos"
                             
@@ -165,16 +167,16 @@
                             </dxb:PopupMenu>
                         </dxb:BarManager.DXContextMenu>
                     </TextBox>
-                    <TextBox x:Name="rabatPlusTbox" HorizontalAlignment="Left" Height="23" Margin="335,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120">
+                    <TextBox x:Name="rabatPlusTbox" Focusable="true" HorizontalAlignment="Left" Height="23" Margin="335,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120">
                         <dxb:BarManager.DXContextMenu>
                             <dxb:PopupMenu>
                                 <dxb:PopupMenu.Items>
-                                    <dxb:BarButtonItem
+                                    <dxb:BarButtonItem x:Name="dopunskiRabatPost"
 
                                 Content="Dopunski rabat - %"
                            
                                />
-                                    <dxb:BarButtonItem
+                                    <dxb:BarButtonItem x:Name="dopunskiRabatIzn"
 
                                 Content="Dopunski rabat -  Iznos"
                              />
@@ -197,18 +199,40 @@
                     <Label x:Name="label6_Copy3" Content="Sconto" HorizontalAlignment="Left" Margin="210,39,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label6_Copy4" Content="Rabat plus" HorizontalAlignment="Left" Margin="335,39,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label6_Copy5" Content="Rabat" HorizontalAlignment="Left" Margin="460,38,0,0" VerticalAlignment="Top"/>
-                    <dxg:GridControl x:Name="vrstePlacanjaGrid"  EnableSmartColumnsGeneration="True" ItemsSource="{Binding LoadDataBindings}" Height="188" VerticalAlignment="Top" HorizontalAlignment="Left" Width="205">
-                        <dxg:GridControl.View>
-                            <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowColumnMoving="False" AllowEditing="False"/>
-                        </dxg:GridControl.View>
-
-                       <dxg:GridColumn FieldName="Placanja"  IsSmart="True" BestFitMode="VisibleRows" AllowBestFit="True" Width="300" Fixed="None" BestFitArea="Rows"/>
-                   
-                    </dxg:GridControl>
+                    <kerametal:SelectAllTbox x:Name="gotovinaTbox" HorizontalAlignment="Left" Height="23" Margin="66,9,0,0"  VerticalAlignment="Top" Width="90"/>
+                    <kerametal:SelectAllTbox x:Name="karticeTbox" HorizontalAlignment="Left" Height="23" Margin="66,37,0,0"  VerticalAlignment="Top" Width="90"/>
+                    <kerametal:SelectAllTbox x:Name="ziralnoTbox" HorizontalAlignment="Left" Height="23" Margin="66,65,0,0"  VerticalAlignment="Top" Width="90"/>
+                    <kerametal:SelectAllTbox x:Name="ostaloTbox" HorizontalAlignment="Left" Height="23" Margin="66,94,0,0" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.458,0.522"/>
+                    <Label x:Name="label6_Copy6" Content="Gotovina:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label6_Copy7" Content="Kartice:" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label6_Copy8" Content="Ziralno:" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label6_Copy9" Content="Ostalo:" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top"/>
                 </Grid>
-                <DataGrid x:Name="gridRacunNew" Margin="564,409,10,0" VerticalAlignment="Top" Height="232"/>
+                <DataGrid x:Name="gridRacunNew" Margin="564,409,10,0" VerticalAlignment="Top" Height="232" Panel.ZIndex="4"/>
 
             </Grid>
         </DockPanel>
+        <Grid x:Name="InputBox" Visibility="collapsed" Margin="10,0,-10,0">
+            <Grid Background="Black" Opacity="0.5" Margin="-10,0,10,0"/>
+            <Border
+            MinWidth="250"
+            Background="#FF788989" 
+            BorderBrush="Black" 
+            BorderThickness="1" 
+            CornerRadius="0,15,0,15" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" Height="114" Margin="600,380,600,385">
+                <StackPanel>
+                    <TextBlock Margin="5" x:Name="iBoxMsg" Text="Input Box:" FontWeight="Bold" FontFamily="Cambria" />
+                    <TextBox  MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="InputTextBox"/>
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="YesButton" Margin="5" Content="Potvrdi" Background="{x:Null}" Click="YesButton_Click"/>
+                        <Button x:Name="NoButton" Margin="5" Content="Otkaži" Background="{x:Null}" Click="NoButton_Click" />
+                    </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

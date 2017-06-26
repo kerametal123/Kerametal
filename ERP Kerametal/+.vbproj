@@ -191,12 +191,15 @@
     <Compile Include="GUI\Idle.vb" />
     <Compile Include="GUI\Sucelje.vb" />
     <Compile Include="GUI\ViewModel.vb" />
-    <Compile Include="GUI\VisualExtension.vb" />
+    <Compile Include="GUI\EnterKeyTraversal.vb" />
     <Compile Include="Licenca\Licenciranje.vb" />
     <Compile Include="Licenca\Session.vb" />
     <Compile Include="Licenca\XML.vb" />
     <Compile Include="MySQL\MySQLcompany.vb" />
     <Compile Include="MySQL\MySQL_info.vb" />
+    <Compile Include="popupValid.xaml.vb">
+      <DependentUpon>popupValid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Racunanje\Racunanje.vb" />
     <Compile Include="Reports\Product.vb" />
     <Compile Include="Reports\XtraReport1.Designer.vb">
@@ -239,6 +242,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="mpBc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="popupValid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

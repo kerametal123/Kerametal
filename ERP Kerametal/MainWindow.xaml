@@ -18,7 +18,6 @@
         <ItemsPanelTemplate x:Key="ItemsPanelTemplate2">
             <StackPanel/>
         </ItemsPanelTemplate>
-
     </Window.Resources>
     <Grid>
         <DockPanel>

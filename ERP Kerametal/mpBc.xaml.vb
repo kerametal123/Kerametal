@@ -4,8 +4,13 @@ Imports DevExpress.Xpf.Grid
 Imports DevExpress.Xpf.WindowsUI
 Imports ERP_Kerametal.MySQLcompany
 Imports HtmlAgilityPack
+Imports DevExpress.XtraEditors
+'Imports System.Windows.Forms
 
 Public Class mpBc
+    Dim enter As New EnterKeyTraversal
+    Dim zadnji As Object
+    Dim popup As New popupValid
     Dim racunanje As New Racunanje
     Dim mysql As New MySQLinfo
     Dim mysqlcomp As New MySQLcompany
@@ -17,6 +22,7 @@ Public Class mpBc
     Dim intMilliseconds As Integer = 500000
     Dim objTimer As New System.Timers.Timer(intMilliseconds)
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
+
         pripremiSucelje()
 
         AddHandler objTimer.Elapsed, AddressOf Window_TimerElapsed
@@ -63,7 +69,8 @@ Public Class mpBc
         popuniVrsteDokumenata()
         pripremiRacunGrid()
         getOperateri()
-        vrstePlacanjaGrid.ItemsSource = mysql.getVrstePlacanja()
+        pripremiPlacanjaGrid()
+        dodatiCheck.IsChecked = True
         gridArtikli.View.FocusedRowHandle = -1
     End Function
     Private Sub GridControl_AsyncOperationCompleted(sender As Object, e As RoutedEventArgs)
@@ -162,6 +169,9 @@ Public Class mpBc
         c8.Width = 100
         c8.Binding = New Binding("iznos")
         gridRacun.Columns.Add(c8)
+    End Function
+    Public Function pripremiPlacanjaGrid()
+
     End Function
     Private Sub textBox1_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBox1.TextChanged
         'Increment the counter for the number of times the textbox has been changed
@@ -304,6 +314,7 @@ Public Class mpBc
     End Sub
 
     Private Sub simpleButton2_Copy1_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton2_Copy1.Click
+        InputBox.Visibility = Visibility.Visible
 
     End Sub
 
@@ -564,8 +575,12 @@ Public Class mpBc
                 rabatPlusTbox.Text = rabat_plus
                 scontoTbox.Text = sconto
                 datumTbox.Text = item.datumInfo
-            Next
 
+                gotovinaTbox.Text = item.gotovinaInfo
+                karticeTbox.Text = item.karticeInfo
+                ziralnoTbox.Text = item.ziralnoInfo
+                ostaloTbox.Text = item.ostaloInfo
+            Next
         Catch ex As Exception
 
         End Try
@@ -594,6 +609,98 @@ Public Class mpBc
 
     Private Sub dodatiCheck_Checked(sender As Object, e As RoutedEventArgs) Handles dodatiCheck.Checked
         prodaja()
+        Globals.urediDodaj = "dodaj"
+    End Sub
+
+
+
+    Private Sub kolicinaCbox_Unchecked(sender As Object, e As RoutedEventArgs) Handles kolicinaCbox.Unchecked
+        kolicinaTbox.IsEnabled = False
+    End Sub
+    Private Sub kolicinaCbox_checked(sender As Object, e As RoutedEventArgs) Handles kolicinaCbox.Checked
+        kolicinaTbox.IsEnabled = True
+    End Sub
+    Private Sub cijenaCbox_Unchecked(sender As Object, e As RoutedEventArgs) Handles cijenaCbox.Unchecked
+        cijenaTbox.IsEnabled = False
+    End Sub
+    Private Sub cijenaCbox_checked(sender As Object, e As RoutedEventArgs) Handles cijenaCbox.Checked
+        cijenaTbox.IsEnabled = True
+    End Sub
+
+    Private Sub rabatCbox_Checked(sender As Object, e As RoutedEventArgs) Handles rabatCbox.Checked
+        rabatTbox.IsEnabled = True
+    End Sub
+    Private Sub rabatCbox_Unchecked(sender As Object, e As RoutedEventArgs) Handles rabatCbox.Unchecked
+        rabatTbox.IsEnabled = False
+    End Sub
+
+
+
+    Private Sub YesButton_Click(sender As Object, e As RoutedEventArgs)
+        Try
+
+
+            InputBox.Visibility = Visibility.Collapsed
+            zadnji.Text = InputTextBox.Text
+        Catch ex As Exception
+
+        End Try
+        InputTextBox.Text = ""
+        zadnji.focus()
+        zadnji.SelectAll()
+    End Sub
+
+    Private Sub NoButton_Click(sender As Object, e As RoutedEventArgs)
+        InputBox.Visibility = Visibility.Collapsed
+    End Sub
+    Private Sub dopunskiRabatPost_ItemClick(sender As Object, e As ItemClickEventArgs) Handles dopunskiRabatPost.ItemClick
+        popupEditorSingleShow(rabatPlusTbox, "Unesite postotak dopunskog rabata:", True)
+    End Sub
+    Private Sub dopunskiRabatIzn_ItemClick(sender As Object, e As ItemClickEventArgs) Handles dopunskiRabatIzn.ItemClick
+        popupEditorSingleShow(rabatPlusTbox, "Unesite iznos dopunskog rabata:", False)
+    End Sub
+    Private Sub scontoPost_ItemClick(sender As Object, e As ItemClickEventArgs) Handles scontoPost.ItemClick
+        popupEditorSingleShow(scontoTbox, "Unesite postotak dopunskog rabata:", True)
+    End Sub
+    Private Sub scontoIzn_ItemClick(sender As Object, e As ItemClickEventArgs) Handles scontoIzn.ItemClick
+        popupEditorSingleShow(scontoTbox, "Unesite iznos dopunskog rabata:", False)
+    End Sub
+    Public Function popupEditorSingleShow(ByVal sender As Object, ByVal tekst As String, ByVal postotak As Boolean)
+
+        If postotak = True Then
+
+            iBoxMsg.Text = tekst
+            zadnji = sender
+            InputTextBox.Text = "0.00"
+            InputBox.Visibility = Visibility.Visible
+            InputTextBox.Focus()
+            InputTextBox.SelectAll()
+        ElseIf postotak = False Then
+            iBoxMsg.Text = tekst
+            zadnji = sender
+            InputTextBox.Text = sender.Text
+            InputBox.Visibility = Visibility.Visible
+            InputTextBox.Focus()
+            InputTextBox.SelectAll()
+        End If
+    End Function
+
+    Private Sub DockPanell_PreviewKeyDown(sender As Object, e As KeyEventArgs)
+        If e.Key = Key.Enter Then
+            Dim s As TextBox = TryCast(e.Source, TextBox)
+            If s IsNot Nothing Then
+                s.MoveFocus(New TraversalRequest(FocusNavigationDirection.[Next]))
+            End If
+
+            e.Handled = True
+        End If
+
+    End Sub
+
+    Private Sub gotovinaTbox_TextChanged(sender As Object, e As TextChangedEventArgs) Handles gotovinaTbox.TextChanged
+        If sender.IsFocused = True And sender.text.length > 0 Then
+            racunanje.calcVrstePlacanja(gotovinaTbox.Text, karticeTbox.Text, ziralnoTbox.Text, ostaloTbox.Text, maticnaValutaTbox.Text, sender)
+        End If
     End Sub
 End Class
 

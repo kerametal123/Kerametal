@@ -2,7 +2,6 @@
 Imports ERP_Kerametal.MySQLinfo
 
 Class MainWindow
-    Dim sucelje As New Sucelje
     Dim licenciranje As New Licenciranje
     Dim XMLinfo As New XMLinfo
     Dim WMInfos As New WMInfo
@@ -68,7 +67,7 @@ Class MainWindow
                 conMenu.Items.Add(BarButtonItem)
 
             Next
-        ElseIf globals.newlook = True Then
+        ElseIf Globals.newlook = True Then
             tileBar.Items.Clear()
             labelcont.Visibility = Visibility.Hidden
             simpleButton.Visibility = Visibility.Hidden
