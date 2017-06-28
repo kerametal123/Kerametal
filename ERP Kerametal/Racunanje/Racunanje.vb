@@ -1,12 +1,22 @@
 ﻿Public Class Racunanje
-    Public Function zaokruziNaDvije(ByVal input As Double)
+    Public Function zaokruziNaDvije(ByVal input As Decimal)
         Dim output As Decimal
         Try
-            output = Format(Convert.ToDouble(input), "####.#0")
+            ' output = pretvoriTocke(input)
+            output = Format(input, "0.00")
         Catch ex As Exception
 
         End Try
         Return output
+    End Function
+    Public Function pretvoriTocke(ByVal sirovo As String)
+        Dim value1 As String = sirovo
+        Console.WriteLine(value1)
+
+        ' Replace every instance of the string.
+        Dim value2 As String = value1.Replace(",", ".")
+        Return value2
+
     End Function
     Public Function racunajRabat(ByVal prviBroj As Double, ByVal drugiBroj As Double)
         Dim rabat As Double

@@ -215,6 +215,12 @@
       <DependentUpon>test.xaml</DependentUpon>
     </Compile>
     <Compile Include="WMInfo\WMInfo.vb" />
+    <Compile Include="XtraReport2.Designer.vb">
+      <DependentUpon>XtraReport2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="XtraReport2.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Page Include="Aplikacije.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

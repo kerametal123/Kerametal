@@ -190,7 +190,7 @@
                     <TextBox x:Name="odbiciTbox" Margin="0,38,10,0" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Top" IsReadOnly="True"/>
                     <TextBox x:Name="nettoTbox" Margin="0,66,10,0" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Top" IsReadOnly="True"/>
                     <TextBox x:Name="pdvTbox" Margin="0,94,10,0" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Top" IsReadOnly="True"/>
-                    <TextBox x:Name="maticnaValutaTbox" Margin="0,0,10,10" TextWrapping="Wrap" Text="Maticna Valuta" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" IsReadOnly="True"/>
+                    <TextBox x:Name="maticnaValutaTbox" Margin="0,0,10,10" TextWrapping="Wrap" Text="1.11" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" IsReadOnly="True"/>
                     <TextBox x:Name="protuValutaTbox" Margin="0,0,135,10" TextWrapping="Wrap" Text="Protuvaluta" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Bottom" IsReadOnly="True"/>
                     <Label x:Name="label6" Content="Iznos bez PDV:" Margin="0,11,135,0" HorizontalAlignment="Right" Width="78" Height="22" VerticalAlignment="Top"/>
                     <Label x:Name="label6_Copy" Content="Odbici:" Margin="0,39,135,0" HorizontalAlignment="Right" Width="37" Height="22" VerticalAlignment="Top"/>

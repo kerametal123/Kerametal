@@ -33,8 +33,9 @@ Public Class mpBc
     End Sub
     Public Function popuniVrsteDokumenata()
         'Dodaj iteme
+
         For Each item As ReturnList In mysqlcomp.getVrsteDokumenata()
-            Dim barmanager1 As New BarManager
+            Dim barmanager As New BarManager
             Dim ComboBoxItem = New ComboBoxItem()
             ComboBoxItem.Content = item.nazivDokumenta
             ComboBoxItem.Name = item.nazivDokumenta
@@ -49,6 +50,13 @@ Public Class mpBc
 
     Public Function popuniDokumente(ByVal tip As String)
         'Dodaj iteme
+        Dim barmanager As New BarManager
+        Dim ComboBoxItem1 = New ComboBoxItem()
+        ComboBoxItem1.Content = "*"
+        ComboBoxItem1.Name = "Novi"
+        ComboBoxItem1.Tag = "new"
+        brojeviDokumenataCbox.Items.Add(ComboBoxItem1)
+        ComboBoxItem1.IsSelected = True
         For Each item As ReturnList In mysqlcomp.getBrojeviDokumenata(tip)
             Dim barmanager1 As New BarManager
             Dim ComboBoxItem = New ComboBoxItem()
@@ -171,6 +179,12 @@ Public Class mpBc
         c8.Width = 100
         c8.Binding = New Binding("iznos")
         gridRacun.Columns.Add(c8)
+
+        Dim c9 As New GridColumn()
+        c9.Header = "Rabat 2"
+        c9.Width = 100
+        c9.Binding = New Binding("rabat2")
+        gridRacun.Columns.Add(c9)
     End Function
     Public Function pripremiPlacanjaGrid()
 
@@ -649,27 +663,35 @@ Public Class mpBc
     Private Sub YesButton_Click(sender As Object, e As RoutedEventArgs)
         'Dopunski rabat
         If control = "dopunskiRabatPost" Then
-            If mysqlcomp.dopunskiRabatPost(InputTextBox.Text, Globals.brojDokumenta) = True Then
+            Dim a As Object = 0
+            a = racunanje.pretvoriTocke(InputTextBox.Text)
+            If mysqlcomp.dopunskiRabatPost(a, Globals.brojDokumenta) = True Then
                 prikaziOdabraniDokument(Globals.tipDokumenta, Globals.brojDokumenta)
             End If
         ElseIf control = "dopunskiRabatIzn" Then
-            Dim iznos As String
-            iznos = InputTextBox.Text / maticnaValutaTbox.Text * 100
-            If mysqlcomp.dopunskiRabatIzn(iznos, Globals.brojDokumenta) = True Then
+            Dim iznos As Object = 0
+            Dim a As Object = 0
+            iznos = InputTextBox.Text
+            a = racunanje.pretvoriTocke(iznos / maticnaValutaTbox.Text * 100)
+            'iznos = InputTextBox.Text / maticnaValutaTbox.Text * 100
+            'MessageBox.Show(a)
+            If mysqlcomp.dopunskiRabatIzn(a, Globals.brojDokumenta) = True Then
                 prikaziOdabraniDokument(Globals.tipDokumenta, Globals.brojDokumenta)
             End If
 
             'Sconto
         ElseIf control = "scontoPost" Then
-            Dim iznos As String
-            iznos = InputTextBox.Text
-            If mysqlcomp.dopunskiRabatIzn(iznos, Globals.brojDokumenta) = True Then
+            Dim a As Object = 0
+            a = racunanje.pretvoriTocke(InputTextBox.Text)
+            If mysqlcomp.scontoPost(a, Globals.brojDokumenta) = True Then
                 prikaziOdabraniDokument(Globals.tipDokumenta, Globals.brojDokumenta)
             End If
         ElseIf control = "scontoIzn" Then
-            Dim iznos As String
-            iznos = InputTextBox.Text / maticnaValutaTbox.Text * 100
-            If mysqlcomp.dopunskiRabatIzn(iznos, Globals.brojDokumenta) = True Then
+            Dim iznos As Object = 0
+            Dim a As Object = 0
+            iznos = InputTextBox.Text
+            a = racunanje.pretvoriTocke(iznos / maticnaValutaTbox.Text * 100)
+            If mysqlcomp.scontoIzn(a, Globals.brojDokumenta) = True Then
                 prikaziOdabraniDokument(Globals.tipDokumenta, Globals.brojDokumenta)
             End If
         End If
@@ -691,11 +713,11 @@ Public Class mpBc
         control = "dopunskiRabatIzn"
     End Sub
     Private Sub scontoPost_ItemClick(sender As Object, e As ItemClickEventArgs) Handles scontoPost.ItemClick
-        popupEditorSingleShow(scontoTbox, "Unesite postotak dopunskog rabata:", True)
+        popupEditorSingleShow(scontoTbox, "Unesite postotak sconta:", True)
         control = "scontoPost"
     End Sub
     Private Sub scontoIzn_ItemClick(sender As Object, e As ItemClickEventArgs) Handles scontoIzn.ItemClick
-        popupEditorSingleShow(scontoTbox, "Unesite iznos dopunskog rabata:", False)
+        popupEditorSingleShow(scontoTbox, "Unesite iznos sconta:", False)
         control = "scontoIzn"
     End Sub
     Public Function popupEditorSingleShow(ByVal sender As Object, ByVal tekst As String, ByVal postotak As Boolean)
