@@ -36,9 +36,7 @@
         End Try
         Return cijenaUkupno
     End Function
-    Public Function calcVrstePlacanja(ByVal gotovina As Double, ByVal kartice As Double, ByVal ziralno As Double, ByVal ostalo As Double, ByVal ukupno As Double, ByVal sender As Object)
 
-    End Function
     Public Function rabatCalc(ByVal rabatPost As Boolean, ByVal rabatVrij As Boolean, ByVal scontoPost As Boolean, ByVal scontoVrij As Boolean, ByVal tip As String, ByVal broj As String)
         'kasa sconto (dodatni popust, uplata prije ugovorenog roka)
 

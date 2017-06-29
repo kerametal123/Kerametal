@@ -25,17 +25,8 @@ Public Class Licenciranje
         End If
         Return True
     End Function
-    Public Function provjeriLicencuOffline()
 
-    End Function
-    Public Function loginOnline()
-        Try
-            If mysql.login() = True Then
-                MessageBox.Show("true")
-            End If
-        Catch ex As Exception
-        End Try
-    End Function
+
     Public Function checkActivity()
         Dim fileReader As System.IO.StreamReader
         fileReader =
@@ -52,7 +43,9 @@ My.Computer.FileSystem.OpenTextFileReader(punoImePutanje)
         ElseIf mysql.provjeraInstalacije(stringReader, "instalacije_aktivnost") = False Then
             MessageBox.Show("Aplikaciji nije dozvoljen rad!")
             Application.Current.Shutdown()
+            Return False
         End If
+        Return False
     End Function
     Public Function kreirajLicencu(ByVal ffn As String)
         Dim fileLoc As String = ffn

@@ -3,7 +3,8 @@
         Try
 
         Catch ex As Exception
-
+            Return False
         End Try
+        Return True
     End Function
 End Class

@@ -437,6 +437,7 @@ Public Class mpBc
             ElseIf gridArtikli.SelectedItem("placanje") = 0 Then
                 placanje = 0
             End If
+            'Samo prodajna cijena
             If gridArtikli.SelectedItem("pc") = 0 Then
                 cijenaTemp.Content = racunanje.zaokruziNaDvije(gridArtikli.SelectedItem("mpc"))
             ElseIf gridArtikli.SelectedItem("pc") > 0 Then

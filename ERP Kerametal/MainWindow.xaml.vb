@@ -160,7 +160,7 @@ Class MainWindow
             ' Open your page
             mpBc.Show()
         End If
-
+        Return True
     End Function
     Public Function pripremiSucelje()
         mysql.infoInstalacije(Globals.cpuid)

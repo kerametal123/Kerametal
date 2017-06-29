@@ -79,7 +79,5 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
         End Try
         Return False
     End Function
-    Public Function sessionId()
 
-    End Function
 End Class
