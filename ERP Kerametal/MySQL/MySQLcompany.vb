@@ -397,8 +397,6 @@ Public Class MySQLcompany
         Try
             ManageConnection(False, konekcija) 'Open connection
             Dim strQuery As String = "SELECT got as Gotovina, kar as Kartice,zir as Ziralno, ost as Ostalo  FROM " + Globals.dabase + ".dok_sta_d where tip = '" + tip + "' and god = '" + Globals.aktivnaGodina + "' and objekt='" + Globals.objekt + "' and broj = '" + broj + "'"
-            'Dim strQuery As String = "Select registracija, idvozila FROM kerametal.vozila where partner = '1123'"
-            'MessageBox.Show(strQuery)
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
             While reader.Read()

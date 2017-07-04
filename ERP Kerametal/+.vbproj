@@ -145,6 +145,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Program Files (x86)\MySQL\MySQL Connector Net 6.7.9\Assemblies\v4.5\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data.Entity.EF5">
+      <HintPath>D:\Program Files (x86)\MySQL\MySQL Connector Net 6.7.9\Assemblies\v4.5\MySql.Data.Entity.EF5.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web">
+      <HintPath>D:\Program Files (x86)\MySQL\MySQL Connector Net 6.7.9\Assemblies\v4.5\MySql.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data">
@@ -195,6 +201,7 @@
     <Compile Include="Licenca\Licenciranje.vb" />
     <Compile Include="Licenca\Session.vb" />
     <Compile Include="Licenca\XML.vb" />
+    <Compile Include="MySQL\MySQLreporting.vb" />
     <Compile Include="MySQL\MySQLcompany.vb" />
     <Compile Include="MySQL\MySQL_info.vb" />
     <Compile Include="popupValid.xaml.vb">
@@ -214,13 +221,13 @@
     <Compile Include="test.xaml.vb">
       <DependentUpon>test.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WMInfo\WMInfo.vb" />
-    <Compile Include="XtraReport2.Designer.vb">
-      <DependentUpon>XtraReport2.vb</DependentUpon>
+    <Compile Include="TestRacun.Designer.vb">
+      <DependentUpon>TestRacun.vb</DependentUpon>
     </Compile>
-    <Compile Include="XtraReport2.vb">
+    <Compile Include="TestRacun.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WMInfo\WMInfo.vb" />
     <Page Include="Aplikacije.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -314,8 +321,8 @@
     <EmbeddedResource Include="Reports\XtraReport1.resx">
       <DependentUpon>XtraReport1.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="XtraReport2.resx">
-      <DependentUpon>XtraReport2.vb</DependentUpon>
+    <EmbeddedResource Include="TestRacun.resx">
+      <DependentUpon>TestRacun.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="ERP Kerametal_TemporaryKey.pfx" />
     <None Include="My Project\app.manifest" />
@@ -360,6 +367,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DevExpress\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\dok_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\dok_logo_big.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\dok_logotip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\dok_logo_original.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

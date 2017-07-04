@@ -5,6 +5,10 @@ Imports DevExpress.Xpf.WindowsUI
 Imports ERP_Kerametal.MySQLcompany
 Imports HtmlAgilityPack
 Imports DevExpress.XtraEditors
+Imports DevExpress.XtraReports.UI
+Imports DevExpress.LookAndFeel
+Imports DevExpress.XtraReports.Parameters
+Imports DevExpress.Xpf.Printing
 'Imports System.Windows.Forms
 
 Public Class mpBc
@@ -328,10 +332,16 @@ Public Class mpBc
     Private Sub gridPartneri_SelectionChanged(sender As Object, e As GridSelectionChangedEventArgs)
 
     End Sub
-
     Private Sub simpleButton2_Copy1_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton2_Copy1.Click
-        InputBox.Visibility = Visibility.Visible
-
+        Dim report As New TestRacun()
+        Dim window = New DocumentPreviewWindow()
+        'report.GroupFooterBand2.Visible = False
+        report.Parameters("parameter1").Value = brojDokMain.Content
+        report.RequestParameters = False
+        report.Parameters("parameter1").Visible = False
+        window.PreviewControl.DocumentSource = report
+        report.CreateDocument()
+        window.Show()
     End Sub
 
     Private Sub gridPartneri_SelectedItemChanged_1(sender As Object, e As SelectedItemChangedEventArgs) Handles gridPartneri.SelectedItemChanged
@@ -753,6 +763,21 @@ Public Class mpBc
         If sender.IsFocused = True And sender.text.length > 0 Then
 
         End If
+    End Sub
+
+    Private Sub simpleButton1_Copy_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton1_Copy.Click
+        Dim report As New TestRacun()
+        Dim window = New DocumentPreviewWindow()
+        report.GroupFooterBand2.Visible = False
+        report.XrLabel12.Visible = False
+        report.ReportHeaderBand1.Visible = False
+        report.Landscape = True
+        report.Parameters("parameter1").Value = brojDokMain.Content
+        report.RequestParameters = False
+        report.Parameters("parameter1").Visible = False
+        window.PreviewControl.DocumentSource = report
+        report.CreateDocument()
+        window.Show()
     End Sub
 End Class
 
