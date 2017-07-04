@@ -11,7 +11,6 @@ Class MainWindow
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         Try
             If Globals.CheckForInternetConnection = True Then
-
                 If licenciranje.provjeriLicencuOnline() = True Then
                     pripremiSucelje()
                     'Globals.newlook = True
@@ -21,7 +20,6 @@ Class MainWindow
             ElseIf Globals.CheckForInternetConnection = False Then
                 ' maloprodaja.Visibility = Visibility.Hidden
             End If
-
         Catch ex As Exception
             MessageBox.Show("err" & ex.Message)
         End Try
@@ -30,24 +28,16 @@ Class MainWindow
         Globals.logMaker("Glavni izbornik, Maloprodaja", sender)
         Dim form As New mpBc()
         form.ShowDialog()
-
     End Sub
     Public Function conMeni(ByVal table As String, ByVal update As Boolean)
         If Globals.newlook = False Then
-
-
             For Each item In mysql.vratiOpcijePrograma(table)
-
                 Dim s As String = item
                 Dim parts As String() = s.Split(New Char() {","c})
                 Dim icona As String = parts(1)
                 Dim barmanager1 As New BarManager
                 Dim BarButtonItem = New BarButtonItem()
                 BarButtonItem.Content = parts(3)
-
-
-
-
                 'BarButtonItem.Name = parts(3)
                 If parts(0) = 1 Then
                     BarButtonItem.IsVisible = False
@@ -56,7 +46,6 @@ Class MainWindow
                 ElseIf parts(0) = 3 Then
                     BarButtonItem.DataContext = "ddd"
                 ElseIf parts(0) = 4 Then
-
                 ElseIf parts(0) = 8 And update = True Then
                     makeMenuBtn(Icon, parts(3))
                 End If
@@ -65,15 +54,12 @@ Class MainWindow
                 AddHandler BarButtonItem.ItemClick, Function(sender, e) makeMenuBtn(Icon, parts(3))
                 'BarButtonItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString(parts(2)), Color))
                 conMenu.Items.Add(BarButtonItem)
-
             Next
         ElseIf Globals.newlook = True Then
             tileBar.Items.Clear()
             labelcont.Visibility = Visibility.Hidden
             simpleButton.Visibility = Visibility.Hidden
-
             For Each item In mysql.vratiOpcijePrograma(table)
-
                 Dim s As String = item
                 Dim parts As String() = s.Split(New Char() {","c})
                 Dim icona As String = parts(1)
@@ -81,18 +67,13 @@ Class MainWindow
                 Dim TileBarItem = New DevExpress.Xpf.Navigation.TileBarItem()
                 TileBarItem.Content = parts(3)
                 'TileBarItem.AllowGlyphTheming = True
-
-
-
                 'BarButtonItem.Name = parts(3)
                 If parts(0) = 1 Then
                     TileBarItem.Visibility = Visibility.Collapsed
                 ElseIf parts(0) = 2 Then
                     TileBarItem.Visibility = Visibility.Visible
                 ElseIf parts(0) = 3 Then
-
                 ElseIf parts(0) = 4 Then
-
                 ElseIf parts(0) = 8 And update = True Then
                     makeMenuBtn(Icon, parts(3))
                 End If
@@ -100,27 +81,19 @@ Class MainWindow
                 TileBarItem.TileGlyph = Icon
                 TileBarItem.Height = "80"
                 TileBarItem.Width = "120"
-
                 ' AddHandler TileBarItem.ItemClick, Function(sender, e) makeMenuBtn(Icon, parts(3))
                 TileBarItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#FF992F2F"), Color))
                 tileBar.Items.Add(TileBarItem)
-
             Next
-
         End If
         Datoteke.Items.Clear()
         For Each item In mysql.vratiDatoteke(table)
-
             Dim s As String = item
             Dim parts As String() = s.Split(New Char() {","c})
             Dim icona As String = parts(1)
             Dim barmanager1 As New BarManager
             Dim barcheckitem = New BarCheckItem()
             barcheckitem.Content = parts(3)
-
-
-
-
             'BarButtonItem.Name = parts(3)
             If parts(0) = 1 Then
                 barcheckitem.IsVisible = False
@@ -129,9 +102,7 @@ Class MainWindow
             ElseIf parts(0) = 3 Then
                 barcheckitem.DataContext = "ddd"
             ElseIf parts(0) = 4 Then
-
             ElseIf parts(0) = 8 And update = True Then
-
             End If
             Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
             barcheckitem.Glyph = Icon
@@ -148,15 +119,11 @@ Class MainWindow
         labelcont.Content = aa
         simpleButton.Glyph = glyph
         AddHandler simpleButton.Click, Function(sender, e) clickBigBtn(aa)
-
-
-
     End Function
     Public Function clickBigBtn(ByVal aa As String)
         If aa = "Prodaja" Then
             ' Create a window from the page you need to show
             Dim mpBc As New mpBc()
-
             ' Open your page
             mpBc.Show()
         End If
@@ -176,7 +143,6 @@ Class MainWindow
             If itemLink.IsChecked Then
                 conMenu.Items.Clear()
                 conMeni(itemLink.Name, True)
-
             End If
         Next
     End Function
@@ -195,15 +161,12 @@ Class MainWindow
             Tvrtka.Items.Add(barcheckitem)
         Next
     End Function
-
-
     Public Function postaviTvrtku(ByVal tvrtkaa As String)
         Globals.tvrtka = tvrtkaa
         Godina.Items.Clear()
         Objekt.Items.Clear()
         Program.Items.Clear()
         pripremiGodine()
-
     End Function
     Public Function pripremiObjekte()
         Objekt.Items.Clear()
@@ -217,8 +180,6 @@ Class MainWindow
                 BarCheckItem.IsChecked = True
             End If
             AddHandler BarCheckItem.ItemClick, Function(sender, e) endPrep(item.objekti_id)
-
-
             Objekt.Items.Add(BarCheckItem)
         Next
     End Function
@@ -250,7 +211,6 @@ Class MainWindow
     Public Function postaviGodinu(ByVal aa As String)
         Globals.aktivnaGodina = aa
         pripremiPrograme()
-
     End Function
     Public Function pripremiPrograme()
         Program.Items.Clear()
@@ -264,7 +224,6 @@ Class MainWindow
                 BarCheckItem.IsChecked = True
             End If
             AddHandler BarCheckItem.ItemClick, Function(sender, e) postaviProgram(item.vrstaPrograma)
-
             Program.Items.Add(BarCheckItem)
         Next
     End Function
@@ -294,8 +253,6 @@ Class MainWindow
                 Return
             End If
         Next
-
-
     End Sub
 
     Private Sub button_Click_1(sender As Object, e As RoutedEventArgs) Handles button.Click
@@ -309,8 +266,8 @@ Class MainWindow
     End Sub
 
     Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
-
+        For Each itemlink As BarCheckItem In Program.Items
+            Console.WriteLine(itemlink.Name)
+        Next
     End Sub
-
-
 End Class

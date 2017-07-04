@@ -4,6 +4,5 @@
     xmlns:local="clr-namespace:ERP_Kerametal"
     StartupUri="MainWindow.xaml" Startup="OnAppStartup_UpdateThemeName">
     <Application.Resources>
-        
     </Application.Resources>
 </Application>

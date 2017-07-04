@@ -38,10 +38,8 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
     Public Shared tvrtka_naziv = ""
     Public Shared objekt_naziv = ""
     Public Shared cpuid = ""
-
     'Samo racunalo
     Public Shared racunalo_naziv = ""
-
     'Array MP
     Public Shared prodaja = "", Kalkulacije = "", Zaduznice = "", Predisponacije = "", Robno = "", KUF = "", KIF = "", Narudzbenice = "", Nalozi = "", akcijskeCijene = "", servisnaRoba = "", Ostalo1 = "", Ostalo2 = "", Ostalo3 = "", Ostalo4 = ""
     'Array VP
@@ -54,7 +52,6 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
         fk_partneri = "", fk_kontni_plan = "", fk_o1 = "", fk_o2 = "", fk_o3 = "", fk_o4 = "", fk_o5 = "", fk_o6 = "", fk_o7 = "", fk_o8 = ""
     Public Shared urediDodaj = ""
     Public Shared sat As Boolean
-
     Public Shared Function CheckForInternetConnection() As Boolean
         Dim we As MainWindow = Application.Current.Windows(0)
         Try
@@ -71,7 +68,6 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
     End Function
     Public Shared Function logMaker(ByVal action As String, ByVal type As Object)
         Try
-
             Dim mysql As New MySQLinfo
             mysql.upisLoga(action, type.ToString())
         Catch
@@ -79,5 +75,4 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
         End Try
         Return False
     End Function
-
 End Class

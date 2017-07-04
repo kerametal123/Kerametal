@@ -1,16 +1,10 @@
 ﻿Imports System.Text.RegularExpressions
 Imports DevExpress.Xpf.Bars
 Imports DevExpress.Xpf.Grid
+Imports DevExpress.Xpf.Printing
 Imports DevExpress.Xpf.WindowsUI
 Imports ERP_Kerametal.MySQLcompany
 Imports HtmlAgilityPack
-Imports DevExpress.XtraEditors
-Imports DevExpress.XtraReports.UI
-Imports DevExpress.LookAndFeel
-Imports DevExpress.XtraReports.Parameters
-Imports DevExpress.Xpf.Printing
-'Imports System.Windows.Forms
-
 Public Class mpBc
     Dim enter As New EnterKeyTraversal
     Dim zadnji As Object
@@ -26,32 +20,29 @@ Public Class mpBc
     Public Overridable Property AutoFilterCondition As AutoFilterCondition
     Dim intMilliseconds As Integer = 500000
     Dim objTimer As New System.Timers.Timer(intMilliseconds)
+
+
+
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
-
         pripremiSucelje()
-
         AddHandler objTimer.Elapsed, AddressOf Window_TimerElapsed
-
         objTimer.AutoReset = False
         objTimer.Enabled = True
     End Sub
+
+
+
     Public Function popuniVrsteDokumenata()
         'Dodaj iteme
-
         For Each item As ReturnList In mysqlcomp.getVrsteDokumenata()
             Dim barmanager As New BarManager
             Dim ComboBoxItem = New ComboBoxItem()
             ComboBoxItem.Content = item.nazivDokumenta
             ComboBoxItem.Name = item.nazivDokumenta
             ComboBoxItem.Tag = item.idDokumenta
-
-
             tipoviDokumenataCbox.Items.Add(ComboBoxItem)
         Next
-
-
     End Function
-
     Public Function popuniDokumente(ByVal tip As String)
         'Dodaj iteme
         Dim barmanager As New BarManager
@@ -67,14 +58,9 @@ Public Class mpBc
             ComboBoxItem.Content = item.brojDokumenta
             ComboBoxItem.Name = "Ime"
             ComboBoxItem.Tag = item.brojDokumenta
-
-
             brojeviDokumenataCbox.Items.Add(ComboBoxItem)
         Next
-
-
     End Function
-
     Public Function pripremiSucelje()
         gridPartneri.ItemsSource = mysqlcomp.getPartneriZaAktivnog
         'populate gridArtikli
@@ -87,7 +73,6 @@ Public Class mpBc
         gridArtikli.View.FocusedRowHandle = -1
     End Function
     Private Sub GridControl_AsyncOperationCompleted(sender As Object, e As RoutedEventArgs)
-
     End Sub
     Public Function pripremiRacunGrid()
         gridRacunNew.Items.Clear()
@@ -191,69 +176,45 @@ Public Class mpBc
         gridRacun.Columns.Add(c9)
     End Function
     Public Function pripremiPlacanjaGrid()
-
     End Function
     Private Sub textBox1_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBox1.TextChanged
         'Increment the counter for the number of times the textbox has been changed
         mint_LastInitializedTimerID = mint_LastInitializedTimerID + 1
-
         'Wait longer for shorter strings or strings without spaces
         Dim intMilliseconds As Integer = 500
-
-
         Dim objTimer As New System.Timers.Timer(intMilliseconds)
         AddHandler objTimer.Elapsed, AddressOf textBox1_TimerElapsed
-
         objTimer.AutoReset = False
         objTimer.Enabled = True
-
     End Sub
-
     Private Sub textBox1_TimerElapsed(ByVal sender As Object, ByVal e As System.Timers.ElapsedEventArgs)
         'Increment the counter for the number of times timers have elapsed
         mint_LastReceivedTimerID = mint_LastReceivedTimerID + 1
-
         'If the total number of textbox changes equals the total number of times timers have elapsed (fire method for only the latest character change)
         If mint_LastReceivedTimerID = mint_LastInitializedTimerID Then
-
             Me.Dispatcher.Invoke(Sub() MySearchMethod1(), System.Windows.Threading.DispatcherPriority.Normal)
-
         End If
-
     End Sub
     Private Sub textBox_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBox.TextChanged
         'Increment the counter for the number of times the textbox has been changed
         mint_LastInitializedTimerID = mint_LastInitializedTimerID + 1
-
         'Wait longer for shorter strings or strings without spaces
         Dim intMilliseconds As Integer = 500
-
-
         Dim objTimer As New System.Timers.Timer(intMilliseconds)
         AddHandler objTimer.Elapsed, AddressOf textBox_TimerElapsed
-
         objTimer.AutoReset = False
         objTimer.Enabled = True
-
     End Sub
     Private Sub textBox_TimerElapsed(ByVal sender As Object, ByVal e As System.Timers.ElapsedEventArgs)
         'Increment the counter for the number of times timers have elapsed
         mint_LastReceivedTimerID = mint_LastReceivedTimerID + 1
-
         'If the total number of textbox changes equals the total number of times timers have elapsed (fire method for only the latest character change)
         If mint_LastReceivedTimerID = mint_LastInitializedTimerID Then
 
             Me.Dispatcher.Invoke(Sub() MySearchMethod(), System.Windows.Threading.DispatcherPriority.Normal)
-
         End If
-
     End Sub
     Public Sub MySearchMethod()
-
-        'Filtriranje grida, lokalno u RAM memoriji
-
-        'Fire method on the Main UI Thread
-
         Dim filterValue As String = textBox.Text
         If Not [String].IsNullOrEmpty(filterValue) Then
             If Regex.IsMatch(filterValue, "^[0-9 ]+$") Then
@@ -287,20 +248,12 @@ Public Class mpBc
         'infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
         'pripremiRacunGridArhiva()
     End Function
-
-
-
     Private Sub ispravitiCheck_Click(sender As Object, e As RoutedEventArgs) Handles ispravitiCheck.Click
-
     End Sub
-
     Private Sub dodatiCheck_Click(sender As Object, e As RoutedEventArgs) Handles dodatiCheck.Click
-
     End Sub
-
     Public Function getOperateri()
         For Each item In mysqlcomp.getOperateri()
-
             operateriCombo.Items.Add(item.ime + " " + item.prezime)
         Next
     End Function
@@ -319,18 +272,14 @@ Public Class mpBc
     End Sub
     Private Sub dodatiCheck_Copy2_Click(sender As Object, e As RoutedEventArgs)
     End Sub
-
     Private Sub gridPartneri_SelectedItemChanged(sender As Object, e As SelectedItemChangedEventArgs)
-
     End Sub
     Public Sub MySearchMethod1()
         Dim filterValue As String = textBox1.Text
         gridPartneri.Columns("Naziv").AutoFilterCondition = AutoFilterCondition.Contains
         gridPartneri.Columns("Naziv").AutoFilterValue = filterValue
     End Sub
-
     Private Sub gridPartneri_SelectionChanged(sender As Object, e As GridSelectionChangedEventArgs)
-
     End Sub
     Private Sub simpleButton2_Copy1_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton2_Copy1.Click
         Dim report As New TestRacun()
@@ -343,7 +292,6 @@ Public Class mpBc
         report.CreateDocument()
         window.Show()
     End Sub
-
     Private Sub gridPartneri_SelectedItemChanged_1(sender As Object, e As SelectedItemChangedEventArgs) Handles gridPartneri.SelectedItemChanged
         vozilaCbox.Items.Clear()
         vozacCbox.Items.Clear()
@@ -351,41 +299,27 @@ Public Class mpBc
             'For Each item As ReturnList In mysqlcomp.getVozila()
             Dim barmanager1 As New BarManager
             Dim comboboxitem = New ComboBoxItem()
-
             comboboxitem.Content = item.registracija
             comboboxitem.Tag = item.idvozila
-
             vozilaCbox.Items.Add(comboboxitem)
-
             vozilaCbox.SelectedIndex = 0
         Next
         makeMenuAdd(vozilaCbox)
     End Sub
-
     Private Sub vozilaCbox_DropDownClosed(sender As Object, e As EventArgs) Handles vozilaCbox.DropDownClosed
         vozacCbox.Items.Clear()
         Try
-
             For Each item As ReturnList In mysqlcomp.getVozaci(vozilaCbox.SelectedItem.tag)
                 'For Each item As ReturnList In mysqlcomp.getVozila()
                 Dim barmanager1 As New BarManager
                 Dim comboboxitem = New ComboBoxItem()
-
                 comboboxitem.Content = item.vozac
-
-
                 vozacCbox.Items.Add(comboboxitem)
-
                 vozacCbox.SelectedIndex = 0
-
-
             Next
-
         Catch ex As Exception
-
         End Try
         makeMenuAdd(vozacCbox)
-
     End Sub
     Public Function makeMenuAdd(ByVal e As Object)
         Dim comboboxitem1 = New ComboBoxItem()
@@ -397,7 +331,6 @@ Public Class mpBc
         comboboxitem1.Content = "Ne postoji na listi? Dodaj..."
         e.Items.Add(comboboxitem1)
     End Function
-
     Private Sub Window_MouseMove(sender As Object, e As MouseEventArgs)
         objTimer.Stop()
         objTimer.Start()
@@ -409,12 +342,10 @@ Public Class mpBc
         WinUIMessageBox.Show(Me, "Isteklo je vrijeme za rad, molimo prijavite se!", "Ponovna prijava", CType("1", MessageBoxButton), MessageBoxResult.None, MessageBoxOptions.None)
         objTimer.Stop()
     End Function
-
     Private Sub simpleButton3_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton3.Click
         Dim alo = New WinUIDialogWindow
         alo.ShowDialogWindow(11, 22)
     End Sub
-
     Private Sub robaUsluge_Click(sender As Object, e As RoutedEventArgs) Handles robaUsluge.Click
         If robaUsluge.IsChecked = True Then
             infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#593AFF00"), Color))
@@ -431,7 +362,6 @@ Public Class mpBc
             robaUsluge.IsChecked = False
         End If
     End Sub
-
     Private Sub gridArtikli_SelectedItemChanged(sender As Object, e As SelectedItemChangedEventArgs) Handles gridArtikli.SelectedItemChanged
         Try
             Dim tipArtikla As Integer
@@ -453,13 +383,10 @@ Public Class mpBc
             ElseIf gridArtikli.SelectedItem("pc") > 0 Then
                 cijenaTemp.Content = racunanje.zaokruziNaDvije(gridArtikli.SelectedItem("pc"))
             End If
-
         Catch ex As Exception
-
         End Try
         prikaziArtikal()
     End Sub
-
     Public Function prikaziArtikal()
         'ocistiPrikazArtikla()
         cijenaTbox.Text = cijenaTemp.Content
@@ -467,21 +394,15 @@ Public Class mpBc
         iznosTbox.Text = racunanje.zaokruziNaDvije(racunanje.cijenaKolicina(cijenaTemp.Content, kolicinaTemp.Content))
     End Function
     Public Function ocistiPrikazArtikla()
-
     End Function
-
     Private Sub button_Click(sender As Object, e As RoutedEventArgs) Handles button.Click
         izracunajArtikalZaProdaju()
     End Sub
-
     Public Function izracunajArtikalZaProdaju()
         Dim item = New Item With {.Sifra = sifraTemp.Content, .Naziv = nazivTemp.Content, .Kolicina = kolicinaTemp.Content, .Cijena = cijenaTemp.Content, .Rabat = rabatTbox.Text, .PC = 1.0, .Iznos = 1.0}
         gridRacunNew.Items.Add(item)
-
     End Function
-
     Private Sub dodatiCheck_Copy2_Checked(sender As Object, e As RoutedEventArgs)
-
     End Sub
     Private Sub bacodeCbox_Checked(sender As Object, e As RoutedEventArgs) Handles bacodeCbox.Checked
         'Količina
@@ -495,7 +416,6 @@ Public Class mpBc
         stringCbox.IsChecked = False
         sifraCbox.IsChecked = False
     End Sub
-
     Private Sub stringCbox_Checked(sender As Object, e As RoutedEventArgs) Handles stringCbox.Checked
         'Količina
         kolicinaTbox.IsEnabled = True
@@ -508,7 +428,6 @@ Public Class mpBc
         bacodeCbox.IsChecked = False
         sifraCbox.IsChecked = False
     End Sub
-
     Private Sub sifraCbox_Checked(sender As Object, e As RoutedEventArgs) Handles sifraCbox.Checked
         'Količina
         kolicinaTbox.IsEnabled = True
@@ -531,7 +450,6 @@ Public Class mpBc
             cijenaTemp.Content = racunanje.zaokruziNaDvije(mpcTbox.Text * (1 - rabatTbox.Text / 100))
             cijenaTbox.Text = cijenaTemp.Content
         End If
-
     End Sub
     Private Sub kolicinaTbox_TextChanged(sender As Object, e As TextChangedEventArgs) Handles kolicinaTbox.TextChanged
         If sender.IsFocused = True And sender.text.length > 0 Then
@@ -543,26 +461,19 @@ Public Class mpBc
         If sender.IsFocused = True And sender.text.length > 0 Then
             Globals.cijenaUkupnoG = cijenaTbox.Text
             kolicinaTbox.Text = racunanje.zaokruziNaDvije(iznosTbox.Text / cijenaTbox.Text)
-
         End If
     End Sub
-
     Private Sub tipoviDokumenataCbox_DropDownClosed(sender As Object, e As EventArgs) Handles tipoviDokumenataCbox.DropDownClosed
         brojeviDokumenataCbox.Items.Clear()
         popuniDokumente(tipoviDokumenataCbox.SelectedItem.tag)
     End Sub
-
     Private Sub brojeviDokumenataCbox_DropDownClosed(sender As Object, e As EventArgs) Handles brojeviDokumenataCbox.DropDownClosed
-
     End Sub
-
     Private Sub simpleButton1_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton1.Click
         prodaja()
     End Sub
-
     Private Sub brojeviDokumenataCbox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles brojeviDokumenataCbox.SelectionChanged
         If IsNothing(brojeviDokumenataCbox.SelectedItem) Then
-
         Else
             prikaziOdabraniDokument(tipoviDokumenataCbox.SelectedItem.tag, brojeviDokumenataCbox.SelectedItem.tag)
         End If
@@ -584,7 +495,6 @@ Public Class mpBc
             brojDokMain.Content = broj
             pripremiRacunGridArhiva()
             gridRacun.ItemsSource = mysqlcomp.getStavkeDokumenta(tag, broj)
-
             For Each item As ReturnList In mysqlcomp.getInfoStavkeDokumenta(tag, broj)
                 rabat = racunanje.zaokruziNaDvije(item.rabatInfo)
                 neto = racunanje.zaokruziNaDvije(item.netoInfo)
@@ -611,20 +521,17 @@ Public Class mpBc
                 rabatPlusTbox.Text = rabat_plus
                 scontoTbox.Text = sconto
                 datumTbox.Text = item.datumInfo
-
                 gotovinaTbox.Text = item.gotovinaInfo
                 karticeTbox.Text = item.karticeInfo
                 ziralnoTbox.Text = item.ziralnoInfo
                 ostaloTbox.Text = item.ostaloInfo
             Next
         Catch ex As Exception
-
         End Try
         'ispravke()
         pregledDokumenta()
     End Function
     Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
-
     End Sub
     Public Sub Main()
         Dim link As String = "https://www.google.com/finance/converter"
@@ -637,18 +544,13 @@ Public Class mpBc
             Console.WriteLine(div.InnerText.Trim())
         End If
     End Sub
-
     Private Sub ispravitiCheck_Checked(sender As Object, e As RoutedEventArgs) Handles ispravitiCheck.Checked
         ispravke()
     End Sub
-
     Private Sub dodatiCheck_Checked(sender As Object, e As RoutedEventArgs) Handles dodatiCheck.Checked
         prodaja()
         Globals.urediDodaj = "dodaj"
     End Sub
-
-
-
     Private Sub kolicinaCbox_Unchecked(sender As Object, e As RoutedEventArgs) Handles kolicinaCbox.Unchecked
         kolicinaTbox.IsEnabled = False
     End Sub
@@ -661,16 +563,12 @@ Public Class mpBc
     Private Sub cijenaCbox_checked(sender As Object, e As RoutedEventArgs) Handles cijenaCbox.Checked
         cijenaTbox.IsEnabled = True
     End Sub
-
     Private Sub rabatCbox_Checked(sender As Object, e As RoutedEventArgs) Handles rabatCbox.Checked
         rabatTbox.IsEnabled = True
     End Sub
     Private Sub rabatCbox_Unchecked(sender As Object, e As RoutedEventArgs) Handles rabatCbox.Unchecked
         rabatTbox.IsEnabled = False
     End Sub
-
-
-
     Private Sub YesButton_Click(sender As Object, e As RoutedEventArgs)
         'Dopunski rabat
         If control = "dopunskiRabatPost" Then
@@ -689,7 +587,6 @@ Public Class mpBc
             If mysqlcomp.dopunskiRabatIzn(a, Globals.brojDokumenta) = True Then
                 prikaziOdabraniDokument(Globals.tipDokumenta, Globals.brojDokumenta)
             End If
-
             'Sconto
         ElseIf control = "scontoPost" Then
             Dim a As Object = 0
@@ -711,7 +608,6 @@ Public Class mpBc
         zadnji.SelectAll()
         InputBox.Visibility = Visibility.Collapsed
     End Sub
-
     Private Sub NoButton_Click(sender As Object, e As RoutedEventArgs)
         InputBox.Visibility = Visibility.Collapsed
     End Sub
@@ -746,7 +642,6 @@ Public Class mpBc
             InputTextBox.SelectAll()
         End If
     End Function
-
     Private Sub DockPanell_PreviewKeyDown(sender As Object, e As KeyEventArgs)
         If e.Key = Key.Enter Then
             Dim s As TextBox = TryCast(e.Source, TextBox)
@@ -758,13 +653,10 @@ Public Class mpBc
         End If
 
     End Sub
-
     Private Sub gotovinaTbox_TextChanged(sender As Object, e As TextChangedEventArgs) Handles gotovinaTbox.TextChanged
         If sender.IsFocused = True And sender.text.length > 0 Then
-
         End If
     End Sub
-
     Private Sub simpleButton1_Copy_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton1_Copy.Click
         Dim report As New TestRacun()
         Dim window = New DocumentPreviewWindow()
