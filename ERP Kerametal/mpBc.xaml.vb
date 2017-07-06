@@ -282,12 +282,10 @@ Public Class mpBc
     Private Sub gridPartneri_SelectionChanged(sender As Object, e As GridSelectionChangedEventArgs)
     End Sub
     Private Sub simpleButton2_Copy1_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton2_Copy1.Click
-        Dim report As New TestRacun()
+        Dim report As New Racun()
         Dim window = New DocumentPreviewWindow()
-        'report.GroupFooterBand2.Visible = False
-        report.Parameters("parameter1").Value = brojDokMain.Content
-        report.RequestParameters = False
-        report.Parameters("parameter1").Visible = False
+        report.Parameters("brojDokumenta").Value = brojeviDokumenataCbox.Text
+        report.Parameters("Parameter1").Value = tipoviDokumenataCbox.Tag
         window.PreviewControl.DocumentSource = report
         report.CreateDocument()
         window.Show()
@@ -658,15 +656,10 @@ Public Class mpBc
         End If
     End Sub
     Private Sub simpleButton1_Copy_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton1_Copy.Click
-        Dim report As New TestRacun()
+        Dim report As New Racun()
         Dim window = New DocumentPreviewWindow()
-        report.GroupFooterBand2.Visible = False
-        report.XrLabel12.Visible = False
-        report.ReportHeaderBand1.Visible = False
-        report.Landscape = True
-        report.Parameters("parameter1").Value = brojDokMain.Content
-        report.RequestParameters = False
-        report.Parameters("parameter1").Visible = False
+        report.Parameters("brojDokumenta").Value = brojeviDokumenataCbox.Text
+        report.Parameters("Parameter1").Value = tipoviDokumenataCbox.Tag
         window.PreviewControl.DocumentSource = report
         report.CreateDocument()
         window.Show()

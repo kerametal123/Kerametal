@@ -39,6 +39,10 @@
 
     Public Function rabatCalc(ByVal rabatPost As Boolean, ByVal rabatVrij As Boolean, ByVal scontoPost As Boolean, ByVal scontoVrij As Boolean, ByVal tip As String, ByVal broj As String)
         'kasa sconto (dodatni popust, uplata prije ugovorenog roka)
+        Try
 
+        Catch ex As Exception
+
+        End Try
     End Function
 End Class

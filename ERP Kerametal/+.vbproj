@@ -207,6 +207,12 @@
     <Compile Include="popupValid.xaml.vb">
       <DependentUpon>popupValid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Racun.Designer.vb">
+      <DependentUpon>Racun.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Racun.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Racunanje\Racunanje.vb" />
     <Compile Include="Reports\Product.vb" />
     <Compile Include="Reports\XtraReport1.Designer.vb">
@@ -220,12 +226,6 @@
     </Compile>
     <Compile Include="test.xaml.vb">
       <DependentUpon>test.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TestRacun.Designer.vb">
-      <DependentUpon>TestRacun.vb</DependentUpon>
-    </Compile>
-    <Compile Include="TestRacun.vb">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="WMInfo\WMInfo.vb" />
     <Page Include="Aplikacije.xaml">
@@ -318,11 +318,11 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Licenses.licx" />
+    <EmbeddedResource Include="Racun.resx">
+      <DependentUpon>Racun.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\XtraReport1.resx">
       <DependentUpon>XtraReport1.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TestRacun.resx">
-      <DependentUpon>TestRacun.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="ERP Kerametal_TemporaryKey.pfx" />
     <None Include="My Project\app.manifest" />
