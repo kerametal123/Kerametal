@@ -71,7 +71,7 @@
                     <kerametal:SelectAllTbox x:Name="mpcTbox" HorizontalAlignment="Left" Margin="210,124,0,0" Text="" VerticalAlignment="Top" Width="75" TabIndex="3"/>
                     <kerametal:SelectAllTbox KeyboardNavigation.TabIndex="2" x:Name="cijenaTbox" HorizontalAlignment="Left" Margin="210,152,0,0" Text="" VerticalAlignment="Top" Width="75" TabIndex="4"/>
                     <dxe:CheckEdit Content="Definirani rabati" HorizontalAlignment="Left" Margin="290,124,0,0" VerticalAlignment="Top" Width="111"/>
-                    <dxe:CheckEdit x:Name="rabatCbox" Content="Rabat" HorizontalAlignment="Left" Margin="290,154,0,0" VerticalAlignment="Top" Width="55" IsChecked="True"/>
+                    <dxe:CheckEdit x:Name="rabatCbox" Content="Rabat" HorizontalAlignment="Left" Margin="290,154,0,0"  VerticalAlignment="Top" Width="55" IsChecked="True"/>
                     <Label x:Name="label5_Copy" Content="Iznos" HorizontalAlignment="Left" Margin="471,153,0,0" VerticalAlignment="Top" Height="22" Width="41"/>
                     <kerametal:SelectAllTbox KeyboardNavigation.TabIndex="1" x:Name="kolicinaTbox" HorizontalAlignment="Left" Margin="82,152,0,0" Text="1" VerticalAlignment="Top" Width="63" TabIndex="2" IsTabStop="True"/>
                     <kerametal:SelectAllTbox KeyboardNavigation.TabIndex="3" x:Name="rabatTbox" HorizontalAlignment="Left" Margin="350,152,0,0" Text="" VerticalAlignment="Top" Width="85" TabIndex="5"/>
@@ -119,7 +119,7 @@
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Print_16x16.png}" x:Name="simpleButton2_Copy1" Content="Printati" Margin="0,10,232,37"  HorizontalAlignment="Right" MaxWidth="80" Width="80" Grid.Column="1"/>
                     <TextBox x:Name="textBox1" Height="22" Margin="0,59,203,0" TextWrapping="Wrap" VerticalAlignment="Top" MaxWidth="254" HorizontalAlignment="Right" Width="249" Grid.Column="1"/>
                 </Grid>
-                <Grid   x:Name="robaContainer" Height="184" Margin="0,219,0,0" VerticalAlignment="Top" Background="#FFDEDEDE" HorizontalAlignment="Left" Width="360">
+                <Grid    x:Name="robaContainer" Height="184" Margin="0,219,0,0" VerticalAlignment="Top" Background="#FFDEDEDE" HorizontalAlignment="Left" Width="360">
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Convert_16x16.png}" x:Name="simpleButton2_Copy2" Content="" HorizontalAlignment="Left" Height="22" Margin="270,10,0,0" VerticalAlignment="Top" Width="80" GlyphAlignment="Top"/>
                     <RadioButton x:Name="radioButton1" Content="Proizvođač ... Grupa" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <RadioButton x:Name="radioButton1_Copy" Content="Grupa ... Proizvođač" HorizontalAlignment="Left" Margin="137,10,0,0" VerticalAlignment="Top"/>
