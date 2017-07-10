@@ -191,6 +191,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Class1.vb" />
     <Compile Include="Files and Folders\Files.vb" />
     <Compile Include="Files and Folders\Folders.vb" />
     <Compile Include="Globals.vb" />
