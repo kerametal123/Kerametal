@@ -1,6 +1,5 @@
 ﻿Imports DevExpress.Xpf.Bars
 Imports ERP_Kerametal.MySQLinfo
-
 Class MainWindow
     Dim licenciranje As New Licenciranje
     Dim XMLinfo As New XMLinfo
@@ -110,6 +109,7 @@ Class MainWindow
             'BarButtonItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString(parts(2)), Color))
             Datoteke.Items.Add(barcheckitem)
         Next
+        Return True
     End Function
     Private Sub Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
@@ -119,6 +119,7 @@ Class MainWindow
         labelcont.Content = aa
         simpleButton.Glyph = glyph
         AddHandler simpleButton.Click, Function(sender, e) clickBigBtn(aa)
+        Return True
     End Function
     Public Function clickBigBtn(ByVal aa As String)
         If aa = "Prodaja" Then
@@ -145,6 +146,7 @@ Class MainWindow
                 conMeni(itemLink.Name, True)
             End If
         Next
+        Return True
     End Function
     Public Function pripremiTvrtke()
         'Dodaj iteme
@@ -160,6 +162,7 @@ Class MainWindow
             AddHandler barcheckitem.ItemClick, Function(sender, e) postaviTvrtku(item.tvrtke_id)
             Tvrtka.Items.Add(barcheckitem)
         Next
+        Return True
     End Function
     Public Function postaviTvrtku(ByVal tvrtkaa As String)
         Globals.tvrtka = tvrtkaa
@@ -167,6 +170,7 @@ Class MainWindow
         Objekt.Items.Clear()
         Program.Items.Clear()
         pripremiGodine()
+        Return True
     End Function
     Public Function pripremiObjekte()
         Objekt.Items.Clear()
@@ -182,6 +186,7 @@ Class MainWindow
             AddHandler BarCheckItem.ItemClick, Function(sender, e) endPrep(item.objekti_id)
             Objekt.Items.Add(BarCheckItem)
         Next
+        Return True
     End Function
     Public Function endPrep(ByVal obj As String)
         Globals.objekt = obj
@@ -191,6 +196,7 @@ Class MainWindow
                 conMeni(itemLink.Name, True)
             End If
         Next
+        Return True
     End Function
     Public Function pripremiGodine()
         Godina.Items.Clear()
@@ -206,11 +212,13 @@ Class MainWindow
             AddHandler BarCheckItem.ItemClick, Function(sender, e) postaviGodinu(item.idopcije_godina)
             Godina.Items.Add(BarCheckItem)
         Next
+        Return True
     End Function
 
     Public Function postaviGodinu(ByVal aa As String)
         Globals.aktivnaGodina = aa
         pripremiPrograme()
+        Return True
     End Function
     Public Function pripremiPrograme()
         Program.Items.Clear()
@@ -226,10 +234,12 @@ Class MainWindow
             AddHandler BarCheckItem.ItemClick, Function(sender, e) postaviProgram(item.vrstaPrograma)
             Program.Items.Add(BarCheckItem)
         Next
+        Return True
     End Function
     Public Function postaviProgram(ByVal prog As String)
         Globals.programAktivni = prog
         pripremiObjekte()
+        Return True
     End Function
     Private Sub TileBarItem_Click_1(sender As Object, e As EventArgs)
         MessageBox.Show(Globals.databaseInfo)

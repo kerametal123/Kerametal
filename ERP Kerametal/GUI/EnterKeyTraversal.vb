@@ -21,12 +21,12 @@
         If ue Is Nothing Then
             Return
         End If
-
+        'preview down
         RemoveHandler ue.Unloaded, AddressOf ue_Unloaded
         RemoveHandler ue.PreviewKeyDown, AddressOf ue_PreviewKeyDown
     End Sub
 
-
+    'predview up    
     Public Shared ReadOnly IsEnabledProperty As DependencyProperty = DependencyProperty.RegisterAttached("IsEnabled", GetType(Boolean), GetType(EnterKeyTraversal), New UIPropertyMetadata(False, AddressOf IsEnabledChanged))
 
     Private Shared Sub IsEnabledChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
@@ -34,11 +34,14 @@
         If ue Is Nothing Then
             Return
         End If
-
+        'create handler
         If CBool(e.NewValue) Then
+            'undo
             AddHandler ue.Unloaded, AddressOf ue_Unloaded
+            'redo
             AddHandler ue.PreviewKeyDown, AddressOf ue_PreviewKeyDown
         Else
+            'remove handler
             RemoveHandler ue.PreviewKeyDown, AddressOf ue_PreviewKeyDown
         End If
     End Sub

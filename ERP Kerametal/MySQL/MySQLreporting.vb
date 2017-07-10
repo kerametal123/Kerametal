@@ -22,9 +22,7 @@ Public Class MySQLreporting
         End Try
         Return True
     End Function
-    Public Function infoSucelje()
 
-    End Function
 
 
 

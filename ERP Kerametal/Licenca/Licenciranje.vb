@@ -68,6 +68,7 @@ My.Computer.FileSystem.OpenTextFileReader(punoImePutanje)
         ElseIf mysql.upisInstalacije(cpuid) = False Then
             MessageBox.Show("Instalacija sa ovim brojem već postoji u bazi ili je baza nedostupna!")
         End If
+        Return True
     End Function
     'Kreira hardware_id koristeći microsoftov WMI Query i vraća ga u string formatu
     Public Function CpuId() As String

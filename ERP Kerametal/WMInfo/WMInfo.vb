@@ -139,5 +139,6 @@ Public Class WMInfo
     ''' <returns></returns>
     Public Function upisWmi()
         mysqlinfo.upisWMI(GetHDSize("C"), GetHDFreeSpace("C"), m_strComputerName, m_strManufacturer, m_StrModel, m_strOSName, m_strOSVersion, m_strSystemType, m_strTPM, m_strWindowsDir)
+        Return True
     End Function
 End Class

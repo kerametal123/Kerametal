@@ -108,11 +108,9 @@ Public Class MySQLinfo
         Finally
             ManageConnection(True, konekcija)
         End Try
+        Return True
+    End Function
 
-    End Function
-    Public Function test()
-        MessageBox.Show(podaciInstalacija("dasda"))
-    End Function
     Public Function podaciInstalacija(ByVal hwid As String)
         Dim hardware As String = hwid
         Dim result = New List(Of String)()
@@ -402,14 +400,6 @@ Public Class MySQLinfo
             ManageConnection(True, konekcija) 'Close connection
         End Try
         Return result
-    End Function
-    Public Function installInfo()
-        Try
-            infoInstalacije("")
-
-        Catch ex As Exception
-
-        End Try
     End Function
     Public Class ReturnList
         Public Property tvrtke_naziv As String

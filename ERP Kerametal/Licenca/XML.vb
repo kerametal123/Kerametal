@@ -1,7 +1,6 @@
 ﻿Imports System.Xml
 
 
-
 Public Class XMLinfo
     Dim mysqlcomp As New MySQLcompany
     Dim putanjaDatoteke As String =
@@ -19,6 +18,7 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
         writer.WriteEndElement()
         writer.WriteEndDocument()
         writer.Close()
+        Return True
     End Function
     Private Sub createNode(ByVal pID As String, ByVal pName As String, ByVal pPrice As String, ByVal writer As XmlTextWriter, ByVal dabase As String)
         writer.WriteStartElement("Database")
@@ -49,5 +49,7 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
                 Exit For
             End If
         Next
+        Return True
     End Function
+
 End Class

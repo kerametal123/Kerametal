@@ -42,6 +42,7 @@ Public Class mpBc
             ComboBoxItem.Tag = item.idDokumenta
             tipoviDokumenataCbox.Items.Add(ComboBoxItem)
         Next
+        Return True
     End Function
     Public Function popuniDokumente(ByVal tip As String)
         'Dodaj iteme
@@ -60,6 +61,7 @@ Public Class mpBc
             ComboBoxItem.Tag = item.brojDokumenta
             brojeviDokumenataCbox.Items.Add(ComboBoxItem)
         Next
+        Return True
     End Function
     Public Function pripremiSucelje()
         gridPartneri.ItemsSource = mysqlcomp.getPartneriZaAktivnog
@@ -71,6 +73,7 @@ Public Class mpBc
         pripremiPlacanjaGrid()
         dodatiCheck.IsChecked = True
         gridArtikli.View.FocusedRowHandle = -1
+        Return True
     End Function
     Private Sub GridControl_AsyncOperationCompleted(sender As Object, e As RoutedEventArgs)
     End Sub
@@ -117,6 +120,7 @@ Public Class mpBc
         c7.Width = 100
         c7.Binding = New Binding("Iznos")
         gridRacunNew.Columns.Add(c7)
+        Return True
     End Function
     Public Function pripremiRacunGridArhiva()
 
@@ -174,8 +178,10 @@ Public Class mpBc
         c9.Width = 100
         c9.Binding = New Binding("rabat2")
         gridRacun.Columns.Add(c9)
+        Return True
     End Function
     Public Function pripremiPlacanjaGrid()
+        Return True
     End Function
     Private Sub textBox1_TextChanged(sender As Object, e As TextChangedEventArgs) Handles textBox1.TextChanged
         'Increment the counter for the number of times the textbox has been changed
@@ -233,6 +239,7 @@ Public Class mpBc
         ispravitiCheck.IsChecked = False
         infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#593AFF00"), Color))
         pripremiRacunGrid()
+        Return True
     End Function
     Public Function ispravke()
         gridRacunNew.Visibility = Visibility.Collapsed
@@ -240,6 +247,7 @@ Public Class mpBc
         dodatiCheck.IsChecked = False
         infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
         'pripremiRacunGridArhiva()
+        Return True
     End Function
     Public Function pregledDokumenta()
         gridRacunNew.Visibility = Visibility.Collapsed
@@ -247,6 +255,7 @@ Public Class mpBc
         'dodatiCheck.IsChecked = False
         'infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
         'pripremiRacunGridArhiva()
+        Return True
     End Function
     Private Sub ispravitiCheck_Click(sender As Object, e As RoutedEventArgs) Handles ispravitiCheck.Click
     End Sub
@@ -256,6 +265,7 @@ Public Class mpBc
         For Each item In mysqlcomp.getOperateri()
             operateriCombo.Items.Add(item.ime + " " + item.prezime)
         Next
+        Return True
     End Function
     Private Sub simpleButton2_Copy2_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton2_Copy2.Click
         'For Each item In mysqlcomp.getGrupeArtikala()
@@ -328,6 +338,7 @@ Public Class mpBc
         comboboxitem1.FontWeight = FontWeights.UltraBold
         comboboxitem1.Content = "Ne postoji na listi? Dodaj..."
         e.Items.Add(comboboxitem1)
+        Return True
     End Function
     Private Sub Window_MouseMove(sender As Object, e As MouseEventArgs)
         objTimer.Stop()
@@ -339,6 +350,7 @@ Public Class mpBc
     Public Function showLogin()
         WinUIMessageBox.Show(Me, "Isteklo je vrijeme za rad, molimo prijavite se!", "Ponovna prijava", CType("1", MessageBoxButton), MessageBoxResult.None, MessageBoxOptions.None)
         objTimer.Stop()
+        Return False
     End Function
     Private Sub simpleButton3_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton3.Click
         Dim alo = New WinUIDialogWindow
@@ -390,15 +402,16 @@ Public Class mpBc
         cijenaTbox.Text = cijenaTemp.Content
         rabatTbox.Text = racunanje.zaokruziNaDvije(racunanje.racunajRabat(cijenaTemp.Content, mpcTbox.Text))
         iznosTbox.Text = racunanje.zaokruziNaDvije(racunanje.cijenaKolicina(cijenaTemp.Content, kolicinaTemp.Content))
+        Return True
     End Function
-    Public Function ocistiPrikazArtikla()
-    End Function
+
     Private Sub button_Click(sender As Object, e As RoutedEventArgs) Handles button.Click
         izracunajArtikalZaProdaju()
     End Sub
     Public Function izracunajArtikalZaProdaju()
         Dim item = New Item With {.Sifra = sifraTemp.Content, .Naziv = nazivTemp.Content, .Kolicina = kolicinaTemp.Content, .Cijena = cijenaTemp.Content, .Rabat = rabatTbox.Text, .PC = 1.0, .Iznos = 1.0}
         gridRacunNew.Items.Add(item)
+        Return True
     End Function
     Private Sub dodatiCheck_Copy2_Checked(sender As Object, e As RoutedEventArgs)
     End Sub
@@ -528,6 +541,7 @@ Public Class mpBc
         End Try
         'ispravke()
         pregledDokumenta()
+        Return True
     End Function
     Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
     End Sub
@@ -639,6 +653,7 @@ Public Class mpBc
             InputTextBox.Focus()
             InputTextBox.SelectAll()
         End If
+        Return True
     End Function
     Private Sub DockPanell_PreviewKeyDown(sender As Object, e As KeyEventArgs)
         If e.Key = Key.Enter Then

@@ -9,12 +9,23 @@
     Private _Rabat As String
     Private _PC As String 'PRODAJNA CIJENA IZ TABELE
     Private _Iznos As String
+    Private _vrijednost As String
     Property Sifra() As String
         Get
             Return _Sifra
         End Get
         Set(ByVal value As String)
             Me._Sifra = value
+        End Set
+    End Property
+    Property vrijednost() As String
+        Get
+            Return _vrijednost
+
+        End Get
+
+        Set(ByVal value As String)
+            Me._vrijednost = value
         End Set
     End Property
 

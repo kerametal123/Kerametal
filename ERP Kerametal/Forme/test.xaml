@@ -6,8 +6,5 @@
         xmlns:local="clr-namespace:ERP_Kerametal"
         mc:Ignorable="d"
         Title="test" Height="300" Width="300">
-    <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="111,110,0,0" VerticalAlignment="Top" Width="75"/>
-
-    </Grid>
+    <Grid/>
 </Window>

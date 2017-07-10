@@ -1,5 +1,4 @@
-﻿
-Imports System.Runtime.InteropServices
+﻿Imports System.Runtime.InteropServices
 'Poslije 15 sekundi
 Public Class Idle
 
@@ -46,6 +45,7 @@ Public Class Idle
         ElseIf lastInputInf.cbSize < lastInputInf.dwTime Then
             Return True
         End If
+        Return True
     End Function
 
     Public Function calculateRow(ByVal input As String)

@@ -204,27 +204,27 @@
     <Compile Include="MySQL\MySQLreporting.vb" />
     <Compile Include="MySQL\MySQLcompany.vb" />
     <Compile Include="MySQL\MySQL_info.vb" />
-    <Compile Include="popupValid.xaml.vb">
+    <Compile Include="Custom Kontrole\popupValid.xaml.vb">
       <DependentUpon>popupValid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Racun.Designer.vb">
+    <Compile Include="ReportArtikli.Designer.vb">
+      <DependentUpon>ReportArtikli.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ReportArtikli.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Racun.Designer.vb">
       <DependentUpon>Racun.vb</DependentUpon>
     </Compile>
-    <Compile Include="Racun.vb">
+    <Compile Include="Reports\Racun.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Racunanje\Racunanje.vb" />
     <Compile Include="Reports\Product.vb" />
-    <Compile Include="Reports\XtraReport1.Designer.vb">
-      <DependentUpon>XtraReport1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\XtraReport1.vb">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SelectAllTbox.xaml.vb">
+    <Compile Include="Custom Kontrole\SelectAllTbox.xaml.vb">
       <DependentUpon>SelectAllTbox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="test.xaml.vb">
+    <Compile Include="Forme\test.xaml.vb">
       <DependentUpon>test.xaml</DependentUpon>
     </Compile>
     <Compile Include="WMInfo\WMInfo.vb" />
@@ -236,7 +236,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Forme\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -250,23 +250,23 @@
     <Compile Include="DXSplashScreen\SplashScreenERP.xaml.vb">
       <DependentUpon>SplashScreenERP.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.vb">
+    <Compile Include="Forme\MainWindow.xaml.vb">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="mpBc.xaml">
+    <Page Include="Forme\mpBc.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="popupValid.xaml">
+    <Page Include="Custom Kontrole\popupValid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SelectAllTbox.xaml">
+    <Page Include="Custom Kontrole\SelectAllTbox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="test.xaml">
+    <Page Include="Forme\test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -291,7 +291,7 @@
     <Import Include="System.Windows.Navigation" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="mpBc.xaml.vb">
+    <Compile Include="Forme\mpBc.xaml.vb">
       <DependentUpon>mpBc.xaml</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb">
@@ -318,11 +318,11 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Licenses.licx" />
-    <EmbeddedResource Include="Racun.resx">
-      <DependentUpon>Racun.vb</DependentUpon>
+    <EmbeddedResource Include="ReportArtikli.resx">
+      <DependentUpon>ReportArtikli.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\XtraReport1.resx">
-      <DependentUpon>XtraReport1.vb</DependentUpon>
+    <EmbeddedResource Include="Reports\Racun.resx">
+      <DependentUpon>Racun.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="ERP Kerametal_TemporaryKey.pfx" />
     <None Include="My Project\app.manifest" />

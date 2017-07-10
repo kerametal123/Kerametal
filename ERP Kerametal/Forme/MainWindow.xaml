@@ -21,7 +21,7 @@
     </Window.Resources>
     <Grid>
         <DockPanel>
-            <dxr:RibbonControl DockPanel.Dock="Top"  ApplicationButtonSmallIcon="Resources/Kerametal_logo.ico" ApplicationButtonLargeIcon="Resources/Kerametal_logo.ico" ToolbarShowMode="Hide" Background="#FF6C2020" MenuIconStyle="Color">
+            <dxr:RibbonControl DockPanel.Dock="Top"  ApplicationButtonSmallIcon="../Resources/Kerametal_logo.ico" ApplicationButtonLargeIcon="../Resources/Kerametal_logo.ico" ToolbarShowMode="Hide" Background="#FF6C2020" MenuIconStyle="Color">
                 <dxr:RibbonControl.ApplicationMenu>
                     <dxr:ApplicationMenu>
                         <dxb:BarButtonItemLink BarItemName=""/>
@@ -63,9 +63,9 @@
 
             <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
                 <dxr:RibbonStatusBarControl.LeftItems>
-                    <dxb:BarStaticItem  x:FieldModifier="public"  x:Name="biRowValue" Content="MySQL Lju"/>
+                    <dxb:BarStaticItem  x:FieldModifier="public"  x:Name="biRowValue" Content="."/>
 
-                    <dxb:BarStaticItem  x:FieldModifier="public"  x:Name="biColumnValue" Content="127.0.0.1"/>
+                    <dxb:BarStaticItem  x:FieldModifier="public"  x:Name="biColumnValue" Content=".."/>
                 </dxr:RibbonStatusBarControl.LeftItems>
                 <dxr:RibbonStatusBarControl.RightItems>
                     <dxb:BarCheckItem  x:FieldModifier="public"  x:Name="biLeft" Glyph="{dx:DXImage Image=BOUser_32x32.png}" GroupIndex="1" LargeGlyph="{dx:DXImage Image=BOUser_32x32.png}"/>
@@ -76,7 +76,7 @@
             <Grid MouseRightButtonDown="Grid_MouseRightButtonDown">
 
                 <Grid.Background>
-                    <ImageBrush ImageSource="Resources/Logo_big_bg.png" Stretch="Uniform" Opacity="0.2"/>
+                    <ImageBrush ImageSource="../Resources/Logo_big_bg.png" Stretch="Uniform" Opacity="0.2"/>
                 </Grid.Background>
 
                 <dx:SimpleButton Glyph="{dx:DXImage Image=BOUser_32x32.png}" x:Name="simpleButton" Content="U redu" Height="78" Margin="354,178,352,0" VerticalAlignment="Top" Width="250"/>
