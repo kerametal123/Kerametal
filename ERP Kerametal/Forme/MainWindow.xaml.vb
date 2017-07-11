@@ -18,6 +18,8 @@ Class MainWindow
                 End If
             ElseIf Globals.CheckForInternetConnection = False Then
                 ' maloprodaja.Visibility = Visibility.Hidden
+                biMostRight.IsEnabled = False
+                biMostRight.IsChecked = False
             End If
         Catch ex As Exception
             MessageBox.Show("err" & ex.Message)
