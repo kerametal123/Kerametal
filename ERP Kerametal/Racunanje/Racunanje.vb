@@ -59,6 +59,18 @@
             report.XrLabel75.SizeF = New System.Drawing.SizeF(44.5907!, 18.0!)
             report.XrLabel75.StylePriority.UseTextAlignment = False
             report.XrLabel75.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
+
+            '' report 
+            'ukupno
+            report.XrLabel16.Summary = report.XrLabel16.Summary
+            'ukupno * kolicina
+            report.XrLabel17.Summary = report.XrLabel18.Summary
+            report.GroupHeader1.Visible = False
+            report.GroupHeader1.HeightF = 30
+            report.GroupHeader1.RepeatEveryPage = True
+            report.GroupHeader3.RepeatEveryPage = False
+            report.ReportHeaderBand1.GetEffectiveFont = False
+
         Catch ex As Exception
 
         End Try
