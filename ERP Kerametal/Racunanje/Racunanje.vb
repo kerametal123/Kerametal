@@ -37,43 +37,6 @@
         Return cijenaUkupno
     End Function
     Public Function routines1()
-        Dim report As New Racun()
-        Dim route As Object
-        Dim fieldName As Object
-        Dim owner As Boolean
 
-        Try
-            'Prikaz banke
-            report.imeBanke1.Visible = True
-            report.brojBanke1.Visible = True
-            report.imeBanke2.Visible = True
-            report.brojBanke2.Visible = True
-            report.imeBanke3.Visible = True
-            report.brojBanke3.Visible = True
-            ''
-            report.XrLabel75.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "dok_zag_d.mpc", "{0:}")})
-            report.XrLabel75.Dpi = 100.0!
-            report.XrLabel75.LocationFloat = New DevExpress.Utils.PointFloat(702.7643!, 0!)
-            report.XrLabel75.Name = "XrLabel75"
-            report.XrLabel75.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-            report.XrLabel75.SizeF = New System.Drawing.SizeF(44.5907!, 18.0!)
-            report.XrLabel75.StylePriority.UseTextAlignment = False
-            report.XrLabel75.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight
-
-            '' report 
-            'ukupno
-            report.XrLabel16.Summary = report.XrLabel16.Summary
-            'ukupno * kolicina
-            report.XrLabel17.Summary = report.XrLabel18.Summary
-            report.GroupHeader1.Visible = False
-            report.GroupHeader1.HeightF = 30
-            report.GroupHeader1.RepeatEveryPage = True
-            report.GroupHeader3.RepeatEveryPage = False
-            report.ReportHeaderBand1.GetEffectiveFont = False
-
-        Catch ex As Exception
-
-        End Try
     End Function
-
 End Class

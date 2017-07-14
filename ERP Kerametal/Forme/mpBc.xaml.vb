@@ -292,13 +292,16 @@ Public Class mpBc
     Private Sub gridPartneri_SelectionChanged(sender As Object, e As GridSelectionChangedEventArgs)
     End Sub
     Private Sub simpleButton2_Copy1_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton2_Copy1.Click
-        Dim report As New Racun()
-        Dim window = New DocumentPreviewWindow()
-        report.Parameters("brojDokumenta").Value = brojeviDokumenataCbox.Text
-        report.Parameters("Parameter1").Value = tipoviDokumenataCbox.Tag
-        window.PreviewControl.DocumentSource = report
-        report.CreateDocument()
-        window.Show()
+        InputBox.Visibility = Visibility.Visible
+        InputTextBox.Visibility = Visibility.Collapsed
+
+        'Dim report As New Racun()
+        'Dim window = New DocumentPreviewWindow()
+        'report.Parameters("brojDokumenta").Value = brojeviDokumenataCbox.Text
+        'report.Parameters("Parameter1").Value = tipoviDokumenataCbox.Tag
+        'window.PreviewControl.DocumentSource = report
+        'report.CreateDocument()
+        'window.Show()
     End Sub
     Private Sub gridPartneri_SelectedItemChanged_1(sender As Object, e As SelectedItemChangedEventArgs) Handles gridPartneri.SelectedItemChanged
         vozilaCbox.Items.Clear()
@@ -406,12 +409,23 @@ Public Class mpBc
     End Function
 
     Private Sub button_Click(sender As Object, e As RoutedEventArgs) Handles button.Click
-        izracunajArtikalZaProdaju()
+        provjeriArtikalZaProdaju()
     End Sub
     Public Function izracunajArtikalZaProdaju()
         Dim item = New Item With {.Sifra = sifraTemp.Content, .Naziv = nazivTemp.Content, .Kolicina = kolicinaTemp.Content, .Cijena = cijenaTemp.Content, .Rabat = rabatTbox.Text, .PC = 1.0, .Iznos = 1.0}
         gridRacunNew.Items.Add(item)
         Return True
+    End Function
+    Public Function provjeriArtikalZaProdaju()
+        Try
+            Globals.sifraG = gridArtikli.SelectedItem("sifra")
+            For Each item As ReturnList In mysqlcomp.stanjeArtikla()
+                label7.Content = "Trenutačno na stanju ima: " + item.stanje + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
+                label8.Content = "Minimalna zaliha artikla je: " + item.minZaliha + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
+            Next
+        Catch ex As Exception
+        End Try
+        izracunajArtikalZaProdaju()
     End Function
     Private Sub dodatiCheck_Copy2_Checked(sender As Object, e As RoutedEventArgs)
     End Sub
@@ -661,7 +675,6 @@ Public Class mpBc
             If s IsNot Nothing Then
                 s.MoveFocus(New TraversalRequest(FocusNavigationDirection.[Next]))
             End If
-
             e.Handled = True
         End If
 
@@ -678,6 +691,12 @@ Public Class mpBc
         window.PreviewControl.DocumentSource = report
         report.CreateDocument()
         window.Show()
+    End Sub
+
+    Private Sub Informacije_ItemClick(sender As Object, e As ItemClickEventArgs) Handles Informacije.ItemClick
+        'Dim artInfo As New mpBc()
+        '' Open your page
+        'mpBc.Show()
     End Sub
 End Class
 

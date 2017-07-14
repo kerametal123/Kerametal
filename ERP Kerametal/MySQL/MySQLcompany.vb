@@ -137,8 +137,11 @@ Public Class MySQLcompany
             End Using
         End Using
     End Function
+    Public Function getArtikli()
+
+    End Function
     Public Function getArtikliZaAktivnog()
-        Dim query As String = "Select * from  artikli where objekt='" + Globals.objekt + "' order by naziv"
+        Dim query As String = "Call getArtikli(1," + Globals.objekt + ")"
         Dim table As New DataTable()
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query, connection)
@@ -148,7 +151,7 @@ Public Class MySQLcompany
         End Using
     End Function
     Public Function getPartneriZaAktivnog()
-        Dim query As String = "Select * from partneri where objekt='" + Globals.objekt + "' order by naziv;"
+        Dim query As String = "call getPartneri(" + Globals.objekt + ")"
         Dim table As New DataTable()
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query, connection)
@@ -156,6 +159,27 @@ Public Class MySQLcompany
                 Return table
             End Using
         End Using
+    End Function
+    Public Function stanjeArtikla()
+        Dim result = New List(Of ReturnList)
+        Try
+            Dim strQuery As String = "call getStanjeArtikala('" + Globals.objekt + "','1','" + Globals.sifraG + "')"
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+            While reader.Read()
+                Dim TempResult As New ReturnList
+                TempResult.stanje = reader(0)
+                TempResult.minZaliha = reader(1)
+                result.Add(TempResult)
+            End While
+            reader.Close()
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            ManageConnection(True, konekcija) 'Close connection
+        End Try
+        Return result
     End Function
     Public Function getArtikliFilterRow()
         Dim query As String = "Select * from artikli where objekt ='" + Globals.objekt + "' order by naziv"
@@ -391,8 +415,27 @@ Public Class MySQLcompany
         Return result
         getInfoZagDokumenta(tip, broj)
     End Function
-    Public Function getInfoZagDokumenta(ByVal tip As String, ByVal broj As String)
+    Public Function getInfoArtikal()
+        Dim result = New List(Of ReturnList)
+        Try
+            ManageConnection(False, konekcija) 'Open connection
+            Dim strQuery As String = "CALL `getArtikalInfo`(1, 21, '0075');"
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+            While reader.Read()
+                Dim TempResult As New ReturnList
 
+                result.Add(TempResult)
+            End While
+            reader.Close()
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            ManageConnection(True, konekcija) 'Close connection
+        End Try
+        Return result
+    End Function
+    Public Function getInfoZagDokumenta(ByVal tip As String, ByVal broj As String)
         Dim result = New List(Of ReturnList)
         Try
             ManageConnection(False, konekcija) 'Open connection
@@ -494,7 +537,7 @@ Public Class MySQLcompany
             Return False
             MsgBox("Error " & ex.Message)
         End Try
-        Return True
+
     End Function
     Public Class ReturnList
         Public Property gotovinaInfo As String
@@ -525,6 +568,10 @@ Public Class MySQLcompany
         Public Property bpdvInfo As String
         Public Property scontoInfo As String
         Public Property datumInfo As String
+
+        'Zalihe
+        Public Property stanje As String
+        Public Property minZaliha As String
 
     End Class
 End Class

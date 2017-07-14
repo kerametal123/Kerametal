@@ -26,7 +26,6 @@ Public Class Licenciranje
         Return True
     End Function
 
-
     Public Function checkActivity()
         Dim fileReader As System.IO.StreamReader
         fileReader =
@@ -86,5 +85,4 @@ My.Computer.FileSystem.OpenTextFileReader(punoImePutanje)
     cpu_ids.Substring(2)
         Return cpu_ids
     End Function
-
 End Class

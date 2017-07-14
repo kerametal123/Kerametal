@@ -191,6 +191,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Forme\artInfo.xaml.vb">
+      <DependentUpon>artInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Class1.vb" />
     <Compile Include="Files and Folders\Files.vb" />
     <Compile Include="Files and Folders\Folders.vb" />
@@ -230,6 +233,10 @@
     </Compile>
     <Compile Include="WMInfo\WMInfo.vb" />
     <Page Include="Aplikacije.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forme\artInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

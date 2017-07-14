@@ -30,6 +30,14 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <dxg:GridControl x:Name="gridArtikli" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,409,0,10" Width="549" ItemsSource="{Binding LoadDataBinding}">
+                    <dxb:BarManager.DXContextMenu>
+                        <dxb:PopupMenu>
+                            <dxb:PopupMenu.Items>
+                                <dxb:BarButtonItem Glyph="{dx:DXImage Image=Info_16x16.png}"   x:Name="Informacije" Content="Informacije"/>
+                                <dxb:BarButtonItem Glyph="{dx:DXImage Image=Edit_16x16.png}" x:Name="Uređivanje" Content="Uređivanje" />
+                            </dxb:PopupMenu.Items>
+                        </dxb:PopupMenu>
+                    </dxb:BarManager.DXContextMenu>
                     <dxg:GridControl.View>
                         <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowColumnMoving="False" AllowEditing="False"/>
                     </dxg:GridControl.View>
@@ -108,16 +116,17 @@
 
                 <Grid Height="91" Margin="0,123,0,0" VerticalAlignment="Top" Background="#FFDEDEDE">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5*"/>
-                        <ColumnDefinition Width="206*"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="label" Content="Traži kupca:" HorizontalAlignment="Right" Margin="0,59,457,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <Label x:Name="label_Copy" Content="Vozilo:" Margin="0,32,165,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="35" Grid.Column="1"/>
-                    <ComboBox x:Name="vozilaCbox" Margin="0,32,10,0" VerticalAlignment="Top" MaxWidth="155" HorizontalAlignment="Right" Width="150" Grid.Column="1"/>
-                    <Label x:Name="label_Copy1" Content="Vozač:" Margin="0,59,165,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="33" Grid.Column="1"/>
-                    <ComboBox x:Name="vozacCbox" Margin="0,59,10,0" VerticalAlignment="Top" MaxWidth="155" HorizontalAlignment="Right" Width="150" Grid.Column="1"/>
-                    <dx:SimpleButton Glyph="{dx:DXImage Image=Print_16x16.png}" x:Name="simpleButton2_Copy1" Content="Printati" Margin="0,10,232,37"  HorizontalAlignment="Right" MaxWidth="80" Width="80" Grid.Column="1"/>
-                    <TextBox x:Name="textBox1" Height="22" Margin="0,59,203,0" TextWrapping="Wrap" VerticalAlignment="Top" MaxWidth="254" HorizontalAlignment="Right" Width="249" Grid.Column="1"/>
+                    <Label x:Name="label" Content="Traži kupca:" HorizontalAlignment="Right" Margin="0,59,457,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label_Copy" Content="Vozilo:" Margin="0,32,165,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="35"/>
+                    <ComboBox x:Name="vozilaCbox" Margin="0,32,10,0" VerticalAlignment="Top" MaxWidth="155" HorizontalAlignment="Right" Width="150"/>
+                    <Label x:Name="label_Copy1" Content="Vozač:" Margin="0,59,165,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="33"/>
+                    <ComboBox x:Name="vozacCbox" Margin="0,59,10,0" VerticalAlignment="Top" MaxWidth="155" HorizontalAlignment="Right" Width="150"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Print_16x16.png}" x:Name="simpleButton2_Copy1" Content="Printati" Margin="0,10,232,37"  HorizontalAlignment="Right" MaxWidth="80" Width="80"/>
+                    <TextBox x:Name="textBox1" Height="22" Margin="0,59,203,0" TextWrapping="Wrap" VerticalAlignment="Top" MaxWidth="254" HorizontalAlignment="Right" Width="249"/>
+                    <Label x:Name="label7" Content="" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="630"/>
+                    <Label x:Name="label8" Content="" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Width="630"/>
                 </Grid>
                 <Grid    x:Name="robaContainer" Height="184" Margin="0,219,0,0" VerticalAlignment="Top" Background="#FFDEDEDE" HorizontalAlignment="Left" Width="360">
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Convert_16x16.png}" x:Name="simpleButton2_Copy2" Content="" HorizontalAlignment="Left" Height="22" Margin="270,10,0,0" VerticalAlignment="Top" Width="80" GlyphAlignment="Top"/>
@@ -145,7 +154,7 @@
                         <dxg:TableView AllowPerPixelScrolling="True" ShowGroupPanel="False" AllowColumnMoving="False" AllowEditing="False"/>
                     </dxg:GridControl.View>
                 </dxg:GridControl>
-                
+
                 <Grid Margin="564,646,10,10" Background="#FFDEDEDE">
                     <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="66,122,0,0" VerticalAlignment="Top" Width="90" />
                     <TextBox x:Name="scontoTbox" HorizontalAlignment="Left" Height="23" Margin="210,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsReadOnly="True">
@@ -209,8 +218,8 @@
                     <Label x:Name="label6_Copy9" Content="Ostalo:" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top"/>
                 </Grid>
 
-                
-                
+
+
                 <DataGrid x:Name="gridRacunNew" Margin="564,409,10,0" VerticalAlignment="Top" Height="232">
 
                 </DataGrid>
@@ -218,15 +227,19 @@
                     <Grid Background="Black" Opacity="0.5"/>
                     <Border
             MinWidth="250"
-            Background="Orange" 
+            Background="#FFD8D8D8" 
             BorderBrush="Black" 
             BorderThickness="1" 
-            CornerRadius="0,55,0,55" 
+ 
             HorizontalAlignment="Center" 
             VerticalAlignment="Center">
                         <StackPanel>
                             <TextBlock x:Name="iBoxMsg" Margin="5" Text="Input Box:" FontWeight="Bold" FontFamily="Cambria" />
-                            <TextBox x:Name="InputTextBox"  MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBox x:Name="InputTextBox"  MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">
+                                <TextBox.Effect>
+                                    <DropShadowEffect/>
+                                </TextBox.Effect>
+                            </TextBox>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button x:Name="YesButton" Margin="5" Content="Yes" Background="{x:Null}" Click="YesButton_Click"/>
                                 <Button x:Name="NoButton" Margin="5" Content="No" Background="{x:Null}" Click="NoButton_Click" />
@@ -237,6 +250,6 @@
             </Grid>
 
         </DockPanel>
-        
+
     </Grid>
 </Window>

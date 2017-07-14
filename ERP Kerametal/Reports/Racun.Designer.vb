@@ -170,6 +170,7 @@ Partial Public Class Racun
         Dim XrSummary3 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary4 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Me.Detail = New DevExpress.XtraReports.UI.DetailBand()
+        Me.XrLabel67 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel66 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel76 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel75 = New DevExpress.XtraReports.UI.XRLabel()
@@ -213,9 +214,6 @@ Partial Public Class Racun
         Me.XrLabel17 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel18 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel19 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLine6 = New DevExpress.XtraReports.UI.XRLine()
-        Me.XrLine5 = New DevExpress.XtraReports.UI.XRLine()
-        Me.XrLine4 = New DevExpress.XtraReports.UI.XRLine()
         Me.imeBanke3 = New DevExpress.XtraReports.UI.XRLabel()
         Me.brojBanke3 = New DevExpress.XtraReports.UI.XRLabel()
         Me.brojBanke2 = New DevExpress.XtraReports.UI.XRLabel()
@@ -270,6 +268,7 @@ Partial Public Class Racun
         Me.brojDokumenta = New DevExpress.XtraReports.Parameters.Parameter()
         Me.Parameter1 = New DevExpress.XtraReports.Parameters.Parameter()
         Me.GroupHeader1 = New DevExpress.XtraReports.UI.GroupHeaderBand()
+        Me.XrLine8 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel65 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel77 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel74 = New DevExpress.XtraReports.UI.XRLabel()
@@ -285,9 +284,10 @@ Partial Public Class Racun
         Me.XrLabel36 = New DevExpress.XtraReports.UI.XRLabel()
         Me.GroupHeader3 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.CalculatedField1 = New DevExpress.XtraReports.UI.CalculatedField()
-        Me.XrLabel67 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLine8 = New DevExpress.XtraReports.UI.XRLine()
         Me.CalculatedField2 = New DevExpress.XtraReports.UI.CalculatedField()
+        Me.XrLine6 = New DevExpress.XtraReports.UI.XRLine()
+        Me.XrLine5 = New DevExpress.XtraReports.UI.XRLine()
+        Me.XrLine4 = New DevExpress.XtraReports.UI.XRLine()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
@@ -300,6 +300,18 @@ Partial Public Class Racun
         Me.Detail.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
         Me.Detail.StyleName = "DataField"
         Me.Detail.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft
+        '
+        'XrLabel67
+        '
+        Me.XrLabel67.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "dok_zag_d.CalculatedField1")})
+        Me.XrLabel67.Dpi = 100.0!
+        Me.XrLabel67.LocationFloat = New DevExpress.Utils.PointFloat(534.3202!, 0!)
+        Me.XrLabel67.Name = "XrLabel67"
+        Me.XrLabel67.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel67.SizeF = New System.Drawing.SizeF(50.05072!, 18.0!)
+        Me.XrLabel67.StylePriority.UseTextAlignment = False
+        Me.XrLabel67.Text = "XrLabel67"
+        Me.XrLabel67.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
         '
         'XrLabel66
         '
@@ -1113,30 +1125,6 @@ Partial Public Class Racun
         Me.XrLabel19.SizeF = New System.Drawing.SizeF(141.5427!, 14.00002!)
         Me.XrLabel19.StylePriority.UseFont = False
         '
-        'XrLine6
-        '
-        Me.XrLine6.Dpi = 100.0!
-        Me.XrLine6.LineStyle = System.Drawing.Drawing2D.DashStyle.Dash
-        Me.XrLine6.LocationFloat = New DevExpress.Utils.PointFloat(53.86746!, 284.2301!)
-        Me.XrLine6.Name = "XrLine6"
-        Me.XrLine6.SizeF = New System.Drawing.SizeF(320.6664!, 5.0!)
-        '
-        'XrLine5
-        '
-        Me.XrLine5.Dpi = 100.0!
-        Me.XrLine5.LineStyle = System.Drawing.Drawing2D.DashStyle.Dash
-        Me.XrLine5.LocationFloat = New DevExpress.Utils.PointFloat(53.78855!, 261.2301!)
-        Me.XrLine5.Name = "XrLine5"
-        Me.XrLine5.SizeF = New System.Drawing.SizeF(320.7453!, 5.0!)
-        '
-        'XrLine4
-        '
-        Me.XrLine4.Dpi = 100.0!
-        Me.XrLine4.LineStyle = System.Drawing.Drawing2D.DashStyle.Dash
-        Me.XrLine4.LocationFloat = New DevExpress.Utils.PointFloat(53.78886!, 238.23!)
-        Me.XrLine4.Name = "XrLine4"
-        Me.XrLine4.SizeF = New System.Drawing.SizeF(320.7466!, 5.0!)
-        '
         'imeBanke3
         '
         Me.imeBanke3.CanGrow = False
@@ -1730,6 +1718,17 @@ Partial Public Class Racun
         Me.GroupHeader1.Name = "GroupHeader1"
         Me.GroupHeader1.RepeatEveryPage = True
         '
+        'XrLine8
+        '
+        Me.XrLine8.BorderDashStyle = DevExpress.XtraPrinting.BorderDashStyle.Solid
+        Me.XrLine8.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrLine8.Dpi = 100.0!
+        Me.XrLine8.LocationFloat = New DevExpress.Utils.PointFloat(0!, 23.86555!)
+        Me.XrLine8.Name = "XrLine8"
+        Me.XrLine8.SizeF = New System.Drawing.SizeF(803.8209!, 5.0!)
+        Me.XrLine8.StylePriority.UseBorderDashStyle = False
+        Me.XrLine8.StylePriority.UseBorders = False
+        '
         'XrLabel65
         '
         Me.XrLabel65.Dpi = 100.0!
@@ -1919,33 +1918,34 @@ Partial Public Class Racun
         Me.CalculatedField1.Expression = resources.GetString("CalculatedField1.Expression")
         Me.CalculatedField1.Name = "CalculatedField1"
         '
-        'XrLabel67
-        '
-        Me.XrLabel67.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "dok_zag_d.CalculatedField1")})
-        Me.XrLabel67.Dpi = 100.0!
-        Me.XrLabel67.LocationFloat = New DevExpress.Utils.PointFloat(534.3202!, 0!)
-        Me.XrLabel67.Name = "XrLabel67"
-        Me.XrLabel67.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96.0!)
-        Me.XrLabel67.SizeF = New System.Drawing.SizeF(50.05072!, 18.0!)
-        Me.XrLabel67.StylePriority.UseTextAlignment = False
-        Me.XrLabel67.Text = "XrLabel67"
-        Me.XrLabel67.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
-        '
-        'XrLine8
-        '
-        Me.XrLine8.BorderDashStyle = DevExpress.XtraPrinting.BorderDashStyle.Solid
-        Me.XrLine8.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrLine8.Dpi = 100.0!
-        Me.XrLine8.LocationFloat = New DevExpress.Utils.PointFloat(0!, 23.86555!)
-        Me.XrLine8.Name = "XrLine8"
-        Me.XrLine8.SizeF = New System.Drawing.SizeF(803.8209!, 5.0!)
-        Me.XrLine8.StylePriority.UseBorderDashStyle = False
-        Me.XrLine8.StylePriority.UseBorders = False
-        '
         'CalculatedField2
         '
         Me.CalculatedField2.DataMember = "dok_zag_d"
         Me.CalculatedField2.Name = "CalculatedField2"
+        '
+        'XrLine6
+        '
+        Me.XrLine6.Dpi = 100.0!
+        Me.XrLine6.LineStyle = System.Drawing.Drawing2D.DashStyle.Dash
+        Me.XrLine6.LocationFloat = New DevExpress.Utils.PointFloat(53.86746!, 284.2301!)
+        Me.XrLine6.Name = "XrLine6"
+        Me.XrLine6.SizeF = New System.Drawing.SizeF(320.6664!, 5.0!)
+        '
+        'XrLine5
+        '
+        Me.XrLine5.Dpi = 100.0!
+        Me.XrLine5.LineStyle = System.Drawing.Drawing2D.DashStyle.Dash
+        Me.XrLine5.LocationFloat = New DevExpress.Utils.PointFloat(53.78855!, 261.2301!)
+        Me.XrLine5.Name = "XrLine5"
+        Me.XrLine5.SizeF = New System.Drawing.SizeF(320.7453!, 5.0!)
+        '
+        'XrLine4
+        '
+        Me.XrLine4.Dpi = 100.0!
+        Me.XrLine4.LineStyle = System.Drawing.Drawing2D.DashStyle.Dash
+        Me.XrLine4.LocationFloat = New DevExpress.Utils.PointFloat(53.78886!, 238.23!)
+        Me.XrLine4.Name = "XrLine4"
+        Me.XrLine4.SizeF = New System.Drawing.SizeF(320.7466!, 5.0!)
         '
         'Racun
         '
@@ -2028,9 +2028,6 @@ Partial Public Class Racun
     Friend WithEvents XrLabel17 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel18 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel19 As DevExpress.XtraReports.UI.XRLabel
-    Friend WithEvents XrLine6 As DevExpress.XtraReports.UI.XRLine
-    Friend WithEvents XrLine5 As DevExpress.XtraReports.UI.XRLine
-    Friend WithEvents XrLine4 As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents XrLabel15 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents GroupHeader1 As DevExpress.XtraReports.UI.GroupHeaderBand
     Friend WithEvents XrLabel28 As DevExpress.XtraReports.UI.XRLabel
@@ -2083,4 +2080,7 @@ Partial Public Class Racun
     Friend WithEvents CalculatedField1 As DevExpress.XtraReports.UI.CalculatedField
     Friend WithEvents XrLine8 As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents CalculatedField2 As DevExpress.XtraReports.UI.CalculatedField
+    Friend WithEvents XrLine6 As DevExpress.XtraReports.UI.XRLine
+    Friend WithEvents XrLine5 As DevExpress.XtraReports.UI.XRLine
+    Friend WithEvents XrLine4 As DevExpress.XtraReports.UI.XRLine
 End Class

@@ -71,6 +71,8 @@
                     <dxb:BarCheckItem  x:FieldModifier="public"  x:Name="biLeft" Glyph="{dx:DXImage Image=BOUser_32x32.png}" GroupIndex="1" LargeGlyph="{dx:DXImage Image=BOUser_32x32.png}"/>
                     <dxb:BarCheckItem  x:FieldModifier="public"  x:Name="biCenter" Glyph="{dx:DXImage Image=Convert_32x32.png}" GroupIndex="1" LargeGlyph="{dx:DXImage Image=Hide_32x32.png}"/>
                     <dxb:BarCheckItem  x:FieldModifier="public"  x:Name="biRight" Glyph="{dx:DXImage Image=Database_32x32.png}" GroupIndex="1" LargeGlyph="{dx:DXImage Image=Database_32x32.png}"/>
+                    <dxb:BarCheckItem  x:FieldModifier="public"  x:Name="biMostRight" Glyph="{dx:DXImage Image=FullExtent_32x32.png}" GroupIndex="1" LargeGlyph="{dx:DXImage Image=Database_32x32.png}"/>
+
                 </dxr:RibbonStatusBarControl.RightItems>
             </dxr:RibbonStatusBarControl>
             <Grid MouseRightButtonDown="Grid_MouseRightButtonDown">

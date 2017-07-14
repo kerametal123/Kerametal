@@ -111,6 +111,10 @@ Public Class MySQLinfo
         Return True
     End Function
 
+
+    Public Function restoreDefaults()
+
+    End Function
     Public Function podaciInstalacija(ByVal hwid As String)
         Dim hardware As String = hwid
         Dim result = New List(Of String)()
@@ -338,8 +342,8 @@ Public Class MySQLinfo
         Try
             ManageConnection(False, konekcija) 'Open connection
             Dim strQuery As String = "SELECT op1,op2,op3,op4,op5,op6,op7,op8,op9,op10,op11,op12,op13,op14,op15 FROM info." + tabela + " where instalacija = '" + Globals.cpuid + "' and tvrtka = '" + Globals.tvrtka + "' and objekt = '" + Globals.objekt + "' and godina = '" + Globals.aktivnaGodina + "';"
-            Dim strQuery2 As String = "SELECT i.instalacije_naziv, t.tvrtke_naziv, t.dabase, i.instalacije_aktivnost, i.instalacije_login, i.instalacija_postavke, o.objekti_naziv, i.opcijeMP as MP, i.opcijeVP as VP, i.OpcijeFK as FK, i.OpcijeUG as UG FROM info.instalacije as i inner join tvrtke as t inner join objekti as o where t.idtvrtke = i.instalacije_tvrtka and o.sifraObjekta = i.instalacije_objekt and i.instalacije_hwid = 'BFEBFBFF000306A9';"
-            Dim strQuery3 As String = "UPDATE events SET realchannelname = :value, chanid = :channelid WHERE eventname = :configname and datetime =:datetime and twchannel =:twchannel ;"
+            'Dim strQuery2 As String = "SELECT i.instalacije_naziv, t.tvrtke_naziv, t.dabase, i.instalacije_aktivnost, i.instalacije_login, i.instalacija_postavke, o.objekti_naziv, i.opcijeMP as MP, i.opcijeVP as VP, i.OpcijeFK as FK, i.OpcijeUG as UG FROM info.instalacije as i inner join tvrtke as t inner join objekti as o where t.idtvrtke = i.instalacije_tvrtka and o.sifraObjekta = i.instalacije_objekt and i.instalacije_hwid = 'BFEBFBFF000306A9';"
+            ' Dim strQuery3 As String = "UPDATE events SET realchannelname = :value, chanid = :channelid WHERE eventname = :configname and datetime =:datetime and twchannel =:twchannel ;"
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
             While reader.Read()
