@@ -5,6 +5,9 @@ Imports DevExpress.Xpf.Printing
 Imports DevExpress.Xpf.WindowsUI
 Imports ERP_Kerametal.MySQLcompany
 Imports HtmlAgilityPack
+Imports DevExpress.XtraBars.Alerter
+Imports ERP_Kerametal
+
 Public Class mpBc
     Dim enter As New EnterKeyTraversal
     Dim zadnji As Object
@@ -20,9 +23,6 @@ Public Class mpBc
     Public Overridable Property AutoFilterCondition As AutoFilterCondition
     Dim intMilliseconds As Integer = 500000
     Dim objTimer As New System.Timers.Timer(intMilliseconds)
-
-
-
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         pripremiSucelje()
         AddHandler objTimer.Elapsed, AddressOf Window_TimerElapsed
@@ -420,7 +420,9 @@ Public Class mpBc
         Try
             Globals.sifraG = gridArtikli.SelectedItem("sifra")
             For Each item As ReturnList In mysqlcomp.stanjeArtikla()
+                'Item >stanje< iz tabele artikala stanje tog artikla za zadani objekat
                 label7.Content = "Trenutačno na stanju ima: " + item.stanje + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
+                'Item >minZaliha< iz tabele artikala minimalna zaliha, ==i >i pokreće funkciju za upozorenje!
                 label8.Content = "Minimalna zaliha artikla je: " + item.minZaliha + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
             Next
         Catch ex As Exception
@@ -569,6 +571,7 @@ Public Class mpBc
         If Not div Is Nothing Then
             Console.WriteLine(div.InnerText.Trim())
         End If
+
     End Sub
     Private Sub ispravitiCheck_Checked(sender As Object, e As RoutedEventArgs) Handles ispravitiCheck.Checked
         ispravke()
@@ -677,7 +680,6 @@ Public Class mpBc
             End If
             e.Handled = True
         End If
-
     End Sub
     Private Sub gotovinaTbox_TextChanged(sender As Object, e As TextChangedEventArgs) Handles gotovinaTbox.TextChanged
         If sender.IsFocused = True And sender.text.length > 0 Then

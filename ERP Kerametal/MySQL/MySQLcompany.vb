@@ -163,7 +163,7 @@ Public Class MySQLcompany
     Public Function stanjeArtikla()
         Dim result = New List(Of ReturnList)
         Try
-            Dim strQuery As String = "call getStanjeArtikala('" + Globals.objekt + "','1','" + Globals.sifraG + "')"
+            Dim strQuery As String = "Call getStanjeArtikala('" + Globals.objekt + "','1','" + Globals.sifraG + "')"
             ManageConnection(False, konekcija) 'Open connection'
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
