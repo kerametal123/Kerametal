@@ -2,7 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:ERP_Kerametal"
-    StartupUri="Forme\MainWindow.xaml" Startup="OnAppStartup_UpdateThemeName">
+    StartupUri="Forme\MainWindow.xaml" Startup="OnAppStartup_UpdateThemeName"
+ShutdownMode="OnMainWindowClose">
     <Application.Resources>
     </Application.Resources>
 </Application>
