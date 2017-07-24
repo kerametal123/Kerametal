@@ -24,6 +24,9 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://127.0.0.1/Install/erp/</InstallUrl>
+    <ProductName>Kerametal ERP</ProductName>
+    <PublisherName>Kerametal</PublisherName>
+    <SuiteName>ERP</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <ApplicationRevision>36</ApplicationRevision>

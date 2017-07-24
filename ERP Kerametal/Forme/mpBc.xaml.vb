@@ -28,10 +28,12 @@ Public Class mpBc
         AddHandler objTimer.Elapsed, AddressOf Window_TimerElapsed
         objTimer.AutoReset = False
         objTimer.Enabled = True
+        popuniVrsteDokumenata()
+        tipoviDokumenataCbox.SelectedIndex = 0
+        popuniDokumente(tipoviDokumenataCbox.SelectedItem.tag)
+        brojeviDokumenataCbox.SelectedIndex = 0
+        prodaja()
     End Sub
-
-
-
     Public Function popuniVrsteDokumenata()
         'Dodaj iteme
         For Each item As ReturnList In mysqlcomp.getVrsteDokumenata()
@@ -41,6 +43,7 @@ Public Class mpBc
             ComboBoxItem.Name = item.nazivDokumenta
             ComboBoxItem.Tag = item.idDokumenta
             tipoviDokumenataCbox.Items.Add(ComboBoxItem)
+
         Next
         Return True
     End Function
@@ -50,7 +53,7 @@ Public Class mpBc
         Dim ComboBoxItem1 = New ComboBoxItem()
         ComboBoxItem1.Content = "*"
         ComboBoxItem1.Name = "Novi"
-        ComboBoxItem1.Tag = "new"
+        ComboBoxItem1.Tag = "Nova"
         brojeviDokumenataCbox.Items.Add(ComboBoxItem1)
         ComboBoxItem1.IsSelected = True
         For Each item As ReturnList In mysqlcomp.getBrojeviDokumenata(tip)
@@ -67,11 +70,10 @@ Public Class mpBc
         gridPartneri.ItemsSource = mysqlcomp.getPartneriZaAktivnog
         'populate gridArtikli
         gridArtikli.ItemsSource = mysqlcomp.getArtikliZaAktivnog
-        popuniVrsteDokumenata()
         pripremiRacunGrid()
         getOperateri()
         pripremiPlacanjaGrid()
-        dodatiCheck.IsChecked = True
+        'ocistiPrikaz()
         gridArtikli.View.FocusedRowHandle = -1
         Return True
     End Function
@@ -222,15 +224,18 @@ Public Class mpBc
     End Sub
     Public Sub MySearchMethod()
         Dim filterValue As String = textBox.Text
-        If Not [String].IsNullOrEmpty(filterValue) Then
-            If Regex.IsMatch(filterValue, "^[0-9 ]+$") Then
-                gridArtikli.Columns("naziv").AutoFilterValue = ""
-                gridArtikli.Columns("sifra").AutoFilterValue = filterValue
-            Else
-                gridArtikli.Columns("sifra").AutoFilterValue = ""
-                gridArtikli.Columns("naziv").AutoFilterCondition = AutoFilterCondition.Contains
-                gridArtikli.Columns("naziv").AutoFilterValue = filterValue
-            End If
+        Console.WriteLine(filterValue + "-" + Globals.pretraga)
+        If Globals.pretraga = "sifra" Then
+            gridArtikli.Columns("naziv").AutoFilterValue = ""
+            gridArtikli.Columns("sifra").AutoFilterValue = filterValue
+        ElseIf Globals.pretraga = "string" Then
+            gridArtikli.Columns("sifra").AutoFilterValue = ""
+            gridArtikli.Columns("naziv").AutoFilterCondition = AutoFilterCondition.Contains
+            gridArtikli.Columns("naziv").AutoFilterValue = filterValue
+        ElseIf Globals.pretraga = "barcode" Then
+        gridArtikli.Columns("sifra").AutoFilterValue = ""
+        gridArtikli.Columns("naziv").AutoFilterCondition = AutoFilterCondition.Contains
+        gridArtikli.Columns("naziv").AutoFilterValue = filterValue
         End If
     End Sub
     Public Function prodaja()
@@ -242,43 +247,51 @@ Public Class mpBc
         Return True
     End Function
     Public Function ispravke()
-        gridRacunNew.Visibility = Visibility.Collapsed
-        gridRacun.Visibility = Visibility.Visible
-        dodatiCheck.IsChecked = False
-        infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
-        'pripremiRacunGridArhiva()
-        Return True
+        If brojeviDokumenataCbox.Text IsNot "*" Then
+            gridRacunNew.Visibility = Visibility.Collapsed
+            gridRacun.Visibility = Visibility.Visible
+            dodatiCheck.IsChecked = False
+            infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
+            'pripremiRacunGridArhiva()
+            Return True
+        Else
+            MessageBox.Show("morate odabrati ")
+        End If
+
     End Function
     Public Function pregledDokumenta()
         gridRacunNew.Visibility = Visibility.Collapsed
         gridRacun.Visibility = Visibility.Visible
-        'dodatiCheck.IsChecked = False
-        'infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
-        'pripremiRacunGridArhiva()
         Return True
     End Function
     Private Sub ispravitiCheck_Click(sender As Object, e As RoutedEventArgs) Handles ispravitiCheck.Click
+        Globals.urediDodaj = "uredi"
+        urediDodaj()
     End Sub
     Private Sub dodatiCheck_Click(sender As Object, e As RoutedEventArgs) Handles dodatiCheck.Click
+        Globals.urediDodaj = "dodaj"
+        urediDodaj()
     End Sub
     Public Function getOperateri()
         For Each item In mysqlcomp.getOperateri()
             operateriCombo.Items.Add(item.ime + " " + item.prezime)
         Next
+        operateriCombo.SelectedIndex = 0
         Return True
     End Function
     Private Sub simpleButton2_Copy2_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton2_Copy2.Click
         'For Each item In mysqlcomp.getGrupeArtikala()
         'grupeCbox.Items.Add(item.grupa)
         ' Next
-        For Each item In mysqlcomp.getProizvodaci()
-            Dim barmanager1 As New BarManager
-            Dim comboboxitem = New ComboBoxItem()
-            comboboxitem.Content = item.proiz
-            comboboxitem.Tag = item.idproiz
-            'AddHandler comboboxitem.Selected, Function() prijavi(item.idproiz)
-            proizvodacCbox.Items.Add(comboboxitem)
-        Next
+        'For Each item In mysqlcomp.getProizvodaci()
+        '    Dim barmanager1 As New BarManager
+        '    Dim comboboxitem = New ComboBoxItem()
+        '    comboboxitem.Content = item.proiz
+        '    comboboxitem.Tag = item.idproiz
+        '    'AddHandler comboboxitem.Selected, Function() prijavi(item.idproiz)
+        '    proizvodacCbox.Items.Add(comboboxitem)
+        'Next
+
     End Sub
     Private Sub dodatiCheck_Copy2_Click(sender As Object, e As RoutedEventArgs)
     End Sub
@@ -356,8 +369,8 @@ Public Class mpBc
         Return False
     End Function
     Private Sub simpleButton3_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton3.Click
-        Dim alo = New WinUIDialogWindow
-        alo.ShowDialogWindow(11, 22)
+        'gridPartneri.FindRowByValue("sifra", datumTbox.Text)
+        MessageBox.Show(racunanje.PretvoriBrojUTekst(3725.0))
     End Sub
     Private Sub robaUsluge_Click(sender As Object, e As RoutedEventArgs) Handles robaUsluge.Click
         If robaUsluge.IsChecked = True Then
@@ -400,6 +413,12 @@ Public Class mpBc
         End Try
         prikaziArtikal()
     End Sub
+
+    Public Function ocistiPrikaz()
+        sifraTemp.Content = ""
+        nazivTemp.Content = ""
+        kolicinaTemp.Content = ""
+    End Function
     Public Function prikaziArtikal()
         'ocistiPrikazArtikla()
         cijenaTbox.Text = cijenaTemp.Content
@@ -421,9 +440,9 @@ Public Class mpBc
             Globals.sifraG = gridArtikli.SelectedItem("sifra")
             For Each item As ReturnList In mysqlcomp.stanjeArtikla()
                 'Item >stanje< iz tabele artikala stanje tog artikla za zadani objekat
-                label7.Content = "Trenutačno na stanju ima: " + item.stanje + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
+                labeldrLabel.Content = "Trenutačno na stanju ima: " + item.stanje + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
                 'Item >minZaliha< iz tabele artikala minimalna zaliha, ==i >i pokreće funkciju za upozorenje!
-                label8.Content = "Minimalna zaliha artikla je: " + item.minZaliha + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
+                labelprLabel.Content = "Minimalna zaliha artikla je: " + item.minZaliha + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
             Next
         Catch ex As Exception
         End Try
@@ -432,40 +451,13 @@ Public Class mpBc
     Private Sub dodatiCheck_Copy2_Checked(sender As Object, e As RoutedEventArgs)
     End Sub
     Private Sub bacodeCbox_Checked(sender As Object, e As RoutedEventArgs) Handles bacodeCbox.Checked
-        'Količina
-        kolicinaTbox.IsEnabled = False
-        kolicinaTbox.Text = 1
-        'Cijena
-        cijenaTbox.IsEnabled = False
-        'Rabat
-        rabatTbox.IsEnabled = False
-        rabatCbox.IsChecked = False
-        stringCbox.IsChecked = False
-        sifraCbox.IsChecked = False
+
     End Sub
     Private Sub stringCbox_Checked(sender As Object, e As RoutedEventArgs) Handles stringCbox.Checked
-        'Količina
-        kolicinaTbox.IsEnabled = True
-        kolicinaTbox.Text = 0
-        'Cijena
-        cijenaTbox.IsEnabled = True
-        'Rabat
-        rabatTbox.IsEnabled = False
-        rabatCbox.IsChecked = False
-        bacodeCbox.IsChecked = False
-        sifraCbox.IsChecked = False
+
     End Sub
     Private Sub sifraCbox_Checked(sender As Object, e As RoutedEventArgs) Handles sifraCbox.Checked
-        'Količina
-        kolicinaTbox.IsEnabled = True
-        kolicinaTbox.Text = 0
-        'Cijena
-        cijenaTbox.IsEnabled = True
-        'Rabat
-        rabatTbox.IsEnabled = False
-        rabatCbox.IsChecked = False
-        bacodeCbox.IsChecked = False
-        stringCbox.IsChecked = False
+
     End Sub
     Private Sub cijenaTbox_TextChanged(sender As Object, e As TextChangedEventArgs) Handles cijenaTbox.TextChanged
         If sender.IsFocused = True And sender.text.length > 0 Then
@@ -495,10 +487,12 @@ Public Class mpBc
         popuniDokumente(tipoviDokumenataCbox.SelectedItem.tag)
     End Sub
     Private Sub brojeviDokumenataCbox_DropDownClosed(sender As Object, e As EventArgs) Handles brojeviDokumenataCbox.DropDownClosed
+        If brojeviDokumenataCbox.SelectedIndex = 0 Then
+            Globals.urediDodaj = "novo"
+            urediDodaj()
+        End If
     End Sub
-    Private Sub simpleButton1_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton1.Click
-        prodaja()
-    End Sub
+
     Private Sub brojeviDokumenataCbox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles brojeviDokumenataCbox.SelectionChanged
         If IsNothing(brojeviDokumenataCbox.SelectedItem) Then
         Else
@@ -541,7 +535,8 @@ Public Class mpBc
                 End If
                 rabatTboxS.Text = rabat
                 nettoTbox.Text = neto
-                maticnaValutaTbox.Text = ukupno
+                maticnaValutaTbox.Content = ukupno
+                slovimaBroj.Content = racunanje.PretvoriBrojUTekst(ukupno)
                 pdvTbox.Text = pdv
                 odbiciTbox.Text = popusti
                 iznosBezPDVTbox.Text = izn_bez_pdv
@@ -552,9 +547,14 @@ Public Class mpBc
                 karticeTbox.Text = item.karticeInfo
                 ziralnoTbox.Text = item.ziralnoInfo
                 ostaloTbox.Text = item.ostaloInfo
+                datumTbox.Text = item.datumDInfo
+                daniTbox.Text = item.daniInfo
+                gridPartneri.Columns("sifra").AutoFilterValue = item.partnerInfo
             Next
         Catch ex As Exception
         End Try
+
+
         'ispravke()
         pregledDokumenta()
         Return True
@@ -574,11 +574,10 @@ Public Class mpBc
 
     End Sub
     Private Sub ispravitiCheck_Checked(sender As Object, e As RoutedEventArgs) Handles ispravitiCheck.Checked
-        ispravke()
+
     End Sub
     Private Sub dodatiCheck_Checked(sender As Object, e As RoutedEventArgs) Handles dodatiCheck.Checked
-        prodaja()
-        Globals.urediDodaj = "dodaj"
+
     End Sub
     Private Sub kolicinaCbox_Unchecked(sender As Object, e As RoutedEventArgs) Handles kolicinaCbox.Unchecked
         kolicinaTbox.IsEnabled = False
@@ -610,7 +609,7 @@ Public Class mpBc
             Dim iznos As Object = 0
             Dim a As Object = 0
             iznos = InputTextBox.Text
-            a = racunanje.pretvoriTocke(iznos / maticnaValutaTbox.Text * 100)
+            a = racunanje.pretvoriTocke(iznos / maticnaValutaTbox.Content * 100)
             'iznos = InputTextBox.Text / maticnaValutaTbox.Text * 100
             'MessageBox.Show(a)
             If mysqlcomp.dopunskiRabatIzn(a, Globals.brojDokumenta) = True Then
@@ -627,7 +626,7 @@ Public Class mpBc
             Dim iznos As Object = 0
             Dim a As Object = 0
             iznos = InputTextBox.Text
-            a = racunanje.pretvoriTocke(iznos / maticnaValutaTbox.Text * 100)
+            a = racunanje.pretvoriTocke(iznos / maticnaValutaTbox.Content * 100)
             If mysqlcomp.scontoIzn(a, Globals.brojDokumenta) = True Then
                 prikaziOdabraniDokument(Globals.tipDokumenta, Globals.brojDokumenta)
             End If
@@ -696,9 +695,91 @@ Public Class mpBc
     End Sub
 
     Private Sub Informacije_ItemClick(sender As Object, e As ItemClickEventArgs) Handles Informacije.ItemClick
-        'Dim artInfo As New mpBc()
-        '' Open your page
-        'mpBc.Show()
+        Dim artInfo As New artInfo(gridArtikli.SelectedItem("sifra"))
+        artInfo.Show()
+    End Sub
+
+    Private Sub novoButton_Click(sender As Object, e As RoutedEventArgs) Handles novoButton.Click
+        Globals.urediDodaj = "novo"
+        urediDodaj()
+    End Sub
+    Public Function urediDodaj()
+        If Globals.urediDodaj = "uredi" Then
+            If brojeviDokumenataCbox.Text = "*" Or brojeviDokumenataCbox.Text = "" Then
+                dodatiCheck.IsChecked = False
+                ispravitiCheck.IsChecked = False
+                infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#593AFF00"), Color))
+            ElseIf Not brojeviDokumenataCbox.Text = "*" Or brojeviDokumenataCbox.Text = "" Then
+                dodatiCheck.IsChecked = False
+                ispravitiCheck.IsChecked = True
+                infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#7FFF0000"), Color))
+            End If
+        ElseIf Globals.urediDodaj = "dodaj" Then
+            If brojeviDokumenataCbox.Text = "*" Or brojeviDokumenataCbox.Text = "" Then
+                dodatiCheck.IsChecked = False
+                ispravitiCheck.IsChecked = False
+                infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#593AFF00"), Color))
+            ElseIf Not brojeviDokumenataCbox.Text = "*" Or brojeviDokumenataCbox.Text = "" Then
+                dodatiCheck.IsChecked = True
+                ispravitiCheck.IsChecked = False
+                infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#5900DCFF"), Color))
+            End If
+        ElseIf Globals.urediDodaj = "novo" Then
+            tipoviDokumenataCbox.SelectedIndex = 0
+            brojeviDokumenataCbox.SelectedIndex = 0
+            dodatiCheck.IsChecked = False
+            ispravitiCheck.IsChecked = False
+            infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#593AFF00"), Color))
+            brojeviDokumenataCbox.Items.Clear()
+            popuniDokumente(tipoviDokumenataCbox.SelectedItem.tag)
+            prodaja()
+        End If
+
+
+    End Function
+
+    Private Sub bacodeCbox_Click(sender As Object, e As RoutedEventArgs) Handles bacodeCbox.Click
+        'Količina
+        kolicinaTbox.IsEnabled = False
+        kolicinaTbox.Text = 1
+        'Cijena
+        cijenaTbox.IsEnabled = False
+        'Rabat
+
+        rabatTbox.IsEnabled = False
+        rabatCbox.IsChecked = False
+        stringCbox.IsChecked = False
+        sifraCbox.IsChecked = False
+        Globals.pretraga = "barcode"
+        MessageBox.Show("<div class='localhostinfo' name = 'ip_pass_uname' stlye='font_weight='12px bold' background_color='0''> Server=127.0.0.1;Database=kerametal;Uid=root;Pwd=samael89; </div>")
+    End Sub
+
+    Private Sub stringCbox_Click(sender As Object, e As RoutedEventArgs) Handles stringCbox.Click
+        'Količina
+        kolicinaTbox.IsEnabled = True
+        kolicinaTbox.Text = 0
+        'Cijena
+        cijenaTbox.IsEnabled = True
+        'Rabat
+        rabatTbox.IsEnabled = False
+        rabatCbox.IsChecked = False
+        bacodeCbox.IsChecked = False
+        sifraCbox.IsChecked = False
+        Globals.pretraga = "string"
+    End Sub
+
+    Private Sub sifraCbox_Click(sender As Object, e As RoutedEventArgs) Handles sifraCbox.Click
+        'Količina
+        kolicinaTbox.IsEnabled = True
+        kolicinaTbox.Text = 0
+        'Cijena
+        cijenaTbox.IsEnabled = True
+        'Rabat
+        rabatTbox.IsEnabled = False
+        rabatCbox.IsChecked = False
+        bacodeCbox.IsChecked = False
+        stringCbox.IsChecked = False
+        Globals.pretraga = "sifra"
     End Sub
 End Class
 

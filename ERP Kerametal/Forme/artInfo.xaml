@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="Artikal detaljno" Height="385" Width="569" Loaded="Window_Loaded">
     <Grid>
-        <WebBrowser x:Name="wbrowser" Height="230" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="313"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <WebBrowser x:Name="wbrowser" Height="200" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
         <Label x:Name="label" Content="Šifra artikla:" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy" Content="Tip artikla:" HorizontalAlignment="Left" Margin="161,245,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy1" Content="Grupa:" HorizontalAlignment="Left" Margin="10,272,0,0" VerticalAlignment="Top"/>

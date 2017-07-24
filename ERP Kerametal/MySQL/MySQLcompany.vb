@@ -258,7 +258,7 @@ Public Class MySQLcompany
     Public Function getBrojeviDokumenata(ByVal tip As String)
         Dim result = New List(Of ReturnList)
         Try
-            Dim strQuery As String = "SELECT broj FROM " + Globals.dabase + ".dok_zag_d where tip = '" + tip + "' and god = '" + Globals.aktivnaGodina + "' and objekt= '" + Globals.objekt + "' ORDER BY broj DESC limit 0, 100"
+            Dim strQuery As String = "SELECT broj FROM " + Globals.dabase + ".dok_zag_d where tip = '" + tip + "' and god = '" + Globals.aktivnaGodina + "' and objekt= '" + Globals.objekt + "' and zak='0' ORDER BY broj DESC limit 0, 100"
             Console.WriteLine(strQuery)
             ManageConnection(False, konekcija) 'Open connection'
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
@@ -384,7 +384,7 @@ Public Class MySQLcompany
         Dim result = New List(Of ReturnList)
         Try
             ManageConnection(False, konekcija) 'Open connection
-            Dim strQuery As String = "SELECT sum(kolicina * pc) as ukupno, sum(kolicina * pc * (stopa * 100) /(stopa + 100) / 100) as pdv, sum(kolicina * mpc) as mp_iznos, sum(kolicina * mpc * rabat1 / 100) as rabat, sum((kolicina * mpc) - (kolicina * mpc * rabat1 / 100) * rabat2 / 100) as rabat_plus, sum(kolicina * pc) - sum(kolicina * pc * (stopa * 100) /(stopa + 100) / 100) as neto, sum(kolicina * mpc) - sum(kolicina * pc) as popusti, sum(kolicina * pc) - (sum(kolicina * pc * (stopa * 100) /(stopa + 100) / 100)) -  (sum(kolicina * mpc) - sum(kolicina * pc))  as bpdv, (sum(kolicina * mpc) - sum(kolicina * pc)) - (sum(kolicina * mpc * rabat1 / 100))  - (sum((kolicina * mpc) - (kolicina * mpc * rabat1 / 100) * rabat2 / 100)) as sconto, s.dat, d.got as Gotovina, d.kar as Kartice,d.zir as Ziralno, d.ost as Ostalo FROM " + Globals.dabase + ".dok_sta_d as s inner join " + Globals.dabase + ".dok_zag_d as d where s.tip = '" + tip + "' and s.god = '" + Globals.aktivnaGodina + "' and s.objekt='" + Globals.objekt + "' and s.broj = '" + broj + "' and s.broj = d.broj and s.tip = d.tip"
+            Dim strQuery As String = "SELECT sum(kolicina * pc) as ukupno, sum(kolicina * pc * (stopa * 100) /(stopa + 100) / 100) as pdv, sum(kolicina * mpc) as mp_iznos, sum(kolicina * mpc * rabat1 / 100) as rabat, sum((kolicina * mpc) - (kolicina * mpc * rabat1 / 100) * rabat2 / 100) as rabat_plus, sum(kolicina * pc) - sum(kolicina * pc * (stopa * 100) /(stopa + 100) / 100) as neto, sum(kolicina * mpc) - sum(kolicina * pc) as popusti, sum(kolicina * pc) - (sum(kolicina * pc * (stopa * 100) /(stopa + 100) / 100)) -  (sum(kolicina * mpc) - sum(kolicina * pc))  as bpdv, (sum(kolicina * mpc) - sum(kolicina * pc)) - (sum(kolicina * mpc * rabat1 / 100))  - (sum((kolicina * mpc) - (kolicina * mpc * rabat1 / 100) * rabat2 / 100)) as sconto, s.dat, d.got as Gotovina, d.kar as Kartice,d.zir as Ziralno, d.ost as Ostalo, d.dat as datum, d.dani as dani, d.partner as part FROM " + Globals.dabase + ".dok_sta_d as s inner join " + Globals.dabase + ".dok_zag_d as d where s.tip = '" + tip + "' and s.god = '" + Globals.aktivnaGodina + "' and s.objekt='" + Globals.objekt + "' and s.broj = '" + broj + "' and s.broj = d.broj and s.tip = d.tip"
 
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
@@ -404,6 +404,9 @@ Public Class MySQLcompany
                 TempResult.karticeInfo = reader(11)
                 TempResult.ziralnoInfo = reader(12)
                 TempResult.ostaloInfo = reader(13)
+                TempResult.datumDInfo = reader(14)
+                TempResult.daniInfo = reader(15)
+                TempResult.partnerInfo = reader(16)
                 result.Add(TempResult)
             End While
             reader.Close()
@@ -439,7 +442,7 @@ Public Class MySQLcompany
         Dim result = New List(Of ReturnList)
         Try
             ManageConnection(False, konekcija) 'Open connection
-            Dim strQuery As String = "SELECT got as Gotovina, kar as Kartice,zir as Ziralno, ost as Ostalo  FROM " + Globals.dabase + ".dok_sta_d where tip = '" + tip + "' and god = '" + Globals.aktivnaGodina + "' and objekt='" + Globals.objekt + "' and broj = '" + broj + "'"
+            Dim strQuery As String = "SELECT got as Gotovina, kar as Kartice,zir as Ziralno, ost as Ostalo   FROM " + Globals.dabase + ".dok_sta_d where tip = '" + tip + "' and god = '" + Globals.aktivnaGodina + "' and objekt='" + Globals.objekt + "' and broj = '" + broj + "'"
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
             While reader.Read()
@@ -448,7 +451,10 @@ Public Class MySQLcompany
                 TempResult.gotovinaInfo = reader(0)
                 TempResult.karticeInfo = reader(1)
                 TempResult.ziralnoInfo = reader(2)
-                TempResult.ostaloInfo = reader(3)
+                If Not reader(3) = "" Then
+                    TempResult.ostaloInfo = reader(3)
+                End If
+
                 result.Add(TempResult)
             End While
             reader.Close()
@@ -572,6 +578,11 @@ Public Class MySQLcompany
         'Zalihe
         Public Property stanje As String
         Public Property minZaliha As String
+
+        Public Property partnerInfo As String
+
+        Public Property datumDInfo As String
+        Public Property daniInfo As String
 
     End Class
 End Class

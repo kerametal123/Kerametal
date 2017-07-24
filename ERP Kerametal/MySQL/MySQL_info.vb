@@ -129,7 +129,6 @@ Public Class MySQLinfo
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
             While reader.Read()
-
             End While
             reader.Close()
             'Vraća podatke u Listi stringova
@@ -166,7 +165,6 @@ Public Class MySQLinfo
                                   reader.GetString("instalacije_tvrtka"), reader.GetString("tvrtke_naziv"),
                                   reader.GetString("dabase"), reader.GetString("postavke_db1"), reader.GetString("postavke_db2"),
                                   reader.GetString("postavke_db3"), reader.GetString("postavke_db4"))
-
             End While
             reader.Close()
             'Vraća podatke u Listi stringova

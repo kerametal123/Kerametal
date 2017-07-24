@@ -15,12 +15,14 @@ Public Class Licenciranje
                 'Kreiranje licence
                 If kreirajLicencu(punoImePutanje) = True Then
                     checkActivity()
+                    MessageBox.Show(punoImePutanje)
                 ElseIf kreirajLicencu(punoImePutanje) = False Then
                     Return False
                 End If
             Else
             End If
         ElseIf folders.mkFolderRoot() = False Then
+            'Ako postoje folderi onda provjerava aktivnost instalacije
             checkActivity()
         End If
         Return True
@@ -83,6 +85,7 @@ My.Computer.FileSystem.OpenTextFileReader(punoImePutanje)
         Next cpu
         If cpu_ids.Length > 0 Then cpu_ids =
     cpu_ids.Substring(2)
+        'Return cpu_ids
         Return cpu_ids
     End Function
 End Class
