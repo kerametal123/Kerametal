@@ -7,9 +7,11 @@ Imports ERP_Kerametal.MySQLcompany
 Imports HtmlAgilityPack
 Imports DevExpress.XtraBars.Alerter
 Imports ERP_Kerametal
+Imports System.Data
 
 Public Class mpBc
     Dim enter As New EnterKeyTraversal
+    Dim fiscal As New Fiscal
     Dim zadnji As Object
     Dim control As String
     Dim popup As New popupValid
@@ -23,6 +25,8 @@ Public Class mpBc
     Public Overridable Property AutoFilterCondition As AutoFilterCondition
     Dim intMilliseconds As Integer = 500000
     Dim objTimer As New System.Timers.Timer(intMilliseconds)
+    Private sum As Decimal
+
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         pripremiSucelje()
         AddHandler objTimer.Elapsed, AddressOf Window_TimerElapsed
@@ -33,6 +37,10 @@ Public Class mpBc
         popuniDokumente(tipoviDokumenataCbox.SelectedItem.tag)
         brojeviDokumenataCbox.SelectedIndex = 0
         prodaja()
+
+        pripremiRacunGrid()
+        mogFaktVP.IsChecked = False
+        alter1.IsEnabled = False
     End Sub
     Public Function popuniVrsteDokumenata()
         'Dodaj iteme
@@ -70,7 +78,7 @@ Public Class mpBc
         gridPartneri.ItemsSource = mysqlcomp.getPartneriZaAktivnog
         'populate gridArtikli
         gridArtikli.ItemsSource = mysqlcomp.getArtikliZaAktivnog
-        pripremiRacunGrid()
+        ' pripremiRacunGrid()
         getOperateri()
         pripremiPlacanjaGrid()
         'ocistiPrikaz()
@@ -122,6 +130,12 @@ Public Class mpBc
         c7.Width = 100
         c7.Binding = New Binding("Iznos")
         gridRacunNew.Columns.Add(c7)
+
+        Dim c8 As New DataGridTextColumn()
+        c8.Header = "plu"
+        c8.Width = 100
+        c8.Binding = New Binding("plu")
+        gridRacunNew.Columns.Add(c8)
         Return True
     End Function
     Public Function pripremiRacunGridArhiva()
@@ -223,6 +237,7 @@ Public Class mpBc
         End If
     End Sub
     Public Sub MySearchMethod()
+
         Dim filterValue As String = textBox.Text
         Console.WriteLine(filterValue + "-" + Globals.pretraga)
         If Globals.pretraga = "sifra" Then
@@ -233,9 +248,9 @@ Public Class mpBc
             gridArtikli.Columns("naziv").AutoFilterCondition = AutoFilterCondition.Contains
             gridArtikli.Columns("naziv").AutoFilterValue = filterValue
         ElseIf Globals.pretraga = "barcode" Then
-        gridArtikli.Columns("sifra").AutoFilterValue = ""
-        gridArtikli.Columns("naziv").AutoFilterCondition = AutoFilterCondition.Contains
-        gridArtikli.Columns("naziv").AutoFilterValue = filterValue
+            gridArtikli.Columns("sifra").AutoFilterValue = ""
+            gridArtikli.Columns("naziv").AutoFilterCondition = AutoFilterCondition.Contains
+            gridArtikli.Columns("naziv").AutoFilterValue = filterValue
         End If
     End Sub
     Public Function prodaja()
@@ -243,7 +258,7 @@ Public Class mpBc
         gridRacun.Visibility = Visibility.Collapsed
         ispravitiCheck.IsChecked = False
         infoGrid.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#593AFF00"), Color))
-        pripremiRacunGrid()
+        gridRacunNew.Items.Clear()
         Return True
     End Function
     Public Function ispravke()
@@ -256,8 +271,9 @@ Public Class mpBc
             Return True
         Else
             MessageBox.Show("morate odabrati ")
+            Return False
         End If
-
+        Return True
     End Function
     Public Function pregledDokumenta()
         gridRacunNew.Visibility = Visibility.Collapsed
@@ -370,7 +386,8 @@ Public Class mpBc
     End Function
     Private Sub simpleButton3_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton3.Click
         'gridPartneri.FindRowByValue("sifra", datumTbox.Text)
-        MessageBox.Show(racunanje.PretvoriBrojUTekst(3725.0))
+        Globals.random = Globals.randomize
+        MessageBox.Show(Globals.random)
     End Sub
     Private Sub robaUsluge_Click(sender As Object, e As RoutedEventArgs) Handles robaUsluge.Click
         If robaUsluge.IsChecked = True Then
@@ -393,6 +410,7 @@ Public Class mpBc
             Dim tipArtikla As Integer
             Dim placanje As Integer
             sifraTemp.Content = gridArtikli.SelectedItem("sifra")
+            pluTemp.Content = gridArtikli.SelectedItem("plu")
             nazivTemp.Content = gridArtikli.SelectedItem("naziv")
             kolicinaTemp.Content = kolicinaTbox.Text
             mpcTbox.Text = racunanje.zaokruziNaDvije(gridArtikli.SelectedItem("mpc"))
@@ -418,6 +436,7 @@ Public Class mpBc
         sifraTemp.Content = ""
         nazivTemp.Content = ""
         kolicinaTemp.Content = ""
+        Return True
     End Function
     Public Function prikaziArtikal()
         'ocistiPrikazArtikla()
@@ -431,7 +450,7 @@ Public Class mpBc
         provjeriArtikalZaProdaju()
     End Sub
     Public Function izracunajArtikalZaProdaju()
-        Dim item = New Item With {.Sifra = sifraTemp.Content, .Naziv = nazivTemp.Content, .Kolicina = kolicinaTemp.Content, .Cijena = cijenaTemp.Content, .Rabat = rabatTbox.Text, .PC = 1.0, .Iznos = 1.0}
+        Dim item = New Item With {.Sifra = sifraTemp.Content, .Naziv = nazivTemp.Content, .Kolicina = kolicinaTemp.Content, .Cijena = cijenaTemp.Content, .Rabat = rabatTbox.Text, .PC = 1.0, .Iznos = 1.0, .plu = pluTemp.Content}
         gridRacunNew.Items.Add(item)
         Return True
     End Function
@@ -445,8 +464,10 @@ Public Class mpBc
                 labelprLabel.Content = "Minimalna zaliha artikla je: " + item.minZaliha + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
             Next
         Catch ex As Exception
+            Return False
         End Try
         izracunajArtikalZaProdaju()
+        Return True
     End Function
     Private Sub dodatiCheck_Copy2_Checked(sender As Object, e As RoutedEventArgs)
     End Sub
@@ -734,7 +755,7 @@ Public Class mpBc
             popuniDokumente(tipoviDokumenataCbox.SelectedItem.tag)
             prodaja()
         End If
-
+        Return True
 
     End Function
 
@@ -751,7 +772,7 @@ Public Class mpBc
         stringCbox.IsChecked = False
         sifraCbox.IsChecked = False
         Globals.pretraga = "barcode"
-        MessageBox.Show("<div class='localhostinfo' name = 'ip_pass_uname' stlye='font_weight='12px bold' background_color='0''> Server=127.0.0.1;Database=kerametal;Uid=root;Pwd=samael89; </div>")
+
     End Sub
 
     Private Sub stringCbox_Click(sender As Object, e As RoutedEventArgs) Handles stringCbox.Click
@@ -780,6 +801,107 @@ Public Class mpBc
         bacodeCbox.IsChecked = False
         stringCbox.IsChecked = False
         Globals.pretraga = "sifra"
+    End Sub
+
+    Private Sub button1_Click(sender As Object, e As RoutedEventArgs) Handles button1.Click
+        proslijediRacunFiscal()
+    End Sub
+    Public Function proslijediRacunFiscal()
+        Try
+
+
+            Dim artikli As New List(Of String)
+            Dim artikliProd As New List(Of String)
+            Dim placanja As New List(Of String)
+
+            Dim poruka As String = "Operater1"
+            Dim poruka1 As String = "WIFI password"
+
+            Try
+                placanja.Add("53,1,______,_,__;0;" & gotovinaTbox.Text & ";")
+                placanja.Add("53,1,______,_,__;1;" & karticeTbox.Text & ";")
+                placanja.Add("53,1,______,_,__;2;" & "" & ";")
+                placanja.Add("53,1,______,_,__;3;" & ziralnoTbox.Text & ";")
+                placanja.Add("53,1,______,_,__;")
+            Catch ex As Exception
+
+            End Try
+            For i As Integer = 0 To gridRacunNew.Items.Count - 1
+                'Dodaj artikal
+                artikli.Add("107,1,______,_,__;2;" + "2" + ";" + (TryCast(gridRacunNew.Columns(7).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) + ";" + (TryCast(gridRacunNew.Columns(3).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) + ";" + (TryCast(gridRacunNew.Columns(1).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) + ";")
+                'Izmjeni cijenu artiklu
+                artikli.Add("107,1,______,_,__;4;" + (TryCast(gridRacunNew.Columns(3).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) + ";" + (TryCast(gridRacunNew.Columns(1).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) + ";")
+                'Prodaj artikal
+                artikliProd.Add("52,1,______,_,__;" & (TryCast(gridRacunNew.Columns(7).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) & ";" & (TryCast(gridRacunNew.Columns(2).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) & ";" & (TryCast(gridRacunNew.Columns(4).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) & ";")
+            Next
+            fiscal.fiscalArtikli(artikli, artikliProd, placanja, poruka, poruka1, True, "1234567890123", "value1", "value2", "value3")
+            mysqlcomp.prodaja()
+
+            'Za reklamirani fiskalni dovoljno je upisati broj fiskalnog računa pri otvaranju dokumenta
+            'fiscal.reklamirajFiskalni("11111")
+            'Procedura za provjeru statusa pisača
+            'fiscal.checkFiscalStatus()
+
+        Catch ex As Exception
+            Return False
+        End Try
+        Return True
+    End Function
+
+    Private Sub mogFaktVP_CheckedChanged(sender As Object, e As ItemClickEventArgs) Handles mogFaktVP.CheckedChanged
+
+    End Sub
+
+    Private Sub alter1_CheckedChanged(sender As Object, e As ItemClickEventArgs) Handles alter1.CheckedChanged
+
+    End Sub
+
+    Private Sub mogFaktVP_ContextMenuClosing(sender As Object, e As ContextMenuEventArgs) Handles mogFaktVP.ContextMenuClosing
+        If mogFaktVP.IsChecked = True Then
+            Globals.vpFakturiranje = True
+        Else
+            Globals.vpFakturiranje = False
+        End If
+    End Sub
+
+    Private Sub alter1_ContextMenuClosing(sender As Object, e As ContextMenuEventArgs)
+
+    End Sub
+
+    Private Sub alter1_ContextMenuClosing(sender As Object, e As ItemClickEventArgs) Handles alter1.ItemClick
+
+    End Sub
+
+    Private Sub brojila_CheckedChanged(sender As Object, e As ItemClickEventArgs) Handles brojila.CheckedChanged
+        If brojila.IsChecked = True Then
+            brojilaBtn.IsVisible = True
+        ElseIf brojila.IsChecked = False Then
+            brojilaBtn.IsVisible = False
+        End If
+    End Sub
+
+    Private Sub fiscalMenuBtn_CheckedChanged(sender As Object, e As ItemClickEventArgs) Handles fiscalMenuBtn.CheckedChanged
+        If fiscalMenuBtn.IsChecked = True Then
+            Globals.fiscal = True
+        ElseIf fiscalMenuBtn.IsChecked = False Then
+            Globals.fiscal = False
+            Globals.cijenaG = 50
+        End If
+    End Sub
+    Private Sub a4RacunBtn_CheckedChanged(sender As Object, e As ItemClickEventArgs) Handles a4RacunBtn.CheckedChanged
+        If a4RacunBtn.IsChecked = True Then
+            Globals.a4prodaja = True
+        ElseIf a4RacunBtn.IsChecked = False Then
+            Globals.a4prodaja = False
+        End If
+    End Sub
+
+    Private Sub mpvpc_ContextMenuOpening(sender As Object, e As ContextMenuEventArgs) Handles mpvpc.ContextMenuOpening
+        If Globals.vpFakturiranje = True Then
+            alter1.IsEnabled = True
+        ElseIf Globals.vpFakturiranje = False Then
+            alter1.IsEnabled = False
+        End If
     End Sub
 End Class
 

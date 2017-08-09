@@ -21,6 +21,17 @@
         <Label x:Name="sifraArtikla_Copy1" Content="Ime proizvođača artikla" HorizontalAlignment="Left" Margin="226,272,0,0" VerticalAlignment="Top"/>
         <Label x:Name="opisArt" Content="Proizvođač:" HorizontalAlignment="Left" Margin="328,10,0,0" VerticalAlignment="Top"/>
         <Label x:Name="nazivArtikla" Content="Naziv artikla lbl" HorizontalAlignment="Left" Margin="393,10,0,0" VerticalAlignment="Top" Width="158"/>
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="173" Margin="315,37,0,0" VerticalAlignment="Top" Width="236">
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5">
+                    <Label x:Name="label1" Content="100" HorizontalAlignment="Left" Margin="50,10,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="stanje" Content="Stanje:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>

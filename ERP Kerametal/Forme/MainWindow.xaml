@@ -95,5 +95,6 @@
 
             </Grid>
         </DockPanel>
+        <dxb:MainMenuControl HorizontalAlignment="Left" Margin="-655,-165,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>

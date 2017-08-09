@@ -52,7 +52,30 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
         fk_partneri = "", fk_kontni_plan = "", fk_o1 = "", fk_o2 = "", fk_o3 = "", fk_o4 = "", fk_o5 = "", fk_o6 = "", fk_o7 = "", fk_o8 = ""
     Public Shared urediDodaj = ""
     Public Shared pretraga = ""
+    Public Shared sqlstate = ""
     Public Shared sat As Boolean
+    'Fiscal
+    Public Shared fiscalIn = ""
+    Public Shared fiscalOut = ""
+    Public Shared iosa = ""
+    Public Shared random = ""
+    Public Shared vpFakturiranje As Boolean
+    Public Shared fiscal As Boolean
+    Public Shared a4prodaja As Boolean
+    'Cheats
+    Public Shared alwaystrue = True
+    Public Shared alwaysfalse = False
+    Public Shared Function randomize()
+        Dim numbers = Enumerable.Range(0, 11000).ToList()
+        Dim RandomClass As New Random()
+        Dim RandomIndex As Integer
+        For counter As Integer = 1 To 5
+            RandomIndex = RandomClass.Next(0, numbers.Count)
+            Return numbers(RandomIndex)
+            numbers.RemoveAt(RandomIndex)
+        Next
+        Return True
+    End Function
     Public Shared Function CheckForInternetConnection() As Boolean
         Dim we As MainWindow = Application.Current.Windows(0)
         Try

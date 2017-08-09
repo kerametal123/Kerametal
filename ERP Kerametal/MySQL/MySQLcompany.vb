@@ -4,7 +4,7 @@ Imports MySql.Data.MySqlClient
 Public Class MySQLcompany
     Dim dbCon As MySqlConnection
     Dim konekcija As String = Globals.databaseInfo
-    'Dim konekcija As String = "Server=127.0.0.1;Database=kerametal;Uid=root;Pwd=samael89;"
+    ' Dim konekcija As String = "Server=127.0.0.1;Database=kerametal;Uid=root;Pwd=samael89;"
 
     Public Function ManageConnection(ByVal CloseConnection As Boolean, ByVal konekcija As String)
         Try
@@ -136,9 +136,6 @@ Public Class MySQLcompany
                 Return table
             End Using
         End Using
-    End Function
-    Public Function getArtikli()
-
     End Function
     Public Function getArtikliZaAktivnog()
         Dim query As String = "Call getArtikli(1," + Globals.objekt + ")"
@@ -543,7 +540,24 @@ Public Class MySQLcompany
             Return False
             MsgBox("Error " & ex.Message)
         End Try
+        Return True
+    End Function
+    Public Function prodaja()
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Globals.random = Globals.randomize
+            Dim strQuery As String = "INSERT INTO `kerametal`.`dok_zag_d` (`zak`, `dat_z`, `tip`, `broj`, `god`, `objekt`, `kasa`, `dat`, `partner`, `ime1`, `ime2`, `dani`, `prodavac`, `smjena`, `napomena`, `got`, `kar`, `ost`, `zir`, `interno`, `ostalo`, `izvoz`, `obveznik`, `entitet`, `pb`, `kif`, `print`, `valuta`, `tecaj`, `terminal`, `fiscal`, `fiscal1`, `ibk`, `ime3`, `ident`) VALUES ('0','" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "', '12', '1557', '2016', '21', '1', '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "', '0', '0', '0', '0', '0', '0', ' ', '7.7', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2', '0', '0', 'TRGOVINA-PC', '11377', '0', '0', 'nomeee', '');"
+            Console.WriteLine("Kpr " + strQuery)
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            SqlCmd.ExecuteNonQuery()
 
+            ManageConnection(True, konekcija) 'Close connection'
+
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
     End Function
     Public Class ReturnList
         Public Property gotovinaInfo As String

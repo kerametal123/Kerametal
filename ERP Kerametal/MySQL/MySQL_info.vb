@@ -110,11 +110,6 @@ Public Class MySQLinfo
         End Try
         Return True
     End Function
-
-
-    Public Function restoreDefaults()
-
-    End Function
     Public Function podaciInstalacija(ByVal hwid As String)
         Dim hardware As String = hwid
         Dim result = New List(Of String)()

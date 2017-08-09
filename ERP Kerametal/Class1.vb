@@ -16,6 +16,7 @@
                 End If
             End If
         End If
+        Return True
     End Function
 
 End Class

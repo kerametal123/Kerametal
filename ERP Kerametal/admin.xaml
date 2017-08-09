@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ERP_Kerametal"
         xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking" xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" x:Class="admin"
         mc:Ignorable="d"
-        Title="admin" Height="1062" Width="1579">
+        Title="admin" Height="1062" Width="1579" Initialized="Window_Initialized">
     <Grid>
 
         <DockPanel>

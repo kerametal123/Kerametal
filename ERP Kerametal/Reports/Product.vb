@@ -10,6 +10,7 @@
     Private _PC As String 'PRODAJNA CIJENA IZ TABELE
     Private _Iznos As String
     Private _vrijednost As String
+    Private _plu As String
     Property Sifra() As String
         Get
             Return _Sifra
@@ -43,6 +44,14 @@
         End Get
         Set(ByVal value As Integer)
             Me._Kolicina = value
+        End Set
+    End Property
+    Property plu() As String
+        Get
+            Return _plu
+        End Get
+        Set(ByVal value As String)
+            Me._plu = value
         End Set
     End Property
     Property Cijena() As Decimal
