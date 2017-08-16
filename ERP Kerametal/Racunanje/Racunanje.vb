@@ -65,7 +65,7 @@ Public Class Racunanje
 
         varCifreStotine = {"", "sto", "dvijesto", "tristo", "četiristo", "petsto",
                                  "šesto", "sedamsto", "osamsto", "devetsto", "SRF info HD"}
-        'Var cifre
+
         If dblUlazniBroj < 0 Then
             strMINUS = "-"
             dblUlazniBroj = dblUlazniBroj

@@ -49,7 +49,7 @@ Public Class MySQLinfo
     End Function
     Public Function upisRacunala(ByVal hwid As String)
         Try
-            ManageConnection(False, konekcija) 'Open connection'
+            ManageConnection(False, konekcija)
 
             Dim strQuery As String = "INSERT INTO `info`.`racunala` (`racunala_hwid`) VALUES ('" + hwid + "');"
 
@@ -229,10 +229,6 @@ Public Class MySQLinfo
         End Using
     End Function
 
-    ''' <summary>
-    ''' Foreach
-    ''' </summary>
-    ''' <returns></returns>
     Public Function vratiTvrtke()
         Dim result = New List(Of ReturnList)
         Try
@@ -259,7 +255,6 @@ Public Class MySQLinfo
 
     Public Function vratiObjekte()
         Dim result = New List(Of ReturnList)
-
         Try
             ManageConnection(False, konekcija) 'Open connection
             Dim strQuery As String = "SELECT distinct objekti_naziv, objekti_adresa, sifraObjekta FROM info.objekti as obj inner join opcije_programa as o inner join instalacije as i inner join opcije_objekta as opob inner join opcije_godina as opog where 
@@ -285,7 +280,6 @@ Public Class MySQLinfo
     End Function
     Public Function vratiGodine()
         Dim result = New List(Of ReturnList)
-
         Try
             ManageConnection(False, konekcija) 'Open connection
             Dim strQuery As String = "SELECT distinct go.stringname, g.godina, g.stringname FROM info.opcije_godina as g inner join opcije_tvrtke as t inner join godine as go   where 
