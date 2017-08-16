@@ -4,8 +4,8 @@ Public Class Racunanje
     Public Function zaokruziNaDvije(ByVal input As Decimal)
         Dim output As Decimal
         Try
-            output = pretvoriTocke(input)
-            output = Format(input, "0.00")
+            ' output = pretvoriTocke(input)
+            '  output = Format(input, "0.00")
             output = Format(input, "0.00")
 
         Catch ex As Exception
