@@ -398,6 +398,50 @@ Public Class MySQLinfo
         End Try
         Return result
     End Function
+
+    Public Function dozvolePostavki()
+        Dim postavke = New List(Of String)()
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim strQuery As String = "Select unosIspravkeMenu,blagProd,faktureMenu,printAfterMenu,blagProd1,faktureMenu1,
+otpremniceMenu1,mogFaktVP,pregledRuc,brojila,otptofakt,skupniBtn,dofakturiranje,nedostatneKolicine,fiscalMenuBtn,nonfiscalMenuBtn,a4RacunBtn,
+ljetnoVrijemeBtn,zimskoVrijemeBtn,ulazNovcaBtn,izlazNovcaBtn FROM info.opcije_mp where instalacija = '" + Globals.cpuid + "';"
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+            While reader.Read()
+                postavke.Add(reader.GetString("unosIspravkeMenu"))
+                postavke.Add(reader.GetString("blagProd"))
+                postavke.Add(reader.GetString("faktureMenu"))
+                postavke.Add(reader.GetString("printAfterMenu"))
+                postavke.Add(reader.GetString("blagProd1"))
+                postavke.Add(reader.GetString("faktureMenu1"))
+                postavke.Add(reader.GetString("otpremniceMenu1"))
+                postavke.Add(reader.GetString("mogFaktVP"))
+                postavke.Add(reader.GetString("pregledRuc"))
+                postavke.Add(reader.GetString("brojila"))
+                postavke.Add(reader.GetString("otptofakt"))
+                postavke.Add(reader.GetString("skupniBtn"))
+                postavke.Add(reader.GetString("dofakturiranje"))
+                postavke.Add(reader.GetString("nedostatneKolicine"))
+                postavke.Add(reader.GetString("fiscalMenuBtn"))
+                postavke.Add(reader.GetString("nonfiscalMenuBtn"))
+                postavke.Add(reader.GetString("a4RacunBtn"))
+                postavke.Add(reader.GetString("ljetnoVrijemeBtn"))
+                postavke.Add(reader.GetString("zimskoVrijemeBtn"))
+                postavke.Add(reader.GetString("ulazNovcaBtn"))
+                postavke.Add(reader.GetString("izlazNovcaBtn"))
+            End While
+            reader.Close()
+            'Vraća podatke u Listi stringova
+            Return postavke
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+            Return Nothing
+        Finally
+            ManageConnection(True, konekcija)
+        End Try
+
+    End Function
     Public Class ReturnList
         Public Property tvrtke_naziv As String
         Public Property dabase As String

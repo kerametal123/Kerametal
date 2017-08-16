@@ -74,6 +74,42 @@ Public Class mpBc
         Next
         Return True
     End Function
+    Public Function povuciDozvolePostavki()
+        Dim buttons = New List(Of Object)()
+        buttons.Add(unosIspravkeMenu)
+        buttons.Add(blagProd)
+        buttons.Add(faktureMenu)
+        buttons.Add(printAfterMenu)
+        buttons.Add(blagProd1)
+        buttons.Add(faktureMenu1)
+        buttons.Add(otpremniceMenu1)
+        buttons.Add(mogFaktVP)
+        buttons.Add(pregledRuc)
+        buttons.Add(brojila)
+        buttons.Add(otptofakt)
+        buttons.Add(skupniBtn)
+        buttons.Add(dofakturiranje)
+        buttons.Add(nedostatneKolicine)
+        buttons.Add(fiscalMenuBtn)
+        buttons.Add(nonfiscalMenuBtn)
+        buttons.Add(a4RacunBtn)
+        buttons.Add(ljetnoVrijemeBtn)
+        buttons.Add(zimskoVrijemeBtn)
+        buttons.Add(ulazNovcaBtn)
+        buttons.Add(izlazNovcaBtn)
+        Dim redni As Integer
+        Dim botun As String
+        For Each btn As Object In buttons
+            redni = redni + 1
+            botun = mysql.dozvolePostavki(redni - 1)
+            If botun = "0" Then
+                btn.isenabled = False
+            ElseIf botun = "1" Then
+                btn.isenabled = True
+            End If
+        Next
+
+    End Function
     Public Function pripremiSucelje()
         gridPartneri.ItemsSource = mysqlcomp.getPartneriZaAktivnog
         'populate gridArtikli
@@ -83,6 +119,7 @@ Public Class mpBc
         pripremiPlacanjaGrid()
         'ocistiPrikaz()
         gridArtikli.View.FocusedRowHandle = -1
+        povuciDozvolePostavki()
         Return True
     End Function
     Private Sub GridControl_AsyncOperationCompleted(sender As Object, e As RoutedEventArgs)
@@ -827,7 +864,7 @@ Public Class mpBc
 
             End Try
             For i As Integer = 0 To gridRacunNew.Items.Count - 1
-                'Dodaj artikal
+                'Dodaj artikal %h %l %u %t \"%r\
                 artikli.Add("107,1,______,_,__;2;" + "2" + ";" + (TryCast(gridRacunNew.Columns(7).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) + ";" + (TryCast(gridRacunNew.Columns(3).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) + ";" + (TryCast(gridRacunNew.Columns(1).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) + ";")
                 'Izmjeni cijenu artiklu
                 artikli.Add("107,1,______,_,__;4;" + (TryCast(gridRacunNew.Columns(3).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) + ";" + (TryCast(gridRacunNew.Columns(1).GetCellContent(gridRacunNew.Items(i)), TextBlock).Text) + ";")
@@ -902,6 +939,10 @@ Public Class mpBc
         ElseIf Globals.vpFakturiranje = False Then
             alter1.IsEnabled = False
         End If
+    End Sub
+
+    Private Sub biLeft_CheckedChanged(sender As Object, e As ItemClickEventArgs) Handles biLeft.CheckedChanged
+        pripremiSucelje()
     End Sub
 End Class
 

@@ -18,7 +18,7 @@
                     <dxb:BarStaticItem x:Name="biColumnValue" Content="1"/>
                 </dxr:RibbonStatusBarControl.LeftItems>
                 <dxr:RibbonStatusBarControl.RightItems>
-                    <dxb:BarCheckItem x:Name="biLeft" Glyph="{dx:DXImage Image=AlignLeft_16x16.png}" GroupIndex="1"/>
+                    <dxb:BarCheckItem x:Name="biLeft" Glyph="{dx:DXImage Image=Refresh2_16x16.png}" GroupIndex="1"/>
                     <dxb:BarCheckItem x:Name="biCenter" Glyph="{dx:DXImage Image=AlignCenter_16x16.png}" GroupIndex="1"/>
                     <dxb:BarCheckItem x:Name="biRight" Glyph="{dx:DXImage Image=AlignRight_16x16.png}" GroupIndex="1"/>
                 </dxr:RibbonStatusBarControl.RightItems>
