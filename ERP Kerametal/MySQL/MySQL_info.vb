@@ -504,7 +504,7 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.sif
             End Try
             Return True
         End If
-
+        ManageConnection(True, konekcija)
     End Function
     Public Function provjeriKontrolu(ByVal imekontrole As String)
         Try
@@ -512,7 +512,6 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.sif
             Dim strQuery As String = "SELECT * FROM info.kontrole WHERE `hwid` = '" + Globals.cpuid + "' and `imeKontrole` = '" + imekontrole + "'"
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
-
             While reader.Read()
                 If reader.HasRows Then
                     Return True
@@ -527,27 +526,6 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.sif
             ManageConnection(True, konekcija)
         End Try
         Return False
-    End Function
-    Public Function vratiKontrolee()
-        Dim postavke = New List(Of String)()
-        Try
-            ManageConnection(False, konekcija) 'Open connection'
-            Dim strQuery As String = "Select imeKontrole FROM info.kontrole where hwid = '" + Globals.cpuid + "';"
-            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
-            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
-            While reader.Read()
-                postavke.Add(reader.GetString("imekontrole"))
-            End While
-            reader.Close()
-            'Vraća podatke u Listi stringova
-            Return postavke
-        Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
-            Return Nothing
-        Finally
-            ManageConnection(True, konekcija)
-        End Try
-
     End Function
     Public Function vratiKontrole()
         Dim query As String = "Select * FROM info.kontrole where hwid = '" + Globals.cpuid + "';"
