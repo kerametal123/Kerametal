@@ -59,7 +59,13 @@
         End Try
         Return True
     End Function
+    Public Function getDuplicate(ByVal recNr As String)
+        Try
+            file.WriteLine("56,1,______,_,__;")
+        Catch ex As Exception
 
+        End Try
+    End Function
     Public Function closeFiscal(ByVal closeReceipt As Boolean)
         Try
             If closeReceipt = True Then

@@ -110,6 +110,32 @@ Public Class mpBc
         Next
 
     End Function
+    Private Sub MenuItem_Click(sender As Object, e As RoutedEventArgs)
+        If Globals.adminmode = True Then
+            Dim mi As MenuItem = TryCast(sender, MenuItem)
+            Dim cm As ContextMenu = TryCast(mi.Parent, ContextMenu)
+            Dim fe As FrameworkElement = TryCast(cm.PlacementTarget, FrameworkElement)
+            'MessageBox.Show(fe.Name)
+            If mysql.radSaKontrolom(fe.Name, "1", "enabled") = True Then
+                MessageBox.Show("Tipka blokirana za korisnika")
+                updateInterface()
+            End If
+        End If
+
+    End Sub
+    Private Sub MenuItem2_Click(sender As Object, e As RoutedEventArgs)
+        If Globals.adminmode = True Then
+            Dim mi As MenuItem = TryCast(sender, MenuItem)
+            Dim cm As ContextMenu = TryCast(mi.Parent, ContextMenu)
+            Dim fe As FrameworkElement = TryCast(cm.PlacementTarget, FrameworkElement)
+            'MessageBox.Show(fe.Name)
+            If mysql.radSaKontrolom(fe.Name, "0", "enabled") = True Then
+                MessageBox.Show("Tipka deblokirana za korisnika")
+                updateInterface()
+            End If
+        End If
+
+    End Sub
     Public Function pripremiSucelje()
         gridPartneri.ItemsSource = mysqlcomp.getPartneriZaAktivnog
         'populate gridArtikli
@@ -120,10 +146,12 @@ Public Class mpBc
         'ocistiPrikaz()
         gridArtikli.View.FocusedRowHandle = -1
         povuciDozvolePostavki()
+        updateInterface()
         Return True
     End Function
     Private Sub GridControl_AsyncOperationCompleted(sender As Object, e As RoutedEventArgs)
     End Sub
+
     Public Function pripremiRacunGrid()
         gridRacunNew.Items.Clear()
         Dim c1 As New DataGridTextColumn()
@@ -944,5 +972,212 @@ Public Class mpBc
     Private Sub biLeft_CheckedChanged(sender As Object, e As ItemClickEventArgs) Handles biLeft.CheckedChanged
         pripremiSucelje()
     End Sub
+
+    Private Sub MenuItem3_Click(sender As Object, e As RoutedEventArgs)
+        If Globals.adminmode = True Then
+            Dim mi As MenuItem = TryCast(sender, MenuItem)
+            Dim cm As ContextMenu = TryCast(mi.Parent, ContextMenu)
+            Dim fe As FrameworkElement = TryCast(cm.PlacementTarget, FrameworkElement)
+            'MessageBox.Show(fe.Name)
+            If mysql.radSaKontrolom(fe.Name, "1", "visible") = True Then
+                MessageBox.Show("Tipka vise nije vidljiva za korisnika")
+                updateInterface()
+            End If
+        End If
+    End Sub
+    Private Sub MenuItem4_Click(sender As Object, e As RoutedEventArgs)
+        If Globals.adminmode = True Then
+            Dim mi As MenuItem = TryCast(sender, MenuItem)
+            Dim cm As ContextMenu = TryCast(mi.Parent, ContextMenu)
+            Dim fe As FrameworkElement = TryCast(cm.PlacementTarget, FrameworkElement)
+            'MessageBox.Show(fe.Name)
+            If mysql.radSaKontrolom(fe.Name, "0", "visible") = True Then
+                MessageBox.Show("Tipka je vidljiva za korisnika")
+                updateInterface()
+            End If
+        End If
+    End Sub
+
+    Public Function updateInterfacee()
+        If Globals.adminmode = False Then
+            For Each botun As String In mysql.vratiKontrole()
+                Dim item As Object = radnaPovrsina.FindName(botun)
+
+                If TypeOf item Is TextBox Then
+                    Dim txt As TextBox = DirectCast(item, TextBox)
+                    txt.IsEnabled = False
+                    ' txt.Background = New SolidColorBrush(Colors.LightYellow)
+                ElseIf TypeOf item Is ListBox Then
+                    Dim lst As ListBox = DirectCast(item, ListBox)
+                    lst.Items.Add("Aha! you found me!")
+                ElseIf TypeOf item Is Button Then
+                    Dim btn As Button = DirectCast(item, Button)
+                    btn.IsEnabled = False
+                    ' btn.Background = New SolidColorBrush(Colors.LightSeaGreen)
+                ElseIf TypeOf item Is Label Then
+                    Dim lbl As Label = DirectCast(item, Label)
+                    lbl.IsEnabled = False
+                    ' lbl.Background = New SolidColorBrush(Colors.LightSeaGreen)
+                ElseIf TypeOf item Is BarButtonItem Then
+                    Dim lbl As BarButtonItem = DirectCast(item, BarButtonItem)
+                    lbl.IsEnabled = False
+                ElseIf TypeOf item Is ComboBox Then
+                    Dim lbl As ComboBox = DirectCast(item, ComboBox)
+                    lbl.IsEnabled = False
+                ElseIf TypeOf item Is DevExpress.XtraEditors.SimpleButton Then
+                    Dim lbl As DevExpress.XtraEditors.SimpleButton = DirectCast(item, DevExpress.XtraEditors.SimpleButton)
+                    lbl.Enabled = False
+                ElseIf TypeOf item Is DevExpress.XtraEditors.CheckEdit Then
+                    Dim lbl As DevExpress.XtraEditors.CheckEdit = DirectCast(item, DevExpress.XtraEditors.CheckEdit)
+                    lbl.Enabled = False
+                ElseIf TypeOf item Is DevExpress.XtraBars.BarCheckItem Then
+                    Dim lbl As DevExpress.XtraBars.BarCheckItem = DirectCast(item, DevExpress.XtraBars.BarCheckItem)
+                    lbl.Enabled = False
+                End If
+            Next
+        ElseIf Globals.adminmode = True Then
+            For Each botun As String In mysql.vratiKontrole()
+                Dim item As Object = radnaPovrsina.FindName(botun)
+
+                If TypeOf item Is TextBox Then
+                    Dim txt As TextBox = DirectCast(item, TextBox)
+                    'txt.IsEnabled = False
+                    txt.Background = New SolidColorBrush(Colors.LightSeaGreen)
+                ElseIf TypeOf item Is ListBox Then
+                    Dim lst As ListBox = DirectCast(item, ListBox)
+                    lst.Items.Add("Aha! you found me!")
+                ElseIf TypeOf item Is Button Then
+                    Dim btn As Button = DirectCast(item, Button)
+                    'btn.IsEnabled = False
+                    btn.Background = New SolidColorBrush(Colors.LightSeaGreen)
+                ElseIf TypeOf item Is Label Then
+                    Dim lbl As Label = DirectCast(item, Label)
+                    ' lbl.IsEnabled = False
+                    lbl.Background = New SolidColorBrush(Colors.LightSeaGreen)
+                ElseIf TypeOf item Is BarButtonItem Then
+                    Dim lbl As BarButtonItem = DirectCast(item, BarButtonItem)
+                    ' lbl.IsEnabled = False
+                    'lbl. = New SolidColorBrush(Colors.LightSeaGreen)
+                ElseIf TypeOf item Is ComboBox Then
+                    Dim lbl As ComboBox = DirectCast(item, ComboBox)
+                    ' lbl.IsEnabled = False
+                    lbl.Background = New SolidColorBrush(Colors.LightSeaGreen)
+                ElseIf TypeOf item Is DevExpress.XtraEditors.SimpleButton Then
+                    Dim lbl As DevExpress.XtraEditors.SimpleButton = DirectCast(item, DevExpress.XtraEditors.SimpleButton)
+                    '  lbl.Enabled = False
+                    lbl.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003
+                ElseIf TypeOf item Is DevExpress.XtraEditors.CheckEdit Then
+                    Dim lbl As DevExpress.XtraEditors.CheckEdit = DirectCast(item, DevExpress.XtraEditors.CheckEdit)
+                    '  lbl.Enabled = False
+                ElseIf TypeOf item Is DevExpress.XtraBars.BarCheckItem Then
+                    Dim lbl As DevExpress.XtraBars.BarCheckItem = DirectCast(item, DevExpress.XtraBars.BarCheckItem)
+                    'lbl.Enabled = False
+                End If
+            Next
+
+        End If
+    End Function
+    Public Function updateInterface()
+        Try
+            If Globals.adminmode = False Then
+                Dim vidljivost As Boolean
+                Dim collapsed As Object
+                Dim enabled As Boolean
+                For Each row As DataRow In mysql.vratiKontrole().Rows
+                    If row.Item("enabled") = "1" Then
+                        enabled = False
+                    ElseIf row.Item("enabled") = "0" Then
+                        enabled = True
+                    End If
+                    If row.Item("visible") = "1" Then
+                        vidljivost = False
+                        collapsed = Visibility.Collapsed
+                    ElseIf row.Item("visible") = "0" Then
+                        vidljivost = True
+                        collapsed = Visibility.Visible
+                    End If
+                    Dim item As Object = radnaPovrsina.FindName(row.Item("imeKontrole"))
+                    If TypeOf item Is TextBox Then
+                        Dim txt As TextBox = DirectCast(item, TextBox)
+                        txt.IsEnabled = enabled
+                        txt.Visibility = collapsed
+                        ' txt.Background = New SolidColorBrush(Colors.LightYellow)
+                    ElseIf TypeOf item Is ListBox Then
+                        Dim lst As ListBox = DirectCast(item, ListBox)
+                        lst.Items.Add("Aha! you found me!")
+                    ElseIf TypeOf item Is Button Then
+                        Dim btn As Button = DirectCast(item, Button)
+                        btn.IsEnabled = enabled
+                        btn.Visibility = collapsed
+                        ' btn.Background = New SolidColorBrush(Colors.LightSeaGreen)
+                    ElseIf TypeOf item Is Label Then
+                        Dim lbl As Label = DirectCast(item, Label)
+                        lbl.IsEnabled = enabled
+                        lbl.Visibility = collapsed
+                        ' lbl.Background = New SolidColorBrush(Colors.LightSeaGreen)
+                    ElseIf TypeOf item Is BarButtonItem Then
+                        Dim lbl As BarButtonItem = DirectCast(item, BarButtonItem)
+                        lbl.IsEnabled = enabled
+                        lbl.IsVisible = vidljivost
+                    ElseIf TypeOf item Is ComboBox Then
+                        Dim lbl As ComboBox = DirectCast(item, ComboBox)
+                        lbl.IsEnabled = enabled
+                        lbl.Visibility = collapsed
+                    ElseIf TypeOf item Is DevExpress.XtraEditors.SimpleButton Then
+                        Dim lbl As DevExpress.XtraEditors.SimpleButton = DirectCast(item, DevExpress.XtraEditors.SimpleButton)
+                        lbl.Enabled = enabled
+                        lbl.Visible = vidljivost
+                    ElseIf TypeOf item Is DevExpress.Xpf.Editors.CheckEdit Then
+                        Dim lbl As DevExpress.Xpf.Editors.CheckEdit = DirectCast(item, DevExpress.Xpf.Editors.CheckEdit)
+                        lbl.IsEnabled = enabled
+                        lbl.Visibility = collapsed
+                    ElseIf TypeOf item Is DevExpress.XtraBars.BarCheckItem Then
+                        Dim lbl As DevExpress.XtraBars.BarCheckItem = DirectCast(item, DevExpress.XtraBars.BarCheckItem)
+                        lbl.Enabled = enabled
+                        lbl.Visibility = collapsed
+                    End If
+                Next row
+            ElseIf Globals.adminmode = True Then
+                Dim enabled As SolidColorBrush
+                For Each row As DataRow In mysql.vratiKontrole().Rows
+                    If row.Item("enabled") = "1" Then
+                        enabled = New SolidColorBrush(Colors.DarkRed)
+                    ElseIf row.Item("visible") = "1" Then
+                        enabled = New SolidColorBrush(Colors.LightSeaGreen)
+                    Else
+                        enabled = New SolidColorBrush(Colors.White)
+                    End If
+                    Dim item As Object = radnaPovrsina.FindName(row.Item("imeKontrole"))
+                    If TypeOf item Is TextBox Then
+                        Dim txt As TextBox = DirectCast(item, TextBox)
+                        txt.Background = enabled
+                    ElseIf TypeOf item Is ListBox Then
+                        Dim lst As ListBox = DirectCast(item, ListBox)
+                        lst.Items.Add("Aha! you found me!")
+                    ElseIf TypeOf item Is Button Then
+                        Dim btn As Button = DirectCast(item, Button)
+                        btn.Background = enabled
+                    ElseIf TypeOf item Is Label Then
+                        Dim lbl As Label = DirectCast(item, Label)
+                        lbl.Background = enabled
+                    ElseIf TypeOf item Is BarButtonItem Then
+                        Dim lbl As BarButtonItem = DirectCast(item, BarButtonItem)
+                    ElseIf TypeOf item Is ComboBox Then
+                        Dim lbl As ComboBox = DirectCast(item, ComboBox)
+                        lbl.Background = enabled
+                    ElseIf TypeOf item Is DevExpress.XtraEditors.SimpleButton Then
+                        Dim lbl As DevExpress.XtraEditors.SimpleButton = DirectCast(item, DevExpress.XtraEditors.SimpleButton)
+                        lbl.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003
+                    ElseIf TypeOf item Is DevExpress.Xpf.Editors.CheckEdit Then
+                        Dim lbl As DevExpress.Xpf.Editors.CheckEdit = DirectCast(item, DevExpress.Xpf.Editors.CheckEdit)
+                        lbl.Background = enabled
+                    ElseIf TypeOf item Is DevExpress.XtraBars.BarCheckItem Then
+                        Dim lbl As DevExpress.XtraBars.BarCheckItem = DirectCast(item, DevExpress.XtraBars.BarCheckItem)
+                    End If
+                Next row
+            End If
+        Catch ex As Exception
+        End Try
+    End Function
 End Class
 

@@ -22,14 +22,11 @@
     Property vrijednost() As String
         Get
             Return _vrijednost
-
         End Get
-
         Set(ByVal value As String)
             Me._vrijednost = value
         End Set
     End Property
-
     Property Naziv() As String
         Get
             Return _Naziv
@@ -62,7 +59,6 @@
             Me._Cijena = value
         End Set
     End Property
-
     Property Rabat() As Integer
         Get
             Return _Rabat
@@ -79,7 +75,6 @@
             Me._PC = value
         End Set
     End Property
-
     Property Iznos() As Decimal
         Get
             Return _Iznos
@@ -88,5 +83,4 @@
             Me._Iznos = Me._Kolicina * Me.PC
         End Set
     End Property
-
 End Class

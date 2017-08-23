@@ -10,7 +10,18 @@
         mc:Ignorable="d"
         Title="Glavni Prozor" Height="1104" Width="964" Loaded="Window_Loaded" WindowState="Maximized">
     <Window.Resources>
-
+        <ContextMenu x:Key="cm">
+            <MenuItem Header="Show name" Click="MenuItem_Click" />
+        </ContextMenu>
+        <Style TargetType="Button">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
         <ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
             <dxnavi:TileBarItemsPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Tag="test" HorizontalAlignment="Center" Padding="{Binding Padding, RelativeSource={RelativeSource AncestorType=ItemsControl}}" ClipToBounds="True" Background="Transparent"
                                               KeyboardNavigation.DirectionalNavigation="Cycle"/>
@@ -19,7 +30,8 @@
             <StackPanel/>
         </ItemsPanelTemplate>
     </Window.Resources>
-    <Grid>
+    <Grid Name="radnaPovrsina">
+       
         <DockPanel>
             <dxr:RibbonControl DockPanel.Dock="Top"  ApplicationButtonSmallIcon="../Resources/Kerametal_logo.ico" ApplicationButtonLargeIcon="../Resources/Kerametal_logo.ico" ToolbarShowMode="Hide" Background="#FF6C2020" MenuIconStyle="Color">
                 <dxr:RibbonControl.ApplicationMenu>
@@ -69,8 +81,8 @@
                 </dxr:RibbonStatusBarControl.LeftItems>
                 <dxr:RibbonStatusBarControl.RightItems>
                     <dxb:BarCheckItem  x:FieldModifier="public"  x:Name="biLeft" Glyph="{dx:DXImage Image=BOUser_32x32.png}" GroupIndex="1" LargeGlyph="{dx:DXImage Image=BOUser_32x32.png}"/>
-                    <dxb:BarCheckItem  x:FieldModifier="public"  x:Name="biCenter" Glyph="{dx:DXImage Image=Convert_32x32.png}" GroupIndex="1" LargeGlyph="{dx:DXImage Image=Hide_32x32.png}"/>
-                    <dxb:BarCheckItem  x:FieldModifier="public"  x:Name="biRight" Glyph="{dx:DXImage Image=Database_32x32.png}" GroupIndex="1" LargeGlyph="{dx:DXImage Image=Database_32x32.png}"/>
+                    <dxb:BarCheckItem  x:FieldModifier="public"  x:Name="biCenter" Glyph="{dx:DXImage Image=Convert_32x32.png}" GroupIndex="2" LargeGlyph="{dx:DXImage Image=Hide_32x32.png}"/>
+                    <dxb:BarCheckItem  x:FieldModifier="public"  x:Name="biRight" Glyph="{dx:DXImage Image=Database_32x32.png}" GroupIndex="2" LargeGlyph="{dx:DXImage Image=Database_32x32.png}"/>
                     <dxb:BarCheckItem  x:FieldModifier="public"  x:Name="biMostRight" Glyph="{dx:DXImage Image=FullExtent_32x32.png}" GroupIndex="1" LargeGlyph="{dx:DXImage Image=Database_32x32.png}"/>
 
                 </dxr:RibbonStatusBarControl.RightItems>
@@ -81,7 +93,9 @@
                     <ImageBrush ImageSource="../Resources/Logo_big_bg.png" Stretch="Uniform" Opacity="0.2"/>
                 </Grid.Background>
 
-                <dx:SimpleButton Glyph="{dx:DXImage Image=BOUser_32x32.png}" x:Name="simpleButton" Content="U redu" Height="78" Margin="354,178,352,0" VerticalAlignment="Top" Width="250"/>
+                <dx:SimpleButton Glyph="{dx:DXImage Image=BOUser_32x32.png}" x:Name="simpleButton" Content="U redu" Height="78" Margin="354,178,352,0" VerticalAlignment="Top" Width="250">
+                   
+                </dx:SimpleButton>
                 <Label x:Name="labelcont" Content="Label" HorizontalAlignment="Left" Margin="0,199,0,0" VerticalAlignment="Top" FontSize="38" Width="268">
                     <dxb:BarManager.DXContextMenu>
                         <dxb:PopupMenu x:Name="conMenu" PopupAnimation="Slide" />
@@ -89,9 +103,7 @@
                 </Label>
                 <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,10" Width="76" Height="22" VerticalAlignment="Bottom"/>
                 <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="90,0,0,10" Height="22" VerticalAlignment="Bottom"/>
-                <dxnav:TileBar x:Name="tileBar" Margin="0,0,20,0"  Orientation="Horizontal" Height="114" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-
-                </dxnav:TileBar>
+                <dxnav:TileBar x:Name="tileBar" Margin="0,0,20,0"  Orientation="Horizontal" Height="114" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 
             </Grid>
         </DockPanel>

@@ -53,7 +53,7 @@ Public Class Racunanje
         Dim intOstatak As Integer
         Dim intBrojac As Integer
         Dim strMINUS As String
-
+        '1234
         varCifreJedinice = {"", "jedan", "dva", "tri", "četiri", "pet",
                                   "šest", "sedam", "osam", "devet"}
 

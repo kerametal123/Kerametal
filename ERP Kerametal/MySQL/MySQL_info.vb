@@ -94,7 +94,7 @@ Public Class MySQLinfo
     Public Function login()
         Try
             ManageConnection(False, konekcija) 'Open connection'
-
+            Dim doubleQuery As String = "Select instalalcije_login FROM info.instalacije WHERE instalacije_hwid = '" + Globals.adminmode + "'"
             Dim strQuery As String = "SELECT instalacije_login FROM info.instalacije where instalacije_hwid = '" + Globals.cpuid + "';"
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
@@ -237,6 +237,9 @@ Public Class MySQLinfo
             ManageConnection(False, konekcija) 'Open connection'
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+            'While reader.Read()
+
+            'End While
             While reader.Read()
                 Dim TempResult As New ReturnList
                 TempResult.tvrtke_naziv = reader(0)
@@ -435,6 +438,187 @@ ljetnoVrijemeBtn,zimskoVrijemeBtn,ulazNovcaBtn,izlazNovcaBtn FROM info.opcije_mp
             ManageConnection(True, konekcija)
         End Try
 
+    End Function
+
+    'Admin part
+
+    Public Function getAdminInfo()
+        Dim postavke = New List(Of String)()
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim strQuery As String = "SELECT instalacije_naziv, t.tvrtke_naziv, instalacije_aktivnost, instalacije_login,
+o.objekti_naziv, opcijeMP,
+opcijeVP, OpcijeFK, opcijeUG, godina, instalacije_preset
+FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.sifraObjekta = instalacije_objekt and instalacije_tvrtka = t.idtvrtke and instalacije_hwid = '" + Globals.cpuid + "';"
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+            While reader.Read()
+                postavke.Add(reader.GetString("instalacije_naziv"))
+                postavke.Add(reader.GetString("tvrtke_naziv"))
+                postavke.Add(reader.GetString("instalacije_aktivnost"))
+                postavke.Add(reader.GetString("instalacije_login"))
+                postavke.Add(reader.GetString("objekti_naziv"))
+                postavke.Add(reader.GetString("opcijeMP"))
+                postavke.Add(reader.GetString("opcijeVP"))
+                postavke.Add(reader.GetString("OpcijeFK"))
+                postavke.Add(reader.GetString("opcijeUG"))
+                postavke.Add(reader.GetString("godina"))
+                postavke.Add(reader.GetString("preset"))
+            End While
+            reader.Close()
+            'Vraća podatke u Listi stringova
+            Return postavke
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+            Return Nothing
+        Finally
+            ManageConnection(True, konekcija)
+        End Try
+
+    End Function
+    Public Function radSaKontrolom(ByVal ime As String, ByVal vrijednost As String, ByVal postavka As String)
+        If provjeriKontrolu(ime) = True Then
+            Try
+                ManageConnection(False, konekcija) 'Open connection'
+                Dim strQuery As String = "UPDATE `info`.`kontrole` SET `" + postavka + "`='" + vrijednost + "' WHERE `hwid`='" + Globals.cpuid + "' and `imeKontrole` = '" + ime + "';"
+                Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+                SqlCmd.ExecuteNonQuery()
+
+                ManageConnection(True, konekcija) 'Close connection'
+
+            Catch ex As Exception
+                Return False
+                MsgBox("Error " & ex.Message)
+            End Try
+            Return True
+        Else
+            Try
+                ManageConnection(False, konekcija) 'Open connection'
+                Dim strQuery As String = "INSERT INTO `info`.`kontrole` (`imeKontrole`, `hwid`,`" + postavka + "`) VALUES ('" + ime + "', '" + Globals.cpuid + "', '" + vrijednost + "');"
+                Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+                SqlCmd.ExecuteNonQuery()
+                ManageConnection(True, konekcija) 'Close connection'
+            Catch ex As Exception
+                Return False
+                MsgBox("Error " & ex.Message)
+            End Try
+            Return True
+        End If
+
+    End Function
+    Public Function provjeriKontrolu(ByVal imekontrole As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim strQuery As String = "SELECT * FROM info.kontrole WHERE `hwid` = '" + Globals.cpuid + "' and `imeKontrole` = '" + imekontrole + "'"
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+
+            While reader.Read()
+                If reader.HasRows Then
+                    Return True
+                Else
+                    Return False
+                End If
+            End While
+            reader.Close()
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            ManageConnection(True, konekcija)
+        End Try
+        Return False
+    End Function
+    Public Function vratiKontrolee()
+        Dim postavke = New List(Of String)()
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim strQuery As String = "Select imeKontrole FROM info.kontrole where hwid = '" + Globals.cpuid + "';"
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+            While reader.Read()
+                postavke.Add(reader.GetString("imekontrole"))
+            End While
+            reader.Close()
+            'Vraća podatke u Listi stringova
+            Return postavke
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+            Return Nothing
+        Finally
+            ManageConnection(True, konekcija)
+        End Try
+
+    End Function
+    Public Function vratiKontrole()
+        Dim query As String = "Select * FROM info.kontrole where hwid = '" + Globals.cpuid + "';"
+        Dim table As New DataTable()
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query, connection)
+
+                adapter.Fill(table)
+                Return table
+            End Using
+        End Using
+    End Function
+    Public Function blokirajTipku(ByVal ime As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+
+            Dim strQuery As String = "INSERT INTO `info`.`kontrole` (`imeKontrole`, `hwid`,`enabled`) VALUES ('" + ime + "', '" + Globals.cpuid + "', '0');"
+
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            SqlCmd.ExecuteNonQuery()
+
+            ManageConnection(True, konekcija) 'Close connection'
+
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
+    End Function
+    Public Function sakrijTipku(ByVal ime As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+
+            Dim strQuery As String = "INSERT INTO `info`.`kontrole` (`imeKontrole`, `hwid`,`visible`) VALUES ('" + ime + "', '" + Globals.cpuid + "', '0');"
+
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            SqlCmd.ExecuteNonQuery()
+
+            ManageConnection(True, konekcija) 'Close connection'
+
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
+    End Function
+    Public Function otkrijTipku(ByVal ime As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim strQuery As String = "INSERT INTO `info`.`kontrole` (`imeKontrole`, `hwid`,`visible`) VALUES ('" + ime + "', '" + Globals.cpuid + "', '1');"
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            SqlCmd.ExecuteNonQuery()
+            ManageConnection(True, konekcija) 'Close connection'
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
+    End Function
+    Public Function deblokirajTipku(ByVal ime As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim strQuery As String = "INSERT INTO `info`.`kontrole` (`imeKontrole`, `hwid`,`enabled`) VALUES ('" + ime + "', '" + Globals.cpuid + "', '1');"
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            SqlCmd.ExecuteNonQuery()
+            ManageConnection(True, konekcija) 'Close connection'
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
     End Function
     Public Class ReturnList
         Public Property tvrtke_naziv As String

@@ -8,7 +8,40 @@
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"    xmlns:kerametal="clr-namespace:ERP_Kerametal"    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"    dx:DXSplashScreen.SplashScreenType="{x:Type kerametal:SplashScreenERP}" x:Class="mpBc"
         mc:Ignorable="d"
         Title="Maloprodaja WIN" Height="910.5" Width="1458"  WindowState="Maximized" Loaded="Window_Loaded" MouseMove="Window_MouseMove">
-    <Grid >
+    <Window.Resources>
+        <ContextMenu x:Key="cm">
+            <MenuItem Header="Blokiraj" Click="MenuItem_Click" />
+            <MenuItem Header="Deblokiraj" Click="MenuItem2_Click"/>
+            <MenuItem Header="-------------"/>
+            <MenuItem Header="Sakrij" Click="MenuItem3_Click"/>
+            <MenuItem Header="Prikaži" Click="MenuItem4_Click"/>
+        </ContextMenu>
+        <Style TargetType="Button">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
+        <Style TargetType="dxe:CheckEdit">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
+        <Style TargetType="dx:SimpleButton">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
+        <Style TargetType="dxb:BarCheckItem">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
+        <Style TargetType="dxb:BarSubItem">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
+    </Window.Resources>
+    <Grid Name="radnaPovrsina">
         <DockPanel x:Name="DockPanell" local:EnterKeyTraversal.IsEnabled="True">
             <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
                 <dxr:RibbonStatusBarControl.LeftItems>
@@ -282,8 +315,8 @@
                         <dxb:BarButtonItem Content="Promet"  x:Name="prometBtn"  Tag="88" IsEnabled="true"/>
                         <dxb:BarButtonItem Content="Stanje"  x:Name="stanjeBtn"  Tag="88" IsEnabled="true"/>
                     </dxb:BarSubItem>
-                    <dxb:BarSubItem Content="Fiskalni printer" x:Name="fiscalMenu">
-                        <dxb:BarButtonItem Content="X-Izvještaj (Dnevni promet)"  x:Name="xizvjestajBtn"  Tag="88" IsEnabled="true"/>
+                    <dxb:BarSubItem Content="Fiskalni printer" x:Name="fiscalMenu" Unloaded="MySearchMethod">
+                        <dxb:BarButtonItem Content="X-Izvještaj (Dnevni promet)"  x:Name="xizvjestajBtn"  Tag="88" IsEnabled="true" Unloaded="MySearchMethod1"/>
                         <dxb:BarButtonItem Content="Z-Izvještaj (Zaključni izvještaj)"  x:Name="zizvjestajBtn"  Tag="88" IsEnabled="true"/>
                         <dxb:BarButtonItem Content="Izvještaj za period"  x:Name="periodicniBtn"  Tag="88" IsEnabled="true"/>
                         <dxb:BarButtonItem Content="Ulaz novca"  x:Name="ulazNovcaBtn"  Tag="88" IsEnabled="true"/>

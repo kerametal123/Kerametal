@@ -20,10 +20,12 @@ Class MainWindow
                 ' maloprodaja.Visibility = Visibility.Hidden
                 biMostRight.IsEnabled = False
                 biMostRight.IsChecked = False
+
             End If
         Catch ex As Exception
             MessageBox.Show("err" & ex.Message)
         End Try
+        'updateInterface()
     End Sub
     Private Sub TileBarItem_Click(sender As Object, e As EventArgs)
         Globals.logMaker("Glavni izbornik, Maloprodaja", sender)
@@ -268,18 +270,75 @@ Class MainWindow
     End Sub
 
     Private Sub button_Click_1(sender As Object, e As RoutedEventArgs) Handles button.Click
-        label.Content = "Tvrtka:" + Globals.tvrtka + "    Godina:" + Globals.aktivnaGodina + "  Program:" + Globals.programAktivni + "   Objekt:" + Globals.objekt
-        For Each itemLink As BarCheckItem In Program.Items
-            If itemLink.IsChecked Then
-                conMenu.Items.Clear()
-                conMeni(itemLink.Name, True)
-            End If
-        Next
+
+        labelcont.Content = Globals.adminmode
+        'label.Content = "Tvrtka:" + Globals.tvrtka + "    Godina:" + Globals.aktivnaGodina + "  Program:" + Globals.programAktivni + "   Objekt:" + Globals.objekt
+        'For Each itemLink As BarCheckItem In Program.Items
+        '    If itemLink.IsChecked Then
+        '        conMenu.Items.Clear()  BarButtonItem
+        '        conMeni(itemLink.Name, True)
+        '    End If
+        'Next
     End Sub
 
+    Public Function updateInterfacee()
+
+
+        For Each botun As String In mysql.vratiKontrole()
+            Dim item As Object = radnaPovrsina.FindName(botun)
+
+            If TypeOf item Is TextBox Then
+                Dim txt As TextBox = DirectCast(item, TextBox)
+                txt.IsEnabled = False
+                ' txt.Background = New SolidColorBrush(Colors.LightYellow)
+            ElseIf TypeOf item Is ListBox Then
+                Dim lst As ListBox = DirectCast(item, ListBox)
+                lst.Items.Add("Aha! you found me!")
+            ElseIf TypeOf item Is Button Then
+                Dim btn As Button = DirectCast(item, Button)
+                btn.IsEnabled = False
+                ' btn.Background = New SolidColorBrush(Colors.LightSeaGreen)
+            ElseIf TypeOf item Is Label Then
+                Dim lbl As Label = DirectCast(item, Label)
+                lbl.IsEnabled = False
+                ' lbl.Background = New SolidColorBrush(Colors.LightSeaGreen)
+            ElseIf TypeOf item Is BarButtonItem Then
+                Dim lbl As BarButtonItem = DirectCast(item, BarButtonItem)
+                lbl.IsEnabled = False
+
+            End If
+        Next
+
+
+
+
+    End Function
     Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
         For Each itemlink As BarCheckItem In Program.Items
             Console.WriteLine(itemlink.Name)
         Next
     End Sub
+
+    Private Sub biw_ItemClick(sender As Object, e As ItemClickEventArgs) Handles biw.ItemClick
+        ' Create a window from the page you need to show
+        Dim admin As New admin()
+        ' Open your page
+        admin.Show()
+    End Sub
+
+    Private Sub biMostRight_CheckedChanged(sender As Object, e As ItemClickEventArgs) Handles biMostRight.CheckedChanged
+        If biMostRight.IsChecked = True Then
+            Globals.adminmode = True
+        ElseIf biMostRight.IsChecked = False Then
+            Globals.adminmode = False
+        End If
+    End Sub
+
+    Private Sub MenuItem_Click(sender As Object, e As RoutedEventArgs)
+        Dim mi As MenuItem = TryCast(sender, MenuItem)
+        Dim cm As ContextMenu = TryCast(mi.Parent, ContextMenu)
+        Dim fe As FrameworkElement = TryCast(cm.PlacementTarget, FrameworkElement)
+        MessageBox.Show(fe.Name)
+    End Sub
+
 End Class

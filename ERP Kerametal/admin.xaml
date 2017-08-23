@@ -58,10 +58,10 @@
                                         <dxlc:LayoutGroup>
                                             <dxlc:LayoutGroup x:Name="layoutGroup" Orientation="Vertical" VerticalAlignment="Top">
                                                 <dxlc:LayoutItem IsRequired="True" Label="Hardware broj:" LabelPosition="Top">
-                                                    <dxe:TextEdit MinWidth="200" IsEnabled="False"/>
+                                                    <dxe:TextEdit x:Name="hwid" MinWidth="200" IsEnabled="False"/>
                                                 </dxlc:LayoutItem>
                                                 <dxlc:LayoutItem IsRequired="True" Label="Ime instalacije:" LabelPosition="Top">
-                                                    <dxe:TextEdit MinWidth="200" IsEnabled="False"/>
+                                                    <dxe:TextEdit x:Name="installname" MinWidth="200" IsEnabled="False"/>
                                                 </dxlc:LayoutItem>
                                             </dxlc:LayoutGroup>
                                             <dxlc:LayoutItem HorizontalAlignment="Right" Height="{Binding ActualHeight, ElementName=layoutGroup}" Label=" " LabelPosition="Top">
@@ -70,31 +70,31 @@
                                         </dxlc:LayoutGroup>
                                         <dxlc:LayoutGroup Header="Osnovno" Orientation="Vertical" UseLayoutRounding="True" View="GroupBox">
                                             <dxlc:LayoutItem Label="Tvrtka">
-                                                <dxe:TextEdit EditValue="..." MaskType="Simple" Mask="(999) 000-0000"/>
+                                                <dxe:TextEdit x:Name ="tvrtka" EditValue="..." MaskType="Simple" Mask="(999) 000-0000"/>
                                             </dxlc:LayoutItem>
                                             <dxlc:LayoutItem Label="Objekt">
-                                                <dxe:TextEdit EditValue="..." MaskType="Simple" Mask="(999) 000-0000"/>
+                                                <dxe:TextEdit x:Name ="objekt" EditValue="..." MaskType="Simple" Mask="(999) 000-0000"/>
                                             </dxlc:LayoutItem>
                                             <dxlc:LayoutItem Label="Godina">
-                                                <dxe:TextEdit EditValue="..." MaskType="Simple" Mask="(999) 000-0000"/>
+                                                <dxe:TextEdit  x:Name ="godina" EditValue="..." MaskType="Simple" Mask="(999) 000-0000"/>
                                             </dxlc:LayoutItem>
                                         </dxlc:LayoutGroup>
                                         <dxlc:LayoutGroup Header="Opcije" Orientation="Vertical" UseLayoutRounding="True" View="GroupBox">
-                                            <dxlc:LayoutItem Label="Maloprodaja">
+                                            <dxlc:LayoutItem  x:Name ="mp" Label="Maloprodaja">
                                                 <dxe:TextEdit EditValue="1" MaskType="RegEx" Mask=""/>
                                             </dxlc:LayoutItem>
-                                            <dxlc:LayoutItem Label="Veleprodaja">
+                                            <dxlc:LayoutItem  x:Name ="vp" Label="Veleprodaja">
                                                 <dxe:TextEdit MaskType="RegEx" Mask="[a-z0-9._%-]+@[a-z0-9.-]+\.[a-z]{2,4}"/>
                                             </dxlc:LayoutItem>
-                                            <dxlc:LayoutItem Label="Ugostiteljstvo">
+                                            <dxlc:LayoutItem  x:Name ="ug" Label="Ugostiteljstvo">
                                                 <dxe:TextEdit MaskType="RegEx" Mask="[a-z0-9._%-]+@[a-z0-9.-]+\.[a-z]{2,4}"/>
                                             </dxlc:LayoutItem>
-                                            <dxlc:LayoutItem Label="Financije">
+                                            <dxlc:LayoutItem  x:Name ="fin" Label="Financije">
                                                 <dxe:TextEdit MaskType="RegEx" Mask="[a-z0-9._%-]+@[a-z0-9.-]+\.[a-z]{2,4}"/>
                                             </dxlc:LayoutItem>
                                         </dxlc:LayoutGroup>
                                         <dxlc:LayoutGroup Header="Emails" Orientation="Vertical" UseLayoutRounding="True" View="GroupBox">
-                                            <dxlc:LayoutItem Label="E-Mail">
+                                            <dxlc:LayoutItem  x:Name ="mail" Label="E-Mail">
                                                 <dxe:TextEdit EditValue="support@devexpress.com" MaskType="RegEx" Mask="[a-z0-9._%-]+@[a-z0-9.-]+\.[a-z]{2,4}"/>
                                             </dxlc:LayoutItem>
                                             <dxlc:LayoutItem Label="E-Mail 2">
@@ -109,20 +109,20 @@
                                             <dxn:ExplorerBarView/>
                                         </dxn:NavBarControl.View>
                                         <dxn:NavBarGroup Header="Tvrdi disk">
-                                            <dxn:NavBarItem Content="Ukupno:"/>
-                                            <dxn:NavBarItem Content="Slobodno:"/>
+                                            <dxn:NavBarItem  x:Name ="hddtotal" Content="Ukupno:"/>
+                                            <dxn:NavBarItem  x:Name ="hddfree" Content="Slobodno:"/>
                                         </dxn:NavBarGroup>
                                         <dxn:NavBarGroup Header="RAM Memorija">
-                                            <dxn:NavBarItem Content="Ukupno:"/>
-                                            <dxn:NavBarItem Content="Slobodno:"/>
+                                            <dxn:NavBarItem  x:Name ="ramtotal" Content="Ukupno:"/>
+                                            <dxn:NavBarItem  x:Name ="ramfree" Content="Slobodno:"/>
                                         </dxn:NavBarGroup>
                                         <dxn:NavBarGroup Header="Računalo info">
-                                            <dxn:NavBarItem Content="Ime računala:"/>
-                                            <dxn:NavBarItem Content="Proizvođač:"/>
-                                            <dxn:NavBarItem Content="Model:"/>
-                                            <dxn:NavBarItem Content="Operativni sustav:"/>
-                                            <dxn:NavBarItem Content="Tip sustava:"/>
-                                            <dxn:NavBarItem Content="Win direktorij:"/>
+                                            <dxn:NavBarItem  x:Name ="pcname" Content="Ime računala:"/>
+                                            <dxn:NavBarItem  x:Name ="pcmanufacturer" Content="Proizvođač:"/>
+                                            <dxn:NavBarItem   x:Name ="pcmodel" Content="Model:"/>
+                                            <dxn:NavBarItem  x:Name ="pcos" Content="Operativni sustav:"/>
+                                            <dxn:NavBarItem  x:Name ="pctype" Content="Tip sustava:"/>
+                                            <dxn:NavBarItem  x:Name ="windir" Content="Win direktorij:"/>
                                         </dxn:NavBarGroup>
                                     </dxn:NavBarControl>
                                 </dxdo:LayoutPanel>

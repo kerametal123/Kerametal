@@ -3,6 +3,7 @@ Public Class Globals
     Public Shared rootPath As String =
 IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ERPKerametal\")
     'Odabrani artikal
+    Public Shared adminmode As Boolean = False
     Public Shared sifraG = ""
     Public Shared nazivG = ""
     Public Shared mpcG = ""
