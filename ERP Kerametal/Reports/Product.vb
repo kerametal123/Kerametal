@@ -11,6 +11,17 @@
     Private _Iznos As String
     Private _vrijednost As String
     Private _plu As String
+
+
+    'Private _Sifra As String
+    'Private _Naziv As String
+    'Private _Kolicina As String
+    'Private _Cijena As String 'MPC
+    'Private _Rabat As String
+    'Private _PC As String 'PRODAJNA CIJENA IZ TABELE
+    'Private _Iznos As String
+    'Private _vrijednost As String
+    'Private _plu As String
     Property Sifra() As String
         Get
             Return _Sifra

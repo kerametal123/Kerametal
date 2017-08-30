@@ -2,9 +2,6 @@
     Dim file As System.IO.StreamWriter
 
     Public Function createFile()
-        Globals.fiscalIn = "E:\test.txt"
-        Globals.fiscalOut = "E:\test1.txt"
-        Globals.iosa = "1234567890"
         Dim filepath As String = Globals.fiscalIn
         If Not System.IO.File.Exists(filepath) Then
             System.IO.File.Create(filepath).Dispose()

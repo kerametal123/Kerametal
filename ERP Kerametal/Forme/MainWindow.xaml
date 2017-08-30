@@ -10,18 +10,7 @@
         mc:Ignorable="d"
         Title="Glavni Prozor" Height="1104" Width="964" Loaded="Window_Loaded" WindowState="Maximized">
     <Window.Resources>
-        <ContextMenu x:Key="cm">
-            <MenuItem Header="Show name" Click="MenuItem_Click" />
-        </ContextMenu>
-        <Style TargetType="Button">
-            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
-        </Style>
-        <Style TargetType="Label">
-            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
-        </Style>
+        
         <ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
             <dxnavi:TileBarItemsPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Tag="test" HorizontalAlignment="Center" Padding="{Binding Padding, RelativeSource={RelativeSource AncestorType=ItemsControl}}" ClipToBounds="True" Background="Transparent"
                                               KeyboardNavigation.DirectionalNavigation="Cycle"/>
@@ -93,10 +82,10 @@
                     <ImageBrush ImageSource="../Resources/Logo_big_bg.png" Stretch="Uniform" Opacity="0.2"/>
                 </Grid.Background>
 
-                <dx:SimpleButton Glyph="{dx:DXImage Image=BOUser_32x32.png}" x:Name="simpleButton" Content="U redu" Height="78" Margin="354,178,352,0" VerticalAlignment="Top" Width="250">
+                <dx:SimpleButton  x:Name="simpleButton" Content="U redu" Height="78" Margin="354,178,352,0" VerticalAlignment="Top" Width="250">
                    
                 </dx:SimpleButton>
-                <Label x:Name="labelcont" Content="Label" HorizontalAlignment="Left" Margin="0,199,0,0" VerticalAlignment="Top" FontSize="38" Width="268">
+                <Label x:Name="labelcont" Content="Izbornik" HorizontalAlignment="Left" Margin="0,199,0,0" VerticalAlignment="Top" FontSize="38" Width="349">
                     <dxb:BarManager.DXContextMenu>
                         <dxb:PopupMenu x:Name="conMenu" PopupAnimation="Slide" />
                     </dxb:BarManager.DXContextMenu>

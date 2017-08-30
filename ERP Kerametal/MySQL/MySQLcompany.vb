@@ -4,7 +4,7 @@ Imports MySql.Data.MySqlClient
 Public Class MySQLcompany
     Dim dbCon As MySqlConnection
     Dim konekcija As String = Globals.databaseInfo
-    ' Dim konekcija As String = "Server=127.0.0.1;Database=kerametal;Uid=root;Pwd=samael89;"
+    'Dim konekcija As String = "Server=127.0.0.1;Database=kerametal;Uid=root;Pwd=samael89;"
 
     Public Function ManageConnection(ByVal CloseConnection As Boolean, ByVal konekcija As String)
         Try
@@ -12,7 +12,7 @@ Public Class MySQLcompany
             If CloseConnection = False Then
                 If dbCon.State = ConnectionState.Closed Then _
                         dbCon.Open()
-                Console.WriteLine(konekcija)
+                'Console.WriteLine(konekcija)
             Else
                 dbCon.Close()
             End If
@@ -27,7 +27,7 @@ Public Class MySQLcompany
             If CloseConnection = False Then
                 If dbCon.State = ConnectionState.Closed Then _
                         dbCon.Open()
-                Console.WriteLine(conn)
+                ' Console.WriteLine(conn)
             Else
                 dbCon.Close()
             End If
@@ -233,7 +233,7 @@ Public Class MySQLcompany
     Public Function getVrsteDokumenata()
         Dim result = New List(Of ReturnList)
         Try
-            Dim strQuery As String = "SELECT naziv, sifra FROM " + Globals.dabase + ".tipovidokumenata where tip = 'prod';"
+            Dim strQuery As String = "SELECT naziv, sifra, mnoz FROM " + Globals.dabase + ".tipovidokumenata where tip = 'prod';"
             Console.WriteLine(strQuery)
             ManageConnection(False, konekcija) 'Open connection'
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
@@ -242,6 +242,7 @@ Public Class MySQLcompany
                 Dim TempResult As New ReturnList
                 TempResult.nazivDokumenta = reader(0)
                 TempResult.idDokumenta = reader(1)
+                TempResult.dokmnoz = reader(2)
                 result.Add(TempResult)
             End While
             reader.Close()
@@ -276,7 +277,7 @@ Public Class MySQLcompany
     Public Function getProizvodaci()
         Dim result = New List(Of ReturnList)
         Try
-            Dim strQuery As String = "SELECT ime, idproizvodjaci FROM info.proizvodjaci;"
+            Dim strQuery As String = "SELECT ime, idproizvodjaci FROM proizvodjaci;"
             ManageConnection(False, konekcija) 'Open connection'
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
@@ -297,7 +298,7 @@ Public Class MySQLcompany
     Public Function getProizvodaciId(ByVal stringname As String)
         Dim result = New List(Of ReturnList)
         Try
-            Dim strQuery As String = "SELECT idproizvo FROM info.proizvodjaci where ime = '" + stringname + "'"
+            Dim strQuery As String = "SELECT idproizvo FROM proizvodjaci where ime = '" + stringname + "'"
             ManageConnection(False, konekcija) 'Open connection'
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
@@ -522,6 +523,16 @@ Public Class MySQLcompany
         End Try
         Return True
     End Function
+    Public Function vratiPostavke()
+        Dim query1 As String = "SELECT * FROM presets;"
+        Dim table As New DataTable
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query1, connection)
+                adapter.Fill(table)
+                Return table
+            End Using
+        End Using
+    End Function
     Public Function scontoIzn(ByVal iznos As String, ByVal brojDokumenta As String)
         Try
             ManageConnection(False, konekcija) 'Open connection'
@@ -559,6 +570,79 @@ Public Class MySQLcompany
         End Try
         Return True
     End Function
+    Public Function infoArtikal(ByVal sifra As String)
+        Dim query As String = "SELECT *, i.ime FROM kerametal.artikli as a inner join proizvodjaci as i where sifra='" + sifra + "' and proiz = i.idproizvodjaci"
+        Dim table As New DataTable()
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query, connection)
+                adapter.Fill(table)
+                Return table
+            End Using
+        End Using
+    End Function
+
+
+    'Prebaci u novu tabelu
+    Public Function updateArtikli()
+        Dim query As String = "SELECT distinct grupa FROM kerametal.artikli;"
+        Dim table As New DataTable()
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query, connection)
+                adapter.Fill(table)
+                Return table
+            End Using
+        End Using
+    End Function
+    Public Function insertGrupa(ByVal ime As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Globals.random = Globals.randomize
+            Dim strQuery As String = "INSERT INTO `kerametal`.`grupeartikala` (`ime`) VALUES ('" + ime + "');"
+            Console.WriteLine("Kpr " + strQuery)
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            SqlCmd.ExecuteNonQuery()
+
+            ManageConnection(True, konekcija) 'Close connection'
+
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
+    End Function
+
+    'Grupe to artikli
+    Public Function updateGrupe(ByVal grupanr As String, ByVal grupaname As String)
+
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim query As String = "UPDATE `kerametal`.`artikli` SET `grupa`='" + grupanr + "' WHERE `grupa`='" + grupaname + "';"
+
+            Dim QueryString As String = String.Concat(query, ";")
+            Dim SqlCmd As New MySqlCommand(QueryString, dbCon)
+            SqlCmd.ExecuteNonQuery()
+
+            ManageConnection(True, konekcija) 'Close connection'
+
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
+
+    End Function
+
+    Public Function updateArtiklis()
+        Dim query As String = "SELECT ime, idgrupeartikala FROM kerametal.grupeartikala;"
+        Dim table As New DataTable()
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query, connection)
+                adapter.Fill(table)
+                Return table
+            End Using
+        End Using
+    End Function
+
     Public Class ReturnList
         Public Property gotovinaInfo As String
         Public Property karticeInfo As String
@@ -597,6 +681,7 @@ Public Class MySQLcompany
 
         Public Property datumDInfo As String
         Public Property daniInfo As String
+        Public Property dokmnoz As String
 
     End Class
 End Class

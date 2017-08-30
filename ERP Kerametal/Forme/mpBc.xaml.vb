@@ -37,10 +37,12 @@ Public Class mpBc
         popuniDokumente(tipoviDokumenataCbox.SelectedItem.tag)
         brojeviDokumenataCbox.SelectedIndex = 0
         prodaja()
-
+        'pripremi racun grid pokazuje grid za kreiranje novog računa
         pripremiRacunGrid()
         mogFaktVP.IsChecked = False
         alter1.IsEnabled = False
+        mysql.getFiscalPostavke()
+        ocistiPrikaz()
     End Sub
     Public Function popuniVrsteDokumenata()
         'Dodaj iteme
@@ -50,6 +52,7 @@ Public Class mpBc
             ComboBoxItem.Content = item.nazivDokumenta
             ComboBoxItem.Name = item.nazivDokumenta
             ComboBoxItem.Tag = item.idDokumenta
+            ComboBoxItem.ToolTip = item.dokmnoz
             tipoviDokumenataCbox.Items.Add(ComboBoxItem)
 
         Next
@@ -108,16 +111,29 @@ Public Class mpBc
                 btn.isenabled = True
             End If
         Next
+        '6', '1479126377941', 'Ivo Sony', '2017-02-10 10:43:01', NULL, 'ivo123', 'Test', '', '2016-11-14 13:26:17', 'full', '1'
+        '12', '1479886889050', 'Test garaza', '2017-02-10 09:44:36', NULL, 'ivo123', 'Test', '', '2016-11-23 08:41:29', 'full', '1'
+        '18', '1484474379679', NULL, '2017-01-30 10:35:52', NULL, NULL, NULL, NULL, '2017-01-15 10:59:41', 'expired', '0'
+        '17', '1483456759196', NULL, '2017-01-13 11:42:06', NULL, NULL, NULL, NULL, '2017-01-03 16:19:20', 'expired', '0'
+        '7', '1479210822094', 'Pilot', '2016-12-30 18:58:42', NULL, NULL, NULL, '', '2016-11-15 12:53:42', 'expired', '0'
+        '11', '1479755016244', 'Ivo Test 2', '2016-12-03 14:22:01', NULL, 'ivo123', 'Test', '', '2016-11-21 20:03:36', 'full', '1'
+        '14', '1480154887591', '', '2016-11-26 12:41:01', NULL, NULL, NULL, NULL, '2016-11-26 11:08:07', 'expired', '0'
+        '8', '1479217404906', 'Tipwin Linz', '2016-11-21 20:11:26', NULL, 'christian', NULL, '', '2016-11-15 14:43:24', 'full', '1'
 
+        '<Placemark>
+        '<styleUrl>#line</styleUrl>
+        '<LineString>
+        '<tessellate>1</tessellate>
+        '<altitudeMode>absolute</altitudeMode>
     End Function
     Private Sub MenuItem_Click(sender As Object, e As RoutedEventArgs)
         If Globals.adminmode = True Then
             Dim mi As MenuItem = TryCast(sender, MenuItem)
             Dim cm As ContextMenu = TryCast(mi.Parent, ContextMenu)
             Dim fe As FrameworkElement = TryCast(cm.PlacementTarget, FrameworkElement)
-            'MessageBox.Show(fe.Name)
+
             If mysql.radSaKontrolom(fe.Name, "1", "enabled") = True Then
-                MessageBox.Show("Tipka blokirana za korisnika")
+                MessageBox.Show("Tipka " + fe.Name + " blokirana za korisnika")
                 updateInterface()
             End If
         End If
@@ -494,6 +510,17 @@ Public Class mpBc
             End If
         Catch ex As Exception
         End Try
+
+        Try
+            Globals.sifraG = gridArtikli.SelectedItem("sifra")
+            For Each item As ReturnList In mysqlcomp.stanjeArtikla()
+                'Item >stanje< iz tabele artikala stanje tog artikla za zadani objekat
+                labeldrLabel.Content = "Trenutačno na stanju ima: " + item.stanje + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
+                'Item >minZaliha< iz tabele artikala minimalna zaliha, ==i >i pokreće funkciju za upozorenje!
+                labelprLabel.Content = "Minimalna zaliha artikla je: " + item.minZaliha + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
+            Next
+        Catch ex As Exception
+        End Try
         prikaziArtikal()
     End Sub
 
@@ -501,6 +528,12 @@ Public Class mpBc
         sifraTemp.Content = ""
         nazivTemp.Content = ""
         kolicinaTemp.Content = ""
+        mpcTbox.Text = ""
+        cijenaTbox.Text = ""
+        cijenaTemp.Content = ""
+        labelprLabel.Content = ""
+        labeldrLabel.Content = ""
+        iznosTbox.Text = ""
         Return True
     End Function
     Public Function prikaziArtikal()
@@ -520,17 +553,7 @@ Public Class mpBc
         Return True
     End Function
     Public Function provjeriArtikalZaProdaju()
-        Try
-            Globals.sifraG = gridArtikli.SelectedItem("sifra")
-            For Each item As ReturnList In mysqlcomp.stanjeArtikla()
-                'Item >stanje< iz tabele artikala stanje tog artikla za zadani objekat
-                labeldrLabel.Content = "Trenutačno na stanju ima: " + item.stanje + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
-                'Item >minZaliha< iz tabele artikala minimalna zaliha, ==i >i pokreće funkciju za upozorenje!
-                labelprLabel.Content = "Minimalna zaliha artikla je: " + item.minZaliha + " " + gridArtikli.SelectedItem("jed") + " odabranog artikla"
-            Next
-        Catch ex As Exception
-            Return False
-        End Try
+
         izracunajArtikalZaProdaju()
         Return True
     End Function
@@ -571,6 +594,13 @@ Public Class mpBc
     Private Sub tipoviDokumenataCbox_DropDownClosed(sender As Object, e As EventArgs) Handles tipoviDokumenataCbox.DropDownClosed
         brojeviDokumenataCbox.Items.Clear()
         popuniDokumente(tipoviDokumenataCbox.SelectedItem.tag)
+        tipProdajeLabel.Content = tipoviDokumenataCbox.SelectedItem.ToolTip + " broj: "
+        If tipoviDokumenataCbox.SelectedItem.tag = "13" OrElse tipoviDokumenataCbox.SelectedItem.tag = "14" Then
+            gridPartneri.IsEnabled = True
+        Else
+            gridPartneri.IsEnabled = False
+        End If
+
     End Sub
     Private Sub brojeviDokumenataCbox_DropDownClosed(sender As Object, e As EventArgs) Handles brojeviDokumenataCbox.DropDownClosed
         If brojeviDokumenataCbox.SelectedIndex = 0 Then
@@ -788,6 +818,7 @@ Public Class mpBc
     Private Sub novoButton_Click(sender As Object, e As RoutedEventArgs) Handles novoButton.Click
         Globals.urediDodaj = "novo"
         urediDodaj()
+        ocistiPrikaz()
     End Sub
     Public Function urediDodaj()
         If Globals.urediDodaj = "uredi" Then
@@ -869,7 +900,11 @@ Public Class mpBc
     End Sub
 
     Private Sub button1_Click(sender As Object, e As RoutedEventArgs) Handles button1.Click
-        proslijediRacunFiscal()
+        If blagProd.IsChecked = True And tipoviDokumenataCbox.Tag = "12" Then
+            proslijediRacunFiscal()
+        ElseIf blagProd.IsChecked = False Then
+            MessageBox.Show("Nije dozvoljeno")
+        End If
     End Sub
     Public Function proslijediRacunFiscal()
         Try
@@ -977,7 +1012,7 @@ Public Class mpBc
         If Globals.adminmode = True Then
             Dim mi As MenuItem = TryCast(sender, MenuItem)
             Dim cm As ContextMenu = TryCast(mi.Parent, ContextMenu)
-            Dim fe As FrameworkElement = TryCast(cm.PlacementTarget, FrameworkElement)
+            Dim fe As FrameworkElement = DirectCast(cm.PlacementTarget, FrameworkElement)
             'MessageBox.Show(fe.Name)
             If mysql.radSaKontrolom(fe.Name, "1", "visible") = True Then
                 MessageBox.Show("Tipka vise nije vidljiva za korisnika")
@@ -989,7 +1024,7 @@ Public Class mpBc
         If Globals.adminmode = True Then
             Dim mi As MenuItem = TryCast(sender, MenuItem)
             Dim cm As ContextMenu = TryCast(mi.Parent, ContextMenu)
-            Dim fe As FrameworkElement = TryCast(cm.PlacementTarget, FrameworkElement)
+            Dim fe As FrameworkElement = DirectCast(cm.PlacementTarget, FrameworkElement)
             'MessageBox.Show(fe.Name)
             If mysql.radSaKontrolom(fe.Name, "0", "visible") = True Then
                 MessageBox.Show("Tipka je vidljiva za korisnika")
@@ -1077,6 +1112,25 @@ Public Class mpBc
 
         End If
     End Function
+
+    Public Shared Function GetName(obj As Object) As String
+        ' First see if it is a FrameworkElement
+        Dim element = TryCast(obj, FrameworkElement)
+        If element IsNot Nothing Then
+            MessageBox.Show(element.Name)
+        End If
+        ' If not, try reflection to get the value of a Name property.
+        Try
+            Return DirectCast(obj.[GetType]().GetProperty("Name").GetValue(obj, Nothing), String)
+        Catch
+            ' Last of all, try reflection to get the value of a Name field.
+            Try
+                Return DirectCast(obj.[GetType]().GetField("Name").GetValue(obj), String)
+            Catch
+                Return Nothing
+            End Try
+        End Try
+    End Function
     Public Function updateInterface()
         Try
             If Globals.adminmode = False Then
@@ -1131,10 +1185,14 @@ Public Class mpBc
                         Dim lbl As DevExpress.Xpf.Editors.CheckEdit = DirectCast(item, DevExpress.Xpf.Editors.CheckEdit)
                         lbl.IsEnabled = enabled
                         lbl.Visibility = collapsed
-                    ElseIf TypeOf item Is DevExpress.XtraBars.BarCheckItem Then
-                        Dim lbl As DevExpress.XtraBars.BarCheckItem = DirectCast(item, DevExpress.XtraBars.BarCheckItem)
-                        lbl.Enabled = enabled
+                    ElseIf TypeOf item Is ERP_Kerametal.SelectAllTbox Then
+                        Dim lbl As ERP_Kerametal.SelectAllTbox = DirectCast(item, ERP_Kerametal.SelectAllTbox)
+                        lbl.IsEnabled = enabled
                         lbl.Visibility = collapsed
+                    ElseIf TypeOf item Is DevExpress.Xpf.bars.BarCheckItem Then
+                        Dim lbl As DevExpress.Xpf.Bars.BarCheckItem = DirectCast(item, DevExpress.Xpf.Bars.BarCheckItem)
+                        lbl.IsEnabled = enabled
+                        lbl.IsVisible = vidljivost
                     End If
                 Next row
             ElseIf Globals.adminmode = True Then
@@ -1142,6 +1200,8 @@ Public Class mpBc
                 For Each row As DataRow In mysql.vratiKontrole().Rows
                     If row.Item("enabled") = "1" Then
                         enabled = New SolidColorBrush(Colors.DarkRed)
+                        Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/Business Objects/BOOrder_32x32.png"))
+                      
                     ElseIf row.Item("visible") = "1" Then
                         enabled = New SolidColorBrush(Colors.LightSeaGreen)
                     Else
@@ -1156,7 +1216,7 @@ Public Class mpBc
                         lst.Items.Add("Aha! you found me!")
                     ElseIf TypeOf item Is Button Then
                         Dim btn As Button = DirectCast(item, Button)
-                        btn.Background = enabled
+                        btn.Content = btn.Content + "*"
                     ElseIf TypeOf item Is Label Then
                         Dim lbl As Label = DirectCast(item, Label)
                         lbl.Background = enabled
@@ -1167,9 +1227,11 @@ Public Class mpBc
                         lbl.Background = enabled
                     ElseIf TypeOf item Is DevExpress.XtraEditors.SimpleButton Then
                         Dim lbl As DevExpress.XtraEditors.SimpleButton = DirectCast(item, DevExpress.XtraEditors.SimpleButton)
-                        lbl.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003
                     ElseIf TypeOf item Is DevExpress.Xpf.Editors.CheckEdit Then
                         Dim lbl As DevExpress.Xpf.Editors.CheckEdit = DirectCast(item, DevExpress.Xpf.Editors.CheckEdit)
+                        lbl.Background = enabled
+                    ElseIf TypeOf item Is ERP_Kerametal.SelectAllTbox Then
+                        Dim lbl As ERP_Kerametal.SelectAllTbox = DirectCast(item, ERP_Kerametal.SelectAllTbox)
                         lbl.Background = enabled
                     ElseIf TypeOf item Is DevExpress.XtraBars.BarCheckItem Then
                         Dim lbl As DevExpress.XtraBars.BarCheckItem = DirectCast(item, DevExpress.XtraBars.BarCheckItem)

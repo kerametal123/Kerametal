@@ -14,18 +14,18 @@
         <Label x:Name="label" Content="Šifra artikla:" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy" Content="Tip artikla:" HorizontalAlignment="Left" Margin="161,245,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy1" Content="Grupa:" HorizontalAlignment="Left" Margin="10,272,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy2" Content="Proizvođač:" HorizontalAlignment="Left" Margin="161,272,0,0" VerticalAlignment="Top"/>
         <Label x:Name="sifraArtikla" Content="000000" HorizontalAlignment="Left" Margin="76,245,0,0" VerticalAlignment="Top"/>
         <Label x:Name="tipArtikla" Content="0" HorizontalAlignment="Left" Margin="220,245,0,0" VerticalAlignment="Top"/>
         <Label x:Name="sifraArtikla_Copy" Content="Grupa artikla" HorizontalAlignment="Left" Margin="50,272,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="sifraArtikla_Copy1" Content="Ime proizvođača artikla" HorizontalAlignment="Left" Margin="226,272,0,0" VerticalAlignment="Top"/>
         <Label x:Name="opisArt" Content="Proizvođač:" HorizontalAlignment="Left" Margin="328,10,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="nazivArtikla" Content="Naziv artikla lbl" HorizontalAlignment="Left" Margin="393,10,0,0" VerticalAlignment="Top" Width="158"/>
+        <Label x:Name="proizvodjac" Content="Naziv artikla lbl" HorizontalAlignment="Left" Margin="393,10,0,0" VerticalAlignment="Top" Width="158"/>
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="173" Margin="315,37,0,0" VerticalAlignment="Top" Width="236">
-            <TabItem Header="TabItem">
+            <TabItem x:Name="stanjeObjekti" Header="Stanje po objektima">
                 <Grid Background="#FFE5E5E5">
-                    <Label x:Name="label1" Content="100" HorizontalAlignment="Left" Margin="50,10,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="stanje" Content="Stanje:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="111,10,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label2" Content="Label" HorizontalAlignment="Left" Margin="127,37,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label3" Content="Skladište Ljubuški:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label3_Copy" Content="Robna kuća Sarajevo:" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="TabItem">

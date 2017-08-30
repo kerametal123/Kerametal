@@ -201,17 +201,26 @@
     <Compile Include="admin.xaml.vb">
       <DependentUpon>admin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Custom Kontrole\Login.xaml.vb">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forme\artInfo.xaml.vb">
       <DependentUpon>artInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class1.vb" />
     <Compile Include="Files and Folders\Files.vb" />
     <Compile Include="Files and Folders\Folders.vb" />
+    <Compile Include="Forme\UrediDozvole.xaml.vb">
+      <DependentUpon>UrediDozvole.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Globals.vb" />
     <Compile Include="GUI\Idle.vb" />
     <Compile Include="GUI\Sucelje.vb" />
     <Compile Include="GUI\ViewModel.vb" />
     <Compile Include="GUI\EnterKeyTraversal.vb" />
+    <Compile Include="Forme\korisnici.xaml.vb">
+      <DependentUpon>korisnici.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Licenca\Licenciranje.vb" />
     <Compile Include="Licenca\Session.vb" />
     <Compile Include="Licenca\XML.vb" />
@@ -254,6 +263,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Custom Kontrole\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forme\artInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -293,6 +306,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forme\test.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forme\korisnici.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forme\UrediDozvole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

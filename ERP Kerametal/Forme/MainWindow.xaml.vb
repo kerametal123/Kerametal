@@ -1,4 +1,5 @@
 ﻿Imports DevExpress.Xpf.Bars
+Imports DevExpress.Xpf.WindowsUI
 Imports ERP_Kerametal.MySQLinfo
 Class MainWindow
     Dim licenciranje As New Licenciranje
@@ -11,8 +12,18 @@ Class MainWindow
         Try
             If Globals.CheckForInternetConnection = True Then
                 If licenciranje.provjeriLicencuOnline() = True Then
-                    pripremiSucelje()
-                    'Globals.newlook = True
+                    If mysql.login() = True Then
+                        Globals.login = True
+                        ' Create a window from the page you need to show
+                        Dim Login As New Login()
+                        ' Open your page
+                        Login.ShowDialog()
+                        pripremiSucelje()
+                    ElseIf mysql.login() = False Then
+                        Globals.login = False
+                        pripremiSucelje()
+                        Globals.newlook = True
+                    End If
                 ElseIf licenciranje.provjeriLicencuOnline() = False Then
                     MessageBox.Show("not ok")
                 End If
@@ -26,7 +37,9 @@ Class MainWindow
             MessageBox.Show("err" & ex.Message)
         End Try
         'updateInterface()
+
     End Sub
+
     Private Sub TileBarItem_Click(sender As Object, e As EventArgs)
         Globals.logMaker("Glavni izbornik, Maloprodaja", sender)
         Dim form As New mpBc()
@@ -50,11 +63,11 @@ Class MainWindow
                     BarButtonItem.DataContext = "ddd"
                 ElseIf parts(0) = 4 Then
                 ElseIf parts(0) = 8 And update = True Then
-                    makeMenuBtn(Icon, parts(3))
+                    'makeMenuBtn(Icon, parts(3))
                 End If
                 Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
                 BarButtonItem.Glyph = Icon
-                AddHandler BarButtonItem.ItemClick, Function(sender, e) makeMenuBtn(Icon, parts(3))
+                AddHandler BarButtonItem.ItemClick, Function(sender, e) makeMenuBtn(icona, parts(3))
                 'BarButtonItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString(parts(2)), Color))
                 conMenu.Items.Add(BarButtonItem)
             Next
@@ -78,7 +91,7 @@ Class MainWindow
                 ElseIf parts(0) = 3 Then
                 ElseIf parts(0) = 4 Then
                 ElseIf parts(0) = 8 And update = True Then
-                    makeMenuBtn(Icon, parts(3))
+                    ' makeMenuBtn(Icon, parts(3))
                 End If
                 Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
                 TileBarItem.TileGlyph = Icon
@@ -109,7 +122,7 @@ Class MainWindow
             End If
             Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
             barcheckitem.Glyph = Icon
-            AddHandler barcheckitem.ItemClick, Function(sender, e) makeMenuBtn(Icon, parts(3))
+            AddHandler barcheckitem.ItemClick, Function(sender, e) makeMenuBtn(icona, parts(3))
             'BarButtonItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString(parts(2)), Color))
             Datoteke.Items.Add(barcheckitem)
         Next
@@ -119,9 +132,12 @@ Class MainWindow
 
     End Sub
 
-    Public Function makeMenuBtn(ByVal glyph As ImageSource, ByVal aa As String)
+    Public Function makeMenuBtn(ByVal glyph As String, ByVal aa As String)
         labelcont.Content = aa
-        simpleButton.Glyph = glyph
+        simpleButton.Glyph = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + glyph + ""))
+        simpleButton.Content = aa
+        'MessageBox.Show(glyph.ToString())
+        'MessageBox.Show(labelcont.Content)
         AddHandler simpleButton.Click, Function(sender, e) clickBigBtn(aa)
         Return True
     End Function
@@ -257,28 +273,22 @@ Class MainWindow
 
 
     Private Sub TileBarItem_Click_3(sender As Object, e As EventArgs)
-        mysql.podaciInstalacija(Globals.cpuid)
+        'mysql.podaciInstalacija(Globals.cpuid)
     End Sub
     Private Sub Grid_MouseRightButtonDown(sender As Object, e As MouseButtonEventArgs)
-        For Each itemLink As BarCheckItem In Program.Items
-            If itemLink.IsChecked Then
-                conMenu.Items.Clear()
-                conMeni(itemLink.Name, True)
-                Return
-            End If
-        Next
+        'For Each itemLink As BarCheckItem In Program.Items
+        '    If itemLink.IsChecked Then
+        '        conMenu.Items.Clear()
+        '        conMeni(itemLink.Name, True)
+        '        Return
+        '    End If
+        'Next
     End Sub
 
     Private Sub button_Click_1(sender As Object, e As RoutedEventArgs) Handles button.Click
-
-        labelcont.Content = Globals.adminmode
-        'label.Content = "Tvrtka:" + Globals.tvrtka + "    Godina:" + Globals.aktivnaGodina + "  Program:" + Globals.programAktivni + "   Objekt:" + Globals.objekt
-        'For Each itemLink As BarCheckItem In Program.Items
-        '    If itemLink.IsChecked Then
-        '        conMenu.Items.Clear()  BarButtonItem
-        '        conMeni(itemLink.Name, True)
-        '    End If
-        'Next
+        Dim log As New Login()
+        ' Open your page
+        log.Show()
     End Sub
 
     Public Function updateInterfacee()
@@ -341,4 +351,7 @@ Class MainWindow
         MessageBox.Show(fe.Name)
     End Sub
 
+    Private Sub labelcont_ContextMenuClosing(sender As Object, e As ContextMenuEventArgs) Handles labelcont.ContextMenuClosing
+
+    End Sub
 End Class

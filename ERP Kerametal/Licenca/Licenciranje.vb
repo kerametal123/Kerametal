@@ -15,7 +15,7 @@ Public Class Licenciranje
                 'Kreiranje licence
                 If kreirajLicencu(punoImePutanje) = True Then
                     checkActivity()
-                    MessageBox.Show(punoImePutanje)
+                    'MessageBox.Show(punoImePutanje)
                 ElseIf kreirajLicencu(punoImePutanje) = False Then
                     Return False
                 End If

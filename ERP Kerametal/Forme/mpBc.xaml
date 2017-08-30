@@ -40,8 +40,17 @@
         <Style TargetType="dxb:BarSubItem">
             <Setter Property="ContextMenu" Value="{StaticResource cm}" />
         </Style>
+        <Style TargetType="dxb:BarButtonItem">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
+        <Style TargetType="kerametal:SelectAllTbox">
+            <Setter Property="ContextMenu" Value="{StaticResource cm}" />
+        </Style>
+
+   
     </Window.Resources>
     <Grid Name="radnaPovrsina">
+
         <DockPanel x:Name="DockPanell" local:EnterKeyTraversal.IsEnabled="True">
             <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
                 <dxr:RibbonStatusBarControl.LeftItems>
@@ -85,7 +94,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <dxg:GridControl  x:Name="gridPartneri" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" ItemsSource="{Binding LoadDataBindings}" AsyncOperationCompleted="GridControl_AsyncOperationCompleted" MaxWidth="500" HorizontalAlignment="Right" Width="500">
+                    <dxg:GridControl IsEnabled="false" x:Name="gridPartneri" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" ItemsSource="{Binding LoadDataBindings}" AsyncOperationCompleted="GridControl_AsyncOperationCompleted" MaxWidth="500" HorizontalAlignment="Right" Width="500">
                         <dxg:GridControl.View>
                             <dxg:TableView AllowPerPixelScrolling="True" AllowEditing="False" ShowGroupPanel="False"/>
                         </dxg:GridControl.View>
@@ -95,13 +104,13 @@
                         <dxg:GridColumn FieldName="Adresa" IsSmart="True"/>
                         <dxg:GridColumn FieldName="PB" IsSmart="True"/>
                     </dxg:GridControl>
-                    <Label x:Name="sifraTemp" Content="" Margin="10,47,0,0" VerticalAlignment="Top" FontWeight="Bold" Height="22" MaxWidth="64" HorizontalAlignment="Left" Width="46"/>
-                    <Label x:Name="nazivTemp" Content="" Margin="61,47,591,0" VerticalAlignment="Top" FontWeight="Bold" Height="22"/>
-                    <Label x:Name="kolicinaTemp" Content="" Margin="0,47,548,0" VerticalAlignment="Top" FontWeight="Bold" Height="22" MaxWidth="40" HorizontalAlignment="Right" Width="38"/>
-                    <Label x:Name="cijenaTemp" Content="" Margin="0,47,505,0" VerticalAlignment="Top" FontWeight="Bold" Height="22" MaxWidth="50" HorizontalAlignment="Right" Width="38"/>
+                    <Label x:Name="sifraTemp" Content="" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" Height="22" MaxWidth="64" HorizontalAlignment="Left" Width="46"/>
+                    <Label x:Name="nazivTemp" Content="" Margin="61,10,591,0" VerticalAlignment="Top" FontWeight="Bold" Height="22"/>
+                    <Label x:Name="kolicinaTemp" Content="" Margin="0,10,548,0" VerticalAlignment="Top" FontWeight="Bold" Height="22" MaxWidth="40" HorizontalAlignment="Right" Width="38"/>
+                    <Label x:Name="cijenaTemp" Content="" Margin="0,10,505,0" VerticalAlignment="Top" FontWeight="Bold" Height="22" MaxWidth="50" HorizontalAlignment="Right" Width="38"/>
                     <dxe:CheckEdit x:Name="kolicinaCbox" Content="Količina" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="67" IsChecked="True" TabIndex="55555"/>
                     <dxe:CheckEdit x:Name="cijenaCbox"  Content="Cijena" HorizontalAlignment="Left" Margin="150,154,0,0" VerticalAlignment="Top" Width="55" IsChecked="True"/>
-                    <kerametal:SelectAllTbox x:Name="mpcTbox" HorizontalAlignment="Left" Margin="210,124,0,0" Text="" VerticalAlignment="Top" Width="75" TabIndex="3" ToolTip="Unesite iznos"/>
+                    <kerametal:SelectAllTbox Tag="111" x:Name="mpcTbox" HorizontalAlignment="Left" Margin="210,124,0,0" Text="" VerticalAlignment="Top" Width="75" TabIndex="3" ToolTip="Unesite iznos"/>
                     <kerametal:SelectAllTbox KeyboardNavigation.TabIndex="2" x:Name="cijenaTbox" HorizontalAlignment="Left" Margin="210,152,0,0" Text="" VerticalAlignment="Top" Width="75" TabIndex="4" ToolTip="Unesite cijenu"/>
                     <dxe:CheckEdit Content="Definirani rabati" HorizontalAlignment="Left" Margin="290,124,0,0" VerticalAlignment="Top" Width="111"/>
                     <dxe:CheckEdit x:Name="rabatCbox" Content="Rabat" HorizontalAlignment="Left" Margin="290,154,0,0"  VerticalAlignment="Top" Width="55" IsChecked="True"/>
@@ -109,6 +118,8 @@
                     <kerametal:SelectAllTbox KeyboardNavigation.TabIndex="1" x:Name="kolicinaTbox" HorizontalAlignment="Left" Margin="82,152,0,0" Text="1" VerticalAlignment="Top" Width="63" TabIndex="2" IsTabStop="True" ToolTip="Unesite kolicinu"/>
                     <kerametal:SelectAllTbox KeyboardNavigation.TabIndex="3" x:Name="rabatTbox" HorizontalAlignment="Left" Margin="350,152,0,0" Text="" VerticalAlignment="Top" Width="85" TabIndex="5"/>
                     <kerametal:SelectAllTbox KeyboardNavigation.TabIndex="4" x:Name="iznosTbox" HorizontalAlignment="Left" Margin="517,152,0,0" Text="" VerticalAlignment="Top" Width="63" TabIndex="6"/>
+                    <Label x:Name="labelprLabel" Content="" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="425"/>
+                    <Label x:Name="labeldrLabel" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="425" Height="22"/>
                 </Grid>
                 <Grid x:Name="infoGrid" Height="42" Margin="0,29,0,0" VerticalAlignment="Top" Background="#593AFF00">
                     <ComboBox Margin="814,10,291,10" MaxWidth="161" HorizontalAlignment="Right" Width="161" x:Name="tipoviDokumenataCbox"/>
@@ -116,14 +127,14 @@
                     <dx:SimpleButton Glyph="{dx:DXImage Image=AddFile_16x16.png}" x:Name="novoButton" Content="Novo" Height="42" Margin="1091,0,95,0" VerticalAlignment="Top" ButtonKind="Simple" GlyphAlignment="Left" MaxWidth="80" HorizontalContentAlignment="Center" HorizontalAlignment="Right"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Print_16x16.png}"  x:Name="simpleButton1_Copy" Content="Printati" Height="42" Margin="1176,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=EditName_16x16.png}" x:Name="ispravitiCheck" Content="Ispraviti" HorizontalAlignment="Left" Height="42" Margin="10,0,0,0" VerticalAlignment="Top" ButtonKind="Toggle" Width="85" />
-                    <dx:SimpleButton Glyph="{dx:DXImage Image=Add_16x16.png}" x:Name="dodatiCheck" Content="Dodati" HorizontalAlignment="Left" Height="42" Margin="95,0,0,0" VerticalAlignment="Top" ButtonKind="Toggle" Width="85"/>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Add_16x16.png}" x:Name="dodatiCheck"  Content="Dodati" HorizontalAlignment="Left" Height="42" Margin="95,0,0,0" VerticalAlignment="Top" ButtonKind="Toggle" Width="85" Foreground="{x:Null}"/>
+                    <Label x:Name="tipProdajeLabel" Content="Dokument broj:" HorizontalAlignment="Left" Margin="541,6,0,1" Width="169" FontSize="21" ToolTip="Prodaja tooltip"/>
+                    <Label x:Name="brojDokMain" Content="" HorizontalAlignment="Left" Margin="715,6,0,1" Width="85" FontSize="21" FontWeight="Bold"/>
                 </Grid>
                 <Grid Height="42" Margin="0,76,0,0" VerticalAlignment="Top" Background="#FFDEDEDE">
                     <ComboBox x:Name="operateriCombo" HorizontalAlignment="Left" Margin="55,10,0,10" Width="161"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Customer_16x16.png}" x:Name="simpleButton"  HorizontalAlignment="Left" Height="22" Margin="10,10,0,0" VerticalAlignment="Top" Width="40">
                     </dx:SimpleButton>
-                    <Label x:Name="tipProdajeLabel" Content="Prodaja broj:" HorizontalAlignment="Left" Margin="521,6,0,1" Width="122" FontSize="21" ToolTip="Prodaja tooltip"/>
-                    <Label x:Name="brojDokMain" Content="" HorizontalAlignment="Left" Margin="663,6,0,1" Width="85" FontSize="21" FontWeight="Bold"/>
                     <TextBox x:Name="daniTbox" HorizontalAlignment="Right" Height="22" Margin="0,10,120,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
                     <TextBox x:Name="datumTbox" HorizontalAlignment="Right" Height="22" Margin="0,10,237,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Status_16x16.png}" x:Name="simpleButton3" Content="Napomena" HorizontalAlignment="Right" Height="22" Margin="0,10,10,0" VerticalAlignment="Top" Width="105"/>
@@ -141,10 +152,8 @@
                     <ComboBox x:Name="vozacCbox" Margin="0,59,10,0" VerticalAlignment="Top" MaxWidth="155" HorizontalAlignment="Right" Width="150"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Print_16x16.png}" x:Name="simpleButton2_Copy1" Content="Printati" Margin="0,10,232,37"  HorizontalAlignment="Right" MaxWidth="80" Width="80"/>
                     <TextBox x:Name="textBox1" Height="22" Margin="0,59,203,0" TextWrapping="Wrap" VerticalAlignment="Top" MaxWidth="254" HorizontalAlignment="Right" Width="249"/>
-                    <Label x:Name="labelprLabel" Content="" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="630"/>
-                    <Label x:Name="labeldrLabel" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Width="630"/>
                     <Label x:Name="slovimaBroj" Content="" Margin="10,59,1210,0" VerticalAlignment="Top"/>
-                    <Label x:Name="pluTemp" Content="" Margin="0,16,690,0" VerticalAlignment="Top" FontWeight="Bold" Height="22" MaxWidth="50" HorizontalAlignment="Right" Width="70"/>
+                    <Label x:Name="pluTemp" Content="" Margin="0,16,690,0" VerticalAlignment="Top" FontWeight="Bold" Height="22" MaxWidth="50" HorizontalAlignment="Right" Width="70" Visibility="Collapsed"/>
                 </Grid>
                 <Grid    x:Name="robaContainer" Height="184" Margin="0,219,0,0" VerticalAlignment="Top" Background="#FFDEDEDE" HorizontalAlignment="Left" Width="360">
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Convert_16x16.png}" x:Name="simpleButton2_Copy2" Content="" HorizontalAlignment="Left" Height="22" Margin="135,32,0,0" VerticalAlignment="Top" Width="90" GlyphAlignment="Top"/>
@@ -200,7 +209,7 @@
                     <TextBox x:Name="odbiciTbox" Margin="0,38,10,0" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Top" IsReadOnly="True"/>
                     <TextBox x:Name="nettoTbox" Margin="0,66,10,0" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Top" IsReadOnly="True"/>
                     <TextBox x:Name="pdvTbox" Margin="0,94,10,0" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Top" IsReadOnly="True"/>
-                    <TextBox x:Name="protuValutaTbox" Margin="0,0,296,107" TextWrapping="Wrap" Text="Protuvaluta" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Bottom" IsReadOnly="True"/>
+                    <TextBox x:Name="protuValutaTbox" Margin="0,0,296,118" TextWrapping="Wrap" Text="Protuvaluta" HorizontalAlignment="Right" Width="120" Height="23" VerticalAlignment="Bottom" IsReadOnly="True"/>
                     <Label x:Name="ibpdvLabel" Content="Iznos bez PDV:" Margin="0,11,135,0" HorizontalAlignment="Right" Width="78" Height="22" VerticalAlignment="Top"/>
                     <Label x:Name="odbiciLabel" Content="Odbici:" Margin="0,39,135,0" HorizontalAlignment="Right" Width="37" Height="22" VerticalAlignment="Top"/>
                     <Label x:Name="nettoLabel" Content="Netto:" Margin="0,67,135,0" HorizontalAlignment="Right" Width="33" Height="22" VerticalAlignment="Top"/>
@@ -244,7 +253,7 @@
                         </StackPanel>
                     </Border>
                 </Grid>
-                <dxb:MainMenuControl VerticalAlignment="Top" Height="29">
+                <dxb:MainMenuControl VerticalAlignment="Top" Height="29" AllowCustomizationMenu="False" AllowRename="False" ForceCursor="True" ContextMenu="{DynamicResource cm}">
                     <dxb:BarSubItem x:Name="Izbornik" ItemClickBehaviour="None" Content="Izbornik">
                         <dxb:BarButtonItem Content="Dnevnik" x:Name="dnevnikMenu"  Tag="99" Glyph="{dx:DXImage Image=VerticalAxisTitles_VerticalText_16x16.png}" LargeGlyph="{dx:DXImage Image=TextBox2_32x32.png}"/>
                         <dxb:BarButtonItem Content="-----------------------" x:Name="splitter"  Tag="99" IsEnabled="False"/>
@@ -280,16 +289,16 @@
                         <dxb:BarButtonItem Content="Brojila" x:Name="brojilaBtn"  Tag="99" IsVisible="False"/>
                     </dxb:BarSubItem>
 
-                    <dxb:BarSubItem Content="Postavke">
-                        <dxb:BarSubItem Content="Mogućnost unosa i ispravki" x:Name="unosIspravkeMenu"  Tag="99" Glyph="{dx:DXImage Image=GroupHeader_16x16.png}">
-                            <dxb:BarButtonItem Content="Blagajnička prodaja" x:Name="blagProd"  Tag="99"/>
-                            <dxb:BarButtonItem Content="Fakture" x:Name="faktureMenu"  Tag="99"/>
-                            <dxb:BarButtonItem Content="Otpremnice" x:Name="otpremniceMenu"  Tag="99"/>
+                    <dxb:BarSubItem Content="Postavke"  ContextMenu="{DynamicResource cm}">
+                        <dxb:BarSubItem Content="Mogućnost unosa i ispravki" x:Name="unosIspravkeMenu"  ContextMenu="{DynamicResource cm}"  Tag="99" Glyph="{dx:DXImage Image=GroupHeader_16x16.png}">
+                            <dxb:BarCheckItem Content="Blagajnička prodaja" x:Name="blagProd"  Tag="99" ContextMenu="{DynamicResource cm}"/>
+                            <dxb:BarCheckItem Content="Fakture" x:Name="faktureMenu"  Tag="99"  ContextMenu="{DynamicResource cm}"/>
+                            <dxb:BarCheckItem Content="Otpremnice" x:Name="otpremniceMenu"  Tag="99"  ContextMenu="{DynamicResource cm}"/>
                         </dxb:BarSubItem>
                         <dxb:BarSubItem Content="Mogućnost promjena poslije printanja" x:Name="printAfterMenu"  Tag="99" Glyph="{dx:DXImage Image=GroupHeader_16x16.png}">
-                            <dxb:BarButtonItem Content="Blagajnička prodaja" x:Name="blagProd1"  Tag="99"/>
-                            <dxb:BarButtonItem Content="Fakture" x:Name="faktureMenu1"  Tag="99"/>
-                            <dxb:BarButtonItem Content="Otpremnice" x:Name="otpremniceMenu1"  Tag="99"/>
+                            <dxb:BarCheckItem Content="Blagajnička prodaja" x:Name="blagProd1"  Tag="99"/>
+                            <dxb:BarCheckItem Content="Fakture" x:Name="faktureMenu1"  Tag="99"/>
+                            <dxb:BarCheckItem Content="Otpremnice" x:Name="otpremniceMenu1"  Tag="99"/>
                         </dxb:BarSubItem>
                         <dxb:BarButtonItem Content="-----------------------" x:Name="splitterm1"  Tag="99" IsEnabled="False"/>
                         <dxb:BarCheckItem Content="Mogućnost fakturiranja po VP cijenama"  x:Name="mogFaktVP"  Tag="99" IsEnabled="TRUE"/>
@@ -309,14 +318,17 @@
                         <dxb:BarCheckItem Content="VP-Cijene"  x:Name="alter1"  Tag="99" IsEnabled="true"/>
                     </dxb:BarSubItem>
                     <dxb:BarSubItem Content="RUC" x:Name="ruc">
-                        
+
                     </dxb:BarSubItem>
                     <dxb:BarSubItem Content="Kartice" x:Name="karticeMenu">
+                        <dxb:BarSubItem.ContextMenu>
+                            <ContextMenu/>
+                        </dxb:BarSubItem.ContextMenu>
                         <dxb:BarButtonItem Content="Promet"  x:Name="prometBtn"  Tag="88" IsEnabled="true"/>
                         <dxb:BarButtonItem Content="Stanje"  x:Name="stanjeBtn"  Tag="88" IsEnabled="true"/>
                     </dxb:BarSubItem>
                     <dxb:BarSubItem Content="Fiskalni printer" x:Name="fiscalMenu" Unloaded="MySearchMethod">
-                        <dxb:BarButtonItem Content="X-Izvještaj (Dnevni promet)"  x:Name="xizvjestajBtn"  Tag="88" IsEnabled="true" Unloaded="MySearchMethod1"/>
+                        <dxb:BarButtonItem Content="X-Izvještaj (Dnevni promet)" x:Name="xizvjestajBtn"  Tag="88" IsEnabled="true" />
                         <dxb:BarButtonItem Content="Z-Izvještaj (Zaključni izvještaj)"  x:Name="zizvjestajBtn"  Tag="88" IsEnabled="true"/>
                         <dxb:BarButtonItem Content="Izvještaj za period"  x:Name="periodicniBtn"  Tag="88" IsEnabled="true"/>
                         <dxb:BarButtonItem Content="Ulaz novca"  x:Name="ulazNovcaBtn"  Tag="88" IsEnabled="true"/>

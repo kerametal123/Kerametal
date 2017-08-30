@@ -66,6 +66,8 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
     'Cheats
     Public Shared alwaystrue = True
     Public Shared alwaysfalse = False
+
+    Public Shared iduser = ""
     Public Shared Function randomize()
         Dim numbers = Enumerable.Range(0, 11000).ToList()
         Dim RandomClass As New Random()
