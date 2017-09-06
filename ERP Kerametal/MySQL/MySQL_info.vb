@@ -4,7 +4,7 @@ Imports MySql.Data.MySqlClient
 Public Class MySQLinfo
     Dim xmlinfo As New XMLinfo
     Dim dbCon As MySqlConnection
-    Dim konekcija As String = "Server=127.0.0.1;Database=info;Uid=root;Pwd=samael89;"
+    Dim konekcija As String = "Server=127.0.0.1;Database=info;Uid=root;Pwd=samael89;Pooling=false"
     Public dictionaryMP As New Dictionary(Of String, String)
 
     'Funkcija se brine i otvaranju i zatvaranju konekcija na bazu podataka, ovisno o tome da li 
@@ -20,6 +20,8 @@ Public Class MySQLinfo
                 Console.WriteLine(konekcija)
             Else
                 dbCon.Close()
+                Console.WriteLine("Zatvaram konekciju -----------------------------------")
+                MySqlConnection.ClearAllPools()
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -766,6 +768,25 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
             End Using
         End Using
     End Function
+    Public Function getInstalacije(ByVal strict As Boolean)
+        Dim query1 As String
+        If strict = True Then
+            query1 = "SELECT * FROM info.instalacije where instalacije_objekt = '" + Globals.objekt + "';"
+            Console.Write(query1)
+        Else
+            query1 = "SELECT * FROM info.instalacije;"
+        End If
+
+
+
+        Dim table As New DataTable
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query1, connection)
+                adapter.Fill(table)
+                Return table
+            End Using
+        End Using
+    End Function
     Public Function getTvrtke(ByVal strict As Boolean)
         Dim query1 As String
         If strict = True Then
@@ -832,7 +853,6 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
         Return True
     End Function
     Public Function getTabelaPrograma(ByVal idprograma As String)
-
         Try
             ManageConnection(False, konekcija) 'Open connection'
             Dim strQuery As String = "SELECT tabela FROM info.programi where idprogrami ='" + idprograma + "';"
@@ -883,6 +903,7 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
             End Using
         End Using
     End Function
+
     Public Function getDefaults(ByVal iduser As String)
         Dim query1 As String
         query1 = "SELECT objekt, tvrtka, aktivnost, login, preset, mp,vp,ug,fk, defaultProg, godina FROM info.users where iduser ='" + iduser + "';"
@@ -893,6 +914,42 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
                 Return table
             End Using
         End Using
+    End Function
+    Public Function getDetaljnoOpcije(ByVal iduser As String, ByVal tvrtka As String, ByVal godina As String, ByVal objekt As String, ByVal tabela As String)
+        Dim result As New ArrayList
+        Try
+            ManageConnection(False, konekcija) 'Open connection
+            Dim strQuery As String = "SELECT op1,op2,op3,op4,op5,op6,op7,op8,op9,op10,op11,op12,op13,op14,op15 FROM " + tabela + "  where korisnik ='" + iduser + "' and tvrtka ='" + tvrtka + "' and godina ='" + godina + "' and objekt ='" + objekt + "';"
+            'Dim strQuery2 As String = "SELECT i.instalacije_naziv, t.tvrtke_naziv, t.dabase, i.instalacije_aktivnost, i.instalacije_login, i.instalacija_postavke, o.objekti_naziv, i.opcijeMP as MP, i.opcijeVP as VP, i.OpcijeFK as FK, i.OpcijeUG as UG FROM info.instalacije as i inner join tvrtke as t inner join objekti as o where t.idtvrtke = i.instalacije_tvrtka and o.idobjekti = i.instalacije_objekt and i.instalacije_hwid = 'BFEBFBFF000306A9';"
+            ' Dim strQuery3 As String = "UPDATE events SET realchannelname = :value, chanid = :channelid WHERE eventname = :configname and datetime =:datetime and twchannel =:twchannel ;"
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
+            While reader.Read()
+                Dim TempResult As New ReturnList
+                result.Add(reader(0))
+                result.Add(reader(1))
+                result.Add(reader(2))
+                result.Add(reader(3))
+                result.Add(reader(4))
+                result.Add(reader(5))
+                result.Add(reader(6))
+                result.Add(reader(7))
+                result.Add(reader(8))
+                result.Add(reader(9))
+                result.Add(reader(10))
+                result.Add(reader(11))
+                result.Add(reader(12))
+                result.Add(reader(13))
+                result.Add(reader(14))
+            End While
+            reader.Close()
+        Catch ex As MySqlException
+            Console.WriteLine("Error: " & ex.ToString())
+        Finally
+            ManageConnection(True, konekcija) 'Close connection
+        End Try
+        Return result
+
     End Function
     Public Function setKorisnik(ByVal ime As String, ByVal prezime As String, ByVal telefon As String, ByVal email As String, ByVal tvrtka As String, ByVal objekt As String, ByVal tip As String, ByVal username As String, ByVal lozinka As String, ByVal iduser As String, ByVal preset As String)
         Try
@@ -910,11 +967,88 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
         End Try
         Return True
     End Function
-    Public Function setKorisnikPocetnePostavke(ByVal objekt As String, ByVal tvrtka As String, ByVal defaultProg As String, ByVal godina As String, ByVal user As String, ByVal mp As String, ByVal vp As String, ByVal fk As String, ByVal ug As String)
+    Public Function updateObjekt(ByVal naziv As String, ByVal adresa As String, ByVal veza As String, ByVal tvrtka As String, ByVal vrsta As String, ByVal sifra As String, ByVal telefon As String, ByVal fax As String, ByVal email As String, ByVal web As String, ByVal aktivnost As String, ByVal id As String)
         Try
             ManageConnection(False, konekcija) 'Open connection'
-            Dim strQuery As String = "UPDATE `info`.`users` SET `objekt`='" + objekt + "', `tvrtka`='" + tvrtka + "', `defaultProg`='" + defaultProg + "', `godina`='" + godina + "', `mp`='" + mp + "', `vp`='" + vp + "', `ug`='" + ug + "', `fk`='" + fk + "' WHERE `iduser`='" + user + "';"
+            Dim strQuery As String = "UPDATE `info`.`objekti` SET `objekti_naziv`='" + naziv + "', `objekti_adresa`='" + adresa + "', `objekti_veza`='" + veza + "', `tvrtka`='" + tvrtka + "', `vrstaObjekta`='" + vrsta + "', `sifraObjekta`='" + sifra + "', `objekti_telefon`='" + telefon + "', `objekti_fax`='" + fax + "', `objekti_email`='" + email + "', `objekti_web`='" + web + "', `aktivnost`='" + aktivnost + "' WHERE `idobjekti`='" + id + "';"
             Console.Write(strQuery)
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            SqlCmd.ExecuteNonQuery()
+
+            ManageConnection(True, konekcija) 'Close connection'
+
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
+    End Function
+    Public Function insertObjekti(ByVal naziv As String, ByVal adresa As String, ByVal veza As String, ByVal tvrtka As String, ByVal vrsta As String, ByVal sifra As String, ByVal telefon As String, ByVal fax As String, ByVal email As String, ByVal web As String, ByVal aktivnost As String, ByVal id As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+
+            Dim strQuery As String = "INSERT INTO `info`.`objekti` (`objekti_naziv`, `objekti_adresa`, `objekti_veza`, `tvrtka`, `vrstaObjekta`, `sifraObjekta`, `objekti_telefon`, `objekti_fax`, `objekti_email`, `objekti_web`, `aktivnost`) VALUES ('" + naziv + "', '" + adresa + "', '" + veza + "', '" + tvrtka + "', '" + vrsta + "', '" + sifra + "', '" + telefon + "', '" + fax + "', '" + email + "', '" + web + "', '" + aktivnost + "');"
+            Console.WriteLine(strQuery)
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            SqlCmd.ExecuteNonQuery()
+
+            ManageConnection(True, konekcija) 'Close connection'
+
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
+    End Function
+    Public Function getOpcije(ByVal iduser As String, ByVal tvrtka As String, ByVal godina As String, ByVal objekt As String, ByVal tabela As String)
+
+        Dim query1 As String
+        query1 = "SELECT * FROM " + tabela + "  where korisnik ='" + iduser + "' and tvrtka ='" + tvrtka + "' and godina ='" + godina + "' and objekt ='" + objekt + "';"
+        Dim table As New DataTable
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query1, connection)
+                adapter.Fill(table)
+                Return table
+            End Using
+        End Using
+
+    End Function
+    Public Function getOpcijePresets(ByVal tvrtka As String, ByVal godina As String, ByVal objekt As String, ByVal tabela As String)
+
+        Dim query1 As String
+        query1 = "SELECT * FROM " + tabela + "  where  tvrtka ='" + tvrtka + "' and godina ='" + godina + "' and objekt ='" + objekt + "';"
+        Dim table As New DataTable
+        Using connection As New MySqlConnection(konekcija)
+            Using adapter As New MySqlDataAdapter(query1, connection)
+                adapter.Fill(table)
+                Return table
+            End Using
+        End Using
+
+    End Function
+    Public Function setKorisnikPocetnePostavke(ByVal objekt As String, ByVal tvrtka As String, ByVal defaultProg As String, ByVal godina As String, ByVal user As String, ByVal lozinka As String, ByVal korisnicko As String, ByVal tip As String, ByVal email As String, ByVal telefon As String, ByVal ime As String, ByVal prezime As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+            Dim strQuery As String = "UPDATE `info`.`users` SET `objekt`='" + objekt + "', `tvrtka`='" + tvrtka + "', `defaultProg`='" + defaultProg + "', `godina`='" + godina + "', `lozinka`='" + lozinka + "', `username`='" + korisnicko + "', `tip_korisnika`='" + tip + "', `email`='" + email + "', `telefon`='" + telefon + "', `ime`='" + ime + "', `prezime`='" + prezime + "'  WHERE `iduser`='" + user + "';"
+            Console.Write(strQuery)
+            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            SqlCmd.ExecuteNonQuery()
+
+            ManageConnection(True, konekcija) 'Close connection'
+
+        Catch ex As Exception
+            Return False
+            MsgBox("Error " & ex.Message)
+        End Try
+        Return True
+    End Function
+    Public Function duplicirajOpciju(ByVal tabela As String, ByVal tvrtka As String, ByVal godina As String, ByVal objekt As String, ByVal uid As String, ByVal name As String, ByVal idopcije As String)
+        Try
+            ManageConnection(False, konekcija) 'Open connection'
+
+            Dim strQuery As String = "INSERT INTO " + tabela + " (`tvrtka`,`godina`,`objekt`,`korisnik`,`naziv`,`opc`,`op1`,`op2`,`op3`,`op4`,`op5`,`op6`,`op7`,`op8`,`op9`,`op10`,`op11`,`op12`,`op13`,`op14`,`op15`,`dat1`,`dat2`,`dat3`,`dat4`,`dat5`,`dat6`,`dat7`,`dat8`,`dat9`,`dat10`,`dat11`,`dat12`,`dat13`,`dat14`,`dat15`,`datoteke3`,`datoteke4`,`datoteke5`,`unosIspravkeMenu`,`blagProd`,`faktureMenu`,`printAfterMenu`,`blagProd1`,`faktureMenu1`,`otpremniceMenu1`,`mogFaktVp`,`brojila`,`otptofakt`,`skupniBtn`,`dofakturiranje`,`nedostatneKolicine`,`fiscalMenuBtn`,`nonfiscalMenuBtn`,`a4RacunBtn`,`ljetnoVrijemeBtn`,`zimskoVrijemeBtn`,`ulazNovcaBtn`,`izlazNovcaBtn`)
+SELECT " + tvrtka + "," + godina + "," + objekt + "," + uid + ",'" + name + "',`opc`,`op1`,`op2`,`op3`,`op4`,`op5`,`op6`,`op7`,`op8`,`op9`,`op10`,`op11`,`op12`,`op13`,`op14`,`op15`,`dat1`,`dat2`,`dat3`,`dat4`,`dat5`,`dat6`,`dat7`,`dat8`,`dat9`,`dat10`,`dat11`,`dat12`,`dat13`,`dat14`,`dat15`,`datoteke3`,`datoteke4`,`datoteke5`,`unosIspravkeMenu`,`blagProd`,`faktureMenu`,`printAfterMenu`,`blagProd1`,`faktureMenu1`,`otpremniceMenu1`,`mogFaktVp`,`brojila`,`otptofakt`,`skupniBtn`,`dofakturiranje`,`nedostatneKolicine`,`fiscalMenuBtn`,`nonfiscalMenuBtn`,`a4RacunBtn`,`ljetnoVrijemeBtn`,`zimskoVrijemeBtn`,`ulazNovcaBtn`,`izlazNovcaBtn` FROM " + tabela + " WHERE naziv = '" + idopcije + "';"
+            Console.WriteLine(strQuery)
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             SqlCmd.ExecuteNonQuery()
 

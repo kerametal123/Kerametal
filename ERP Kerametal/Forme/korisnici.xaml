@@ -7,17 +7,9 @@
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" x:Class="korisnici"
         mc:Ignorable="d"
         Title="Rad sa korisnicima" Height="452" Width="749" Loaded="Window_Loaded">
-    <Grid>
+    <Grid Margin="10,0,0,0">
         <Button x:Name="button" Content="Spremi" HorizontalAlignment="Left" Margin="656,389,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="button_Copy" Content="Odustani" HorizontalAlignment="Left" Margin="526,389,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.52,0.5"/>
-        <Label x:Name="label" Content="Ime:" HorizontalAlignment="Left" Margin="526,17,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy" Content="Prezime:" HorizontalAlignment="Left" Margin="526,46,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="ime" HorizontalAlignment="Left" Height="23" Margin="576,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
-        <TextBox x:Name="prezime" HorizontalAlignment="Left" Height="23" Margin="576,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
-        <Label x:Name="label_Copy1" Content="Telefon:" HorizontalAlignment="Left" Margin="526,73,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy2" Content="E-Mail:" HorizontalAlignment="Left" Margin="526,102,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="telefon" HorizontalAlignment="Left" Height="23" Margin="576,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
-        <TextBox x:Name="email" HorizontalAlignment="Left" Height="23" Margin="576,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="2" Margin="526,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="205"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="2" Margin="526,129,0,0" Stroke="Black" VerticalAlignment="Top" Width="205"/>
         <Label x:Name="label_Copy3" Content="Tvrtka:" HorizontalAlignment="Left" Margin="526,136,0,0" VerticalAlignment="Top"/>
@@ -27,19 +19,8 @@
         <Label x:Name="label_Copy5" Content="Tip:" HorizontalAlignment="Left" Margin="526,190,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="tip" HorizontalAlignment="Left" Margin="576,190,0,0" VerticalAlignment="Top" Width="155"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="2" Margin="526,217,0,0" Stroke="Black" VerticalAlignment="Top" Width="205"/>
-        <Label x:Name="label_Copy6" Content="Korisničko ime:" HorizontalAlignment="Left" Margin="526,225,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="korisnicko" HorizontalAlignment="Left" Height="23" Margin="611,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="label_Copy7" Content="Lozinka:" HorizontalAlignment="Left" Margin="526,252,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="lozinka" HorizontalAlignment="Left" Height="23" Margin="611,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="2" Margin="526,280,0,0" Stroke="Black" VerticalAlignment="Top" Width="205"/>
         <Label x:Name="uid" Content="" HorizontalAlignment="Left" Margin="526,287,0,0" VerticalAlignment="Top"/>
-        <dxg:GridControl x:Name="korisnici1" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Height="396" Width="511">
-            <dxg:GridControl.View>
-                <dxg:TableView AllowPerPixelScrolling="True" ShowTotalSummary="True"/>
-            </dxg:GridControl.View>
-        </dxg:GridControl>
-        <ComboBox x:Name="presets" HorizontalAlignment="Left" Margin="580,362,0,0" VerticalAlignment="Top" Width="151"/>
-        <Label x:Name="label1" Content="Postavke:" HorizontalAlignment="Left" Margin="526,362,0,0" VerticalAlignment="Top"/>
         <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="656,287,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>

@@ -15,6 +15,7 @@ Global
 		{FB00E838-5303-4913-9F4F-BA5F4216A5F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB00E838-5303-4913-9F4F-BA5F4216A5F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB00E838-5303-4913-9F4F-BA5F4216A5F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB00E838-5303-4913-9F4F-BA5F4216A5F0}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

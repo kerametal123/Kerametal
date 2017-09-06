@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERP_Kerametal"
-        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"    xmlns:kerametal="clr-namespace:ERP_Kerametal"    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"    dx:DXSplashScreen.SplashScreenType="{x:Type kerametal:SplashScreenERP}" x:Class="mpBc"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"    xmlns:kerametal="clr-namespace:ERP_Kerametal"    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"    xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"    dx:DXSplashScreen.SplashScreenType="{x:Type kerametal:SplashScreenERP}" x:Class="mpBc"
         mc:Ignorable="d"
         Title="Maloprodaja WIN" Height="910.5" Width="1458"  WindowState="Maximized" Loaded="Window_Loaded" MouseMove="Window_MouseMove">
     <Window.Resources>
@@ -16,42 +16,42 @@
             <MenuItem Header="Sakrij" Click="MenuItem3_Click"/>
             <MenuItem Header="Prikaži" Click="MenuItem4_Click"/>
         </ContextMenu>
-        <Style TargetType="Button">
+        <Style TargetType="{x:Type Button}">
             <Setter Property="ContextMenu" Value="{StaticResource cm}" />
         </Style>
-        <Style TargetType="TextBox">
+        <Style TargetType="{x:Type TextBox}">
             <Setter Property="ContextMenu" Value="{StaticResource cm}" />
         </Style>
-        <Style TargetType="Label">
+        <Style TargetType="{x:Type Label}">
             <Setter Property="ContextMenu" Value="{StaticResource cm}" />
         </Style>
-        <Style TargetType="ComboBox">
+        <Style TargetType="{x:Type ComboBox}">
             <Setter Property="ContextMenu" Value="{StaticResource cm}" />
         </Style>
-        <Style TargetType="dxe:CheckEdit">
+        <Style TargetType="{x:Type dxe:CheckEdit}">
             <Setter Property="ContextMenu" Value="{StaticResource cm}" />
         </Style>
-        <Style TargetType="dx:SimpleButton">
+        <Style TargetType="{x:Type dx:SimpleButton}">
             <Setter Property="ContextMenu" Value="{StaticResource cm}" />
         </Style>
-        <Style TargetType="dxb:BarCheckItem">
+        <Style TargetType="{x:Type dxb:BarCheckItem}">
             <Setter Property="ContextMenu" Value="{StaticResource cm}" />
         </Style>
-        <Style TargetType="dxb:BarSubItem">
+        <Style TargetType="{x:Type dxb:BarSubItem}">
             <Setter Property="ContextMenu" Value="{StaticResource cm}" />
         </Style>
-        <Style TargetType="dxb:BarButtonItem">
+        <Style TargetType="{x:Type dxb:BarButtonItem}">
             <Setter Property="ContextMenu" Value="{StaticResource cm}" />
         </Style>
-        <Style TargetType="kerametal:SelectAllTbox">
+        <Style TargetType="{x:Type kerametal:SelectAllTbox}">
             <Setter Property="ContextMenu" Value="{StaticResource cm}" />
         </Style>
 
-   
+
     </Window.Resources>
-    <Grid Name="radnaPovrsina">
+    <Grid x:Name="radnaPovrsina">
 
-        <DockPanel x:Name="DockPanell" local:EnterKeyTraversal.IsEnabled="True">
+        <DockPanel x:Name="DockPanell" kerametal:EnterKeyTraversal.IsEnabled="True">
             <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
                 <dxr:RibbonStatusBarControl.LeftItems>
                     <dxb:BarStaticItem x:Name="biRow" Content="Row:" ShowBorder="False"/>
@@ -72,10 +72,8 @@
                 <dxg:GridControl x:Name="gridArtikli" AutoGenerateColumns="None" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="10,409,0,10" Width="549" ItemsSource="{Binding LoadDataBinding}">
                     <dxb:BarManager.DXContextMenu>
                         <dxb:PopupMenu>
-                            <dxb:PopupMenu.Items>
-                                <dxb:BarButtonItem Glyph="{dx:DXImage Image=Info_16x16.png}"   x:Name="Informacije" Content="Informacije"/>
-                                <dxb:BarButtonItem Glyph="{dx:DXImage Image=Edit_16x16.png}" x:Name="Uređivanje" Content="Uređivanje" />
-                            </dxb:PopupMenu.Items>
+                            <dxb:BarButtonItem Glyph="{dx:DXImage Image=Info_16x16.png}"   x:Name="Informacije" Content="Informacije"/>
+                            <dxb:BarButtonItem Glyph="{dx:DXImage Image=Edit_16x16.png}" x:Name="Uređivanje" Content="Uređivanje" />
                         </dxb:PopupMenu>
                     </dxb:BarManager.DXContextMenu>
                     <dxg:GridControl.View>
@@ -133,8 +131,7 @@
                 </Grid>
                 <Grid Height="42" Margin="0,76,0,0" VerticalAlignment="Top" Background="#FFDEDEDE">
                     <ComboBox x:Name="operateriCombo" HorizontalAlignment="Left" Margin="55,10,0,10" Width="161"/>
-                    <dx:SimpleButton Glyph="{dx:DXImage Image=Customer_16x16.png}" x:Name="simpleButton"  HorizontalAlignment="Left" Height="22" Margin="10,10,0,0" VerticalAlignment="Top" Width="40">
-                    </dx:SimpleButton>
+                    <dx:SimpleButton Glyph="{dx:DXImage Image=Customer_16x16.png}" x:Name="simpleButton"  HorizontalAlignment="Left" Height="22" Margin="10,10,0,0" VerticalAlignment="Top" Width="40"/>
                     <TextBox x:Name="daniTbox" HorizontalAlignment="Right" Height="22" Margin="0,10,120,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
                     <TextBox x:Name="datumTbox" HorizontalAlignment="Right" Height="22" Margin="0,10,237,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Status_16x16.png}" x:Name="simpleButton3" Content="Napomena" HorizontalAlignment="Right" Height="22" Margin="0,10,10,0" VerticalAlignment="Top" Width="105"/>
@@ -157,8 +154,7 @@
                 </Grid>
                 <Grid    x:Name="robaContainer" Height="184" Margin="0,219,0,0" VerticalAlignment="Top" Background="#FFDEDEDE" HorizontalAlignment="Left" Width="360">
                     <dx:SimpleButton Glyph="{dx:DXImage Image=Convert_16x16.png}" x:Name="simpleButton2_Copy2" Content="" HorizontalAlignment="Left" Height="22" Margin="135,32,0,0" VerticalAlignment="Top" Width="90" GlyphAlignment="Top"/>
-                    <ComboBox x:Name="proizvodacCbox" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" Width="120">
-                    </ComboBox>
+                    <ComboBox x:Name="proizvodacCbox" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" Width="120"/>
                     <ComboBox x:Name="grupeCbox" HorizontalAlignment="Left" Margin="230,32,0,0" VerticalAlignment="Top" Width="120"/>
                     <Label x:Name="proizvodjacLabel" Content="Proizvođač" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="grupaLabel" Content="Grupa" HorizontalAlignment="Left" Margin="230,10,0,0" VerticalAlignment="Top"/>
@@ -187,20 +183,16 @@
                     <TextBox x:Name="scontoTbox" HorizontalAlignment="Left" Height="23" Margin="210,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsReadOnly="True">
                         <dxb:BarManager.DXContextMenu>
                             <dxb:PopupMenu>
-                                <dxb:PopupMenu.Items>
-                                    <dxb:BarButtonItem  x:Name="scontoPost" Content="Sconto - %"/>
-                                    <dxb:BarButtonItem x:Name="scontoIzn" Content="Sconto -  Iznos" />
-                                </dxb:PopupMenu.Items>
+                                <dxb:BarButtonItem  x:Name="scontoPost" Content="Sconto - %"/>
+                                <dxb:BarButtonItem x:Name="scontoIzn" Content="Sconto -  Iznos" />
                             </dxb:PopupMenu>
                         </dxb:BarManager.DXContextMenu>
                     </TextBox>
                     <TextBox x:Name="rabatPlusTbox" Focusable="true" HorizontalAlignment="Left" Height="23" Margin="335,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsReadOnly="True">
                         <dxb:BarManager.DXContextMenu>
                             <dxb:PopupMenu>
-                                <dxb:PopupMenu.Items>
-                                    <dxb:BarButtonItem x:Name="dopunskiRabatPost" Content="Dopunski rabat - %" />
-                                    <dxb:BarButtonItem x:Name="dopunskiRabatIzn" Content="Dopunski rabat -  Iznos"/>
-                                </dxb:PopupMenu.Items>
+                                <dxb:BarButtonItem x:Name="dopunskiRabatPost" Content="Dopunski rabat - %" />
+                                <dxb:BarButtonItem x:Name="dopunskiRabatIzn" Content="Dopunski rabat -  Iznos"/>
                             </dxb:PopupMenu>
                         </dxb:BarManager.DXContextMenu>
                     </TextBox>
@@ -228,8 +220,7 @@
                     <Label x:Name="maticnaValutaTbox" Content="0,00" Margin="0,122,10,0" FontSize="29" HorizontalAlignment="Right" Foreground="#FF3F37DE" FontWeight="Bold" Height="39" VerticalAlignment="Top"/>
                     <Button x:Name="button1" Content="Završi prodaju" HorizontalAlignment="Left" Margin="166,122,0,0" VerticalAlignment="Top" Width="105"/>
                 </Grid>
-                <DataGrid x:Name="gridRacunNew" Margin="564,409,10,0" VerticalAlignment="Top" Height="232">
-                </DataGrid>
+                <DataGrid x:Name="gridRacunNew" Margin="564,409,10,0" VerticalAlignment="Top" Height="232"/>
                 <Grid x:Name="InputBox" Visibility="collapsed">
                     <Grid Background="Black" Opacity="0.5"/>
                     <Border
@@ -317,9 +308,7 @@
                     <dxb:BarSubItem Content="MP-Cijene" x:Name="mpvpc">
                         <dxb:BarCheckItem Content="VP-Cijene"  x:Name="alter1"  Tag="99" IsEnabled="true"/>
                     </dxb:BarSubItem>
-                    <dxb:BarSubItem Content="RUC" x:Name="ruc">
-
-                    </dxb:BarSubItem>
+                    <dxb:BarSubItem Content="RUC" x:Name="ruc"/>
                     <dxb:BarSubItem Content="Kartice" x:Name="karticeMenu">
                         <dxb:BarSubItem.ContextMenu>
                             <ContextMenu/>

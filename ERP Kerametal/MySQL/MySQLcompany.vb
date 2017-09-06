@@ -15,6 +15,8 @@ Public Class MySQLcompany
                 'Console.WriteLine(konekcija)
             Else
                 dbCon.Close()
+                Console.WriteLine("Zatvaram konekciju -----------------------------------")
+                MySqlConnection.ClearAllPools()
             End If
         Catch ex As Exception
             Return False
