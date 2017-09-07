@@ -81,6 +81,17 @@ Public Class UrediDozvole
             BarCheckItem.Tag = row("idtvrtke")
             tvrtke.Items.Add(BarCheckItem)
         Next row
+        Dim BarCheckItems = New ComboBoxItem()
+        BarCheckItems.Content = "----------------------"
+        BarCheckItems.Tag = "qwer"
+        BarCheckItems.IsEnabled = False
+        Dim BarCheckItems1 = New ComboBoxItem()
+        BarCheckItems1.Content = "Dodaj novu tvrtku"
+        BarCheckItems1.FontWeight = FontWeights.Bold
+        BarCheckItems1.Tag = "qwert"
+
+        tvrtke.Items.Add(BarCheckItems)
+        tvrtke.Items.Add(BarCheckItems1)
     End Function
     Public Function populateObjekti(ByVal tvrtka As String, ByVal all As Boolean)
         Try
@@ -99,10 +110,27 @@ Public Class UrediDozvole
                 BarCheckItem.Tag = row("idobjekti")
                 objekti.Items.Add(BarCheckItem)
             Next row
+            Dim BarCheckItems = New ComboBoxItem()
+            BarCheckItems.Content = "----------------------"
+            BarCheckItems.Tag = "qwer"
+            BarCheckItems.IsEnabled = False
+            Dim BarCheckItems1 = New ComboBoxItem()
+            BarCheckItems1.Content = "Dodaj novi objekt"
+            AddHandler BarCheckItems1.Selected, Function(sender, e) newObjekt()
+            BarCheckItems1.FontWeight = FontWeights.Bold
+            BarCheckItems1.Tag = "qwert"
+            objekti.Items.Add(BarCheckItems)
+            objekti.Items.Add(BarCheckItems1)
         Catch ex As Exception
 
         End Try
 
+    End Function
+    Public Function newObjekt()
+        ' Create a window from the page you need to show
+        Dim mpBc As New Objekti()
+        ' Open your page
+        mpBc.Show()
     End Function
     Public Function populateGodine()
         Dim t As New System.Data.DataTable
@@ -115,6 +143,16 @@ Public Class UrediDozvole
             BarCheckItem.Tag = row("idgodine")
             godine.Items.Add(BarCheckItem)
         Next row
+        Dim BarCheckItems = New ComboBoxItem()
+        BarCheckItems.Content = "----------------------"
+        BarCheckItems.Tag = "qwer"
+        BarCheckItems.IsEnabled = False
+        Dim BarCheckItems1 = New ComboBoxItem()
+        BarCheckItems1.Content = "Otvori novu godinu"
+        BarCheckItems1.FontWeight = FontWeights.Bold
+        BarCheckItems1.Tag = "qwert"
+        godine.Items.Add(BarCheckItems)
+        godine.Items.Add(BarCheckItems1)
     End Function
     Public Function populateProgrami()
         Dim t As New System.Data.DataTable
@@ -130,6 +168,16 @@ Public Class UrediDozvole
             programi.Items.Add(BarCheckItem)
             'sviProgrami.Items.Add(BarCheckItem)
         Next row
+        Dim BarCheckItems = New ComboBoxItem()
+        BarCheckItems.Content = "----------------------"
+        BarCheckItems.Tag = "qwer"
+        BarCheckItems.IsEnabled = False
+        Dim BarCheckItems1 = New ComboBoxItem()
+        BarCheckItems1.Content = "Dodaj novi program"
+        BarCheckItems1.FontWeight = FontWeights.Bold
+        BarCheckItems1.Tag = "qwert"
+        programi.Items.Add(BarCheckItems)
+        programi.Items.Add(BarCheckItems1)
     End Function
     'Public Function populateSviProgrami()
     '    Dim t As New System.Data.DataTable
