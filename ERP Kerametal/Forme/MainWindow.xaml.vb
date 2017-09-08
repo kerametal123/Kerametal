@@ -1,4 +1,5 @@
-﻿Imports DevExpress.Xpf.Bars
+﻿Imports System.Text
+Imports DevExpress.Xpf.Bars
 Imports DevExpress.Xpf.WindowsUI
 Imports ERP_Kerametal.MySQLinfo
 Class MainWindow
@@ -8,7 +9,11 @@ Class MainWindow
     Dim mysql As New MySQLinfo
     Dim barmanager1 As New BarManager
     Dim BarCheckItem = New BarCheckItem()
+    Dim rac As New Racunanje
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
+        runapp()
+    End Sub
+    Public Function runapp()
         Try
             If Globals.CheckForInternetConnection = True Then
                 If licenciranje.provjeriLicencuOnline() = True Then
@@ -37,9 +42,7 @@ Class MainWindow
             MessageBox.Show("err" & ex.Message)
         End Try
         'updateInterface()
-
-    End Sub
-
+    End Function
     Private Sub TileBarItem_Click(sender As Object, e As EventArgs)
         Globals.logMaker("Glavni izbornik, Maloprodaja", sender)
         Dim form As New mpBc()
@@ -63,7 +66,7 @@ Class MainWindow
                     BarButtonItem.DataContext = "ddd"
                 ElseIf parts(0) = 4 Then
                 ElseIf parts(0) = 8 And update = True Then
-                    'makeMenuBtn(Icon, parts(3))
+                    makeMenuBtn(icona, parts(3))
                 End If
                 Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
                 BarButtonItem.Glyph = Icon
@@ -170,6 +173,8 @@ Class MainWindow
     End Function
     Public Function pripremiTvrtke()
         'Dodaj iteme
+        Tvrtka.Items.Clear()
+
         For Each item As ReturnList In mysql.vratiTvrtke()
             Dim barmanager1 As New BarManager
             Dim barcheckitem = New BarCheckItem()
@@ -218,19 +223,39 @@ Class MainWindow
         Next
         Return True
     End Function
+    Function RandomString(minCharacters As Integer, maxCharacters As Integer)
+        Dim s As String = "ABCDEFGHIJKLMNOPQRSTUVWXY"
+        Static r As New Random
+        Dim chactersInString As Integer = r.Next(minCharacters, maxCharacters)
+        Dim sb As New StringBuilder
+        For i As Integer = 1 To chactersInString
+            Dim idx As Integer = r.Next(0, s.Length)
+            sb.Append(s.Substring(idx, 1))
+        Next
+        Return sb.ToString()
+    End Function
     Public Function pripremiGodine()
+
+
+
+
+        '
+
+
+        'Dodaj iteme
         Godina.Items.Clear()
+
         For Each item As ReturnList In mysql.vratiGodine()
             Dim barmanager1 As New BarManager
-            Dim BarCheckItem = New BarCheckItem()
-            BarCheckItem.Content = item.godina
-            BarCheckItem.Name = item.stringname_god
-            BarCheckItem.GroupIndex = 5
+            Dim barcheckitem = New BarCheckItem()
+            barcheckitem.Content = item.godina
+            barcheckitem.Name = RandomString(2, 4)
+            barcheckitem.GroupIndex = 8
             If item.idopcije_godina = Globals.aktivnaGodina Then
-                BarCheckItem.IsChecked = True
+                barcheckitem.IsChecked = True
             End If
-            AddHandler BarCheckItem.ItemClick, Function(sender, e) postaviGodinu(item.idopcije_godina)
-            Godina.Items.Add(BarCheckItem)
+            AddHandler barcheckitem.ItemClick, Function(sender, e) postaviGodinu(item.idopcije_godina)
+            Godina.Items.Add(barcheckitem)
         Next
         Return True
     End Function
@@ -286,9 +311,7 @@ Class MainWindow
     End Sub
 
     Private Sub button_Click_1(sender As Object, e As RoutedEventArgs) Handles button.Click
-        Dim log As New Login()
-        ' Open your page
-        log.Show()
+        runapp()
     End Sub
 
     Public Function updateInterfacee()
@@ -339,8 +362,10 @@ Class MainWindow
     Private Sub biMostRight_CheckedChanged(sender As Object, e As ItemClickEventArgs) Handles biMostRight.CheckedChanged
         If biMostRight.IsChecked = True Then
             Globals.adminmode = True
+            admin.IsVisible = True
         ElseIf biMostRight.IsChecked = False Then
             Globals.adminmode = False
+            admin.IsVisible = False
         End If
     End Sub
 
@@ -353,5 +378,12 @@ Class MainWindow
 
     Private Sub labelcont_ContextMenuClosing(sender As Object, e As ContextMenuEventArgs) Handles labelcont.ContextMenuClosing
 
+    End Sub
+
+    Private Sub admin_ItemClick(sender As Object, e As ItemClickEventArgs) Handles admin.ItemClick
+        ' Create a window from the page you need to show
+        Dim admin As New UrediDozvole()
+        ' Open your page
+        admin.Show()
     End Sub
 End Class

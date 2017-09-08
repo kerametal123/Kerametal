@@ -39,7 +39,7 @@
                     <dxr:RibbonPage x:Name="mainMenu" Caption="Osnovno">
                         <dxr:RibbonPageGroup Caption="Glavni izbornik">
                             <dxb:BarSubItem x:Name="Tvrtka" ItemClickBehaviour="None" Content="Tvrtka" Glyph="{dx:DXImage Image=Windows_16x16.png}" LargeGlyph="{dx:DXImage Image=Windows_32x32.png}"/>
-
+                            
                             <dxb:BarSubItem x:Name="Godina" ItemClickBehaviour="None" Content="Godina" Glyph="{dx:DXImage Image=Calendar_16x16.png}" LargeGlyph="{dx:DXImage Image=Calendar_32x32.png}"/>
                             <dxb:BarSubItem x:Name="Program" ItemClickBehaviour="None" Content="Program" Glyph="{dx:DXImage Image=Technology_16x16.png}" LargeGlyph="{dx:DXImage Image=Technology_32x32.png}"/>
                             <dxb:BarSubItem x:Name="Objekt" ItemClickBehaviour="None" Content="Objekt" Glyph="{dx:DXImage Image=BOSaleItem_16x16.png}" LargeGlyph="{dx:DXImage Image=BOSaleItem_32x32.png}"/>
@@ -51,6 +51,7 @@
                         <dxr:RibbonPageGroup Caption="Baze podataka">
                             <dxb:BarButtonItem x:Name="dbButton" Content="Informacije" Glyph="{dx:DXImage Image=Database_16x16}" LargeGlyph="{dx:DXImage Image=Database_32x32.png}"/>
                             <dxb:BarButtonItem x:Name="biw" Content="Podešavanje" Glyph="{dx:DXImage Image=ManageDatasource_16x16.png}" LargeGlyph="{dx:DXImage Image=ManageDatasource_32x32.png}"/>
+                            <dxb:BarButtonItem IsVisible="false" x:Name="admin" Content="Administrator" Glyph="{dx:DXImage Image=ManageDatasource_16x16.png}" LargeGlyph="{dx:DXImage Image=BODetails_32x32.png}"/>
                         </dxr:RibbonPageGroup>
 
                         <dxr:RibbonPageGroup Caption="Printeri">

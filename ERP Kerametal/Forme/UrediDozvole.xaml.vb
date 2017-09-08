@@ -7,6 +7,7 @@ Public Class UrediDozvole
     Dim mysqlcompany As New MySQLcompany
     Dim info As String
     Dim opcija As String
+    Dim var As String
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         rackor()
     End Sub
@@ -202,22 +203,31 @@ Public Class UrediDozvole
     End Sub
 
     Private Sub primjeniBtn_Click(sender As Object, e As RoutedEventArgs) Handles primjeniBtn.Click
-        If opcija = "defaults" Then
-            Try
-                'populateObjekti(tvrtke.SelectedItem.tag, False)
-                If mysqlinfo.setKorisnikPocetnePostavke(objekti.SelectedItem.tag, tvrtke.SelectedItem.tag, programi.SelectedItem.tag, godine.SelectedItem.tag, korisnici.SelectedItem.tag, lozinka.Text, korisnicko.Text, tip.SelectedItem.tag, email.Text, telefon.Text, ime.Text, prezime.Text) = True Then
-                    MessageBox.Show("Postavke su uspješno primjenjene.")
-                Else
-                    MessageBox.Show("Greška u postavkama.")
-                    'refreshPostavke()
-                End If
-            Catch ex As Exception
-                MessageBox.Show(ex.ToString)
-            End Try
+        If mysqlinfo.provjeriOpcijeTvrtke(var, korisnici.SelectedItem.tag, tvrtke.SelectedItem.tag, godine.SelectedItem.tag, programi.SelectedItem.tag, objekti.SelectedItem.tag) = True Then
+            If mysqlinfo.provjeriOpcijeGodine(var, korisnici.SelectedItem.tag, tvrtke.SelectedItem.tag, godine.SelectedItem.tag, programi.SelectedItem.tag, objekti.SelectedItem.tag) = True Then
+                If mysqlinfo.provjeriOpcijePrograma(var, korisnici.SelectedItem.tag, tvrtke.SelectedItem.tag, godine.SelectedItem.tag, programi.SelectedItem.tag, objekti.SelectedItem.tag) = True Then
+                    If mysqlinfo.provjeriOpcijeObjekta(var, korisnici.SelectedItem.tag, tvrtke.SelectedItem.tag, godine.SelectedItem.tag, programi.SelectedItem.tag, objekti.SelectedItem.tag) = True Then
+                        If opcija = "defaults" Then
+                            Try
+                                'populateObjekti(tvrtke.SelectedItem.tag, False)
+                                If mysqlinfo.setKorisnikPocetnePostavke(objekti.SelectedItem.tag, tvrtke.SelectedItem.tag, programi.SelectedItem.tag, godine.SelectedItem.tag, korisnici.SelectedItem.tag, lozinka.Text, korisnicko.Text, tip.SelectedItem.tag, email.Text, telefon.Text, ime.Text, prezime.Text) = True Then
+                                    MessageBox.Show("Postavke su uspješno primjenjene.")
+                                Else
+                                    MessageBox.Show("Greška u postavkama.")
+                                    'refreshPostavke()
+                                End If
+                            Catch ex As Exception
+                                MessageBox.Show(ex.ToString)
+                            End Try
 
-        ElseIf opcija = "novo" Then
-            MessageBox.Show("spremljene nove opcije")
+                        ElseIf opcija = "novo" Then
+                            MessageBox.Show("spremljene nove opcije")
+                        End If
+                    End If
+                End If
+                End If
         End If
+
     End Sub
 
     Public Function getOpcije()
@@ -457,15 +467,18 @@ Public Class UrediDozvole
 
     'End Sub
     Public Function populateMenu()
+        Dim defs As String
         Try
             conMenu.Items.Clear()
             For Each item In mysqlinfo.getDetaljnoOpcije(korisnici.SelectedItem.tag, tvrtke.SelectedItem.tag, godine.SelectedItem.tag, objekti.SelectedItem.tag, mysqlinfo.getTabelaPrograma(programi.SelectedItem.tag))
+
                 Dim s As String = item
                 Dim parts As String() = s.Split(New Char() {","c})
                 Dim icona As String = parts(1)
                 Dim barmanager1 As New BarManager
                 Dim TileBarItem = New DevExpress.Xpf.Navigation.TileBarItem()
                 TileBarItem.Content = parts(3)
+                defs = parts(0).ToString
                 'TileBarItem.AllowGlyphTheming = True
                 'BarButtonItem.Name = parts(3)
                 If parts(0) = 1 Then
@@ -475,13 +488,13 @@ Public Class UrediDozvole
                 ElseIf parts(0) = 3 Then
                 ElseIf parts(0) = 4 Then
                 ElseIf parts(0) = 8 Then
-                    ' makeMenuBtn(Icon, parts(3))
+
                 End If
                 Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
                 TileBarItem.TileGlyph = Icon
                 TileBarItem.Height = "80"
                 TileBarItem.Width = "100"
-                AddHandler TileBarItem.Click, Function(sender, e) makeMenuBtn(TileBarItem.Content, icona)
+                AddHandler TileBarItem.Click, Function(sender, e) makeMenuBtn(TileBarItem.Content, icona, defs)
                 TileBarItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#FF992F2F"), Color))
                 conMenu.Items.Add(TileBarItem)
             Next
@@ -490,9 +503,14 @@ Public Class UrediDozvole
 
         End Try
     End Function
-    Public Function makeMenuBtn(ByVal content As String, ByVal icon As String)
-        btnContent.Text = content
+    Public Function makeMenuBtn(ByVal content As String, ByVal icon As String, ByVal defs As String)
+        btnContent.Text = content + defs.ToString
         simpleButton.Glyph = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icon + ""))
+        If defs = "8" Then
+            setup.IsChecked = True
+        Else
+            setup.IsChecked = False
+        End If
         Return True
     End Function
     Private Sub binovo_CheckedChanged(sender As Object, e As ItemClickEventArgs) Handles bidefaults.CheckedChanged
@@ -562,6 +580,7 @@ Public Class UrediDozvole
             populateKorisnici(False)
             bidefaults.IsChecked = True
             opcija = "defaults"
+            var = "racunalo"
             checkovi()
             ocisti()
             pripremiTipove()
@@ -570,6 +589,7 @@ Public Class UrediDozvole
             populateKorisnici(False)
             bidefaults.IsChecked = True
             opcija = "defaults"
+            var = "korisnik"
             checkovi()
             ocisti()
             pripremiTipove()

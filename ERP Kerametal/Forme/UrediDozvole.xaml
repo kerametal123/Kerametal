@@ -27,13 +27,16 @@
                     <dxb:BarButtonItemLink BarItemName="biNew"/>
                 </dxr:RibbonControl.ToolbarItems>
                 <dxr:RibbonDefaultPageCategory>
-                    <dxr:RibbonPage Caption="Home">
-                        <dxr:RibbonPageGroup Caption="File">
+                    <dxr:RibbonPage Caption="Postavke">
+                        <dxr:RibbonPageGroup Caption="Osnovno">
                             <dxb:BarCheckItem  x:Name="bidefaults" GroupIndex="1" Content="Uređivanje početnih postavki" Glyph="{dx:DXImage Image=EditName_16x16.png}" LargeGlyph="{dx:DXImage Image=EditName_32x32.png}"/>
                             <dxb:BarCheckItem x:Name="binew" GroupIndex="1" Content="Uređivanje opcija programa" Glyph="{dx:DXImage Image=Customization_16x16.png}" LargeGlyph="{dx:DXImage Image=Customization_32x32.png}"/>
+                 
                         </dxr:RibbonPageGroup>
+                        
                     </dxr:RibbonPage>
                 </dxr:RibbonDefaultPageCategory>
+               
             </dxr:RibbonControl>
             <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
                 <dxr:RibbonStatusBarControl.LeftItems>
@@ -64,7 +67,7 @@
                     <Rectangle Fill="#FFF4F4F5" Height="2" Margin="0,31,0,0" Stroke="Black" VerticalAlignment="Top"/>
                     <dx:SimpleButton   Glyph="{dx:DXImage Image=Edit_16x16.png}" x:Name="templateBtn"  HorizontalAlignment="Left" Height="22" Margin="10,4,0,0" VerticalAlignment="Top" Width="260" Content="Primjeni neku od postojećih opcija"/>
                     <TextBox x:Name="nazivOpcije" Height="23" Margin="0,3,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Right" Width="154"/>
-                    <Label x:Name="label_Copy8" Content="Naziv opcije" Margin="0,4,159,0" VerticalAlignment="Top" RenderTransformOrigin="0.529,0.455" HorizontalAlignment="Right" Width="64"/>
+                    <Label x:Name="labelNoviPreset" Content="Naziv opcije" Margin="0,4,159,0" VerticalAlignment="Top" RenderTransformOrigin="0.529,0.455" HorizontalAlignment="Right" Width="64"/>
                     <dxnav:TileBar x:Name="conMenu" Margin="0,38,0,0" VerticalAlignment="Top">
                         <dxnav:TileBarItem Content="1"/>
                         <dxnav:TileBarItem Content="2" Click="TileBarItem_Click_1"/>
@@ -89,6 +92,7 @@
                         <TextBox x:Name="btnContent" HorizontalAlignment="Left" Height="23" Margin="85,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="215"/>
                         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="139,37,0,0" VerticalAlignment="Top" Width="161"/>
                         <dx:SimpleButton x:Name="simpleButton" Content="" HorizontalAlignment="Left" Height="49" Margin="305,10,0,0" VerticalAlignment="Top" Width="60"/>
+                        <CheckBox x:Name="setup" Content="Početna" HorizontalAlignment="Left" Margin="370,21,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </Grid>
                 <RadioButton x:Name="rkorisnici"  Content="Korisnici" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
