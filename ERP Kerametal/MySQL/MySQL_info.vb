@@ -1240,15 +1240,22 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
         End Using
 
     End Function
-    Public Function setKorisnikPocetnePostavke(ByVal objekt As String, ByVal tvrtka As String, ByVal defaultProg As String, ByVal godina As String, ByVal user As String, ByVal lozinka As String, ByVal korisnicko As String, ByVal tip As String, ByVal email As String, ByVal telefon As String, ByVal ime As String, ByVal prezime As String)
+    Public Function setKorisnikPocetnePostavke(ByVal objekt As String, ByVal tvrtka As String, ByVal defaultProg As String, ByVal godina As String, ByVal user As String, ByVal lozinka As String, ByVal korisnicko As String, ByVal tip As String, ByVal email As String, ByVal telefon As String, ByVal ime As String, ByVal prezime As String, ByVal var As String)
+        Dim strQuery As String
         Try
             ManageConnection(False, konekcija) 'Open connection'
-            Dim strQuery As String = "UPDATE `info`.`users` SET `objekt`='" + objekt + "', `tvrtka`='" + tvrtka + "', `defaultProg`='" + defaultProg + "', `godina`='" + godina + "', `lozinka`='" + lozinka + "', `username`='" + korisnicko + "', `tip_korisnika`='" + tip + "', `email`='" + email + "', `telefon`='" + telefon + "', `ime`='" + ime + "', `prezime`='" + prezime + "'  WHERE `iduser`='" + user + "';"
-            Console.Write(strQuery)
-            Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
-            SqlCmd.ExecuteNonQuery()
+            If var = "korisnik" Then
+                strQuery = "UPDATE `info`.`users` SET `objekt`='" + objekt + "', `tvrtka`='" + tvrtka + "', `defaultProg`='" + defaultProg + "', `godina`='" + godina + "', `lozinka`='" + lozinka + "', `username`='" + korisnicko + "', `tip_korisnika`='" + tip + "', `email`='" + email + "', `telefon`='" + telefon + "', `ime`='" + ime + "', `prezime`='" + prezime + "'  WHERE `iduser`='" + user + "';"
+                Console.Write(strQuery)
+            ElseIf var = "racunalo" Then
+                strQuery = "UPDATE `info`.`instalacije` SET `instalacije_tvrtka`='" + tvrtka + "', `instalacije_aktivnost`='1', `instalacije_login`='0', `instalacije_preset`='2', `instalacija_postavke`='2', `instalacije_objekt`='" + objekt + "', `opcijeMP`='2', `opcijeVP`='2', `OpcijeUG`='2', `OpcijeFK`='2', `defaultProg`='" + +defaultProg + "', `godina`='" + godina + "' WHERE `instalacije_hwid`='" + user + "';"
+                Console.Write(strQuery)
+            End If
 
-            ManageConnection(True, konekcija) 'Close connection'
+            'Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
+            'SqlCmd.ExecuteNonQuery()
+
+            'ManageConnection(True, konekcija) 'Close connection'
 
         Catch ex As Exception
             Return False

@@ -54,7 +54,6 @@ Public Class mpBc
             ComboBoxItem.Tag = item.idDokumenta
             ComboBoxItem.ToolTip = item.dokmnoz
             tipoviDokumenataCbox.Items.Add(ComboBoxItem)
-
         Next
         Return True
     End Function

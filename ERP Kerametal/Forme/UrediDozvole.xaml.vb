@@ -209,13 +209,22 @@ Public Class UrediDozvole
                     If mysqlinfo.provjeriOpcijeObjekta(var, korisnici.SelectedItem.tag, tvrtke.SelectedItem.tag, godine.SelectedItem.tag, programi.SelectedItem.tag, objekti.SelectedItem.tag) = True Then
                         If opcija = "defaults" Then
                             Try
-                                'populateObjekti(tvrtke.SelectedItem.tag, False)
-                                If mysqlinfo.setKorisnikPocetnePostavke(objekti.SelectedItem.tag, tvrtke.SelectedItem.tag, programi.SelectedItem.tag, godine.SelectedItem.tag, korisnici.SelectedItem.tag, lozinka.Text, korisnicko.Text, tip.SelectedItem.tag, email.Text, telefon.Text, ime.Text, prezime.Text) = True Then
-                                    MessageBox.Show("Postavke su uspješno primjenjene.")
-                                Else
-                                    MessageBox.Show("Greška u postavkama.")
-                                    'refreshPostavke()
+                                If var = "racunalo" Then
+                                    If mysqlinfo.setKorisnikPocetnePostavke(objekti.SelectedItem.tag, tvrtke.SelectedItem.tag, programi.SelectedItem.tag, godine.SelectedItem.tag, korisnici.SelectedItem.tag, "1", "1", "1", "1", "1", "1", "1", var) = True Then
+                                        MessageBox.Show("Postavke su uspješno primjenjene.")
+                                    Else
+                                        MessageBox.Show("Greška u postavkama.")
+                                        'refreshPostavke()
+                                    End If
+                                ElseIf var = "korisnik" Then
+                                    If mysqlinfo.setKorisnikPocetnePostavke(objekti.SelectedItem.tag, tvrtke.SelectedItem.tag, programi.SelectedItem.tag, godine.SelectedItem.tag, korisnici.SelectedItem.tag, lozinka.Text, korisnicko.Text, tip.SelectedItem.tag, email.Text, telefon.Text, ime.Text, prezime.Text, var) = True Then
+                                        MessageBox.Show("Postavke su uspješno primjenjene.")
+                                    Else
+                                        MessageBox.Show("Greška u postavkama.")
+                                        'refreshPostavke()
+                                    End If
                                 End If
+
                             Catch ex As Exception
                                 MessageBox.Show(ex.ToString)
                             End Try
