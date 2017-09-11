@@ -28,21 +28,26 @@ Public Class mpBc
     Private sum As Decimal
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
-        pripremiSucelje()
-        AddHandler objTimer.Elapsed, AddressOf Window_TimerElapsed
-        objTimer.AutoReset = False
-        objTimer.Enabled = True
-        popuniVrsteDokumenata()
-        tipoviDokumenataCbox.SelectedIndex = 0
-        popuniDokumente(tipoviDokumenataCbox.SelectedItem.tag)
-        brojeviDokumenataCbox.SelectedIndex = 0
-        prodaja()
-        'pripremi racun grid pokazuje grid za kreiranje novog računa
-        pripremiRacunGrid()
-        mogFaktVP.IsChecked = False
-        alter1.IsEnabled = False
-        mysql.getFiscalPostavke()
-        ocistiPrikaz()
+        Try
+            pripremiSucelje()
+            AddHandler objTimer.Elapsed, AddressOf Window_TimerElapsed
+            objTimer.AutoReset = False
+            objTimer.Enabled = True
+            popuniVrsteDokumenata()
+            tipoviDokumenataCbox.SelectedIndex = 0
+            popuniDokumente(tipoviDokumenataCbox.SelectedItem.tag)
+            brojeviDokumenataCbox.SelectedIndex = 0
+            prodaja()
+            'pripremi racun grid pokazuje grid za kreiranje novog računa
+            pripremiRacunGrid()
+            mogFaktVP.IsChecked = False
+            alter1.IsEnabled = False
+            mysql.getFiscalPostavke()
+            ocistiPrikaz()
+        Catch ex As Exception
+
+        End Try
+
     End Sub
     Public Function popuniVrsteDokumenata()
         'Dodaj iteme
@@ -319,7 +324,7 @@ Public Class mpBc
     Public Sub MySearchMethod()
 
         Dim filterValue As String = textBox.Text
-        Console.WriteLine(filterValue + "-" + Globals.pretraga)
+        'Console.WriteLine(filterValue + "-" + Globals.pretraga)
         If Globals.pretraga = "sifra" Then
             gridArtikli.Columns("naziv").AutoFilterValue = ""
             gridArtikli.Columns("sifra").AutoFilterValue = filterValue
@@ -684,7 +689,7 @@ Public Class mpBc
         Dim div As HtmlNode = doc.DocumentNode.SelectSingleNode("//div[@class='sfe-break-top']")
         'if the div is found, print the inner text'
         If Not div Is Nothing Then
-            Console.WriteLine(div.InnerText.Trim())
+            'Console.WriteLine(div.InnerText.Trim())
         End If
 
     End Sub

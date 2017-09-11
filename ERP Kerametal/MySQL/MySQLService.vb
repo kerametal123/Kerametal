@@ -136,7 +136,7 @@ Public Class MySQLService
             ' MessageBox.Show(Err.Description, "MySQL Server Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             'Me.Close()
         End Try
-        Console.Write(status)
+        'Console.Write(status)
         Return True
     End Function
 End Class

@@ -12,10 +12,10 @@ Public Class MySQLcompany
             If CloseConnection = False Then
                 If dbCon.State = ConnectionState.Closed Then _
                         dbCon.Open()
-                'Console.WriteLine(konekcija)
+                ''Console.WriteLine(konekcija)
             Else
                 dbCon.Close()
-                Console.WriteLine("Zatvaram konekciju -----------------------------------")
+                'Console.WriteLine("Zatvaram konekciju -----------------------------------")
                 MySqlConnection.ClearAllPools()
             End If
         Catch ex As Exception
@@ -29,7 +29,7 @@ Public Class MySQLcompany
             If CloseConnection = False Then
                 If dbCon.State = ConnectionState.Closed Then _
                         dbCon.Open()
-                ' Console.WriteLine(conn)
+                ' 'Console.WriteLine(conn)
             Else
                 dbCon.Close()
             End If
@@ -54,7 +54,7 @@ Public Class MySQLcompany
             End If
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija)
         End Try
@@ -77,7 +77,7 @@ Public Class MySQLcompany
             'Vraća podatke u Listi stringova
             Return result
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
             Return Nothing
         Finally
             ManageConnection(True, konekcija)
@@ -100,7 +100,7 @@ Public Class MySQLcompany
             'Vraća podatke u Listi stringova
             Return result
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
             Return Nothing
         Finally
             ManageConnection(True, konekcija)
@@ -174,7 +174,7 @@ Public Class MySQLcompany
             End While
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija) 'Close connection
         End Try
@@ -206,7 +206,7 @@ Public Class MySQLcompany
             End While
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija) 'Close connection
         End Try
@@ -226,7 +226,7 @@ Public Class MySQLcompany
             End While
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija) 'Close connection
         End Try
@@ -236,7 +236,7 @@ Public Class MySQLcompany
         Dim result = New List(Of ReturnList)
         Try
             Dim strQuery As String = "SELECT naziv, sifra, mnoz FROM " + Globals.dabase + ".tipovidokumenata where tip = 'prod';"
-            Console.WriteLine(strQuery)
+            'Console.WriteLine(strQuery)
             ManageConnection(False, konekcija) 'Open connection'
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
@@ -249,7 +249,7 @@ Public Class MySQLcompany
             End While
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija) 'Close connection
         End Try
@@ -259,7 +259,7 @@ Public Class MySQLcompany
         Dim result = New List(Of ReturnList)
         Try
             Dim strQuery As String = "SELECT broj FROM " + Globals.dabase + ".dok_zag_d where tip = '" + tip + "' and god = '" + Globals.aktivnaGodina + "' and objekt= '" + Globals.objekt + "' and zak='0' ORDER BY broj DESC limit 0, 100"
-            Console.WriteLine(strQuery)
+            'Console.WriteLine(strQuery)
             ManageConnection(False, konekcija) 'Open connection'
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
@@ -270,7 +270,7 @@ Public Class MySQLcompany
             End While
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija) 'Close connection
         End Try
@@ -291,7 +291,7 @@ Public Class MySQLcompany
             End While
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija) 'Close connection
         End Try
@@ -312,7 +312,7 @@ Public Class MySQLcompany
             End While
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija) 'Close connection
         End Try
@@ -336,7 +336,7 @@ Public Class MySQLcompany
             End While
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija) 'Close connection
         End Try
@@ -359,7 +359,7 @@ Public Class MySQLcompany
             End While
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija) 'Close connection
         End Try
@@ -368,7 +368,7 @@ Public Class MySQLcompany
     'Stavke dokumenta
     Public Function getStavkeDokumenta(ByVal tip As String, ByVal broj As String)
         Dim query1 As String = "SELECT * FROM " + Globals.dabase + ".dok_sta_d where tip = '" + tip + "' and god = '" + Globals.aktivnaGodina + "' and objekt='" + Globals.objekt + "' and broj = '" + broj + "'"
-        Console.Write(query1)
+        'Console.Write(query1)
         Dim table As New DataTable
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query1, connection)
@@ -411,7 +411,7 @@ Public Class MySQLcompany
             End While
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija) 'Close connection
         End Try
@@ -432,7 +432,7 @@ Public Class MySQLcompany
             End While
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija) 'Close connection
         End Try
@@ -459,7 +459,7 @@ Public Class MySQLcompany
             End While
             reader.Close()
         Catch ex As MySqlException
-            Console.WriteLine("Error: " & ex.ToString())
+            'Console.WriteLine("Error: " & ex.ToString())
         Finally
             ManageConnection(True, konekcija) 'Close connection
         End Try
@@ -560,7 +560,7 @@ Public Class MySQLcompany
             ManageConnection(False, konekcija) 'Open connection'
             Globals.random = Globals.randomize
             Dim strQuery As String = "INSERT INTO `kerametal`.`dok_zag_d` (`zak`, `dat_z`, `tip`, `broj`, `god`, `objekt`, `kasa`, `dat`, `partner`, `ime1`, `ime2`, `dani`, `prodavac`, `smjena`, `napomena`, `got`, `kar`, `ost`, `zir`, `interno`, `ostalo`, `izvoz`, `obveznik`, `entitet`, `pb`, `kif`, `print`, `valuta`, `tecaj`, `terminal`, `fiscal`, `fiscal1`, `ibk`, `ime3`, `ident`) VALUES ('0','" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "', '12', '1557', '2016', '21', '1', '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "', '0', '0', '0', '0', '0', '0', ' ', '7.7', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2', '0', '0', 'TRGOVINA-PC', '11377', '0', '0', 'nomeee', '');"
-            Console.WriteLine("Kpr " + strQuery)
+            'Console.WriteLine("Kpr " + strQuery)
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             SqlCmd.ExecuteNonQuery()
 
@@ -600,7 +600,7 @@ Public Class MySQLcompany
             ManageConnection(False, konekcija) 'Open connection'
             Globals.random = Globals.randomize
             Dim strQuery As String = "INSERT INTO `kerametal`.`grupeartikala` (`ime`) VALUES ('" + ime + "');"
-            Console.WriteLine("Kpr " + strQuery)
+            'Console.WriteLine("Kpr " + strQuery)
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             SqlCmd.ExecuteNonQuery()
 

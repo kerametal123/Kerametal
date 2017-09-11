@@ -348,7 +348,7 @@ Class MainWindow
     End Function
     Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
         For Each itemlink As BarCheckItem In Program.Items
-            Console.WriteLine(itemlink.Name)
+            'Console.WriteLine(itemlink.Name)
         Next
     End Sub
 

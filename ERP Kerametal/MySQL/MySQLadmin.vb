@@ -12,7 +12,7 @@ Public Class MySQLadmin
             If CloseConnection = False Then
                 If dbCon.State = ConnectionState.Closed Then _
                         dbCon.Open()
-                Console.WriteLine(konekcija)
+                'Console.WriteLine(konekcija)
             Else
                 dbCon.Close()
             End If

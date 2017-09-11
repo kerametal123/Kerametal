@@ -66,7 +66,7 @@ Public Class korisnici
     '    For Each row As DataRow In t.Rows
     '        Dim s2 As String = StrConv(row("ime"), VbStrConv.ProperCase)
     '        mysqlcompany.updateGrupe(row("idgrupeArtikala"), row("ime"))
-    '        Console.WriteLine(row("ime"))
+    '        'Console.WriteLine(row("ime"))
     '    Next row
     'End Sub
 End Class

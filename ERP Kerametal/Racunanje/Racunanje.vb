@@ -15,7 +15,7 @@ Public Class Racunanje
     End Function
     Public Function pretvoriTocke(ByVal sirovo As String)
         Dim value1 As String = sirovo
-        Console.WriteLine(value1)
+        'Console.WriteLine(value1)
 
         ' Replace every instance of the string.
         Dim value2 As String = value1.Replace(",", ".")

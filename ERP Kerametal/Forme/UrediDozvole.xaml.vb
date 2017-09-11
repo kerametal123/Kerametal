@@ -8,6 +8,8 @@ Public Class UrediDozvole
     Dim info As String
     Dim opcija As String
     Dim var As String
+    Dim aktivnost As String
+    Dim logiranje As String
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         rackor()
     End Sub
@@ -58,14 +60,31 @@ Public Class UrediDozvole
         Try
             Dim t As New System.Data.DataTable
             t = mysqlinfo.getKorisnik(korisnici.SelectedItem.tag)
-            korisnicko.Text = t.Rows(0)("username").ToString()
-            lozinka.Text = t.Rows(0)("lozinka").ToString()
-            ime.Text = t.Rows(0)("ime").ToString()
-            prezime.Text = t.Rows(0)("prezime").ToString()
-            email.Text = t.Rows(0)("email").ToString()
-            telefon.Text = t.Rows(0)("telefon").ToString()
-            'Uid.Content = t.Rows(0)("iduser").ToString()
-            tip.SelectedIndex = t.Rows(0)("tip_korisnika").ToString() - 1
+            If Globals.tipKorisnika = "korisnik" Then
+                korisnicko.Text = t.Rows(0)("username").ToString()
+                lozinka.Text = t.Rows(0)("lozinka").ToString()
+                ime.Text = t.Rows(0)("ime").ToString()
+                prezime.Text = t.Rows(0)("prezime").ToString()
+                email.Text = t.Rows(0)("email").ToString()
+                telefon.Text = t.Rows(0)("telefon").ToString()
+                'Uid.Content = t.Rows(0)("iduser").ToString()
+                tip.SelectedIndex = t.Rows(0)("tip_korisnika").ToString() - 1
+            ElseIf Globals.tipKorisnika = "racunalo" Then
+                ime_Copy.Text = t.Rows(0)("instalacije_naziv").ToString()
+                If t.Rows(0)("instalacije_aktivnost").ToString() = "1" Then
+                    checkBox1.IsChecked = True
+                ElseIf t.Rows(0)("instalacije_aktivnost").ToString() = "0" Then
+                    checkBox1.IsChecked = False
+                End If
+                If t.Rows(0)("instalacije_login").ToString() = "1" Then
+                    checkBox1_Copy.IsChecked = True
+                ElseIf t.Rows(0)("instalacije_login").ToString() = "0" Then
+                    checkBox1_Copy.IsChecked = False
+                End If
+
+
+            End If
+
         Catch ex As Exception
 
         End Try
@@ -203,6 +222,17 @@ Public Class UrediDozvole
     End Sub
 
     Private Sub primjeniBtn_Click(sender As Object, e As RoutedEventArgs) Handles primjeniBtn.Click
+
+        If checkBox1.IsChecked = True Then
+            aktivnost = "1"
+        ElseIf checkBox1.IsChecked = False Then
+            aktivnost = "0"
+        End If
+        If checkBox1_Copy.IsChecked = True Then
+            logiranje = "1"
+        ElseIf checkBox1_Copy.IsChecked = False Then
+            logiranje = "0"
+        End If
         If mysqlinfo.provjeriOpcijeTvrtke(var, korisnici.SelectedItem.tag, tvrtke.SelectedItem.tag, godine.SelectedItem.tag, programi.SelectedItem.tag, objekti.SelectedItem.tag) = True Then
             If mysqlinfo.provjeriOpcijeGodine(var, korisnici.SelectedItem.tag, tvrtke.SelectedItem.tag, godine.SelectedItem.tag, programi.SelectedItem.tag, objekti.SelectedItem.tag) = True Then
                 If mysqlinfo.provjeriOpcijePrograma(var, korisnici.SelectedItem.tag, tvrtke.SelectedItem.tag, godine.SelectedItem.tag, programi.SelectedItem.tag, objekti.SelectedItem.tag) = True Then
@@ -210,7 +240,8 @@ Public Class UrediDozvole
                         If opcija = "defaults" Then
                             Try
                                 If var = "racunalo" Then
-                                    If mysqlinfo.setKorisnikPocetnePostavke(objekti.SelectedItem.tag, tvrtke.SelectedItem.tag, programi.SelectedItem.tag, godine.SelectedItem.tag, korisnici.SelectedItem.tag, "1", "1", "1", "1", "1", "1", "1", var) = True Then
+
+                                    If mysqlinfo.setKorisnikPocetnePostavke(objekti.SelectedItem.tag, tvrtke.SelectedItem.tag, programi.SelectedItem.tag, godine.SelectedItem.tag, korisnici.SelectedItem.tag, aktivnost, logiranje, ime_Copy.Text, "1", "1", "1", "1", var) = True Then
                                         MessageBox.Show("Postavke su uspješno primjenjene.")
                                     Else
                                         MessageBox.Show("Greška u postavkama.")
@@ -234,7 +265,7 @@ Public Class UrediDozvole
                         End If
                     End If
                 End If
-                End If
+            End If
         End If
 
     End Sub
@@ -296,6 +327,7 @@ Public Class UrediDozvole
     '    Next row
     'End Function
     Public Function getDefaults()
+
         Dim t As New System.Data.DataTable
         t = mysqlinfo.getDefaults(korisnici.SelectedItem.tag)
         For Each row As DataRow In t.Rows
@@ -329,10 +361,6 @@ Public Class UrediDozvole
         Next
         Return True
     End Function
-
-
-
-
     Public Function refreshPostavke()
         Try
             populateTvrtke(False)
@@ -433,18 +461,13 @@ Public Class UrediDozvole
                 status.Content = ""
                 For Each row As DataRow In t.Rows
                     nazivOpcije.Text = row("naziv")
-
                 Next row
             Else
                 templateBtn.Visibility = Visibility.Visible
                 status.Content = "Odabrani korisnik nema postavke za odabranu kombinaciju."
             End If
-
-
         Catch ex As Exception
-
         End Try
-
     End Function
     Private Sub programi_DropDownClosed(sender As Object, e As EventArgs) Handles programi.DropDownClosed
         Try
@@ -459,7 +482,6 @@ Public Class UrediDozvole
                 objekti.Items.Add(BarCheckItem)
             Next row
         Catch ex As Exception
-
         End Try
         getOpcijeInfo()
         populateMenu()
@@ -472,22 +494,21 @@ Public Class UrediDozvole
         populateMenu()
         getOpcijeInfo()
     End Sub
-    'Private Sub sviProgrami_DropDownClosed(sender As Object, e As EventArgs) Handles sviProgrami.DropDownClosed
-
-    'End Sub
     Public Function populateMenu()
-        Dim defs As String
         Try
             conMenu.Items.Clear()
+            Dim opnr As Int32 = 0
+            Dim finalnr As Int32
             For Each item In mysqlinfo.getDetaljnoOpcije(korisnici.SelectedItem.tag, tvrtke.SelectedItem.tag, godine.SelectedItem.tag, objekti.SelectedItem.tag, mysqlinfo.getTabelaPrograma(programi.SelectedItem.tag))
-
+                Console.WriteLine(finalnr)
                 Dim s As String = item
                 Dim parts As String() = s.Split(New Char() {","c})
                 Dim icona As String = parts(1)
+                Dim defs As String = parts(0)
                 Dim barmanager1 As New BarManager
                 Dim TileBarItem = New DevExpress.Xpf.Navigation.TileBarItem()
                 TileBarItem.Content = parts(3)
-                defs = parts(0).ToString
+                'defs = parts(0).ToString
                 'TileBarItem.AllowGlyphTheming = True
                 'BarButtonItem.Name = parts(3)
                 If parts(0) = 1 Then
@@ -497,7 +518,6 @@ Public Class UrediDozvole
                 ElseIf parts(0) = 3 Then
                 ElseIf parts(0) = 4 Then
                 ElseIf parts(0) = 8 Then
-
                 End If
                 Icon = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icona + ""))
                 TileBarItem.TileGlyph = Icon
@@ -509,11 +529,10 @@ Public Class UrediDozvole
             Next
             ' MessageBox.Show((mysqlinfo.getTabelaPrograma(programi.SelectedItem.tag)))
         Catch ex As Exception
-
         End Try
     End Function
     Public Function makeMenuBtn(ByVal content As String, ByVal icon As String, ByVal defs As String)
-        btnContent.Text = content + defs.ToString
+        btnContent.Text = content
         simpleButton.Glyph = New BitmapImage(New Uri("pack://application:,,,/DevExpress.Images.v16.1;component/Images/" + icon + ""))
         If defs = "8" Then
             setup.IsChecked = True
@@ -525,12 +544,6 @@ Public Class UrediDozvole
     Private Sub binovo_CheckedChanged(sender As Object, e As ItemClickEventArgs) Handles bidefaults.CheckedChanged
         checkovi()
     End Sub
-
-    'Private Sub simpleButton_Copy_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton_Copy.Click
-
-
-    'End Sub
-
     Public Function checkovi()
         If bidefaults.IsChecked = True Then
             pocetnePostavke()
@@ -586,19 +599,27 @@ Public Class UrediDozvole
     End Sub
     Public Function rackor()
         If rracunala.IsChecked = True Then
+            'Kontrole
+            racunalogrid.IsEnabled = True
+            korisnikgrid.IsEnabled = False
             populateKorisnici(False)
             bidefaults.IsChecked = True
             opcija = "defaults"
             var = "racunalo"
+            Globals.tipKorisnika = "racunalo"
             checkovi()
             ocisti()
             pripremiTipove()
             ' pripremiPostavke()
         ElseIf rkorisnici.IsChecked = True Then
+            'Kontrole
+            racunalogrid.IsEnabled = False
+            korisnikgrid.IsEnabled = True
             populateKorisnici(False)
             bidefaults.IsChecked = True
             opcija = "defaults"
             var = "korisnik"
+            Globals.tipKorisnika = "korisnik"
             checkovi()
             ocisti()
             pripremiTipove()
@@ -607,20 +628,29 @@ Public Class UrediDozvole
 
     End Function
     Private Sub rracunala_Click(sender As Object, e As RoutedEventArgs) Handles rracunala.Click
-
         rackor()
-
     End Sub
-
     Private Sub rkorisnici_Click(sender As Object, e As RoutedEventArgs) Handles rkorisnici.Click
         rackor()
     End Sub
-
     Private Sub TileBarItem_Click_1(sender As Object, e As EventArgs)
 
     End Sub
 
     Private Sub simpleButton_Click(sender As Object, e As RoutedEventArgs) Handles simpleButton.Click
+
+    End Sub
+
+    Private Sub current_ItemClick(sender As Object, e As ItemClickEventArgs) Handles current.ItemClick
+
+    End Sub
+
+    Private Sub ime_TextChanged(sender As Object, e As TextChangedEventArgs) Handles ime.TextChanged
+
+    End Sub
+
+    Private Sub button_Click(sender As Object, e As RoutedEventArgs) Handles button.Click
+        'Update Opcije po kolumni
 
     End Sub
 End Class

@@ -31,12 +31,13 @@
                         <dxr:RibbonPageGroup Caption="Osnovno">
                             <dxb:BarCheckItem  x:Name="bidefaults" GroupIndex="1" Content="Uređivanje početnih postavki" Glyph="{dx:DXImage Image=EditName_16x16.png}" LargeGlyph="{dx:DXImage Image=EditName_32x32.png}"/>
                             <dxb:BarCheckItem x:Name="binew" GroupIndex="1" Content="Uređivanje opcija programa" Glyph="{dx:DXImage Image=Customization_16x16.png}" LargeGlyph="{dx:DXImage Image=Customization_32x32.png}"/>
-                 
+                            <dxb:BarButtonItem x:Name="current" Content="Za trenutno računalo" Glyph="{dx:DXImage Image=New_16x16.png}" LargeGlyph="{dx:DXImage Image=OperatingSystem_32x32.png}"/>
+
                         </dxr:RibbonPageGroup>
-                        
+
                     </dxr:RibbonPage>
                 </dxr:RibbonDefaultPageCategory>
-               
+
             </dxr:RibbonControl>
             <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
                 <dxr:RibbonStatusBarControl.LeftItems>
@@ -63,7 +64,7 @@
                 <dx:SimpleButton x:Name="primjeniBtn" Glyph="{dx:DXImage Image=Refresh_16x16.png}" Content="Primjeni" Height="22" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="106"/>
                 <ComboBox x:Name="programi" SelectedValuePath="Tag" HorizontalAlignment="Left" Margin="822,10,0,0" VerticalAlignment="Top" Width="130"/>
                 <Label x:Name="label_Copy5" Content="Program" HorizontalAlignment="Left" Margin="771,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.529,0.455"/>
-                <Grid x:Name="dodatno" Margin="10,134,10,10">
+                <Grid x:Name="dodatno" Margin="10,163,10,-19">
                     <Rectangle Fill="#FFF4F4F5" Height="2" Margin="0,31,0,0" Stroke="Black" VerticalAlignment="Top"/>
                     <dx:SimpleButton   Glyph="{dx:DXImage Image=Edit_16x16.png}" x:Name="templateBtn"  HorizontalAlignment="Left" Height="22" Margin="10,4,0,0" VerticalAlignment="Top" Width="260" Content="Primjeni neku od postojećih opcija"/>
                     <TextBox x:Name="nazivOpcije" Height="23" Margin="0,3,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Right" Width="154"/>
@@ -92,27 +93,37 @@
                         <TextBox x:Name="btnContent" HorizontalAlignment="Left" Height="23" Margin="85,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="215"/>
                         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="139,37,0,0" VerticalAlignment="Top" Width="161"/>
                         <dx:SimpleButton x:Name="simpleButton" Content="" HorizontalAlignment="Left" Height="49" Margin="305,10,0,0" VerticalAlignment="Top" Width="60"/>
-                        <CheckBox x:Name="setup" Content="Početna" HorizontalAlignment="Left" Margin="370,21,0,0" VerticalAlignment="Top"/>
+                        <CheckBox x:Name="setup" Content="Početna" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top"/>
+                        <Button x:Name="button" Content="Spremi" HorizontalAlignment="Left" Margin="370,11,0,0" VerticalAlignment="Top" Width="75" Height="66"/>
                     </Grid>
                 </Grid>
                 <RadioButton x:Name="rkorisnici"  Content="Korisnici" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
                 <RadioButton x:Name="rracunala" Content="Računala" HorizontalAlignment="Left" Margin="77,10,0,0" VerticalAlignment="Top"/>
                 <GridSplitter x:Name="gridSplitter" HorizontalAlignment="Left" Height="56" Margin="148,0,0,0" VerticalAlignment="Top" Width="22"/>
-                <Label x:Name="label" Content="Ime i prezime:" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="ime" HorizontalAlignment="Left" Height="23" Margin="87,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
-                <TextBox x:Name="prezime" HorizontalAlignment="Left" Height="23" Margin="247,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
-                <Label x:Name="label_Copy1" Content="Telefon:" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
-                <Label x:Name="label_Copy2" Content="E-Mail:" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="telefon" HorizontalAlignment="Left" Height="23" Margin="56,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
-                <TextBox x:Name="email" HorizontalAlignment="Left" Height="23" Margin="56,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
                 <Label x:Name="label_Copy7" HorizontalAlignment="Left" Margin="426,118,0,0" VerticalAlignment="Top"/>
-                <Label x:Name="label_Copy" Content="Korisničko ime:" HorizontalAlignment="Left" Margin="407,44,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="korisnicko" HorizontalAlignment="Left" Height="23" Margin="492,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label x:Name="label_Copy12" Content="Lozinka:" HorizontalAlignment="Left" Margin="407,71,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="lozinka" HorizontalAlignment="Left" Height="23" Margin="492,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <ComboBox x:Name="tip" HorizontalAlignment="Left" Margin="492,100,0,0" VerticalAlignment="Top" Width="120"/>
-                <Label x:Name="label_Copy9" Content="Tip:" HorizontalAlignment="Left" Margin="407,98,0,0" VerticalAlignment="Top"/>
-                <Rectangle Fill="#FFF4F4F5" Height="1" Margin="10,128,0,0" Stroke="Black" VerticalAlignment="Top"/>
+                <Rectangle Fill="#FFF4F4F5" Height="1" Margin="10,157,0,0" Stroke="Black" VerticalAlignment="Top"/>
+                <Grid x:Name="korisnikgrid" Height="108" Margin="10,44,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="621">
+                    <Label x:Name="imeracprez" Content="Ime i prezime:" HorizontalAlignment="Left" Margin="3,0,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="ime" HorizontalAlignment="Left" Height="23" Margin="82,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+                    <TextBox x:Name="prezime" HorizontalAlignment="Left" Height="23" Margin="242,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+                    <Label x:Name="label_Copy1" Content="Telefon:" HorizontalAlignment="Left" Margin="0,29,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label_Copy2" Content="E-Mail:" HorizontalAlignment="Left" Margin="3,57,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="telefon" HorizontalAlignment="Left" Height="23" Margin="82,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+                    <TextBox x:Name="email" HorizontalAlignment="Left" Height="23" Margin="82,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+                    <Label x:Name="label_Copy" Content="Korisničko ime:" HorizontalAlignment="Left" Margin="402,0,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="korisnicko" HorizontalAlignment="Left" Height="23" Margin="487,-1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label x:Name="label_Copy12" Content="Lozinka:" HorizontalAlignment="Left" Margin="402,27,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="lozinka" HorizontalAlignment="Left" Height="23" Margin="487,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox x:Name="tip" HorizontalAlignment="Left" Margin="487,55,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Label x:Name="label_Copy9" Content="Tip korisnika:" HorizontalAlignment="Left" Margin="402,54,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBox" Content="Aktivnost" HorizontalAlignment="Left" Margin="487,82,0,0" VerticalAlignment="Top"/>
+                </Grid>
+                <Grid x:Name="racunalogrid" HorizontalAlignment="Left" Height="108" Margin="636,44,0,0" VerticalAlignment="Top" Width="820">
+                    <Label x:Name="imeracprez_Copy" Content="Ime instalacije:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="ime_Copy" HorizontalAlignment="Left" Height="23" Margin="92,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+                    <CheckBox x:Name="checkBox1" Content="Aktivnost" HorizontalAlignment="Left" Margin="10,28,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBox1_Copy" Content="Logiranje" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top"/>
+                </Grid>
             </Grid>
         </DockPanel>
 
