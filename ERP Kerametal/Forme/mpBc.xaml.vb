@@ -23,7 +23,7 @@ Public Class mpBc
     Private mint_LastReceivedTimerID As Integer = 0
     Private mint_LastInitializedTimerID As Integer = 0
     Public Overridable Property AutoFilterCondition As AutoFilterCondition
-    Dim intMilliseconds As Integer = 50000000
+    Dim intMilliseconds As Integer = 5000
     Dim objTimer As New System.Timers.Timer(intMilliseconds)
     Private sum As Decimal
 

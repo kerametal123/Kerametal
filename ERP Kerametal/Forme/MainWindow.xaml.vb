@@ -311,6 +311,7 @@ Class MainWindow
     End Sub
 
     Private Sub button_Click_1(sender As Object, e As RoutedEventArgs) Handles button.Click
+
         runapp()
     End Sub
 
@@ -385,5 +386,9 @@ Class MainWindow
         Dim admin As New UrediDozvole()
         ' Open your page
         admin.Show()
+    End Sub
+
+    Private Sub button1_Click(sender As Object, e As RoutedEventArgs) Handles button1.Click
+        Globals.login = True
     End Sub
 End Class

@@ -94,6 +94,7 @@
                 <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="10,0,0,10" Width="76" Height="22" VerticalAlignment="Bottom"/>
                 <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Margin="90,0,0,10" Height="22" VerticalAlignment="Bottom"/>
                 <dxnav:TileBar x:Name="tileBar" Margin="0,0,20,0"  Orientation="Horizontal" Height="114" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="11,845,0,0" VerticalAlignment="Top" Width="75"/>
 
             </Grid>
         </DockPanel>
