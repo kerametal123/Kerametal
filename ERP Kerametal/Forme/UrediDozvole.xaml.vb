@@ -222,7 +222,6 @@ Public Class UrediDozvole
     End Sub
 
     Private Sub primjeniBtn_Click(sender As Object, e As RoutedEventArgs) Handles primjeniBtn.Click
-
         If checkBox1.IsChecked = True Then
             aktivnost = "1"
         ElseIf checkBox1.IsChecked = False Then
@@ -240,7 +239,6 @@ Public Class UrediDozvole
                         If opcija = "defaults" Then
                             Try
                                 If var = "racunalo" Then
-
                                     If mysqlinfo.setKorisnikPocetnePostavke(objekti.SelectedItem.tag, tvrtke.SelectedItem.tag, programi.SelectedItem.tag, godine.SelectedItem.tag, korisnici.SelectedItem.tag, aktivnost, logiranje, ime_Copy.Text, "1", "1", "1", "1", var) = True Then
                                         MessageBox.Show("Postavke su uspješno primjenjene.")
                                     Else
@@ -255,11 +253,9 @@ Public Class UrediDozvole
                                         'refreshPostavke()
                                     End If
                                 End If
-
                             Catch ex As Exception
                                 MessageBox.Show(ex.ToString)
                             End Try
-
                         ElseIf opcija = "novo" Then
                             MessageBox.Show("spremljene nove opcije")
                         End If
@@ -267,7 +263,6 @@ Public Class UrediDozvole
                 End If
             End If
         End If
-
     End Sub
 
     Public Function getOpcije()
@@ -351,7 +346,6 @@ Public Class UrediDozvole
     End Sub
 
     Public Function pripremiTipove()
-
         tip.Items.Clear()
         For Each item As ReturnList In mysqlinfo.vratiTipoveKorisnika()
             Dim BarCheckItem = New ComboBoxItem()
@@ -404,12 +398,10 @@ Public Class UrediDozvole
             Next
             ' MessageBox.Show((mysqlinfo.getTabelaPrograma(programi.SelectedItem.tag)))
         Catch ex As Exception
-
         End Try
         getOpcijeInfo()
     End Function
     Public Function makemenubutton()
-
     End Function
     Private Sub TileBarItem_Click(sender As Object, e As EventArgs)
         Globals.logMaker("Glavni izbornik, Maloprodaja", sender)
@@ -496,21 +488,19 @@ Public Class UrediDozvole
     End Sub
     Public Function populateMenu()
         Try
+            Dim value As Integer
             conMenu.Items.Clear()
-            Dim opnr As Int32 = 0
-            Dim finalnr As Int32
+            Dim val As Integer = 0
             For Each item In mysqlinfo.getDetaljnoOpcije(korisnici.SelectedItem.tag, tvrtke.SelectedItem.tag, godine.SelectedItem.tag, objekti.SelectedItem.tag, mysqlinfo.getTabelaPrograma(programi.SelectedItem.tag))
-                Console.WriteLine(finalnr)
+
                 Dim s As String = item
                 Dim parts As String() = s.Split(New Char() {","c})
                 Dim icona As String = parts(1)
                 Dim defs As String = parts(0)
+
                 Dim barmanager1 As New BarManager
                 Dim TileBarItem = New DevExpress.Xpf.Navigation.TileBarItem()
                 TileBarItem.Content = parts(3)
-                'defs = parts(0).ToString
-                'TileBarItem.AllowGlyphTheming = True
-                'BarButtonItem.Name = parts(3)
                 If parts(0) = 1 Then
                     TileBarItem.Visibility = Visibility.Collapsed
                 ElseIf parts(0) = 2 Then
@@ -523,11 +513,13 @@ Public Class UrediDozvole
                 TileBarItem.TileGlyph = Icon
                 TileBarItem.Height = "80"
                 TileBarItem.Width = "100"
+                val += 1
+                Dim inf As Integer = val
                 AddHandler TileBarItem.Click, Function(sender, e) makeMenuBtn(TileBarItem.Content, icona, defs)
+
                 TileBarItem.Background = New SolidColorBrush(DirectCast(ColorConverter.ConvertFromString("#FF992F2F"), Color))
                 conMenu.Items.Add(TileBarItem)
             Next
-            ' MessageBox.Show((mysqlinfo.getTabelaPrograma(programi.SelectedItem.tag)))
         Catch ex As Exception
         End Try
     End Function
@@ -564,14 +556,11 @@ Public Class UrediDozvole
     Private Sub binew_CheckedChanged(sender As Object, e As ItemClickEventArgs) Handles binew.CheckedChanged
         checkovi()
     End Sub
-
     Private Sub godine_DropDownClosed(sender As Object, e As EventArgs) Handles godine.DropDownClosed
         If rkorisnici.IsChecked = True Then
             getOpcijeInfo()
         End If
-
     End Sub
-
     Private Sub templateBtn_Click(sender As Object, e As RoutedEventArgs) Handles templateBtn.Click
         If rkorisnici.IsChecked = True Then
             Dim imeopcije As String
@@ -580,7 +569,6 @@ Public Class UrediDozvole
             Else
                 imeopcije = nazivOpcije.Text
             End If
-
             Dim dialogBoxWithResult As New OdabirPostojeceOpcije(mysqlinfo.getTabelaPrograma(programi.SelectedItem.tag), tvrtke.SelectedItem.tag, godine.SelectedItem.tag, objekti.SelectedItem.tag, korisnici.SelectedItem.tag, imeopcije)
             ' Open dialog box and retrieve dialog result when ShowDialog returns
             Dim dialogResult? As Boolean = dialogBoxWithResult.ShowDialog()
@@ -594,7 +582,26 @@ Public Class UrediDozvole
                 Case Else
                     ' Indeterminate
             End Select
-
+        ElseIf rracunala.IsChecked = True Then
+            Dim imeopcije As String
+            If String.IsNullOrEmpty(nazivOpcije.Text) Then
+                imeopcije = korisnici.SelectedItem.tag + " " + programi.SelectedItem.Content
+            Else
+                imeopcije = nazivOpcije.Text
+            End If
+            Dim dialogBoxWithResult As New OdabirPostojeceOpcije(mysqlinfo.getTabelaPrograma(programi.SelectedItem.tag), tvrtke.SelectedItem.tag, godine.SelectedItem.tag, objekti.SelectedItem.tag, korisnici.SelectedItem.tag, imeopcije)
+            ' Open dialog box and retrieve dialog result when ShowDialog returns
+            Dim dialogResult? As Boolean = dialogBoxWithResult.ShowDialog()
+            Select Case dialogResult
+                Case True
+                    'MessageBox.Show(dialogBoxWithResult.opcija)
+                    refreshPostavke()
+                    populateMenu()
+                Case False
+                    ' User canceled dialog box
+                Case Else
+                    ' Indeterminate
+            End Select
         End If
     End Sub
     Public Function rackor()

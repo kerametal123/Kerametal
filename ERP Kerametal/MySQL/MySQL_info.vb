@@ -821,7 +821,6 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
         Return True
 
     End Function
-
     Public Function provjeriOpcijeObjekta(ByVal tip As String, ByVal id As String, ByVal tvrtka As String, ByVal godina As String, ByVal program As String, ByVal objekt As String)
         Dim var As String
         Dim strQuery As String
@@ -866,8 +865,6 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
         Return True
 
     End Function
-
-
     Public Function vratiKontrole()
         Dim query As String = "Select * FROM info.kontrole where hwid = '" + Globals.cpuid + "';"
         Dim table As New DataTable()
@@ -1044,7 +1041,6 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
         End Using
     End Function
     Public Function getTipPrograma(ByVal idprograma As String)
-
         Try
             ManageConnection(False, konekcija) 'Open connection'
             Dim strQuery As String = "SELECT vrstaPrograma FROM info.programi where idprogrami ='" + idprograma + "';"
@@ -1126,8 +1122,6 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
         ElseIf Globals.tipKorisnika = "racunalo" Then
             query1 = "SELECT instalacije_objekt as objekt, instalacije_tvrtka as tvrtka, instalacije_aktivnost as aktivnost, instalacije_login as login, instalacije_preset as preset, opcijeMP,opcijeVP,opcijeUG,opcijeFK, defaultProg, godina FROM info.instalacije where instalacije_hwid ='" + iduser + "';"
         End If
-
-
         Dim table As New DataTable
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query1, connection)
@@ -1138,9 +1132,14 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
     End Function
     Public Function getDetaljnoOpcije(ByVal iduser As String, ByVal tvrtka As String, ByVal godina As String, ByVal objekt As String, ByVal tabela As String)
         Dim result As New ArrayList
+        Dim strQuery As String
         Try
             ManageConnection(False, konekcija) 'Open connection
-            Dim strQuery As String = "SELECT op1,op2,op3,op4,op5,op6,op7,op8,op9,op10,op11,op12,op13,op14,op15 FROM " + tabela + "  where korisnik ='" + iduser + "' and tvrtka ='" + tvrtka + "' and godina ='" + godina + "' and objekt ='" + objekt + "';"
+            If Globals.tipKorisnika = "korisnik" Then
+                strQuery = "SELECT op1,op2,op3,op4,op5,op6,op7,op8,op9,op10,op11,op12,op13,op14,op15 FROM " + tabela + "  where korisnik ='" + iduser + "' and tvrtka ='" + tvrtka + "' and godina ='" + godina + "' and objekt ='" + objekt + "';"
+            ElseIf Globals.tipKorisnika = "racunalo" Then
+                strQuery = "SELECT op1,op2,op3,op4,op5,op6,op7,op8,op9,op10,op11,op12,op13,op14,op15 FROM " + tabela + "  where instalacija ='" + iduser + "' and tvrtka ='" + tvrtka + "' and godina ='" + godina + "' and objekt ='" + objekt + "';"
+            End If
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             Dim reader As MySqlDataReader = SqlCmd.ExecuteReader()
             While reader.Read()
@@ -1213,9 +1212,15 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
         End Try
         Return True
     End Function
+    Dim query1 As String
     Public Function getOpcije(ByVal iduser As String, ByVal tvrtka As String, ByVal godina As String, ByVal objekt As String, ByVal tabela As String)
-        Dim query1 As String
-        query1 = "SELECT * FROM " + tabela + "  where korisnik ='" + iduser + "' and tvrtka ='" + tvrtka + "' and godina ='" + godina + "' and objekt ='" + objekt + "';"
+
+        If Globals.tipKorisnika = "korisnik" Then
+            query1 = "SELECT * FROM " + tabela + "  where korisnik ='" + iduser + "' and tvrtka ='" + tvrtka + "' and godina ='" + godina + "' and objekt ='" + objekt + "';"
+        ElseIf Globals.tipKorisnika = "racunalo" Then
+            query1 = "SELECT * FROM " + tabela + "  where instalacija ='" + iduser + "' and tvrtka ='" + tvrtka + "' and godina ='" + godina + "' and objekt ='" + objekt + "';"
+            Console.Write(query1)
+        End If
         Dim table As New DataTable
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query1, connection)
@@ -1268,9 +1273,8 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
             SELECT " + tvrtka + "," + godina + "," + objekt + "," + uid + ",'" + name + "',`opc`,`op1`,`op2`,`op3`,`op4`,`op5`,`op6`,`op7`,`op8`,`op9`,`op10`,`op11`,`op12`,`op13`,`op14`,`op15`,`dat1`,`dat2`,`dat3`,`dat4`,`dat5`,`dat6`,`dat7`,`dat8`,`dat9`,`dat10`,`dat11`,`dat12`,`dat13`,`dat14`,`dat15`,`datoteke3`,`datoteke4`,`datoteke5`,`unosIspravkeMenu`,`blagProd`,`faktureMenu`,`printAfterMenu`,`blagProd1`,`faktureMenu1`,`otpremniceMenu1`,`mogFaktVp`,`brojila`,`otptofakt`,`skupniBtn`,`dofakturiranje`,`nedostatneKolicine`,`fiscalMenuBtn`,`nonfiscalMenuBtn`,`a4RacunBtn`,`ljetnoVrijemeBtn`,`zimskoVrijemeBtn`,`ulazNovcaBtn`,`izlazNovcaBtn` FROM " + tabela + " WHERE naziv = '" + idopcije + "';"
             ElseIf Globals.tipKorisnika = "racunalo" Then
                 strQuery = "INSERT INTO " + tabela + " (`tvrtka`,`godina`,`objekt`,`instalacija`,`naziv`,`opc`,`op1`,`op2`,`op3`,`op4`,`op5`,`op6`,`op7`,`op8`,`op9`,`op10`,`op11`,`op12`,`op13`,`op14`,`op15`,`dat1`,`dat2`,`dat3`,`dat4`,`dat5`,`dat6`,`dat7`,`dat8`,`dat9`,`dat10`,`dat11`,`dat12`,`dat13`,`dat14`,`dat15`,`datoteke3`,`datoteke4`,`datoteke5`,`unosIspravkeMenu`,`blagProd`,`faktureMenu`,`printAfterMenu`,`blagProd1`,`faktureMenu1`,`otpremniceMenu1`,`mogFaktVp`,`brojila`,`otptofakt`,`skupniBtn`,`dofakturiranje`,`nedostatneKolicine`,`fiscalMenuBtn`,`nonfiscalMenuBtn`,`a4RacunBtn`,`ljetnoVrijemeBtn`,`zimskoVrijemeBtn`,`ulazNovcaBtn`,`izlazNovcaBtn`)
-            SELECT " + tvrtka + "," + godina + "," + objekt + "," + uid + ",'" + name + "',`opc`,`op1`,`op2`,`op3`,`op4`,`op5`,`op6`,`op7`,`op8`,`op9`,`op10`,`op11`,`op12`,`op13`,`op14`,`op15`,`dat1`,`dat2`,`dat3`,`dat4`,`dat5`,`dat6`,`dat7`,`dat8`,`dat9`,`dat10`,`dat11`,`dat12`,`dat13`,`dat14`,`dat15`,`datoteke3`,`datoteke4`,`datoteke5`,`unosIspravkeMenu`,`blagProd`,`faktureMenu`,`printAfterMenu`,`blagProd1`,`faktureMenu1`,`otpremniceMenu1`,`mogFaktVp`,`brojila`,`otptofakt`,`skupniBtn`,`dofakturiranje`,`nedostatneKolicine`,`fiscalMenuBtn`,`nonfiscalMenuBtn`,`a4RacunBtn`,`ljetnoVrijemeBtn`,`zimskoVrijemeBtn`,`ulazNovcaBtn`,`izlazNovcaBtn` FROM " + tabela + " WHERE naziv = '" + idopcije + "';"
+            SELECT " + tvrtka + "," + godina + "," + objekt + ",'" + uid + "','" + name + "',`opc`,`op1`,`op2`,`op3`,`op4`,`op5`,`op6`,`op7`,`op8`,`op9`,`op10`,`op11`,`op12`,`op13`,`op14`,`op15`,`dat1`,`dat2`,`dat3`,`dat4`,`dat5`,`dat6`,`dat7`,`dat8`,`dat9`,`dat10`,`dat11`,`dat12`,`dat13`,`dat14`,`dat15`,`datoteke3`,`datoteke4`,`datoteke5`,`unosIspravkeMenu`,`blagProd`,`faktureMenu`,`printAfterMenu`,`blagProd1`,`faktureMenu1`,`otpremniceMenu1`,`mogFaktVp`,`brojila`,`otptofakt`,`skupniBtn`,`dofakturiranje`,`nedostatneKolicine`,`fiscalMenuBtn`,`nonfiscalMenuBtn`,`a4RacunBtn`,`ljetnoVrijemeBtn`,`zimskoVrijemeBtn`,`ulazNovcaBtn`,`izlazNovcaBtn` FROM " + tabela + " WHERE naziv = '" + idopcije + "';"
             End If
-            'Console.WriteLine(strQuery)
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             SqlCmd.ExecuteNonQuery()
             ManageConnection(True, konekcija) 'Close connection'
