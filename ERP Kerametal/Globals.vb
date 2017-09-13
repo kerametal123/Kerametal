@@ -68,6 +68,9 @@ IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplica
     Public Shared alwaysfalse = False
     Public Shared tipKorisnika = ""
     Public Shared iduser = ""
+    'Protuvalute
+    Public Shared protuvalutaInterna = ""
+    Public Shared protuvalutaNasdaq = ""
     Public Shared Function randomize()
         Dim numbers = Enumerable.Range(0, 11000).ToList()
         Dim RandomClass As New Random()

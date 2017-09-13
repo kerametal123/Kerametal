@@ -959,15 +959,13 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
 
     Public Function getKorisnici(ByVal strict As Boolean)
         Dim query1 As String
+        Dim query2 As String
         If strict = True Then
             query1 = "SELECT * FROM info.users where objekt = '" + Globals.objekt + "';"
-            'Console.Write(query1)
+            query2 = "Select * from valute where jedinica = '100'"
         Else
             query1 = "SELECT * FROM info.users;"
         End If
-
-
-
         Dim table As New DataTable
         Using connection As New MySqlConnection(konekcija)
             Using adapter As New MySqlDataAdapter(query1, connection)

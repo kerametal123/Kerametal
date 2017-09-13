@@ -8,7 +8,7 @@ Imports HtmlAgilityPack
 Imports DevExpress.XtraBars.Alerter
 Imports ERP_Kerametal
 Imports System.Data
-
+'Keyword:mpbc.xml
 Public Class mpBc
     Dim enter As New EnterKeyTraversal
     Dim fiscal As New Fiscal
@@ -115,46 +115,30 @@ Public Class mpBc
                 btn.isenabled = True
             End If
         Next
-        '6', '1479126377941', 'Ivo Sony', '2017-02-10 10:43:01', NULL, 'ivo123', 'Test', '', '2016-11-14 13:26:17', 'full', '1'
-        '12', '1479886889050', 'Test garaza', '2017-02-10 09:44:36', NULL, 'ivo123', 'Test', '', '2016-11-23 08:41:29', 'full', '1'
-        '18', '1484474379679', NULL, '2017-01-30 10:35:52', NULL, NULL, NULL, NULL, '2017-01-15 10:59:41', 'expired', '0'
-        '17', '1483456759196', NULL, '2017-01-13 11:42:06', NULL, NULL, NULL, NULL, '2017-01-03 16:19:20', 'expired', '0'
-        '7', '1479210822094', 'Pilot', '2016-12-30 18:58:42', NULL, NULL, NULL, '', '2016-11-15 12:53:42', 'expired', '0'
-        '11', '1479755016244', 'Ivo Test 2', '2016-12-03 14:22:01', NULL, 'ivo123', 'Test', '', '2016-11-21 20:03:36', 'full', '1'
-        '14', '1480154887591', '', '2016-11-26 12:41:01', NULL, NULL, NULL, NULL, '2016-11-26 11:08:07', 'expired', '0'
-        '8', '1479217404906', 'Tipwin Linz', '2016-11-21 20:11:26', NULL, 'christian', NULL, '', '2016-11-15 14:43:24', 'full', '1'
-
-        '<Placemark>
-        '<styleUrl>#line</styleUrl>
-        '<LineString>
-        '<tessellate>1</tessellate>
-        '<altitudeMode>absolute</altitudeMode>
     End Function
     Private Sub MenuItem_Click(sender As Object, e As RoutedEventArgs)
         If Globals.adminmode = True Then
             Dim mi As MenuItem = TryCast(sender, MenuItem)
             Dim cm As ContextMenu = TryCast(mi.Parent, ContextMenu)
             Dim fe As FrameworkElement = TryCast(cm.PlacementTarget, FrameworkElement)
-
+            Dim dt As DataTable
+            Dim tr As New TableRow
             If mysql.radSaKontrolom(fe.Name, "1", "enabled") = True Then
                 MessageBox.Show("Tipka " + fe.Name + " blokirana za korisnika")
                 updateInterface()
             End If
         End If
-
     End Sub
     Private Sub MenuItem2_Click(sender As Object, e As RoutedEventArgs)
         If Globals.adminmode = True Then
             Dim mi As MenuItem = TryCast(sender, MenuItem)
             Dim cm As ContextMenu = TryCast(mi.Parent, ContextMenu)
             Dim fe As FrameworkElement = TryCast(cm.PlacementTarget, FrameworkElement)
-            'MessageBox.Show(fe.Name)
             If mysql.radSaKontrolom(fe.Name, "0", "enabled") = True Then
                 MessageBox.Show("Tipka deblokirana za korisnika")
                 updateInterface()
             End If
         End If
-
     End Sub
     Public Function pripremiSucelje()
         gridPartneri.ItemsSource = mysqlcomp.getPartneriZaAktivnog
