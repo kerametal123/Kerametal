@@ -18,6 +18,7 @@ Class MainWindow
             If Globals.CheckForInternetConnection = True Then
                 If licenciranje.provjeriLicencuOnline() = True Then
                     If mysql.login() = True Then
+                        mysql.infoInstalacije(Globals.cpuid)
                         Globals.login = True
                         ' Create a window from the page you need to show
                         Dim Login As New Login()

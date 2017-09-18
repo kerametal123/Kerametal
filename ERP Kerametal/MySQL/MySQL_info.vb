@@ -962,7 +962,6 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
         Dim query2 As String
         If strict = True Then
             query1 = "SELECT * FROM info.users where objekt = '" + Globals.objekt + "';"
-            query2 = "Select * from valute where jedinica = '100'"
         Else
             query1 = "SELECT * FROM info.users;"
         End If
@@ -1247,10 +1246,10 @@ FROM info.instalacije inner join tvrtke as t inner join objekti as o where o.ido
                 '  MessageBox.Show(strQuery)
             ElseIf var = "racunalo" Then
                 strQuery = "UPDATE `info`.`instalacije` SET `instalacije_tvrtka`='" + tvrtka + "', `instalacije_objekt`='" + objekt + "', `defaultProg`='" + defaultProg + "', `godina`='" + godina + "', `instalacije_aktivnost`='" + lozinka + "', `instalacije_login`='" + korisnicko + "', `instalacije_naziv`='" + tip + "'  WHERE `instalacije_hwid`='" + user + "';"
-                Console.WriteLine("Aktivnost:" + lozinka)
-                Console.WriteLine("Login:" + korisnicko)
-                Console.WriteLine(strQuery)
-                Console.WriteLine("-------------------------------------")
+                'Console.WriteLine("Aktivnost:" + lozinka)
+                'Console.WriteLine("Login:" + korisnicko)
+                'Console.WriteLine(strQuery)
+                'Console.WriteLine("-------------------------------------")
             End If
             Dim SqlCmd As New MySqlCommand(strQuery, dbCon)
             SqlCmd.ExecuteNonQuery()
