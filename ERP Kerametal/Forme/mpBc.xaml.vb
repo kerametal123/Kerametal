@@ -47,7 +47,7 @@ Public Class mpBc
         Catch ex As Exception
 
         End Try
-
+        pripremiRacunGrid()
     End Sub
     Public Function popuniVrsteDokumenata()
         'Dodaj iteme
@@ -57,6 +57,7 @@ Public Class mpBc
             ComboBoxItem.Content = item.nazivDokumenta
             ComboBoxItem.Name = item.nazivDokumenta
             ComboBoxItem.Tag = item.idDokumenta
+            Console.WriteLine(item.dokmnoz)
             ComboBoxItem.ToolTip = item.dokmnoz
             tipoviDokumenataCbox.Items.Add(ComboBoxItem)
         Next
@@ -538,7 +539,34 @@ Public Class mpBc
     Public Function izracunajArtikalZaProdaju()
         Dim item = New Item With {.Sifra = sifraTemp.Content, .Naziv = nazivTemp.Content, .Kolicina = kolicinaTemp.Content, .Cijena = cijenaTemp.Content, .Rabat = rabatTbox.Text, .PC = 1.0, .Iznos = 1.0, .plu = pluTemp.Content}
         gridRacunNew.Items.Add(item)
+        grandTotal()
         Return True
+    End Function
+    Public Function grandTotal()
+        Try
+            ' Calculate the sum (using Linq).
+            Dim sum = gridRacunNew.Items.OfType(Of Item)().Sum(Function(item) item.Cijena)
+            ' Update the label.
+            maticnaValutaTbox.Content = sum
+        Catch ex As Exception
+
+        End Try
+        parse()
+    End Function
+
+    Public Function parse()
+
+        Dim link As String = "https://finance.google.com/finance/converter?a=" + maticnaValutaTbox.Content.ToString + "&from=BAM&to=EUR&meta=ei%3Dgr_AWdHeOdOQswG_y4KIAg"
+        Console.WriteLine(link)
+        'download page from the link into an HtmlDocument'
+        Dim doc As HtmlDocument = New HtmlWeb().Load(link)
+        'select <div> having class attribute equals fontdef1'
+        Dim div As HtmlNode = doc.DocumentNode.SelectSingleNode("//span[@class='bld']")
+        'if the div is found, print the inner text'
+        If Not div Is Nothing Then
+            protuValutaTbox.Text = div.InnerText.Trim()
+        End If
+
     End Function
     Public Function provjeriArtikalZaProdaju()
 
@@ -1229,5 +1257,20 @@ Public Class mpBc
         Catch ex As Exception
         End Try
     End Function
+
+
+
+    Private Sub button3_Click(sender As Object, e As RoutedEventArgs) Handles button3.Click
+        Try
+            gridRacunNew.Items.Remove(gridRacunNew.SelectedItem)
+        Catch ex As Exception
+
+        End Try
+
+        grandTotal()
+
+    End Sub
+
+
 End Class
 
